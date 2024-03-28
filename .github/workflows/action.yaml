@@ -54,23 +54,31 @@ jobs:
           docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
           --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
           --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
-  apps: # Job that list subdirectories
+  find-out-changes:
     runs-on: ubuntu-latest
     outputs:
-      dir: ${{ steps.set-dirs.outputs.dir }} # generate output name dir by using inner step output
+      dirs: ${{ steps.changed-files.dirs }}
     steps:
-      - uses: actions/checkout@v2
-      - id: set-dirs # Give it an id to handle to get step outputs in the outputs key above
-        run: echo "::set-output name=dir::$(ls -d */ | jq -R -s -c 'split("\n")[:-1]')"
-        # Define step output named dir base on ls command transformed to JSON thanks to jq
-  loop:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          dir_names: true
+
+  do-stuff:
     runs-on: ubuntu-latest
-    needs: [apps] # Depends on previous job
     strategy:
-      matrix:
-        dir: ${{fromJson(needs.directories.outputs.dir)}} # List matrix strategy from directories dynamically
+      matrix: ${{fromJson(needs.find-out-changes.outputs.dirs)}}
+    needs:
+      - find-out-changes
+      - build-core
     steps:
-      - run: echo ${{matrix.dir}}
+      - uses: actions/checkout@v3
+      - run: echo ${{ matrix.dir }}
 #build the main docker image with caching after running tests
 #if apps have changed, also build the docker under their folder
 #then call the infra repo to update its image tag and argo will do the rest since we will one time setup the applications
