@@ -3,7 +3,7 @@
 #####            notes on cli execution                      ###
 #  this file is added for an entry point for installed modules #
 #  to run it directly the nest way is to run `python -m res`   #
-#  from the directory that contains the res folder             #
+#  from the directory that contains the res folder ..            #
 # ##############################################################
 
 
