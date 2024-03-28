@@ -34,6 +34,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      - run: |
+          diffs = ${{ steps.files.outputs.all }}
+          app_list=$(diff | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
+          echo "::set-output name=apps::$app_list"
 
       - name: Get changed folders
         id: get-changed-folders
