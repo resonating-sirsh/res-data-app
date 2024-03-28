@@ -17,7 +17,7 @@ jobs:
   build-core:
     runs-on: ubuntu-latest
     outputs:
-      directories: ${{ steps.get-dirs.outputs.directories }}
+      apps: ${{ steps.get-changed-apps.apps }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,13 +35,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      #python bits
-
-      - name: Get changed directories
-        id: get-dirs
+      - name: changed-apps
+        id: changes
         run: |
-          changed_dirs=($(git diff --name-only ${{ github.event.before }}...${{ github.sha }} | xargs -I {} dirname {} | sort -u))
-          echo "::set-output name=directories::${changed_dirs[*]}"
+          echo "::set-output name=apps::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
 
       # - name: Setup Python env
       #   uses: actions/setup-python@v3
@@ -68,12 +65,12 @@ jobs:
   process-directory:
     needs: build-core
     runs-on: ubuntu-latest
-    if: ${{ needs.build-core.outputs.directories != '[]' && needs.build-core.outputs.directories != '' }}
+    if: ${{ needs.build-core.outputs.apps != '[]' && needs.build-core.outputs.apps != '' }}
     strategy:
       matrix:
-        directory: ${{fromJson(needs.build-core.outputs.directories)}}
+        app: ${{fromJson(needs.build-core.outputs.apps)}}
     steps:
-      - name: Process directory ${{ matrix.directory }}
+      - name: Process directory ${{ matrix.app }}
         run: |
           echo "Processing directory: ${{ matrix.directory }}"
           # Add your processing logic here for each directory
