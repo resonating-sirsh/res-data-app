@@ -24,6 +24,20 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      ###the basics
+      - name: Install dependencies with pipenv
+        run: |
+          pip install pipenv
+          pipenv install --deploy --dev
+
+      #- run: pipenv run isort --recursive --diff
+      - run: pipenv run black --check .
+      #- run: pipenv run flake8
+      #- run: pipenv run mypy
+      - run: pipenv run pytest --cov --cov-fail-under=100
+      #####
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -36,8 +50,6 @@ jobs:
           docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
           --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
           --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
-
-          docker push 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest
 
       #   uses: docker/build-push-action@v2
       #   id: build
