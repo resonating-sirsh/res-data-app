@@ -1,0 +1,15 @@
+airtable_base_id: appjmzNPXOuynj6xP
+airtable_table_id: tblBdj7Xz4ITlTswg
+fields:
+- airtable_field_name: Brand Code
+  indexes:
+  - hash
+  is_key: true
+  is_required: true
+  key: key
+  name: key
+- airtable_field_name: Name
+  key: name
+  name: name
+key: meta.brands
+name: meta.brands

@@ -1,0 +1,5 @@
+deployment:
+  type: "res_workflow"
+  command: python
+  args:
+    - /app/main.py

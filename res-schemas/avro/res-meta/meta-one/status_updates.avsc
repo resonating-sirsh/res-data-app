@@ -1,0 +1,97 @@
+{
+	"type": "record",
+	"name": "meta_one_status",
+	"namespace": "meta_meta_one",
+	"doc": "Any status event in the meta one flows",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "unit_key",
+			"type": "string"
+		},
+		{
+			"name": "body_code",
+			"type": "string"
+		},
+		{
+			"name": "body_version",
+            "type": "string"
+		},
+		{
+			"name": "color_code",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "size_code",
+			"type": "string"
+		},
+
+		{
+			"name": "dxf_path",
+			"type": "string"
+		},
+		{
+			"name": "meta_one_path",
+			"type": ["string", "null"]
+		},
+     	{
+			"name": "task_key",
+			"type": ["string", "null"],
+			"default": ""
+		},
+		 {
+			"name": "log_path",
+			"type": ["string", "null"],
+			"default": ""
+		},
+		{
+			"name": "validation_error_map",
+			"type": {
+				"type": "map",
+				"values": "string"
+			}
+		},
+		{
+			"name": "status",
+			"type": [
+				"string",
+				"null"
+			],
+			"default": "OK"
+		},
+		{
+			"name": "tags",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "followers",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "flow",
+			"type": "string"
+		},
+		{
+			"name": "node",
+			"type": "string"
+		},
+		{
+			"name": "unit_type",
+			"type": "string"
+		},
+		{
+			"name": "created_at",
+			"type": "string"
+		}
+	]
+}

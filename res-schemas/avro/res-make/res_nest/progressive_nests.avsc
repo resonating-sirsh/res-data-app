@@ -1,0 +1,61 @@
+{
+  "type": "record",
+  "name": "progressive_nests",
+  "namespace": "res_make.res_nest",
+  "fields": [
+    {
+      "name": "nest_key",
+      "type": "string"
+    },
+    {
+      "name": "roll_key",
+      "type": "string"
+    },
+    {
+      "name": "roll_rank",
+      "type": "int"
+    },
+    {
+      "name": "nest_file_path",
+      "type": "string"
+    },
+    {
+      "name": "material_code",
+      "type": "string"
+    },
+    {
+      "name": "asset_count",
+      "type": "int"
+    },
+    {
+      "name": "piece_count",
+      "type": "int"
+    },
+    {
+      "name": "width_nest_yds",
+      "type": "float"
+    },
+    {
+      "name": "asset_keys",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "piece_ids",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "height_nest_yds",
+      "type": "float"
+    },
+    {
+      "name": "utilization",
+      "type": "float"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+CREATE TABLE "meta"."colors_artworks" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "created_at" timestamptz NOT NULL DEFAULT now(), "color_id" uuid NOT NULL, "artwork_id" uuid NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("color_id") REFERENCES "meta"."colors"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("artwork_id") REFERENCES "meta"."artworks"("id") ON UPDATE restrict ON DELETE restrict);COMMENT ON TABLE "meta"."colors_artworks" IS E'a bridge between colors and artworks';
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

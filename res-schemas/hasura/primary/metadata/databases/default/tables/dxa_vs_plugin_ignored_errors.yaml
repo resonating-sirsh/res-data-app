@@ -1,0 +1,3 @@
+table:
+  name: vs_plugin_ignored_errors
+  schema: dxa

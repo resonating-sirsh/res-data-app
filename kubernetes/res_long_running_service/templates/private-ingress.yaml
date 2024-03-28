@@ -1,0 +1,21 @@
+{{- if and (ne .Values.global.environment "local") (eq .Values.deployment.ingressType "private") }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.deployment.name }}-private-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/group.name: private-ingresses
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/subnets: {{ .Values.global.privateSubnet1 }},{{ .Values.global.privateSubnet2 }},{{ .Values.global.privateSubnet3 }}
+    alb.ingress.kubernetes.io/tags: Environment={{ .Values.global.environment }}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /{{ .Values.deployment.name }}/*
+            backend:
+              serviceName: {{ .Values.deployment.name }}-service
+              servicePort: {{ .Values.deployment.servicePort }}
+{{- end }}

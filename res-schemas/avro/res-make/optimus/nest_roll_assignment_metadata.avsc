@@ -1,0 +1,62 @@
+{
+  "type": "record",
+  "name": "NestRollAssignmentMetadata",
+  "namespace": "optimus.nest_roll_assignment",
+  "doc": "This is the metadata for a nest to roll assignment optimization run.",
+  "fields": [
+    {
+      "name": "objective_value",
+      "type": ["float", "null"]
+    },
+    {
+      "name": "material",
+      "type": ["string", "null"],
+    },
+    {
+      "name": "solver_status",
+      "type": "string"
+    },
+    {
+      "name": "reason_infeasible",
+      "type": ["string", "null"]
+    },
+    {
+      "name": "solver_settings",
+      "type": "string"
+    },
+    {
+      "name": "solution_message_count",
+      "type": "int"
+    },
+    {
+      "name": "task_key",
+      "type": "string"
+    },
+    {
+      "name": "created_at",
+      "type": "string"
+    },
+    {
+      "name": "mps_path",
+      "type": ["string", "null"],
+    },
+    {
+      "name": "lp_path",
+      "type": ["string", "null"],
+    },
+    {
+      "name": "conflicted_assets",
+      "type": {
+        "type": "array",
+        "items": "string",
+      }
+    },
+    {
+      "name": "non_conflicted_assets",
+      "type": {
+        "type": "array",
+        "items": "string",
+      }
+    }
+  ]
+}

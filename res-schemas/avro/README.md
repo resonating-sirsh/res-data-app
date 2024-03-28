@@ -1,0 +1,1 @@
+These folders contain Avro schemas used by Kafka. See https://coda.io/d/Platform-Documentation_dbtYplzht1S/Creating-Schemas_suTPi#_luzC4 for more info

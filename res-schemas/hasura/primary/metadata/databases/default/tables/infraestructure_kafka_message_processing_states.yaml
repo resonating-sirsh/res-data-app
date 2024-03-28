@@ -1,0 +1,4 @@
+table:
+  name: kafka_message_processing_states
+  schema: infraestructure
+is_enum: true

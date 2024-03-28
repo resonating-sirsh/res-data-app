@@ -1,0 +1,134 @@
+[
+    {
+        "type": "record",
+        "name": "PrintfilePieceInfo",
+        "namespace": "optimus.printfile_pieces.piece_info",
+        "fields": [
+            {
+                "name": "asset_id",
+                "type": "string"
+            },
+            {
+                "name": "asset_key",
+                "type": "string"
+            },
+            {
+                "name": "piece_name",
+                "type": "string"
+            },
+            {
+                "name": "piece_id",
+                "type": "string"
+            },
+            {
+                "name": "inches_from_printfile_top",
+                "type": ["float", "null"]
+            },
+            {
+                "name": "inches_from_printfile_bottom",
+                "type": ["float", "null"]
+            },
+            {
+                "name": "min_y_inches",
+                "type": "float"
+            },
+            {
+                "name": "max_y_inches",
+                "type": "float"
+            },
+            {
+                "name": "min_x_inches",
+                "type": "float"
+            },
+            {
+                "name": "max_x_inches",
+                "type": ["float", "null"]
+            },
+            {
+                "name": "sku",
+                "type": "string"
+            },
+            {
+                "name": "nest_job_key",
+                "type": "string"
+            },
+            {
+                "name": "piece_file_path",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "PrintfilePieces",
+        "namespace": "optimus.printfile_pieces",
+        "fields": [
+            {
+                "name": "printfile_name",
+                "type": "string"
+            },
+            {
+                "name": "airtable_record_id",
+                "type": "string"
+            },
+            {
+                "name": "optimus_task_key",
+                "type": "string"
+            },
+            {
+                "name": "roll_name",
+                "type": "string"
+            },
+            {
+                "name": "num_headers",
+                "type": "int"
+            },
+            {
+                "name": "header_height_inches",
+                "type": "float"
+            },
+            {
+                "name": "seperator_height_inches",
+                "type": "float"
+            },
+            {
+                "name": "nest_job_keys",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "stitching_job_key",
+                "type": "string"
+            },
+            {
+                "name": "printfile_s3_path",
+                "type": "string"
+            },
+            {
+                "name": "printfile_width_px",
+                "type": "int"
+            },
+            {
+                "name": "printfile_height_px",
+                "type": "int"
+            },
+            {
+                "name": "printfile_width_inches",
+                "type": "float"
+            },
+            {
+                "name": "printfile_height_inches",
+                "type": "float"
+            },
+            {
+                "name": "piece_info",
+                "type": {
+                    "type": "array",
+                    "items": "optimus.printfile_pieces.piece_info.PrintfilePieceInfo"
+                }
+            }
+        ]
+    }
+]

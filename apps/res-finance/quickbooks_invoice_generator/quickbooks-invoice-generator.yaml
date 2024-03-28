@@ -1,0 +1,105 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: quickbooks-invoice-generator
+spec:
+  entrypoint: quickbooks-invoice-generator
+  arguments:
+    parameters:
+    - name: dev_override
+      value: "false" # Enables running the app in a dev environment
+    - name: target_brands
+      value: "all" # 'true' only retrieves one page of records    
+    - name: start_date
+      value: "last_complete_week"
+    - name: end_date
+      value: "last_complete_week" 
+    - name: included_steps
+      value: "all" # Can be used to run the app for specific steps             
+  templates:
+  - name: quickbooks-invoice-generator
+    inputs:
+      parameters:
+      - name: dev_override
+      - name: target_brands
+      - name: start_date
+      - name: end_date
+      - name: included_steps
+    steps:         
+    - - name: res-companies-weekly-brand-invoices
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: target_brands
+            value: "{{workflow.parameters.target_brands}}"
+          - name: start_date
+            value: "{{workflow.parameters.start_date}}"
+          - name: end_date
+            value: "{{workflow.parameters.end_date}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"                                                 
+          - name: flow_name
+            value: "/app/src/res_companies_weekly_brand_invoices.py"
+          - name: memory
+            value: 512Mi
+        continueOn:
+          failed: true      
+    - - name: res-companies-weekly-partner-brand-journal-entries
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: target_brands
+            value: "{{workflow.parameters.target_brands}}"
+          - name: start_date
+            value: "{{workflow.parameters.start_date}}"
+          - name: end_date
+            value: "{{workflow.parameters.end_date}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"                                                 
+          - name: flow_name
+            value: "/app/src/res_companies_weekly_partner_brand_journal_entries.py"
+          - name: memory
+            value: 512Mi
+        continueOn:
+          failed: true                  
+    - - name: res-manufacturing-weekly-bcoo
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: target_brands
+            value: "{{workflow.parameters.target_brands}}"
+          - name: start_date
+            value: "{{workflow.parameters.start_date}}"
+          - name: end_date
+            value: "{{workflow.parameters.end_date}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"                                                 
+          - name: flow_name
+            value: "/app/src/res_manufacturing_weekly_bcoo.py"
+          - name: memory
+            value: 512Mi                                                           
+  - name: generic-step 
+    inputs:
+      parameters:
+      - name: dev_override      
+      - name: target_brands      
+      - name: start_date     
+      - name: end_date     
+      - name: included_steps
+      - name: flow_name
+      - name: memory
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.dev_override}}", "{{workflow.parameters.target_brands}}", "{{inputs.parameters.start_date}}", "{{inputs.parameters.end_date}}", "{{inputs.parameters.included_steps}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+ 

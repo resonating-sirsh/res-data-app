@@ -1,0 +1,49 @@
+mutation update_assemble_rolls(
+    $warehouse_rack_location: String = "", 
+    $created_at: timestamptz = "", 
+    $id: uuid = "",
+    $location_id: String = "", 
+    $material: String = "", 
+    $material_code: String = "", 
+    $metadata: jsonb = "", 
+    $purchasing_record_id: String = "", 
+    $po_number: String = "", 
+    $roll_id: Int = 0, 
+    $roll_key: String = "", 
+    $roll_length: Float = 0.0, 
+    $roll_type: String = "", 
+    $standard_cost_per_unit: Float = Null, 
+    $updated_at: timestamptz = "",
+    $roll_primary_key: String = ""
+) {
+  insert_make_assemble_rolls(objects: {
+    _warehouse_rack_location: $warehouse_rack_location, 
+    created_at: $created_at, 
+    id: $id,
+    location_id: $location_id, 
+    material: $material, 
+    material_name_match: $material_code, 
+    metadata: $metadata, 
+    purchasing_record_id:  $purchasing_record_id, 
+    po_number: $po_number, 
+    roll_id: $roll_id, 
+    roll_key: $roll_key, 
+    roll_length: $roll_length, 
+    roll_type: $roll_type, 
+    standard_cost_per_unit: $standard_cost_per_unit, 
+    updated_at: $updated_at,
+    roll_primary_key: $roll_primary_key
+    }) {
+    returning {
+      roll_type
+      roll_length
+      roll_key
+      material_name_match
+      roll_id
+      _warehouse_rack_location
+      po_number
+      standard_cost_per_unit
+      roll_primary_key
+    }
+  }
+}

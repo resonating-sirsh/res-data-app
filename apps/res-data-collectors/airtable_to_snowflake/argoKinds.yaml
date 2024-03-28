@@ -1,0 +1,10 @@
+#https://github.com/GoogleContainerTools/skaffold/issues/4081
+images:
+  - path: spec/templates/container/image
+    group: argoproj.io
+    version: v1alpha1
+    kind: WorkflowTemplate
+  - path: spec/templates/script/image
+    group: argoproj.io
+    version: v1alpha1
+    kind: WorkflowTemplate

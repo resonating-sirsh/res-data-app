@@ -1,0 +1,14 @@
+apiVersion: khelm.mgoltzsche.github.com/v2
+kind: ChartRenderer
+metadata:
+  name: kafka-hasura-sink-chart
+chart: ../../../../kubernetes/res_long_running_process
+valueFiles:
+  - ../../../../kubernetes/base_values_production.yaml
+  - ../../../../kubernetes/res_long_running_process/values.yaml
+  - ../values-development.yaml
+  - ../values-production.yaml
+values:
+  deployment:
+    name: kafka-hasura-sink
+    folder: res-infrastructure

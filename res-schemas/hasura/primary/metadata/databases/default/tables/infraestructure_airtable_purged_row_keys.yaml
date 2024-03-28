@@ -1,0 +1,3 @@
+table:
+  name: airtable_purged_row_keys
+  schema: infraestructure

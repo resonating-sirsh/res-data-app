@@ -1,0 +1,133 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: {{ .Values.deployment.name }}-workflow
+spec:
+  activeDeadlineSeconds: 10800 # 3 hour time limit for workflows.
+  ttlStrategy:
+    secondsAfterCompletion: 180 # Time to live after workflow is completed
+    secondsAfterSuccess: 180     # Time to live after workflow is successful
+    secondsAfterFailure: 7200     # Time to live after workflow fails
+  entrypoint: {{ .Values.deployment.name }}-workflow
+  templates:
+  - name: {{ .Values.deployment.name }}-workflow
+    inputs:
+      parameters:
+      {{- if $.Values.deployment.env }}
+        {{- range $key, $value := $.Values.deployment.env }}
+        - name: {{ $key }}
+          default: {{ $value }}
+        {{- end }}
+      {{- end }}
+      {{- if $.Values.deployment.parameters }}
+        {{ $.Values.deployment.parameters }}
+      {{- end }}
+      {{- if and (not $.Values.deployment.env) (not $.Values.deployment.parameters) }}
+        - name: event
+          default: {}
+        - name: context
+          default: {}
+      {{- end }}
+    {{- if .Values.deployment.nodeSelector }}
+    nodeSelector: {{ .Values.deployment.nodeSelector | toJson}}
+    {{- else }}
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          preference:
+            matchExpressions:
+            - key: node.kubernetes.io/instance-type
+              operator: In
+              values:
+              - m5.large
+              - m5.xlarge
+              - m5.2xlarge
+              - m5.4xlarge
+        - weight: 10
+          preference:
+            matchExpressions:
+            - key: node.kubernetes.io/instance-type
+              operator: In
+              values:
+              - m5.8xlarge
+              - m5.12xlarge
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: node.kubernetes.io/instance-type
+              operator: In
+              values:
+              - m5.16xlarge
+              - m5.24xlarge
+    {{- end }}
+    {{- if .Values.deployment.podSpecPatch }}
+    podSpecPatch: {{ .Values.deployment.podSpecPatch | quote}}
+    {{- end }}
+    container:
+      image: "{{ .Values.global.ecrRepo }}/res-data_{{ .Values.global.environment }}_{{ .Values.deployment.name }}_{{ .Values.deployment.folder }}:{{ .Values.commitHash }}"
+      #SA: the args which are also workflow args are sent to the container in the callable case
+      # this way you can test a workflow from the UI with json or post the json via e.g. res-connect
+      {{- if not $.Values.deployment.env }}
+      args: [{{ `"{{inputs.parameters.event}}"` }}, {{`"{{inputs.parameters.context}}"` }}]
+      {{- else if $.Values.deployment.args }}
+      args:
+        {{  range .Values.deployment.args }}
+        - {{ . }}
+        {{ end }}
+      {{- end }}
+      # something argo wants now
+      command: {{ (default .Values.deployment.command (list "python")) | toStrings }}
+      env:
+        - name: RES_ENV
+          value: {{ .Values.global.environment }}
+        - name: RES_APP_NAME
+          value: {{ .Values.deployment.name }}
+        - name: RES_NAMESPACE
+          value: {{ .Values.deployment.folder }}
+      # Loop thru base env vars
+        {{- range $key, $value := $.Values.baseEnvs }}
+        - name: {{ $key }}
+          value: {{ $value | quote }}
+        {{- end }}
+      # Loop thru user-supplied env vars
+      {{- if $.Values.deployment.env }}
+        {{- range $key, $value := $.Values.deployment.env }}
+        - name: {{ $key }}
+          value: '{{ `{{` }}{{ "inputs.parameters." }}{{ $key }}{{ `}}` }}'
+        {{- end }}
+      {{- end }}
+      {{- if $.Values.deployment.parameters }}
+        {{- range $param := $.Values.deployment.parameters }}
+        - name: {{ $param.name }}
+          value: {{ nospace (cat "{{inputs.parameters." $param.name "}}") }}
+        {{- end }}
+      {{- end }}
+  arguments:
+    parameters:
+    {{- if $.Values.deployment.env }}
+      {{- range $key, $value := $.Values.deployment.env }}
+      - name: {{ $key }}
+        value: {{ $value }}
+      {{- end }}
+    {{- else }}
+      - name: event
+        value: '{{ .Values.deployment.defaultEvent }}'
+      - name: context
+        value: '{}'
+    {{- end }}
+  {{- if .Values.deployment.synchronization }}
+  # comports with argo synch. patterns. see:
+  # https://argoproj.github.io/argo-workflows/synchronization/
+  synchronization: {{ .Values.deployment.synchronization | toJson }}
+  {{- end }}
+
+#   # resources:
+#   #       requests:
+#   #         memory: {{ .Values.deployment.memory }}
+#   #       limits:
+#   #         memory: {{ .Values.deployment.memory }}
+
+# #TODO:
+# # 1. we MAY want to build in on_failure and on_success exit handlers 
+# # 2. we CAN also add other things like metrics for prom using the argo syntax but we have that in our code anyway so low priority 

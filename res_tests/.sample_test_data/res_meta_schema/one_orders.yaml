@@ -1,0 +1,98 @@
+key: "resSell.one_orders"
+name: "one_orders"
+airtable_table_id: "tblUcI0VyLs7070yI"
+airtable_base_id: "appfaTObyfrmPHvHc"
+fields:
+- key: "one_order_key"
+  name: one_order_key 
+  is_key: True
+  is_required: True
+  indexes:
+  - hash
+- key: created_at
+  is_required: true
+  type: datetime
+  airtable_field_name: order_date
+- key: "one_orders.key"
+  name: key 
+  is_key: True
+  is_required: True
+  indexes:
+  - hash
+  airtable_field_name: "resonance.stylecode"
+- key: "order_item_id"
+  name: id
+  type: int
+  is_required: True
+  airtable_field_name: "lineitem_id"
+- key: "id_order"
+  type: int
+  is_required: True
+  airtable_field_name: "ORDER_ID"
+- key: "order_number"
+  type: str
+  airtable_field_name: "__order_number"
+- key: style_name
+  type: str
+  airtable_field_name: "Style Name"
+- key: "name"
+  type: str
+  airtable_field_name: "Product Name"
+- key: "name_order"
+  type: str
+  airtable_field_name: "ORDER_NAME"
+- key: "variant_title"
+  type: str
+  airtable_field_name: "Product Variant Title"
+- key: "sku"
+  type: str
+  airtable_field_name: "SKU"
+- key: currency
+  type: str
+  airtable_field_name: "Currency"
+- key: price
+  type: float
+  airtable_field_name: "Lineitem price"
+- key: total_discount
+  type: float
+  airtable_field_name: "Discount Amount"
+- key: quantity
+  type: int
+  airtable_field_name: "quantity"
+- key: fulfillment_status
+  type: str
+  airtable_field_name: "FULFILLMENT_STATUS"
+- key: tags
+  type: str
+  airtable_field_name: "ORDER_TAGS"
+- key: body_code
+  type: str
+  meta_type: bodies
+  airtable_field_name: "Body Code"
+- key: material_code
+  type: str
+  meta_type: materials
+  airtable_field_name: "Material Code"
+- key: color_code
+  type: str
+  meta_type: colors
+  airtable_field_name: "Color Code"
+- key: brand_code
+  type: str
+  meta_type: brands
+  airtable_field_name: "BRAND_CODE"
+- key: brand_name
+  type: str
+- key: brand_cohort
+  type: str
+- key: brand_name
+  type: str
+- key: is_regular_order
+  type: bool
+- key: is_repeat_order
+  type: bool
+- key: is_valid_one
+  type: bool
+- key: order_channel
+  type: str
+  airtable_field_name: "Order Channel"

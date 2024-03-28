@@ -1,0 +1,1 @@
+-- Given the `ON CONFLICT` clause in the up migration, we woudln't want a down.

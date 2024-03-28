@@ -1,0 +1,10 @@
+asyncio
+boto3
+botocore
+google-analytics-data
+google-api-python-client
+oauth2client
+pandas
+snowflake-connector-python
+snowflake-sqlalchemy
+sqlalchemy

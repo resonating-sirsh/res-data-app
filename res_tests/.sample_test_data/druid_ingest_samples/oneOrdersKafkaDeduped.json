@@ -1,0 +1,83 @@
+{
+    "type": "kafka",
+    "spec": {
+        "ioConfig": {
+            "type": "kafka",
+            "consumerProperties": {
+                "bootstrap.servers": "b-2.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-3.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-1.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094",
+                "security.protocol": "SSL",
+                "ssl.truststore.location": "/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/security/cacerts"
+            },
+            "topic": "resSellOneOrders",
+            "useEarliestOffset": true
+        },
+        "tuningConfig": {
+            "type": "kafka",
+            "reportParseExceptions": true
+        },
+        "dataSchema": {
+            "dataSource": "one_orders",
+            "parser": {
+                "type": "avro_stream",
+                "avroBytesDecoder": {
+                    "type": "schema_registry",
+                    "url": "http://kafka-schema-registry-cp-schema-registry.kafka-schema-registry.svc.cluster.local:8081",
+                    "capacity": 100
+                },
+                "parseSpec": {
+                    "format": "avro",
+                    "timestampSpec": {
+                        "column": "created_at",
+                        "format": "auto"
+                    },
+                    "dimensionsSpec": {
+                        "dimensions": [
+                            "id",
+                            "id_order",
+                            "one_order_key",
+                            "body_code",
+                            "brand_code",
+                            "brand_name",
+                            "sku",
+                            "order_number",
+                            "color_code",
+                            "is_regular_order",
+                            "is_repeat_order",
+                            "is_valid_one",
+                            "material_code",
+                            "style_name"
+                        ],
+                        "dimensionExclusions": []
+                    }
+                }
+            },
+            "granularitySpec": {
+                "type": "uniform",
+                "queryGranularity": "MINUTE",
+                "segmentGranularity": "DAY",
+                "rollup": false
+            },
+            "metricsSpec": [
+                {
+                    "name": "count",
+                    "type": "count"
+                },
+                {
+                    "name": "sum_price",
+                    "type": "doubleSum",
+                    "fieldName": "price"
+                },
+                {
+                    "name": "sum_total_discount",
+                    "type": "doubleSum",
+                    "fieldName": "total_discount"
+                },
+                {
+                    "name": "sum_quantity",
+                    "type": "longSum",
+                    "fieldName": "quantity"
+                }
+            ]
+        }
+    }
+}

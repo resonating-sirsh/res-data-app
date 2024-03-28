@@ -1,0 +1,10 @@
+table:
+  name: order_item_fulfillments_status_history
+  schema: sell
+object_relationships:
+  - name: order_item_fulfillment
+    using:
+      foreign_key_constraint_on: order_item_fulfillment_id
+  - name: order_line_item
+    using:
+      foreign_key_constraint_on: order_line_item_id

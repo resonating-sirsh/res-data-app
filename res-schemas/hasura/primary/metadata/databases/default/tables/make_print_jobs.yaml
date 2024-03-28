@@ -1,0 +1,10 @@
+table:
+  name: print_jobs
+  schema: make
+object_relationships:
+  - name: printer
+    using:
+      foreign_key_constraint_on: printer_id
+  - name: printerByPrinterName
+    using:
+      foreign_key_constraint_on: printer_name

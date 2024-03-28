@@ -1,0 +1,31 @@
+#kubectl apply -f kubernetes/config_map_env_production.yaml -n argo
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: res-data-env
+data:
+  RES_ENV: production
+  RES_CLUSTER: res-primary-cluster-prod
+  KAFKA_SCHEMA_REGISTRY_URL: kafka-schema-registry-cp-schema-registry.kafka-schema-registry.svc.cluster.local:8081
+  KAFKA_BROKERS: b-1.res-primary-prod.0ho0pt.c13.kafka.us-east-1.amazonaws.com:9094,b-2.res-primary-prod.0ho0pt.c13.kafka.us-east-1.amazonaws.com:9094,b-3.res-primary-prod.0ho0pt.c13.kafka.us-east-1.amazonaws.com:9094
+  KAFKA_CONNECT_URL: kafka-connect-cp-kafka-connect.kafka-connect.svc.cluster.local:8083
+  KAFKA_KGATEWAY_URL: kgateway-service.res-infrastructure.svc.cluster.local:5000
+  STATSD_HOST: statsd-exporter-prometheus-statsd-exporter.statsd-exporter.svc.cluster.local
+  GRAPHQL_API_URL: https://api.resmagic.io/graphql
+  AWS_REGION: us-east-1
+  AWS_DEFAULT_REGION: us-east-1
+  MONGODB_HOST: resmagic.fahv4.mongodb.net
+  SNOWFLAKE_ACCOUNT: jk18804.us-east-1
+  ARGO_SERVER: http://argo-server.argo.svc.cluster.local:2746
+  RES_CONNECT_URL: https://data.resmagic.io/res-connect
+  RES_DATA_BUCKET: res-data-production
+  DGRAPH_ALPHA: http://dgraph-dgraph-alpha.dgraph.svc.cluster.local:8080
+  COGNITO_USERPOOL_ID: us-east-1_Iq9hu7e1j
+  COGNITO_APP_CLIENT_ID: 4i6fnohp1um59dj2vlvhfma8tn
+  REDIS_HOST: redis-master.redis.svc.cluster.local
+  PRIMARY_RDS_ENDPOINT: res-primary-dev.c6mvudtydvki.us-east-1.rds.amazonaws.com
+  RES_SEW_SYMBOL_ANNOTATIONS_ENABLED: "false"
+  RES_SEW_SYMBOL_SEAMS_ENABLED: "false"
+  WEAVIATE_URL: "weaviate-headless.weaviate.svc.cluster.local"
+  OTEL_TRACES_EXPORTER: oltp
+  OTEL_EXPORTER_OTLP_TRACES_PROTOCOL: grpc

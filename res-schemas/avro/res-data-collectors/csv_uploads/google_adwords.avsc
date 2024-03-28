@@ -1,0 +1,85 @@
+{
+    "name": "Google_Adwords",
+    "type": "record",
+    "namespace": "Google.Adwords",
+    "fields": [
+        {
+            "name": "Campaign",
+            "type": "string"
+        },
+        {
+            "name": "Campaign_state",
+            "type": "string"
+        },
+        {
+            "name": "Campaign_type",
+            "type": "string"
+        },
+        {
+            "name": "Campaign_ID",
+            "type": "int"
+        },
+        {
+            "name": "Day",
+            "type": "string"
+        },
+        {
+            "name": "Currency_code",
+            "type": "string"
+        },
+        {
+            "name": "Clicks",
+            "type": "int"
+        },
+        {
+            "name": "Impr",
+            "type": "string"
+        },
+        {
+            "name": "CTR",
+            "type": "string"
+        },
+        {
+            "name": "Avg_CPC",
+            "type": "float"
+        },
+        {
+            "name": "Cost",
+            "type": "float"
+        },
+        {
+            "name": "Conversions",
+            "type": "double"
+        },
+        {
+            "name": "Conv_value",
+            "type": "string"
+        },
+        {
+            "name": "Cost___conv",
+            "type": "string"
+        },
+        {
+            "name": "Conv_rate",
+            "type": "string"
+        },
+        {
+            "name": "Search_impr_share",
+            "type": "string"
+        },
+        {
+            "name": "Box_File_Name",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "Brand",
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    ]
+}

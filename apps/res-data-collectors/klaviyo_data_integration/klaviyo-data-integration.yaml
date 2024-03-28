@@ -1,0 +1,228 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: klaviyo-data-integration
+spec:
+  entrypoint: klaviyo-data-integration
+  arguments:
+    parameters:
+    # Sync type can be overridden to perform full or test syncs
+    - name: sync_type
+      value: "incremental"
+    - name: dev_override
+      value: "" # Can be used to enable running the app in a dev environment
+    - name: included_steps
+      value: "all" # Can be used to run the app for specific steps   
+    - name: single_account
+      value: "none" # For performing syncs for a specific account            
+  templates:
+  - name: klaviyo-data-integration
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override
+      - name: included_steps
+      - name: single_account
+    steps:     
+    - - name: accounts
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/accounts.py"
+          - name: memory
+            value: 256Mi   
+        continueOn:
+          failed: true         
+    - - name: campaigns
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/campaigns.py"
+          - name: memory
+            value: 512Mi       
+        continueOn:
+          failed: true  
+    - - name: events
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/events.py"
+          - name: memory
+            value: 4096Mi      
+        continueOn:
+          failed: true 
+    - - name: flows
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/flows.py"
+          - name: memory
+            value: 512Mi     
+        continueOn:
+          failed: true   
+    - - name: lists
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/lists.py"
+          - name: memory
+            value: 2048Mi   
+        continueOn:
+          failed: true            
+    - - name: metrics
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/metrics.py"
+          - name: memory
+            value: 256Mi   
+        continueOn:
+          failed: true  
+    - - name: profiles
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/profiles.py"
+          - name: memory
+            value: 2048Mi      
+        continueOn:
+          failed: true   
+    - - name: segments
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/segments.py"
+          - name: memory
+            value: 512Mi       
+        continueOn:
+          failed: true     
+    - - name: tags
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/tags.py"
+          - name: memory
+            value: 512Mi      
+        continueOn:
+          failed: true 
+    - - name: templates
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"    
+          - name: single_account
+            value: "{{workflow.parameters.single_account}}"                        
+          - name: flow_name
+            value: "/app/src/templates.py"
+          - name: memory
+            value: 512Mi                                                                                                                                                                
+  - name: generic-step
+    retryStrategy:
+          limit: "3"
+          retryPolicy: "Always" 
+          backoff:
+            duration: "10m"
+            factor: "2"  
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override      
+      - name: included_steps      
+      - name: single_account      
+      - name: flow_name
+      - name: memory
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.sync_type}}", "{{inputs.parameters.dev_override}}", "{{inputs.parameters.included_steps}}", "{{inputs.parameters.single_account}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+ 

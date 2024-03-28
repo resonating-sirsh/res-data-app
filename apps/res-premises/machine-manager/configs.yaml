@@ -1,0 +1,253 @@
+devices:
+  P2_LUNA:
+    location: PRINT
+    activate_file_path: "/home/caldera/miniconda3/bin/activate"
+    env_vars:
+      LOCAL_REPO_DIRECTORY: "/home/caldera/repos"
+      GITHUB_BRANCH: "main"
+      PRINTER_NAME: "luna"
+      PRINTER_IP_ADDRESS: "192.168.4.102"
+      PRINT_ASSET_DOWNLOAD_PATH: "/home/caldera/hotfolders"
+      RESOURCE_NAME: "'JP7 LUNA'"
+      DEVICE_NAME: "P2_LUNA"
+      RES_ENV: "production"
+      RES_TEAM: "res-premises"
+      RIP_PATH: "/rip_disk/ripped_files"
+      AT_MACHINE_RECORD_ID: "recBgpnWC0orjDiQe"
+
+    apps:
+      machine_manager:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/machine-manager/main.py
+        cron:
+          schedule: "*/10 * * * *"
+          command: "python"
+        comment: "This is app should always be set as run"
+      print_job_data_collector:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/print_job_data_collector/main.py
+        cron:
+          schedule: "*/1 * * * *"
+          command: "python"
+        comment: ""
+      print_head_data_collector:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/print_head_data_collector/main.py
+        cron:
+          schedule: "0 */3 * * *"
+          command: "python"
+        comment: ""
+      hotfolders_download:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/hotfolders_download/main.py
+        cron:
+          schedule: "*/5 * * * *"
+          command: "python"
+        comment: ""
+
+  P3_FLASH:
+    location: PRINT
+    activate_file_path: "/home/caldera/miniconda3/bin/activate"
+    env_vars:
+      LOCAL_REPO_DIRECTORY: "/home/caldera/repos"
+      GITHUB_BRANCH: "main"
+      PRINTER_NAME: "flash"
+      PRINTER_IP_ADDRESS: "192.168.4.103"
+      PRINT_ASSET_DOWNLOAD_PATH: "/downloads_disk/hotfolders"
+      RESOURCE_NAME: "'JP7 FLASH'"
+      DEVICE_NAME: "P3_FLASH"
+      RES_ENV: "production"
+      RES_TEAM: "res-premises"
+      RIP_PATH: "/rip_disk/ripped_files"
+      AT_MACHINE_RECORD_ID: "reczznci0L4UF9qAU"
+    apps:
+      machine_manager:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/machine-manager/main.py
+        cron:
+          schedule: "*/10 * * * *"
+          command: "python"
+        comment: "This is app should always be set as run"
+      print_job_data_collector:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/print_job_data_collector/main.py
+        cron:
+          schedule: "*/1 * * * *"
+          command: "python"
+        comment: ""
+      print_head_data_collector:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/print_head_data_collector/main.py
+        cron:
+          schedule: "0 */3 * * *"
+          command: "python"
+        comment: ""
+      hotfolders_download:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/hotfolders_download/main.py
+        cron:
+          schedule: "*/5 * * * *"
+          command: "python"
+        comment: ""
+
+  P4_NOVA:
+    location: PRINT
+    activate_file_path: "/home/caldera/miniconda3/bin/activate"
+    env_vars:
+      LOCAL_REPO_DIRECTORY: "/home/caldera/repos"
+      GITHUB_BRANCH: "main"
+      PRINTER_NAME: "nova"
+      PRINTER_IP_ADDRESS: "192.168.4.104"
+      PRINT_ASSET_DOWNLOAD_PATH: "/home/caldera/hotfolders"
+      RESOURCE_NAME: "'JP7 NOVA'"
+      DEVICE_NAME: "P4_NOVA"
+      RES_ENV: "production"
+      RES_TEAM: "res-premises"
+      RIP_PATH: "/rip_disk/ripped_files"
+      AT_MACHINE_RECORD_ID: "recTGqBANeDSkNrXV"
+    apps:
+      machine_manager:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/machine-manager/main.py
+        cron:
+          schedule: "*/10 * * * *"
+          command: "python"
+        comment: "This is app should always be set as run"
+      print_job_data_collector:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/print_job_data_collector/main.py
+        cron:
+          schedule: "*/1 * * * *"
+          command: "python"
+        comment: ""
+      print_head_data_collector:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/print_head_data_collector/main.py
+        cron:
+          schedule: "0 */3 * * *"
+          command: "python"
+        comment: ""
+      hotfolders_download:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/hotfolders_download/main.py
+        cron:
+          schedule: "*/5 * * * *"
+          command: "python"
+        comment: ""
+
+  STEAMER_PI:
+    location: "Steamer"
+    activate_file_path: "/home/pi/miniconda3/bin/activate"
+    env_vars:
+      LOCAL_REPO_DIRECTORY: "/home/pi/repos"
+      GITHUB_BRANCH: "main"
+      RES_ENV: "development"
+      RES_TEAM: "res-premises"
+    apps:
+      machine_manager:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/machine-manager/main.py
+        cron:
+          schedule: "*/10 * * * *"
+          command: "/home/pi/miniconda3/bin/python"
+        comment: "This is app should always be set as run"
+      camera_scanner:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/camera_scanner/main.py
+        cron:
+          schedule: "@reboot"
+          command: "/home/pi/miniconda3/bin/python"
+        comment: "This app will capture events and send it to the factory events topic"
+
+  STEAMER_PI_EXIT:
+    location: "Steamer"
+    activate_file_path: "/home/pi/miniconda3/bin/activate"
+    env_vars:
+      LOCAL_REPO_DIRECTORY: "/home/pi/repos"
+      GITHUB_BRANCH: "main"
+      RES_ENV: "development"
+      RES_TEAM: "res-premises"
+    apps:
+      machine_manager:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/machine-manager/main.py
+        cron:
+          schedule: "*/10 * * * *"
+          command: "/home/pi/miniconda3/bin/python"
+        comment: "This is app should always be set as run"
+      camera_scanner:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/camera_scanner/main.py
+        cron:
+          schedule: "@reboot"
+          command: "/home/pi/miniconda3/bin/python"
+        comment: "This app will capture events and send it to the factory events topic"
+
+  bernardo_mbp:
+    location: "Remote Device"
+    activate_file_path: "/opt/miniconda3/bin/activate"
+    env_vars: #configurations..
+      RES_ENV: "development"
+      LOCAL_REPO_DIRECTORY: "/Users/bsosa/repos"
+      GITHUB_BRANCH: "sosa-morrobel-premises"
+    apps:
+      machine_manager:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/machine-manager/main.py
+        cron:
+          schedule: "*/3 * * * *"
+          command: "/opt/miniconda3/bin/python"
+        comment: ""
+
+  joel_mbp:
+    location: "Remote Device"
+    activate_file_path: "/Users/joelmorrobel/miniconda3/bin/activate"
+    env_vars: #configurations
+      RES_ENV: "development"
+      LOCAL_REPO_DIRECTORY: "/Users/joelmorrobel/repos/res-data-platform"
+      GITHUB_BRANCH: "sosa-morrobel-premises"
+    apps:
+      machine_manager:
+        action: "kill" #run/kill/restart /res-data-platform/apps/res-premises/machine-manager/main.py
+        script_directory: res-data-platform/apps/res-premises/machine-manager/main.py
+        cron:
+          schedule: "*/3 * * * *"
+          command: "/Users/joelmorrobel/miniconda3/bin/python"
+        comment: ""
+      handheld_scanner:
+        action: "kill" #run/kill/restart /res-data-platform/apps/res-premises/machine-manager/main.py
+        script_directory: res-data-platform/apps/res-premises/handheld_scanner/main.py
+        cron:
+          schedule: "*/3 * * * *"
+          command: "/Users/joelmorrobel/miniconda3/bin/python"
+        comment: ""
+      camera_scanner:
+        action: "kill" #run/kill/restart /res-data-platform/apps/res-premises/machine-manager/main.py
+        script_directory: res-data-platform/apps/res-premises/camera_scanner/main.py
+        cron:
+          schedule: "*/3 * * * *"
+          command: "/Users/joelmorrobel/miniconda3/bin/python"
+        comment: ""
+      rfid_receiver:
+        script_directory: res-data-platform/apps/res-premises/rfid_telemetry/receiver/main.py
+        cron:
+          schedule: ""
+          command: "/Users/joelmorrobel/miniconda3/bin/python"
+        comment: ""
+
+  NAS_PI:
+    location: "Steamer"
+    activate_file_path: "/home/pi/res-env/bin/activate"
+    env_vars:
+      LOCAL_REPO_DIRECTORY: "/home/pi/repos"
+      GITHUB_BRANCH: "main"
+      RES_ENV: "development"
+      RES_TEAM: "res-premises"
+    apps:
+      rfid_receiver:
+        action: "run"
+        script_directory: res-data-platform/apps/res-premises/rfid_telemetry/receiver/main.py
+        cron:
+          schedule: "@reboot"
+          command: "/home/pi/res-env/bin/python"
+        comment: "This app will receive events capture by RFID antennas"

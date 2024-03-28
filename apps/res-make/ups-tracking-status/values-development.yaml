@@ -1,0 +1,15 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    enable: true
+    schedule: "0 */4 * * *"
+  env:
+    BACKFILL: "false"
+    START_DATE: "ONE_YEAR_AGO"
+    MULTIPLE_COURRIERS: "false"
+  command: python
+  args:
+    - -m
+    - tracking_status.main
+    
+

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  {{- if not (empty (mergeOverwrite .Values.deployment.annotations .Values.deployment.metadata.annotations)) -}}
+  annotations: {{ include "copyContents" (mergeOverwrite .Values.deployment.annotations .Values.deployment.metadata.annotations) | indent 2 }}
+  {{- end }}
+  {{- if not (empty .Values.deployment.metadata.finalizers) -}}
+  finalizers: {{ include "copyContents" .Values.deployment.metadata.finalizers | indent 2 }}
+  {{- end }}
+  labels:
+    app: {{ .Values.deployment.name }}
+    component: {{ .Values.deployment.name }}
+    {{- if not (empty (mergeOverwrite .Values.deployment.labels .Values.deployment.metadata.labels)) -}}
+    {{ include "copyContents" (mergeOverwrite .Values.deployment.labels .Values.deployment.metadata.labels) | indent 2 }}
+    {{- end }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.name }}
+      component: {{ .Values.deployment.name }}
+      {{- if not (empty (mergeOverwrite .Values.deployment.labels .Values.deployment.template.labels)) -}}
+      {{ include "copyContents" (mergeOverwrite .Values.deployment.labels .Values.deployment.template.labels) | indent 4 }}
+      {{- end }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.name }}
+        component: {{ .Values.deployment.name }}
+        {{- if not (empty (mergeOverwrite .Values.deployment.labels .Values.deployment.template.labels)) -}}
+        {{ include "copyContents" (mergeOverwrite .Values.deployment.labels .Values.deployment.template.labels) | indent 6 }}
+        {{- end }}
+      {{- if not (empty (mergeOverwrite .Values.deployment.annotations .Values.deployment.template.annotations)) -}}
+      annotations: {{ include "copyContents" (mergeOverwrite .Values.deployment.annotations .Values.deployment.template.annotations) | indent 6 }}
+      {{- end }}
+      {{- if not (empty .Values.deployment.template.finalizers) -}}
+      finalizers: {{ include "copyContents" .Values.deployment.template.finalizers | indent 6  }}
+      {{- end }}
+    spec:
+      {{- if not (empty (omit .Values.deployment "name" "containers" "containerDefaults" "replicas" "folder" "env" "template" "metadata" "labels" "annotations" "type")) -}}
+      {{ include "copyContents" (omit .Values.deployment "name" "containers" "containerDefaults" "replicas" "folder" "env" "template" "metadata" "labels" "annotations" "type") | indent 4 }}
+      {{- end }}
+      containers: {{ include "containers" . | indent 8 }}

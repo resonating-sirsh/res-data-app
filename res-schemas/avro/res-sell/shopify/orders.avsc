@@ -1,0 +1,347 @@
+ {
+ 	"type": "record",
+ 	"name": "orders",
+ 	"namespace": "res_sell.shopify",
+ 	"doc": "This is a subset of order fields from the shopify webhook. See https://shopify.dev/docs/admin-api/rest/reference/events/webhook",
+ 	"fields": [{
+ 			"name": "order_number",
+ 			"type": [
+ 				"null",
+ 				"long"
+ 			],
+ 			"default": null
+ 		},
+ 		{
+ 			"name": "brand",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "type",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "id",
+ 			"type": "long"
+ 		},
+ 		{
+ 			"name": "name",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "email",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "tags",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "source_name",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "discount_codes",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "fulfillment_status",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "closed_at",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "financial_status",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "total_discounts",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "total_tax",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "created_at",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "updated_at",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "shipping_title",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "customer_id",
+ 			"type": "long"
+ 		},
+ 		{
+ 			"name": "customer_first_name",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "customer_orders_count",
+ 			"type": [
+ 				"null",
+ 				"int"
+ 			],
+ 			"default": null
+ 		},
+ 		{
+ 			"name": "customer_total_spent",
+ 			"type": [
+ 				"null",
+ 				"string"
+ 			],
+ 			"default": null
+ 		},
+ 		{
+ 			"name": "customer_tags",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "customer_created_at",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shipping_address1",
+ 			"type": [
+ 				"null",
+ 				"string"
+ 			],
+ 			"default": null
+ 		},
+ 		{
+ 			"name": "shipping_address2",
+ 			"type": [
+ 				"null",
+ 				"string"
+ 			],
+ 			"default": null
+ 		},
+ 		{
+ 			"name": "shipping_city",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_company",
+ 			"type": "string",
+ 			"type": [
+ 				"null",
+ 				"string"
+ 			],
+ 			"default": null
+ 		},
+ 		{
+ 			"name": "shipping_country",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_first_name",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_last_name",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_phone",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_province",
+ 			"type": [
+ 				"null",
+ 				"string"
+ 			],
+ 			"default": null
+ 		},
+ 		{
+ 			"name": "shipping_zip",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_name",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_country_code",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "shipping_province_code",
+ 			"type": "string",
+ 			"default": "null"
+ 		},
+ 		{
+ 			"name": "line_items",
+ 			"type": {
+ 				"type": "array",
+ 				"items": {
+ 					"type": "record",
+ 					"name": "order_line_item",
+ 					"namespace": "res_sell.shopify",
+ 					"doc": "This is a subset of fields from the line items from a shopify webhook. See https://shopify.dev/docs/admin-api/rest/reference/events/webhook",
+ 					"fields": [{
+ 							"name": "product_id",
+ 							"type": [
+ 								"null",
+ 								"long"
+ 							]
+ 						},
+ 						{
+ 							"name": "id",
+ 							"type": "long"
+ 						},
+ 						{
+ 							"name": "name",
+ 							"type": "string"
+ 						},
+ 						{
+ 							"name": "variant_title",
+ 							"type": [
+ 								"string",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "variant_id",
+ 							"type": [
+ 								"long",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "sku",
+ 							"type": [
+ 								"string",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "orderNumber",
+ 							"type": [
+ 								"string",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "quantity",
+ 							"type": "int"
+ 						},
+ 						{
+ 							"name": "price",
+ 							"type": "string"
+ 						},
+ 						{
+ 							"name": "fulfillment_status",
+ 							"type": [
+ 								"string",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "fulfillable_quantity",
+ 							"type": [
+ 								"int",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "fulfilled_quantity",
+ 							"type": [
+ 								"int",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "refunded_quantity",
+ 							"type": [
+ 								"int",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "customizations",
+ 							"type": [{
+ 								"type": "array",
+ 								"items": {
+ 									"type": "record",
+ 									"name": "LineItemCustomization",
+ 									"namespace": "res_sell.shopify",
+ 									"doc": "This is a subset of fields from the line items from a shopify webhook. See https://shopify.dev/docs/admin-api/rest/reference/events/webhook",
+ 									"fields": [{
+ 											"name": "id",
+ 											"type": "string"
+ 										},
+ 										{
+ 											"name": "value",
+ 											"type": "string"
+ 										}
+ 									]
+ 								}
+ 							}],
+ 							"default": []
+ 						},
+ 						{
+ 							"name": "options",
+ 							"type": [{
+ 								"type": "array",
+ 								"items": {
+ 									"type": "record",
+ 									"name": "lineItemOptionality",
+ 									"namespace": "res_sell.shopify",
+ 									"doc": "This is a subset of fields from the line items from a shopify webhook. See https://shopify.dev/docs/admin-api/rest/reference/events/webhook",
+ 									"fields": [{
+ 											"name": "name",
+ 											"type": "string"
+ 										},
+ 										{
+ 											"name": "value",
+ 											"type": "string"
+ 										}
+ 									]
+ 								}
+ 							}],
+ 							"default": []
+ 						}
+
+ 					]
+ 				}
+ 			}
+ 		}
+ 	]
+ }

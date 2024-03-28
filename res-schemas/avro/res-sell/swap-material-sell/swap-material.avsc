@@ -1,0 +1,39 @@
+{
+    "type": "record",
+    "name": "SwapMaterialStyle",
+    "namespace": "sell.swap_material_style_request",
+    "doc": "Batch process to swap materials in a style",
+    "fields": [
+        {
+            "name": "style_swap_request_id",
+            "type": "string"
+        },
+        {
+            "name": "style_id",
+            "type": "string"
+        },
+        {
+            "name": "new_material_code",
+            "type": "string"
+        },
+        {
+            "name": "old_material_code",
+            "type": "string"
+        },
+        {
+            "name": "old_sku",
+            "type": "string",
+            "default": ""
+        },
+        {
+            "name": "new_sku",
+            "type": "string",
+            "default": ""
+        },
+        {
+            "name": "old_style_name",
+            "type": "string",
+            "default": ""
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+table:
+  name: one_piece_at_node_consumption
+  schema: make
+object_relationships:
+  - name: node
+    using:
+      foreign_key_constraint_on: node_id

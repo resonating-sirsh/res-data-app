@@ -1,0 +1,12 @@
+table:
+  name: transaction_sources
+  schema: sell
+is_enum: true
+array_relationships:
+  - name: transactions
+    using:
+      foreign_key_constraint_on:
+        column: source
+        table:
+          name: transactions
+          schema: sell

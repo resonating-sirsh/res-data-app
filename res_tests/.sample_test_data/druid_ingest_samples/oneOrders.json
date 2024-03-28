@@ -1,0 +1,126 @@
+{
+    "type": "kafka",
+    "spec": {
+        "ioConfig": {
+            "type": "kafka",
+            "consumerProperties": {
+                "bootstrap.servers": "b-2.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-3.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-1.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094",
+                "security.protocol": "SSL",
+                "ssl.truststore.location": "/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/security/cacerts"
+            },
+            "topic": "oneOrders",
+            "useEarliestOffset": true,
+            "taskDuration": "PT10M"
+        },
+        "tuningConfig": {
+            "type": "kafka",
+            "reportParseExceptions": true,
+            "maxRowsInMemory": 10000,
+            "maxBytesInMemory": 2147483647
+        },
+        "dataSchema": {
+            "dataSource": "oneOrdersC",
+            "parser": {
+                "type": "avro_stream",
+                "avroBytesDecoder": {
+                    "type": "schema_registry",
+                    "url": "http://kafka-schema-registry-cp-schema-registry.kafka-schema-registry.svc.cluster.local:8081",
+                    "capacity": 100
+                },
+                "parseSpec": {
+                    "format": "avro",
+                    "timestampSpec": {
+                        "column": "created_at",
+                        "format": "auto"
+                    },
+                    "dimensionsSpec": {
+                        "dimensions": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            },
+                            {
+                                "name": "title",
+                                "type": "string"
+                            },
+                            {
+                                "name": "sku",
+                                "type": "string"
+                            },
+                            {
+                                "name": "brand_code",
+                                "type": "string"
+                            },
+                            {
+                                "name": "style_name",
+                                "type": "string"
+                            },
+                            {
+                                "name": "color_code",
+                                "type": "string"
+                            },
+                            {
+                                "name": "material_code",
+                                "type": "string"
+                            },
+                            {
+                                "name": "body_code",
+                                "type": "string"
+                            },
+                            {
+                                "name": "is_regular_order",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "is_repeat_order",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "is_valid_one",
+                                "type": "boolean"
+                            }
+                        ],
+                        "dimensionExclusions": []
+                    }
+                }
+            },
+            "granularitySpec": {
+                "type": "uniform",
+                "queryGranularity": "DAY",
+                "segmentGranularity": "DAY",
+                "rollup": true
+            },
+            "metricsSpec": [
+                {
+                    "name": "order_number",
+                    "type": "longSum",
+                    "fieldName": "order_number_sum"
+                },
+                {
+                    "name": "total_discount",
+                    "type": "doubleSum",
+                    "fieldName": "total_discount_sum"
+                },
+                {
+                    "name": "price",
+                    "type": "doubleSum",
+                    "fieldName": "price_sum"
+                },
+                {
+                    "name": "quantity",
+                    "type": "longSum",
+                    "fieldName": "quantity_sum"
+                },
+                {
+                    "name": "grams",
+                    "type": "longSum",
+                    "fieldName": "grams_sum"
+                },
+                {
+                    "type": "count",
+                    "name": "count"
+                }
+            ]
+        }
+    }
+}

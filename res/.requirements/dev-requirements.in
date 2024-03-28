@@ -1,0 +1,7 @@
+argo-workflows
+base58
+bitarray
+black[jupyter]
+dill
+pytest
+allure-pytest

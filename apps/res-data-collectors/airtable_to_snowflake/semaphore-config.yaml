@@ -1,0 +1,11 @@
+# This indicates the synchronization limit value for any Synchronization locks 
+# on workflow execution. Synchronization lock limits the number of concurrent 
+# workflow execution in the namespace which has same Synchronization lock
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: semaphore-config
+  labels:
+    app.kubernetes.io/part-of: argocd  
+data:
+  template: "5"

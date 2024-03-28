@@ -1,0 +1,11 @@
+table:
+  name: trims
+  schema: meta
+array_relationships:
+  - name: body_trims
+    using:
+      foreign_key_constraint_on:
+        column: trim_id
+        table:
+          name: body_trims
+          schema: meta

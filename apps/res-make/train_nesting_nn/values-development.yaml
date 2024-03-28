@@ -1,0 +1,12 @@
+deployment:
+  type: "res_workflow"
+  name: "train-nesting-nn"
+  command: python
+  args:
+    - -m
+    - res.learn.optimization.packing.annealed.nn
+  nodeSelector:
+    optimus: "true"
+  podSpecPatch: '{"tolerations":[{"key": "optimus", "value": "true", "effect": "NoSchedule"}]}'
+  env:
+    FOO: bar

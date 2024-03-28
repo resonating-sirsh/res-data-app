@@ -1,0 +1,35 @@
+{
+  "type": "record",
+  "name": "res_premises_submit_rfid_event_response",
+  "namespace": "res_premises_telemetry",
+  "doc": "Topic that will store the result from a RFID request event",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "events_id",
+      "type": "string"
+    },
+    {
+      "name": "event",
+      "type": "string"
+    },
+    {
+      "name": "observed_at",
+      "type": "string"
+    },
+    {
+      "name": "observed_item",
+      "type": {
+        "type": "map",
+        "values": "string"
+      }
+    },
+    {
+      "name": "metadata",
+      "type": ["null", { "type": "map", "values": "string" }]
+    }
+  ]
+}

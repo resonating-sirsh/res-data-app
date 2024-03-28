@@ -1,0 +1,8 @@
+deployment:
+  type: "res_workflow"
+  env:
+    TABLE_NAME: "example_table"
+    MESSAGE: "Hello World"
+  command: python
+  args:
+    - /app/main.py

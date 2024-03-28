@@ -1,0 +1,9 @@
+aiohttp
+asyncio
+boto3
+botocore
+pandas
+snowflake-connector-python
+snowflake-sqlalchemy
+sqlalchemy
+mailchimp_marketing

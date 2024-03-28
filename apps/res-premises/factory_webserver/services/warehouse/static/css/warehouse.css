@@ -1,0 +1,567 @@
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url('../fonts/montserrat/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url('../fonts/montserrat/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBold;
+  src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url('../fonts/montserrat/Montserrat-Medium.ttf');
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ RESTYLE TAG ]*/
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: Montserrat-Regular, sans-serif;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.nav{
+  width: 100%;
+  height: 50px;
+  background-color: #111;
+  color: #fff;
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+}
+
+
+.menuBtn {
+  cursor: pointer;
+  height: 100%;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background: transparent;
+  border: none;
+  gap: 4px;
+}
+
+.line {
+  width: 100%;
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+
+.l1 {
+  animation-duration: 0.3s;
+  animation-name: l1N;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.l2 {
+  animation-duration: 0.3s;
+  animation-name: l2N;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.l3 {
+  animation-duration: 0.3s;
+  animation-name: l3N;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.l1.active {
+  animation-duration: 0.3s;
+  animation-name: l1;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.l2.active {
+  animation-duration: 0.3s;
+  animation-name: l2;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.l3.active {
+  animation-duration: 0.3s;
+  animation-name: l3;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes l1 {
+  0% {
+      transform: translateY(0px);
+  }
+
+  25% {
+      transform: translateY(5px);
+  }
+
+  50% {
+      transform: translateY(9px);
+  }
+
+  100% {
+      transform: translateY(9px) rotate(45deg);
+  }
+}
+
+@keyframes l1N {
+  0% {
+      transform: translateY(9px) rotate(45deg);
+
+  }
+
+  25% {
+      transform: translateY(9px);
+
+  }
+
+  50% {
+      transform: translateY(5px);
+  }
+
+  100% {
+      transform: translateY(0px);
+  }
+}
+
+@keyframes l2 {
+  0% {
+      transform: scale(1);
+  }
+
+  50% {
+      transform: scale(0.5);
+  }
+
+  100% {
+      transform: scale(0);
+  }
+}
+
+@keyframes l2N {
+  0% {
+      transform: scale(0);
+  }
+
+  50% {
+      transform: scale(0.5);
+  }
+
+  100% {
+      transform: scale(1);
+  }
+}
+
+@keyframes l3 {
+  0% {
+      transform: translateY(0px);
+  }
+
+  50% {
+      transform: translateY(-5px);
+  }
+
+  100% {
+      transform: translateY(-9px) rotate(-45deg);
+  }
+}
+
+@keyframes l3N {
+  0% {
+      transform: translateY(-9px) rotate(-45deg);
+
+  }
+
+  25% {
+      transform: translateY(-9px);
+
+  }
+
+  50% {
+      transform: translateY(-5px);
+  }
+
+  100% {
+      transform: translateY(0px);
+  }
+}
+
+.menuContainer{
+  background-color: #000;
+  position: absolute;
+  left: -150px;
+  top: 49px;
+  height: 100vh;
+  width: 150px;
+}
+
+.menuContainer.active{
+  animation: menuActive 0.3s linear forwards;
+}
+
+@keyframes menuActive {
+  0%{
+    transform: translateX(0px);
+  }
+  100%{
+    transform: translateX(150px);
+  }
+}
+
+.menuContainer.noActive{
+  position: absolute;
+  left: 0px;
+  animation: menuNoActive 0.3s linear forwards;
+}
+
+@keyframes menuNoActive {
+  0%{
+    transform: translateX(0px);
+  }
+  100%{
+    transform: translateX(-150px);
+  }
+}
+
+
+.navTitle{
+  padding: 10px;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navP{
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+
+.queues{
+}
+.menu{
+  display: flex;
+  gap: 10px;
+  padding-left: 10px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.menu p{
+  margin: 0;
+font-weight: 600;
+font-size: 20px;}
+
+.optionTitle{
+  background-color: #222;
+  font-size: large;
+  text-align: start;
+  color: #bbb;
+  padding: 10px 20px;
+  margin: 0;
+}
+
+.optionsList{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.menuOption{
+  margin: 10px 0px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  color: #fff;
+}
+
+.queueTitle{
+  margin: 25px;
+}
+.queueTitleP{
+  font-size: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.queueContainer{
+  width: 90%;
+  height: 70%;
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  border: 1px solid #f3f3f3;
+  border-left: none;
+}
+
+.locationContainer{
+  width: 30%;
+  background-color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+.locationBtn{
+  border: 1px solid #e0e0e0;
+  height: 70px;
+  color: #707070;
+  font-weight: 600;
+  min-height: 30px;
+}
+
+.locationBtn.active{
+  background-color: #fff;
+  color: #000;
+  font-size: larger;
+  font-weight: 700;
+  border-left: 5px solid black;
+  border-right: none;
+}
+
+.itemsContainer{
+  width: 70%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  overflow: hidden;
+  transform-origin: left;
+}
+
+.queueItems{
+  width: 90%;
+  height: 60%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f3f3f3;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.itemsTitle{
+  background-color: #000;
+  border-radius: 5px 5px 0 0 ;
+  height: 40px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  padding-left: 30px;
+}
+
+.camContainer{
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemsTable{
+  width: 450px;
+  padding: 10px;
+  animation: changeLocationA 0.3s linear forwards;
+}
+
+.itemsTable.noActive{
+  display: none;
+}
+
+@keyframes changeLocationA {
+  0%{opacity: 1;}
+  100%{opacity: 0;}
+  
+}
+
+.itemsTable.active{
+  animation: changeLocation 0.3s linear forwards;
+  transform-origin: top;
+}
+
+@keyframes changeLocation {
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+  
+}
+
+.itemsTable tr{
+  height: 35px;
+}
+
+.itemsTable th{
+  padding: 10px;
+}
+
+.itemsTable tr td{
+  font-size: 20px;
+  padding: 5px;
+}
+
+.itemsTable tr:nth-child(odd) td{
+  background-color: #eee;
+  color: #000;
+}
+
+.statusRoll{
+  width: 70%;
+  height: 90%;
+  color: #fff;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.statusRoll.toDo{
+  background-color: red;
+}
+
+.statusRoll.done{
+  background-color: green;
+}
+
+#main{
+  display: none;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ ]*/
+.camera{
+  display: block;
+  animation: changeLocation 0.3s linear forwards;
+}
+.camera.hide {
+  display: none;
+  animation: changeLocationA 0.3s linear forwards;
+}
+
+.contact1 {
+  width: 100%;
+  min-height: 100%;
+  padding: 15px;
+
+  background: #000000;
+  background: -webkit-linear-gradient(left, #000000, #565656);
+  background: -o-linear-gradient(left, #060607, #525252);
+  background: -moz-linear-gradient(left, #040404, #545454);
+  background: linear-gradient(left, #000000, #505051);
+
+}
+.card.main{
+  width: auto;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  
+  
+ 
+}
+
+tr.shown{
+  background-color: #eee;
+  display: table-row;
+  transition: opacity 0.5s linear; /* Agregamos una transición para suavizar la aparición/desaparición */
+  opacity: 1; /* Establecemos la opacidad inicial en 1 */
+  animation: hideMe 2s forwards;
+}
+
+tr.hidden {
+  display: none;
+  opacity: 0; /* Establecemos la opacidad inicial en 0 para las filas ocultas */
+}
+
+
+@keyframes hideMe{
+  0%{
+      opacity: 0;
+  }
+  100%{
+      opacity: 1;
+  }
+}
+.cell button {
+  font-size: 60%;
+
+  padding: 0.3em 0.2em 0 0.2em;
+  border: 0.2em solid rgb(0, 0, 0);
+  border-radius: 50%;
+  line-height: 1;
+  text-align: center;
+  text-indent: 0;
+  transform: rotate(360deg);
+}
+
+.cell button i {
+  width: 1.25em;
+  height: 1.25em;
+  fill: #fff;
+  transition: transform 0.25s ease-in;
+  transform-origin: center 45%;
+}
+
+.cell button:hover,
+.cell button:focus {
+  background-color: #fff;
+  outline: none;
+}
+
+.cell button:hover i,
+.cell button:focus i {
+  fill: rgb(0, 0, 0);
+}
+
+/* Lean on programmatic state for styling */
+.cell button[aria-expanded="false"] i {
+  transform: rotate(90deg);
+}
+
+/* Proven method to visually hide something but */
+/* still make it available to assistive technology */
+.visually-hidden {
+  position: absolute;
+  top: auto;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  max-height: 0;
+  opacity: 0;
+  white-space: nowrap;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}

@@ -1,0 +1,4 @@
+type Body {
+    name: String! @id
+    pieces: [Piece]!
+}

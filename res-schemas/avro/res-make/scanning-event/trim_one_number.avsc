@@ -1,0 +1,33 @@
+[{
+	"type": "record",
+	"name": "trim_one_number",
+	"namespace": "res_make.scanning_event.event",
+	"doc": "This will send the trim one number from pick ticket app",
+	"fields": [
+		{
+			"name": "trim_one_number",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "one_number",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			},
+			"default": {}
+		},
+		{
+			"name": "scanning_at",
+			"type": ["string", "null"],
+			"default": "null"
+		}
+	]
+}]

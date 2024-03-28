@@ -1,0 +1,19 @@
+table:
+  name: currencies
+  schema: sell
+is_enum: true
+array_relationships:
+  - name: subscriptions
+    using:
+      foreign_key_constraint_on:
+        column: currency
+        table:
+          name: subscriptions
+          schema: sell
+  - name: transactions
+    using:
+      foreign_key_constraint_on:
+        column: currency
+        table:
+          name: transactions
+          schema: sell

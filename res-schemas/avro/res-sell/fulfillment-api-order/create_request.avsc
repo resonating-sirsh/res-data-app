@@ -1,0 +1,175 @@
+
+
+[{
+    "type": "record",
+ 	"name": "create_request",
+ 	"namespace": "res_sell.fulfillment_api_order",
+ 	"doc": "top level order item",
+ 	"fields": [
+		{
+			"name": "request_name",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "brand_code",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "email",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "order_id",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "order_channel",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "sales_channel",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_name",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_address1",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_address2",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_city",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_country",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_province",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_zip",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "shipping_phone",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "revenue_share_percentage",
+ 			"type": "float",
+			"default": null
+		},
+		{
+			"name": "is_sample",
+ 			"type": "boolean",
+			"default": false
+		},
+		{
+			"name": "channel_order_id",
+ 			"type": "string",
+			"default": null
+		},
+		{
+			"name": "line_items_info",
+ 			"type": {
+ 				"type": "array",
+ 				"items": {
+ 					"type": "record",
+ 					"name": "lineItemsChildType",
+ 					"namespace": "res_sell.fulfillment_api_order",
+ 					"doc": "child item, lines items from create one order",
+ 					"fields": [
+						{
+ 							"name": "sku",
+ 							"type": "string",
+							"default": null
+ 						},
+ 						{
+ 							"name": "quantity",
+ 							"type": "int",
+							"default": null
+ 						},
+						{
+ 							"name": "order_number",
+ 							"type": "string",
+							"default": null
+ 						},
+						{
+ 							"name": "channel_order_id",
+ 							"type": "string",
+							"default": null
+ 						},
+						{
+ 							"name": "product_name",
+ 							"type": "string",
+							"default": null
+ 						},
+						{
+ 							"name": "product_variant_title",
+ 							"type": "string",
+							"default": null
+ 						},
+						{
+ 							"name": "price",
+ 							"type": "float",
+							"default": null
+ 						},
+						{
+ 							"name": "shopify_fulfillment_status",
+ 							"type": "string",
+							"default": null
+ 						},
+						{
+ 							"name": "shopify_fulfillable_quantity",
+ 							"type": "int",
+							"default": null
+ 						},
+						{
+ 							"name": "basic_cost_of_one",
+ 							"type": "float",
+							"default": null
+ 						},
+						{
+ 							"name": "retail_price",
+ 							"type": "float",
+							"default": null
+ 						},
+						{
+ 							"name": "wholesale_price",
+ 							"type": "float",
+							"default": null
+ 						},
+						{
+ 							"name": "customizations",
+ 							"type": "string",
+							"default": null
+ 						}
+ 					]
+ 				}
+ 			},
+			"default": []
+		}
+	]
+}]

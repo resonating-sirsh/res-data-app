@@ -1,0 +1,55 @@
+{
+	"type": "record",
+	"name": "make_asset_status",
+	"namespace": "res_make_piece_tracking",
+	"doc": "Any make asset status updates - these are generally assumed to be pieces but could be piece sets or ONEs",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "asset_request_id",
+			"type": "string"
+		},
+		{
+			"name": "name",
+			"type": "string"
+		},
+		{
+			"name": "one_number",
+			"type": "string"
+		},
+		{
+			"name": "asset_type",
+			"type": "string"
+		},
+		{
+			"name": "status",
+			"type": "string"
+		},
+		{
+			"name": "node",
+			"type": "string"
+		},
+		{
+			"name": "event_datetime",
+			"type": "string"
+		},
+		{
+			"name": "observation_confidence",
+			"type": "float"
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int"
+				]
+			}
+		}
+	]
+}

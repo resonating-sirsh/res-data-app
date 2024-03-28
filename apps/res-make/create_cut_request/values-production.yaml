@@ -1,0 +1,6 @@
+deployment:
+  replicas: 1
+  memory: 1G
+  env:
+    RES_APP_NAME: "create-cut-request"
+    RES_TEAM: "make"

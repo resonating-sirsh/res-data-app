@@ -1,0 +1,25 @@
+[
+    {
+        "type": "record",
+        "name": "reproduce_make_one_response",
+        "namespace": "res_make.make_one_request.reproduce",
+        "doc": "This topic will be written to when we handle the request for a new request (ONE) that needs to be reproduced.",
+        "fields": [
+            {
+                "name": "request_id",
+                "type": "string"
+            },
+             {
+                "name": "reproduce_count",
+                "type": ["int", "null"]
+            },
+            {
+                "name": "cancel_reasons",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            }
+        ]
+    }
+]

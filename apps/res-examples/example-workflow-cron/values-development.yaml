@@ -1,0 +1,9 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0 * * * *"
+  command: python
+  args:
+    - /app/main.py
+  env:
+      FFS: "ffs" # see https://github.com/resonance/res-data-platform/blob/main/kubernetes/res_workflow/templates/workflow.yaml#L71-L78

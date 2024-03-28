@@ -1,0 +1,47 @@
+mutation UpsertProductionRequest(
+    $type: String = ""
+    $style_id: String = ""
+    $style_version: String = ""
+    $body_code: String = ""
+    $body_version: Int = ""
+    $material_code: String = ""
+    $color_code: String = ""
+    $size_code: String = ""
+    $brand_code: String = ""
+    $sales_channel: String = ""
+    $order_line_item_id: String = ""
+    $sku: String = ""
+    $order_number: String = ""
+    $request_name: String = ""
+    $channel_line_item_id: String = ""
+    $channel_order_id: String = ""
+    $line_item_creation_date: timestamptz = ""
+    $metadata: jsonb = "",
+) {
+  insert_make_make_production_request(
+    objects: {
+      body_code: $body_code,
+      body_version: $body_version,
+      brand_code:$brand_code ,
+      channel_line_item_id: $channel_line_item_id,
+      channel_order_id: $channel_order_id,
+      color_code: $color_code,
+      line_item_creation_date: $line_item_creation_date,
+      material_code: $material_code,
+      order_line_item_id: $order_line_item_id,
+      order_number: $order_number,
+      request_name: $request_name,
+      sales_channel: $sales_channel,
+      size_code: $size_code,
+      sku: $sku,
+      style_id: $style_id,
+      style_version: $style_version,
+      type: $type,
+      metadata: $metadata
+
+    }) {
+    returning {
+      id
+    }
+  }
+}

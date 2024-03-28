@@ -1,0 +1,57 @@
+{
+  "event": {
+    "session_variables": {
+      "x-hasura-role": "admin"
+    },
+    "op": "UPDATE",
+    "data": {
+      "old": {
+        "status": "IN_PROGRESS",
+        "preset_key": "techpack_v0",
+        "updated_at": "2022-01-08T07:20:05.251407+00:00",
+        "details": {
+          "body_code": "KT-3030",
+          "input_file_uri": "s3://meta-one-assets-prod/color_on_shape/kt_3030/v5/dmtept/KT-3030-V5-DMTEPT.bw",
+          "style_id": "recrU2uSpjS1YsNtC"
+        },
+        "created_at": "2022-01-08T06:20:08.009303+00:00",
+        "id": "fe156fcd-1a84-4768-8562-cb6a58cd2bf7",
+        "type": "EXPORT_ASSET_BUNDLE",
+        "requestor_id": "receolp0qKcgEEvxf",
+        "status_details": null
+      },
+      "new": {
+        "status": "COMPLETED_ERRORS",
+        "preset_key": "techpack_v0",
+        "updated_at": "2022-01-08T07:20:09.509907+00:00",
+        "details": {
+          "body_code": "KT-3030",
+          "input_file_uri": "s3://meta-one-assets-prod/color_on_shape/kt_3030/v5/dmtept/KT-3030-V5-DMTEPT.bw",
+          "style_id": "recrU2uSpjS1YsNtC"
+        },
+        "created_at": "2022-01-08T06:20:08.009303+00:00",
+        "id": "fe156fcd-1a84-4768-8562-cb6a58cd2bf7",
+        "type": "EXPORT_ASSET_BUNDLE",
+        "requestor_id": "receolp0qKcgEEvxf",
+        "status_details": "Traceback (most recent call last):\n  File \"/Users/richey/dev/res-data-platform/apps/res-plugins/vstitcher/src/job_runner.py\", line 262, in job_worker_loop\n    resp = await run_asset_request_job(job)\n  File \"/Users/richey/dev/res-data-platform/apps/res-plugins/vstitcher/src/job_runner.py\", line 222, in run_asset_request_job\n    local_artwork_path = _s3_connector._download(\n  File \"/Users/richey/dev/res-data-platform/res/connectors/s3/S3Connector.py\", line 293, in _download\n    P = Path(path)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/pathlib.py\", line 1033, in __new__\n    self = cls._from_parts(args, init=False)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/pathlib.py\", line 674, in _from_parts\n    drv, root, parts = self._parse_args(args)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/pathlib.py\", line 658, in _parse_args\n    a = os.fspath(a)\nTypeError: expected str, bytes or os.PathLike object, not NoneType\n"
+      }
+    },
+    "trace_context": {
+      "trace_id": "540bcb00dc6f0451",
+      "span_id": "3b6bbf5f0e03f1a5"
+    }
+  },
+  "created_at": "2022-01-08T07:20:09.509907Z",
+  "id": "2fd00920-a6a5-4d71-9c83-5fd585de40bb",
+  "delivery_info": {
+    "max_retries": 0,
+    "current_retry": 0
+  },
+  "trigger": {
+    "name": "platform_job_upsert"
+  },
+  "table": {
+    "schema": "platform",
+    "name": "job"
+  }
+}

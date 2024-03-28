@@ -1,0 +1,193 @@
+{
+    "type": "record",
+    "name": "prep_pieces_requests",
+    "namespace": "res_meta",
+    "doc": "When we make pieces for print",
+    "fields": [
+        {
+            "name": "id",
+            "type": "string"
+        },
+        {
+            "name": "one_number",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "body_code",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "body_version",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "sales_channel",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "upstream_request_id",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "meta_one_cache_path",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "size_code",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "color_code",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "material_code",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "uri",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "piece_type",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "sku",
+            "type": [
+                "null",
+                "string"
+            ],
+            "default": null
+        },
+        {
+            "name": "sku_make_sequence_number",
+            "type": [
+                "null",
+                "int"
+            ],
+            "default": null
+        },
+        {
+            "name": "style_make_sequence_number",
+            "type": [
+                "null",
+                "int"
+            ],
+            "default": null,
+        },
+        {
+            "name": "customer_order_number",
+            "type": [
+                "null",
+                "string"
+            ],
+            "default": null
+        },
+        {
+            "name": "customer_order_date",
+            "type": [
+                "null",
+                "string"
+            ],
+            "default": null
+        },
+        {
+            "name": "created_at",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "flow",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "metadata",
+            "default": {},
+            "type": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "float",
+                    "string",
+                    "boolean"
+                ]
+            },
+        },
+        {
+            "name": "piece_sequence_numbers",
+            "default": [],
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "record",
+                    "name": "prep_piece_request_piece_sequence_numbers",
+                    "namespace": "res_meta.dxa",
+                    "doc": "when requesting pieces we can state expectation about healing counts etc",
+                    "fields": [
+                        {
+                            "name": "request_group_id",
+                            "type": [
+                                "null",
+                                "string"
+                            ],
+                            "default": null,
+                        },
+                        {
+                            "name": "key",
+                            "type": "string"
+                        },
+                        {
+                            "name": "multiplicity",
+                            "type": "int",
+                            "default": 1
+                        },
+                        {
+                            "name": "make_sequence_number",
+                            "type": "int",
+                            "default": 0
+                        },
+                    ],
+                },
+            },
+        },
+    ],
+}

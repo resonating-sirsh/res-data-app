@@ -1,0 +1,6 @@
+deployment:
+  replicas: 2
+  memory: 1G
+  env:
+    RES_APP_NAME: "create-make-one-request"
+    RES_TEAM: "dxa"

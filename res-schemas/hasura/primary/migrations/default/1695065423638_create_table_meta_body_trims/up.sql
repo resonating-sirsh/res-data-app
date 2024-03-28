@@ -1,0 +1,2 @@
+CREATE TABLE "meta"."body_trims" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "trim_id" uuid NOT NULL, "body_id" UUID NOT NULL, "metadata" jsonb NOT NULL DEFAULT jsonb_build_object(), PRIMARY KEY ("id") , FOREIGN KEY ("body_id") REFERENCES "meta"."bodies"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("trim_id") REFERENCES "meta"."trims"("id") ON UPDATE restrict ON DELETE restrict);
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

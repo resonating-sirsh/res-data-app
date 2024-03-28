@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "NestRollAssignmentNestDetails",
+  "namespace": "optimus.nest_roll_assignment_nest_details",
+  "doc": "This is a single assignment of a nest to a roll.",
+  "fields": [
+    {
+      "name": "nest_key",
+      "type": "string"
+    },
+    {
+      "name": "roll_key",
+      "type": "string"
+    },
+    {
+      "name": "rank",
+      "type": "int"
+    },
+    {
+      "name": "roll_assigned_nest_count",
+      "type": "int"
+    },
+    {
+      "name": "task_key",
+      "type": "string"
+    },
+    {
+      "name": "created_at",
+      "type": "string"
+    }
+  ]
+}

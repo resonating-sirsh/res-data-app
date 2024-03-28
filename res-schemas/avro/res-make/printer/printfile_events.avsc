@@ -1,0 +1,75 @@
+{
+	"type": "record",
+	"name": "printfile_events",
+	"namespace": "res_make_printer",
+	"doc": "Responding to printer events",
+	"fields": [{
+		"name": "printer",
+		"type": "string"
+	}, {
+		"name": "jobid",
+		"type": "string"
+	},
+	{
+		"name": "stitched_file_path",
+		"type": ["string", "null"]
+	},
+	{
+		"name": "stitching_job_key",
+		"type": ["string", "null"],
+		"default" : ""
+	},
+	{
+		"name": "name",
+		"type": "string"
+	}, {
+		"name": "status",
+		"type": "string"
+	}, {
+		"name": "print_mode",
+		"type": "string"
+	}, {
+		"name": "direction",
+		"type": "string"
+	}, {
+		"name": "media",
+		"type": "string"
+	}, {
+		"name": "head_gap",
+		"type": "string"
+	}, {
+		"name": "width",
+		"type": "float"
+	}, {
+		"name": "requested_length",
+		"type": "float"
+	}, {
+		"name": "start_time",
+		"type": "string"
+	}, {
+		"name": "end_time",
+		"type": ["string", "null"]
+	}, {
+		"name": "printed_length",
+		"type": "float"
+	}, {
+		"name": "fold_detected",
+		"type": "string"
+	}, {
+		"name": "roll_name",
+		"type": "string"
+	}, {
+		"name": "roll_key",
+		"type": "string"
+	}, {
+		"name": "metadata",
+		"type": {
+			"type": "map",
+			"values": [
+				"null",
+				"float",
+				"string"
+			]
+		}
+	}]
+}

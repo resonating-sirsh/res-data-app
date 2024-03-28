@@ -1,0 +1,4 @@
+deployment:
+  replicas: 1
+  env:
+    WRITE_TO_AIRTABLE: True

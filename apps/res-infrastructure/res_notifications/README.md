@@ -1,0 +1,1 @@
+This app provides bridge between hasura and airtable for notifications on Create ONE

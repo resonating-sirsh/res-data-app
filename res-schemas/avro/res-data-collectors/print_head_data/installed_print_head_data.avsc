@@ -1,0 +1,35 @@
+{
+  "type": "record",
+  "name": "installed_print_head_data",
+  "namespace": "printer.head.data",
+  "fields": [
+    {
+      "name": "Printer",
+      "type": "string"
+    },
+    {
+      "name": "Column",
+      "type": "int"
+    },
+    {
+      "name": "Row",
+      "type": "int"
+    },
+    {
+      "name": "Serial",
+      "type": "string"
+    },
+    {
+      "name": "Installed",
+      "type": "int"
+    },
+    {
+      "name": "Color",
+      "type": "string"
+    },
+    {
+      "name": "InkType",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+	"type": "record",
+	"name": "order_requests",
+	"namespace": "res_make",
+	"doc": "the processed order item from any source. financial, contractual, no make info",
+	"fields": [
+		{
+			"name": "id",
+			"type": "string"
+		},
+	    {
+			"name": "style_id",
+			"type": "string"
+		},
+		{
+			"name": "id_order",
+			"type": "string"
+		},
+		{
+			"name": "id_order_item",
+			"type": "string"
+		},
+		{
+			"name": "quantity",
+			"type": "int"
+		},
+		{
+			"name": "product_sku",
+			"type": "string"
+		},
+		{
+			"name": "price",
+			"type": "float",
+            "default": 0
+		},
+        {
+			"name": "sla_days_at_order",
+			"type": ["int", "null"]
+		},
+		{
+			"name": "item_cost",
+			"type": "float"
+		},
+		{
+			"name": "brand_code",
+			"type": "string"
+		},
+		{
+			"name": "sales_channel",
+			"type": "string"
+		},
+		{
+			"name": "order_channel",
+			"type": "string"
+		},
+		{
+			"name": "email",
+			"type": "string"
+		},
+		{
+			"name": "created_at",
+			"type": "string"
+		},
+		{
+			"name": "updated_at",
+			"type": "string"
+		},
+		{
+			"name": "fulfillment_status",
+			"type": "string"
+		},
+		{
+			"name": "flow_event_type",
+			"type": "string"
+		},
+		{
+			"name": "customization_json_string",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "revenue_share_code",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			}
+		}
+	]
+}

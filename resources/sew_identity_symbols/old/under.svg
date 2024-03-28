@@ -1,0 +1,10 @@
+<svg height="100" width="100">
+     
+    <g transform="translate(0,-40)">
+        <rect x="5" y="45" width="50" height="50" stroke="currentColor" fill="transparent" stroke-width="3"/>
+        <line x1="5" y1="69" x2="55" y2="69" style="stroke:currentColor;stroke-width:3" />
+        <line x1="3.5" y1="95" x2="56.5" y2="95" style="stroke:currentColor;stroke-width:8" />
+    </g>
+    
+    <circle cx="30" cy="73" r="15" fill="white" stroke="currentColor" stroke-width="3"/>
+</svg>

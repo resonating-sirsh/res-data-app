@@ -1,0 +1,7 @@
+table:
+  name: edges
+  schema: meta
+object_relationships:
+  - name: piece
+    using:
+      foreign_key_constraint_on: piece_id

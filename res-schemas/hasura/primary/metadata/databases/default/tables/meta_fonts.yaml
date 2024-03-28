@@ -1,0 +1,13 @@
+table:
+  name: fonts
+  schema: meta
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $uri
+      remote_schema: s3url-signer
+    name: signed_uri

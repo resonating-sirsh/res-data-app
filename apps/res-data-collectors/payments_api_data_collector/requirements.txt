@@ -1,0 +1,7 @@
+boto3
+botocore
+pandas
+requests
+snowflake-connector-python
+snowflake-sqlalchemy
+sqlalchemy

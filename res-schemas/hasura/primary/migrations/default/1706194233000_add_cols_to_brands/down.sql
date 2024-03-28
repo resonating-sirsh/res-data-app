@@ -1,0 +1,35 @@
+DO $$
+BEGIN
+    -- Remove columns from 'sell.brands'
+    ALTER TABLE sell.brands
+    DROP COLUMN IF EXISTS meta_record_id,
+    DROP COLUMN IF EXISTS fulfill_record_id,
+    DROP COLUMN IF EXISTS brand_code,
+    DROP COLUMN IF EXISTS is_brand_whitelist_payment,
+    DROP COLUMN IF EXISTS active_subscription_id,
+    DROP COLUMN IF EXISTS name,
+    DROP COLUMN IF EXISTS shopify_storename,
+    DROP COLUMN IF EXISTS order_delayed_email_v2,
+    DROP COLUMN IF EXISTS created_at_airtable,
+    DROP COLUMN IF EXISTS shopify_store_name,
+    DROP COLUMN IF EXISTS homepage_url,
+    DROP COLUMN IF EXISTS sell_enabled,
+    DROP COLUMN IF EXISTS shopify_location_id_nyc,
+    DROP COLUMN IF EXISTS contact_email,
+    DROP COLUMN IF EXISTS payments_revenue_share_ecom,
+    DROP COLUMN IF EXISTS created_at_year,
+    DROP COLUMN IF EXISTS payments_revenue_share_wholesale,
+    DROP COLUMN IF EXISTS subdomain_name,
+    DROP COLUMN IF EXISTS brands_create_one_url,
+    DROP COLUMN IF EXISTS shopify_shared_secret,
+    DROP COLUMN IF EXISTS quickbooks_manufacturing_id,
+    DROP COLUMN IF EXISTS address,
+    DROP COLUMN IF EXISTS is_direct_payment_default,
+    DROP COLUMN IF EXISTS brand_success_active,
+    DROP COLUMN IF EXISTS shopify_api_key,
+    DROP COLUMN IF EXISTS shopify_api_password,
+    DROP COLUMN IF EXISTS register_brand_email_address,
+    DROP COLUMN IF EXISTS start_date,
+    DROP COLUMN IF EXISTS end_date,
+    DROP COLUMN IF EXISTS is_exempt_payment_setup_for_ordering_createone;
+END $$;

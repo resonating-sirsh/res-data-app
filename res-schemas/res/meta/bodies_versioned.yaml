@@ -1,0 +1,38 @@
+name: meta.versioned_bodies
+key: meta.versioned_bodies
+airtable_table_id: "tblXXuR9kBZvbRqoU"
+airtable_base_id: "appa7Sw0ML47cA8D1"
+fields:
+- name: key
+  key: key
+  is_key: True
+  required: True
+  indexes:
+  - hash
+- name: body_code
+  key: body_code
+  airtable_field_name: "Body Code"
+- name: brand_code
+  key: brand_code
+  airtable_field_name: "Brand Name"
+- name: version
+  key: version
+  airtable_field_name: "Pattern Version Number"
+- name: category_code
+  key: category_code
+  airtable_field_name: "Category Code"
+- name: taxonomy_code
+  key: taxonomy_code
+  airtable_field_name: "Taxonomy Code"
+- name: name
+  key: name
+  airtable_field_name: "Body Name"
+- name: sizes
+  key: sizes
+  type: "str"
+- name: body_pieces
+  key: body_pieces
+  meta_type: "[meta.body_pieces]"
+  is_child_type: True
+  
+  

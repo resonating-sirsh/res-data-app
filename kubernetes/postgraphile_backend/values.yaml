@@ -1,0 +1,13 @@
+deployment:
+  name: "default"
+  replicas: 1
+  servicePort: 5000
+  postgresSchema: "graphql"
+
+postgresql:
+  enabled: true
+  postgresqlUsername: postgraphile
+  postgresqlPassword: postgraphile
+  postgresqlDatabase: postgraphile
+  service:
+    port: 5432

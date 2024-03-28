@@ -1,0 +1,4 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- alter table "meta"."body_pieces_with_material" add column "checksum" integer
+--  null;

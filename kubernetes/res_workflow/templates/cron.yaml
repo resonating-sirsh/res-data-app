@@ -1,0 +1,15 @@
+{{- if .Values.deployment.cron.schedule }}
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: {{ .Values.deployment.name }}-cron
+spec:
+  schedule: "{{ .Values.deployment.cron.schedule }}"
+  startingDeadlineSeconds: 0
+  concurrencyPolicy: "Replace"      # Default to "Allow"
+  successfulJobsHistoryLimit: 4     # Default 3
+  failedJobsHistoryLimit: 4         # Default 1
+  workflowSpec:
+    workflowTemplateRef:
+      name: {{ .Values.deployment.name }}-workflow
+{{- end }}

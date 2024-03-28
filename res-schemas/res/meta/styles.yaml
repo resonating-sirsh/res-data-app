@@ -1,0 +1,135 @@
+key: "styles"
+name: "styles"
+child_types: []
+interfaces: []
+airtable_table_id: "tblmszDBvO1MvJrlJ"
+airtable_base_id: "appjmzNPXOuynj6xP"
+fields:
+  - name: "key"
+    key: "key"
+    is_key: True
+    is_required: True
+    type: str
+    indexes:
+      - hash
+    airtable_field_name: "Code"
+
+  - name: "res_key"
+    key: "res_key"
+    type: str
+    airtable_field_name: "Key"
+
+  - name: "style_name"
+    key: "style_name"
+    type: str
+    airtable_field_name: "Style Name"
+
+  - name: "style_id"
+    key: "style_id"
+    type: str
+    airtable_field_name: "Style ID"
+
+  - name: "sizes"
+    key: "sizes"
+    type: str
+    airtable_field_name: "Available Sizes"
+
+  - name: "style_pieces"
+    key: "style_pieces"
+    type: str
+    airtable_field_name: "Style Pieces"
+
+  - name: "materials_used"
+    key: "materials_used"
+    type: str
+    airtable_field_name: "Materials Used Codes"
+
+  - name: "artwork_file_id"
+    key: "artwork_file_id"
+    type: str
+    airtable_field_name: "Artwork File ID"
+
+  - name: "style_cover_image"
+    key: "style_cover_image"
+    type: str
+    airtable_field_name: "Style Cover Image"
+
+  # - name: "meta_one_piece_attributes"
+  #   key: "meta_one_piece_attributes"
+  #   type: str
+  #   airtable_field_name: "Meta.ONE Piece Attributes"
+
+  - name: "print_type"
+    key: "print_type"
+    type: str
+    airtable_field_name: "Print Type"
+
+  - name: brand_code
+    key: brand_code
+    is_required: True
+    type: str
+    meta_type: "meta.brands"
+    indexes:
+      - exact
+    airtable_field_name: "Brand Code"
+
+  - name: "brand_name"
+    key: "brand_name"
+    type: str
+    airtable_field_name: "Brand_Name"
+  - name: body_code
+    key: body_code
+    is_required: True
+    type: str
+    meta_type: "meta.bodies"
+    airtable_field_name: "Body Code"
+  - name: body_version
+    key: body_version
+    type: str
+    airtable_field_name: "__body_version"
+  - name: color_code
+    key: color_code
+    is_required: True
+    type: str
+    #meta_type: "meta.colors"
+    indexes:
+      - exact
+    airtable_field_name: "__colorcode"
+  - name: material_code
+    key: material_code
+    is_required: True
+    type: str
+    meta_type: "meta.materials"
+    indexes:
+      - exact
+    airtable_field_name: "__materialcode"
+  - name: is_one_ready
+    key: is_one_ready
+    type: bool
+    airtable_field_name: "isOneReady"
+  - name: is_3d_onboarded
+    key: is_3d_onboarded
+    type: bool
+    airtable_field_name: "3D Color Placement Enabled"
+  - name: retail_price
+    key: retail_price
+    type: float
+    airtable_field_name: "RETAIL_PRICE"
+  - name: __tech_style_pieces_mapping_status
+    key: __tech_style_pieces_mapping_status
+    type: str
+    airtable_field_name: "__tech_style_pieces_mapping_status"
+
+  - name: created_at
+    key: created_at
+    type: str
+    airtable_field_name: "__createdat"
+
+  - name: style_pieces_status
+    key: style_pieces_status
+    type: str
+    airtable_field_name: "Style Pieces Mapping Status"
+  - name: style_pieces_status_internal
+    key: style_pieces_status_internal
+    type: str
+    airtable_field_name: "Style Pieces Mapping Status (Internal)"

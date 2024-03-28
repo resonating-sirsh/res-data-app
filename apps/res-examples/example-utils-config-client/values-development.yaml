@@ -1,0 +1,7 @@
+deployment:
+  type: "res_workflow"
+  env:
+    CONFIG_TO_ADD: "my_config"
+  command: python
+  args:
+    - /app/main.py

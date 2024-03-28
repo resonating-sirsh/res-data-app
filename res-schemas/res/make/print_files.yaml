@@ -1,0 +1,19 @@
+airtable_base_id: apprcULXTWu33KFsh
+airtable_table_id: tblAQcPuKUDVfU7Fx
+fields:
+  - airtable_field_name: Key
+    key: key
+    name: key
+    is_key: True
+    required: True
+    indexes:
+      - hash
+  - airtable_field_name: Asset Path
+    key: asset_path
+    name: asset_path
+  - airtable_field_name: RIP File Name
+    key: rip_file_name
+    name: rip_file_name
+
+key: make.print_files
+name: make.print_files

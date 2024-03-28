@@ -1,0 +1,23 @@
+table:
+  name: piece_instances
+  schema: make
+object_relationships:
+  - name: make_order
+    using:
+      foreign_key_constraint_on: one_number
+  - name: pieceSetByPieceSetKey
+    using:
+      foreign_key_constraint_on: piece_set_key
+  - name: pieceSetByPieceSetKeyPieceSetId
+    using:
+      manual_configuration:
+        column_mapping:
+          piece_set_id: id
+          piece_set_key: key
+        insertion_order: null
+        remote_table:
+          name: piece_sets
+          schema: make
+  - name: piece_set
+    using:
+      foreign_key_constraint_on: piece_set_id

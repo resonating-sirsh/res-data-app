@@ -1,0 +1,7 @@
+table:
+  name: faceted_search_filter_value
+  schema: sell
+object_relationships:
+  - name: faceted_search_filters_collection
+    using:
+      foreign_key_constraint_on: filter_id

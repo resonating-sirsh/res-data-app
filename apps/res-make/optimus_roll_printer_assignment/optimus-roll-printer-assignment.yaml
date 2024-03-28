@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: optimus-roll-printer-assignment
+spec:
+  entrypoint: optimus-roll-printer-assignment
+  arguments:
+    parameters:
+    - name: event
+      value: '{"printers":["all"],"materials":["all"],"solver_settings":{"constraints":{"max_print_queue_yards":200,"keep_current_queue":true},"costs":{"material_switch_cost":0.1,"roll_expiration_cost":0.1,"daily_order_delay_cost":0.1,"prioritized_roll_value":10}},"verbose_solver_logging":false,"dry_run":true}'
+  templates:
+  - name: optimus-roll-printer-assignment
+    inputs:
+      parameters:
+      - name: event
+    steps:
+    - - name: optimus-roll-printer-assignment
+        template: generic-step
+        arguments:
+          parameters:
+          # These parameters can be overridden by a developer in the Argo UI
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          # This is the name of the python script you want to run for this step
+          - name: flow_name
+            value: "/app/src/main.py"
+          # We can set memory higher for intensive tasks
+          - name: memory
+            value: 5Gi
+  - name: generic-step
+    retryStrategy:
+          limit: "2"
+          retryPolicy: "OnFailure" 
+          backoff:
+            duration: "3m"  
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+      - name: memory
+    outputs:
+      parameters:
+        - name: dump
+          valueFrom:
+            default: "{}"
+            path: /app/dump.txt
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}], "tolerations":[{"key": "optimus", "value": "true", "effect": "NoSchedule"}]}'
+    nodeSelector:
+      optimus: "true"
+    container:
+      # This container image will be replaced during CI with the Dockerfile you included in this folder
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.event}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env

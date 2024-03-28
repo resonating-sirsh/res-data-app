@@ -1,0 +1,6 @@
+Flask
+Flask-Cognito
+flask-cors
+snowflake-connector-python
+snowflake-sqlalchemy
+sqlalchemy

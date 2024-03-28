@@ -1,0 +1,32 @@
+
+#this was attempt one to load data from the kafka topic directly but we can re-process this into ONEs that are literally one and have an FKEY
+key: make.inventory
+name: make.inventory
+airtable_base_id: appHppdkO4f7GlXuh
+airtable_table_id: tblhCz4t3QVjxWOpv
+fields:
+- key: key
+  name: key
+  indexes:
+  - hash
+  is_key: true
+  is_required: true
+  airtable_field_name: KEY
+- key: style_code
+  name: style_code
+  meta_type: "meta.styles"
+  airtable_field_name: "Style res.Code"
+- key: size_code
+  name: size_code
+  airtable_field_name: size
+- key: reservation_status
+  name: reservation_status
+  airtable_field_name: RESERVED
+- key: warehouse_location
+  name: reservation_status
+  airtable_field_name: "Warehouse Checkin Location"
+- key: make_order_number
+  name: make_order_number
+  airtable_field_name: "res Magic Order Number"
+  #todo make orders 
+

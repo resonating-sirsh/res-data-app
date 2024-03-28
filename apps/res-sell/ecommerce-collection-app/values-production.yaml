@@ -1,0 +1,5 @@
+deployment:
+  replicas: 2
+  env:
+    URL_DOMAIN: "https://create.one"
+    RES_TEAM: "res-sell"

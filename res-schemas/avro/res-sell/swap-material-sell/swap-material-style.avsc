@@ -1,0 +1,20 @@
+{
+    "type": "record",
+    "name": "SwapMaterialStyle",
+    "namespace": "sell.swap_material_style",
+    "doc": "Batch process to swap materials in a style",
+    "fields": [
+        {
+            "name": "swap_style_id",
+            "type": "string"
+        },
+        {
+            "name": "swap_material_request",
+            "type": "string"
+        },
+        {
+            "name": "style_id",
+            "type": "string"
+        }
+    ]
+}

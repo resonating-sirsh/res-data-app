@@ -1,0 +1,16 @@
+{
+    "type": "record",
+    "name": "VariantCreationRequest",
+    "namespace": "shopify.variant",
+    "doc": "This topic will receive the request to create new Shopify variants.",
+    "fields": [
+        {
+            "name": "size_id",
+            "type": "string"
+        },
+        {
+            "name": "body_code",
+            "type": "string"
+        }
+    ]
+}

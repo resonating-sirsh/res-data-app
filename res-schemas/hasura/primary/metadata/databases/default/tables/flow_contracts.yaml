@@ -1,0 +1,10 @@
+table:
+  name: contracts
+  schema: flow
+object_relationships:
+  - name: node
+    using:
+      foreign_key_constraint_on: node_id
+  - name: user
+    using:
+      foreign_key_constraint_on: owner_id

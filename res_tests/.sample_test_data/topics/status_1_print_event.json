@@ -1,0 +1,126 @@
+{
+    "MSjobinfo": {
+        "Printer": "flash",
+        "Jobid": "90051",
+        "Name": "LTCSL_R29297_1_001_optimus_printer_2022_07_21T00_22_38",
+        "Status": "1",
+        "PrintMode": "D4: 8passes 9levels StdSpeed HQ",
+        "Direction": "Bidi",
+        "Media": "LTCSL",
+        "HeadGap": "3.000",
+        "Width": "1513",
+        "RequestedLength": "8576",
+        "StartTime": "1658362582",
+        "EndTime": "1658363576",
+        "PrintedLength": "8791",
+        "FoldDetected": "0",
+        "MSinkusage": {
+            "Ink": [
+                {
+                    "Color": "Cyan",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "15.200",
+                        "ToClean": "0.000"
+                    }
+                },
+                {
+                    "Color": "Magenta",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "16.072",
+                        "ToClean": "0.000"
+                    }
+                },
+                {
+                    "Color": "Yellow",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "13.948",
+                        "ToClean": "0.000"
+                    }
+                },
+                {
+                    "Color": "Black",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "19.642",
+                        "ToClean": "0.000"
+                    }
+                },
+                {
+                    "Color": "Red",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "9.362",
+                        "ToClean": "0.000"
+                    }
+                },
+                {
+                    "Color": "Orange",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "7.841",
+                        "ToClean": "0.000"
+                    }
+                },
+                {
+                    "Color": "Blue",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "1.455",
+                        "ToClean": "0.000"
+                    }
+                },
+                {
+                    "Color": "Transparent",
+                    "Type": "[R] Kiian Bellagio",
+                    "Cleanings": {
+                        "Soft": "0",
+                        "Normal": "0",
+                        "Strong": "0"
+                    },
+                    "Usage": {
+                        "ToPrint": "24.335",
+                        "ToClean": "0.000"
+                    }
+                }
+            ]
+        }
+    }
+}

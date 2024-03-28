@@ -1,0 +1,38 @@
+type BrowzwearRequest @withSubscription {
+    id: ID!
+    bodyCode: String!
+    details: String
+    status: BrowzwearRequestStatus @search
+    createdAt: DateTime
+    updatedAt: DateTime
+    attempts: [BrowzwearRequestAttempt] @hasInverse(field: request)
+    statusUpdates: [BrowzwearRequestStatusUpdate] @hasInverse(field: request)
+    artifacts: [BrowzwearArtifact] @hasInverse(field: request)
+}
+
+type BrowzwearRequestAttempt {
+    request: BrowzwearRequest!
+    status: BrowzwearRequestStatus
+    details: String
+    createdAt: DateTime!
+}
+
+type BrowzwearRequestStatusUpdate {
+    request: BrowzwearRequest!
+    newStatus: BrowzwearRequestStatus!
+    updatedAt: DateTime!
+}
+
+enum BrowzwearRequestStatus {
+    NEW
+    ACKNOWLEDGED
+    IN_PROGRESS
+    COMPLETED_SUCCESS
+    COMPLETED_ERRORS
+}
+
+type BrowzwearArtifact {
+    id: ID!
+    request: BrowzwearRequest!
+    assetPath: String
+}

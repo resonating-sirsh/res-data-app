@@ -1,0 +1,22 @@
+table:
+  name: style_sizes
+  schema: meta
+object_relationships:
+  - name: style
+    using:
+      foreign_key_constraint_on: style_id
+array_relationships:
+  - name: one_orders
+    using:
+      foreign_key_constraint_on:
+        column: style_size_id
+        table:
+          name: one_orders
+          schema: make
+  - name: style_size_pieces
+    using:
+      foreign_key_constraint_on:
+        column: style_size_id
+        table:
+          name: style_size_pieces
+          schema: meta

@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-sops-secret
+  labels:
+    app: example-sops-secret
+    component: example-sops-secret
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-sops-secret
+      component: example-sops-secret
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: example-sops-secret
+        component: example-sops-secret
+    spec:
+      volumes:
+        - name: decrypted-secret-files
+          secret:
+            secretName: example-sops-secret-files
+      containers:
+      - name: example-sops-secret
+        image: docker/whalesay
+        command:
+          - sh
+        args:
+          - '-c'
+          - |-
+            while : ; do
+              cowsay "FOO is $FOO and BAR is $BAR"
+              env
+              ls -l /secrets
+              cat /secrets/secret-creds.enc.properties
+              sleep 500
+            done
+        imagePullPolicy: Always
+        env:
+          - name: RES_ENV
+            value: development
+          - name: RES_APP_NAME
+            value: example-sops-secret
+          - name: RES_NAMESPACE
+            value: res-examples
+          - name: FOO
+            valueFrom:
+              secretKeyRef:
+                key: FOO
+                name: example-sops-secret
+          - name: BAR
+            valueFrom:
+              secretKeyRef:
+                key: BAR
+                name: example-sops-secret
+        envFrom:
+          - secretRef:
+              name: example-sops-secret
+        volumeMounts:
+          - mountPath: /secrets
+            name: decrypted-secret-files

@@ -1,0 +1,10 @@
+deployment:
+  type: "res_workflow"
+  env:
+    USER_INFO: "LOG_LEVEL must be one of debug, info, warn, error, critical, or incr. MESSAGE can be anything. Set the team to a Sentry team, e.g. res-data ."
+    LOG_LEVEL: "debug"
+    RES_TEAM: "res-make"
+    MESSAGE: "hello world!"
+  command: python
+  args:
+    - /app/main.py

@@ -1,0 +1,3 @@
+table:
+  name: machine_configs
+  schema: make

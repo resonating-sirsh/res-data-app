@@ -1,0 +1,4 @@
+deployment:
+  type: "res_long_running_service"
+  env:
+    RES_APP_NAME: "stripe-webhooks-kaf-message-events-listener"

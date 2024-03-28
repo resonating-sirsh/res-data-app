@@ -1,0 +1,56 @@
+{
+	"type": "record",
+	"name": "make_node_observations",
+	"namespace": "res_make_node_observations",
+	"doc": "Piece level updates coming from the different nodes.",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "piece_id",
+			"type": "string"
+		},
+		{
+			"name": "piece_code",
+			"type": "string"
+		},
+		{
+			"name": "one_code",
+			"type": "string"
+		},
+		{
+			"name": "nodes",
+			"type": "string"
+		},
+		{
+			"name": "status",
+			"type": "string"
+		},
+		{
+			"name": "validation_flags",
+			"type": "string"
+		},
+		{
+			"name": "event_datetime",
+			"type": "string"
+		},
+		{
+			"name": "observation_confidence",
+			"type": "float"
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int"
+				],
+				"default": {}
+			}
+		}
+	]
+}

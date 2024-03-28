@@ -1,0 +1,24 @@
+{
+    "instructions": [
+        {
+            "type": "EXPORT",
+            "export_type": "TURNTABLE",
+            "output_file_name": "turntable.zip",
+            "number_of_snapshots": 24
+        },
+        {
+            "type": "EXPORT",
+            "export_type": "DXA_ASSET_BUNDLE",
+            "techpack_name": "rule_table",
+            "output_file_name": "rule_table.zip"
+        },
+        {
+            "type": "EXPORT",
+            "export_type": "DXA_ASSET_BUNDLE",
+            "techpack_name": "tp-p2f-renders",
+            "output_file_name": "asset_bundle.zip"
+        }
+    ],
+    "remote_destination": "s3://res-temp-public-bucket/style_assets_dev/",
+    "remote_destination_subfolder_type": "JOB_ID"
+}

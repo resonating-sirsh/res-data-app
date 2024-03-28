@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS sell.order_line_item_pricing;

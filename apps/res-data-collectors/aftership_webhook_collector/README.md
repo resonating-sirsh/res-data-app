@@ -1,0 +1,2 @@
+This app creates a public Flask-based REST Api to receive webhooks from Aftership.
+Webhooks follow [this specification](https://www.aftership.com/docs/returns/webhook/webhook-overview) and make use of [this Return info payload](https://www.aftership.com/docs/returns/model/resource/return)

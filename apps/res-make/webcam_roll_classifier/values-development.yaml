@@ -1,0 +1,11 @@
+deployment:
+  type: "res_workflow"
+  name: "webcam-roll-classifier"
+  command: python
+  args:
+    - /app/src/main.py
+  cron:
+    schedule: "0 */6 * * *"
+  memory: "4G"
+  env:
+    WEBCAM_TIME_WINDOW_MINUTES: 360

@@ -1,0 +1,38 @@
+{
+    "tableName": "res_data_infrastructure_airtable_cdc",
+    "tableType": "REALTIME",
+    "segmentsConfig": {
+        "timeColumnName": "timestamp",
+        "timeType": "SECONDS",
+        "retentionTimeUnit": "SECONDS",
+        "retentionTimeValue": "3650",
+        "segmentPushType": "APPEND",
+        "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
+        "schemaName": "res_data_infrastructure_airtable_cdc",
+        "replication": "1",
+        "replicasPerPartition": "1"
+    },
+    "tenants": {},
+    "tableIndexConfig": {
+        "loadMode": "MMAP",
+        "streamConfigs": {
+            "streamType": "kafka",
+            "security.protocol": "SSL",
+            "ssl.truststore.location": "/opt/pinot/kafka.client.truststore.jks",
+            "stream.kafka.topic.name": "res_infrastructure.airtable_to_kafka.airtable_changes_cdc",
+            "stream.kafka.consumer.type": "lowlevel",
+            "stream.kafka.consumer.prop.auto.offset.reset": "largest",
+            "stream.kafka.consumer.factory.class.name": "org.apache.pinot.plugin.stream.kafka20.KafkaConsumerFactory",
+            "stream.kafka.decoder.class.name": "org.apache.pinot.plugin.inputformat.avro.confluent.KafkaConfluentSchemaRegistryAvroMessageDecoder",
+            "realtime.segment.flush.threshold.rows": "0",
+            "realtime.segment.flush.threshold.time": "24h",
+            "realtime.segment.flush.segment.size": "100M",
+            "stream.kafka.zk.broker.url": "z-1.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:2181",
+            "stream.kafka.broker.list": "b-3.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-2.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-1.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094",
+            "schema.registry.url": "kafka-schema-registry-cp-schema-registry.kafka-schema-registry.svc.cluster.local:8081"
+        }
+    },
+    "metadata": {
+        "customConfigs": {}
+    }
+}

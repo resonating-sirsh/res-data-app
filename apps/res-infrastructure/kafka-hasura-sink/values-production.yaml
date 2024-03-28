@@ -1,0 +1,4 @@
+deployment:
+  replicas: 2
+  env:
+    HASURA_ENDPOINT: https://hasura.resmagic.io

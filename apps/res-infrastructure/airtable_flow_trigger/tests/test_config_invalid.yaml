@@ -1,0 +1,16 @@
+team: "make"
+event_triggers:
+  - base: "appjmzNPXOuynj6xP"
+    flow: "missing_table_param"
+    formula: |
+      sample_formula_2
+    active:
+      development: False
+      production: True
+  - base: "appjmzNPXOuynj6xP"
+    table: "abcd123"
+    flow: "missing_active_development"
+    formula: |
+      sample_formula_2
+    active:
+      production: True

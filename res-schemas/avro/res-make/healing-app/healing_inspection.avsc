@@ -1,0 +1,47 @@
+[{
+	"type": "record",
+	"name": "healing_inspection",
+	"namespace": "res_make.healing_inspection.event",
+	"doc": "This will send all healing info to kafka message",
+	"fields": [
+		{
+			"name": "record_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "one_number",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "resolution",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "resolution_type",
+			"type": ["string", "null"],
+			"default": "null"
+		},
+		{
+			"name": "error",
+			"type": ["string", "null"],
+			"default": "null"
+		},
+		{
+			"name": "node",
+			"type": ["string", "null"],
+			"default": "null"
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			},
+			"default": "null"
+		}
+	]
+}]

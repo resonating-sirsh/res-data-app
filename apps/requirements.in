@@ -1,0 +1,8 @@
+-r apps/res-analytics/looker_dashboard_generator/requirements.in
+-r apps/res-data-collectors/google_adwords/requirements.in
+-r apps/res-make/clear_nests/requirements.in
+-r apps/res-make/clear_optimus_assignments/requirements.in
+-r apps/res-make/nesting_optimus/requirements.in
+-r apps/res-make/optimus_nest_roll_assignment/requirements.in
+-r apps/res-make/optimus_printer/requirements.in
+-r apps/res-make/optimus_printer_assignment/requirements.in

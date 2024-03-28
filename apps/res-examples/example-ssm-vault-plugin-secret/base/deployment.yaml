@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-ssm-vault-plugin-secret
+  labels:
+    app: example-ssm-vault-plugin-secret
+    component: example-ssm-vault-plugin-secret
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-ssm-vault-plugin-secret
+      component: example-ssm-vault-plugin-secret
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: example-ssm-vault-plugin-secret
+        component: example-ssm-vault-plugin-secret
+    spec:
+      containers:
+      - name: example-ssm-vault-plugin-secret
+        image: docker/whalesay
+        command:
+          - sh
+        args:
+          - '-c'
+          - |-
+            while : ; do
+              cowsay "FOO is $FOO"
+              sleep 500
+            done
+        imagePullPolicy: Always
+        env:
+          - name: RES_ENV
+            value: development
+          - name: RES_APP_NAME
+            value: example-ssm-vault-plugin-secret
+          - name: RES_NAMESPACE
+            value: res-examples
+          - name: FOO
+            valueFrom:
+              secretKeyRef:
+                key: FOO
+                name: example-ssm-secret

@@ -1,0 +1,305 @@
+{
+    "activeIssuesIds": [],
+    "brandCode": "BG",
+    "brandId": [
+        "recDnyvtQu9HlMzAW"
+    ],
+    "brandName": [
+        "BruceGlen"
+    ],
+    "code": "2129482",
+    "containsExternalItem": false,
+    "createdAt": "2023-03-27T22:14:48.000Z",
+    "daysOpenInMake": 35,
+    "daysSinceOrder": 10,
+    "deadlineStatus": "Time at Risk",
+    "email": "bruceglentwins@gmail.com",
+    "firstTouchSent": false,
+    "friendlyName": "5/15-Saks Wholesale",
+    "fulfillmentId": [
+        "rec11PgMmu9kPl3oD"
+    ],
+    "hasItemsFlaggedForReview": false,
+    "holdEmail": false,
+    "id": "receFmFwgcHmyjzpv",
+    "isArchived": false,
+    "isClosed": false,
+    "isClosedv2": "0",
+    "isFlaggedForReview": false,
+    "isOrderClosed": false,
+    "key": "BG-2129482",
+    "keyid": "2129482",
+    "was_payment_successful": false,
+    "was_balance_not_enough": true,
+    "lineItemIds": [
+        "recAazIxJZse9Rxgu",
+        "recOCQ0PPntZHAJYV",
+        "rec3Whf39FX37M2xc",
+        "recgUEb1OWGVHM0X2",
+        "recC0dIC3PEvCasb8",
+        "recnjbsV8tkIf1rDA",
+        "recCJTiLbIcP4BTkE",
+        "recsO9vzgpW0QyIRr",
+        "recaR5eA3BZrkKdY4",
+        "rec96wpjeekpkjPi5",
+        "rec50NU9k5uTg60Kb",
+        "recLdIyzejCdyBeWn",
+        "reczcjIzKbl4CernR",
+        "recbFByOKAhACgQqm",
+        "recMiKbEoVsjNvId1",
+        "recbVZX3JTf31LlS4",
+        "recatvwIkUpgs7hDz",
+        "recDmfc6HvIdbVSiR",
+        "recooP8CGqV17jydA",
+        "recMLIebsWTXo6EDz",
+        "recRKzgcuwm6qY2YK",
+        "recmdaHOU5SDPmK1Q",
+        "recAcZSc5PgyUaCVG",
+        "recpw620vW8OPB1Do",
+        "recXostwlYPT1xJbs",
+        "recy0s2HvGXGRTUDj",
+        "recSk3eIXgOWrk5MN",
+        "recQE8v8GD3TvfvMC",
+        "reclaFJWcZVH4axc2",
+        "rec0rBbn2lEKTkRb1",
+        "rec7AYaTLDPrmUJJ0",
+        "recn6u4SvPV9eyUmQ",
+        "recZe37X8bYx9TQgP",
+        "recgyubKUUshx1rSo",
+        "receHBQhzt0uXzCho"
+    ],
+    "lineItemsCreated": 35,
+    "lineItemsInfo": [
+        {
+            "id": "recnjbsV8tkIf1rDA",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 1ZZXS"
+        },
+        {
+            "id": "rec3Whf39FX37M2xc",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 1ZZXS"
+        },
+        {
+            "id": "recAazIxJZse9Rxgu",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 1ZZXS"
+        },
+        {
+            "id": "recgUEb1OWGVHM0X2",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 1ZZXS"
+        },
+        {
+            "id": "recC0dIC3PEvCasb8",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 1ZZXS"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 1ZZXS"
+        },
+        {
+            "id": "recbVZX3JTf31LlS4",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 2ZZSM"
+        },
+        {
+            "id": "recXostwlYPT1xJbs",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 3ZZMD"
+        },
+        {
+            "id": "rec0rBbn2lEKTkRb1",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 4ZZLG"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 4ZZLG"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 4ZZLG"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 4ZZLG"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 4ZZLG"
+        },
+        {
+            "id": "receHBQhzt0uXzCho",
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 5ZZXL"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 5ZZXL"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 5ZZXL"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 5ZZXL"
+        },
+        {
+            "id": null,
+            "quantity": 1,
+            "sku": "CC6008 CHRST BURGKQ 5ZZXL"
+        }
+    ],
+    "number": "2129482",
+    "numberLineItems": 35,
+    "orderChannel": "resmagic.io",
+    "orderStatus": "\\u2699\\ufe0fOpen Fulfillments",
+    "orderStatusV3": "Open",
+    "releaseStatus": "HOLD",
+    "requestName": "5/15-Saks Wholesale",
+    "requestType": "Finished Goods",
+    "salesChannel": "Wholesale",
+    "secondTouchSent": false,
+    "shippingAddress1": "548 South Spring Street",
+    "shippingAddress2": "DPO AE",
+    "shippingCity": "Los Angeles",
+    "shippingCountry": "USA",
+    "shippingName": "BG LA",
+    "shippingPhone": "+1 (646) 715-4703",
+    "shippingProvince": "California",
+    "shippingZip": "90013",
+    "styleCodes": [
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ",
+        "CC-6008 CHRST BURGKQ"
+    ],
+    "thirthTouchSent": false
+}

@@ -1,0 +1,89 @@
+{
+	"type": "record",
+	"name": "one_responses",
+	"namespace": "res_make.orders",
+	"doc": "receive requests in make for ONEs and then response with this - attach one number",
+	"fields": [
+		{
+			"name": "id",
+			"type": "string"
+		},
+        {
+			"name": "order_line_item_id",
+			"type": "string"
+		},
+	    {
+			"name": "style_size_id",
+			"type": "string"
+		},
+		{
+			"name": "one_code",
+			"type": "string"
+		},
+	    {
+			"name": "one_number",
+			"type": "string"
+		},
+		{
+			"name": "sku",
+			"type": "string"
+		},
+		{
+			"name": "order_date",
+			"type": "string"
+		},
+		{
+			"name": "price",
+			"type": "float",
+            "default": 0
+		},
+        {
+			"name": "sla_days_at_order",
+			"type": ["int", "null"]
+		},
+		{
+			"name": "sales_channel",
+			"type": "string"
+		},
+		{
+			"name": "email",
+			"type": "string"
+		},
+		{
+			"name": "created_at",
+			"type": "string"
+		},
+		{
+			"name": "customization_json_string",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "make_pieces",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "meta_pieces",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int"
+				]
+			}
+		}
+	]
+}

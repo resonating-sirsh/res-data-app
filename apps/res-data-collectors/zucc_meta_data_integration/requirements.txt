@@ -1,0 +1,9 @@
+aiohttp
+asyncio
+boto3
+botocore
+facebook_business
+pandas
+snowflake-connector-python
+snowflake-sqlalchemy
+sqlalchemy

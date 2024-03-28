@@ -1,0 +1,11 @@
+deployment:
+  type: res_long_running_service
+  name: null-hypothesis
+  replicas: 2
+  servicePort: 5000
+  ingressType: private
+  memory: 5G
+  env:
+    HASURA_ENDPOINT: https://hasura-dev.resmagic.io
+    RES_APP_NAME: null-hypothesis
+    RES_TEAM: res-infrastructure

@@ -1,0 +1,91 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: mongodb-data-integration
+spec:
+  entrypoint: mongodb-data-integration
+  arguments:
+    parameters:
+    # Sync type can be overridden in the developer UI to perform full syncs
+    - name: sync_type
+      value: "incremental"
+    - name: dev_override
+      value: "" # Can be used to enable running the app in a dev environment
+    - name: steps_to_run
+      value: "all"      
+  templates:
+  - name: mongodb-data-integration
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override
+      - name: steps_to_run
+    steps:       
+    - - name: resmagic-measurement-requests
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"                              
+          - name: flow_name
+            value: "/app/src/resmagic_measurement_requests.py"
+          - name: memory
+            value: 2048Mi   
+        continueOn:
+          failed: true    
+    - - name: resmagic-one-measurements
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"                              
+          - name: flow_name
+            value: "/app/src/resmagic_one_measurements.py"
+          - name: memory
+            value: 2048Mi   
+        continueOn:
+          failed: true                       
+    - - name: resmagic-products
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"                              
+          - name: flow_name
+            value: "/app/src/resmagic_products.py"
+          - name: memory
+            value: 2048Mi                                            
+  - name: generic-step
+    retryStrategy:
+          limit: "1"
+          retryPolicy: "Always" 
+          backoff:
+            duration: "30m"  
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override      
+      - name: flow_name
+      - name: steps_to_run
+      - name: memory
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.sync_type}}", "{{inputs.parameters.dev_override}}", "{{workflow.parameters.steps_to_run}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+ 

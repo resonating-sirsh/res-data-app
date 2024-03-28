@@ -1,0 +1,6 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0 */1 * * *"
+  env:
+    BACKFILL: false

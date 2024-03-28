@@ -1,0 +1,11 @@
+deployment:
+  type: "res_workflow"
+  name: "clear-print-records"
+  command: python
+  args:
+    - src/clear_print_records.py
+  cron:
+    schedule: "51 * * * *"
+  env:
+    MATERIALS: "all"
+    DRY_RUN: 0

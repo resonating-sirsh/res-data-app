@@ -1,0 +1,11 @@
+table:
+  name: customers
+  schema: sell
+array_relationships:
+  - name: orders
+    using:
+      foreign_key_constraint_on:
+        column: customer_id
+        table:
+          name: orders
+          schema: sell

@@ -1,0 +1,19 @@
+table:
+  name: asset_type
+  schema: create
+is_enum: true
+array_relationships:
+  - name: assets
+    using:
+      foreign_key_constraint_on:
+        column: type
+        table:
+          name: asset
+          schema: create
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - description
+        - name
+      filter: {}

@@ -1,0 +1,152 @@
+#   kubectl delete -f res_data_workflows/res-make/one-journey/one_journey.yaml -n argo
+#   argo template create res_data_workflows/res-make/one-journey/one_journey.yaml -n argo
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: one-journey
+spec:
+  ttlStrategy:
+    secondsAfterCompletion: 80 # Time to live after workflow is completed
+    secondsAfterSuccess: 80 # Time to live after workflow is successful
+    secondsAfterFailure: 7200 # Time to live after workflow fails
+  entrypoint: one-journey
+  arguments:
+    parameters:
+      - name: event
+        value: '{"record_id": ""}'
+  templates:
+    - name: one-journey
+      inputs:
+        parameters:
+          - name: event
+      steps:
+        - - name: get-one-number
+            template: res-data
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{workflow.parameters.event}}"
+                - name: flow_name
+                  value: get_one_number
+        - - name: generate-one
+            template: res-data
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{steps.get-one-number.outputs.parameters.result}}"
+                - name: flow_name
+                  value: generate_one
+        - - name: get-electricity-water-consumption
+            template: res-data
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{steps.generate-one.outputs.parameters.result}}"
+                - name: flow_name
+                  value: get_electricity_water_consumption
+        - - name: get-ink-consumption
+            template: res-data
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{steps.generate-one.outputs.parameters.result}}"
+                - name: flow_name
+                  value: get_ink_consumption
+        - - name: get-chemicals-consumption
+            template: res-data
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{steps.generate-one.outputs.parameters.result}}"
+                - name: flow_name
+                  value: get_chemicals_consumption
+        - - name: get-shipping-carbon-emissions
+            template: res-data
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{steps.generate-one.outputs.parameters.result}}"
+                - name: flow_name
+                  value: get_shipping_carbon_emissions
+        - - name: get-rolls-shipment-carbon-emission
+            template: res-data
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{steps.generate-one.outputs.parameters.result}}"
+                - name: flow_name
+                  value: get_rolls_shipment_carbon_emission
+
+    - name: res-data
+      retryStrategy:
+        limit: "2"
+        retryPolicy: "OnFailure"
+        backoff:
+          #back off for 3 minute and try again - in the scale of the 24 hour cron job 3 minutes is not too bad
+          duration: "3m"
+      inputs:
+        parameters:
+          - name: event
+          - name: flow_name
+      outputs:
+        parameters:
+          - name: result
+            valueFrom:
+              path: /tmp/dump.txt
+      podSpecPatch: '{"tolerations":[{"key": "workflow", "value": "true", "effect": "NoSchedule"}]}'
+      script:
+        image: res-data
+        command: [python]
+        source: |
+          import json
+          import sys
+          from res.utils import secrets_client
+
+          workflow_event = json.loads('{{inputs.parameters.event}}')
+          from res.flows.make.one_journey import *
+
+          secrets_client.get_secret("GRAPH_API_KEY")
+          secrets_client.get_secret("SNOWFLAKE_USER")
+          secrets_client.get_secret("SNOWFLAKE_PASSWORD")
+
+          data = {{inputs.parameters.flow_name}}(workflow_event)
+
+          with open('/tmp/dump.txt', 'w') as f:
+            json.dump(data, f)
+
+        env:
+          - name: RES_ENV
+            value: development
+          - name: STATSD_HOST
+            value: statsd-exporter-prometheus-statsd-exporter.statsd-exporter.svc.cluster.local
+          - name: RES_NAMESPACE
+            value: res-etl
+          - name: RES_APP_NAME
+            value: airtable-migration
+          - name: AWS_REGION
+            value: us-east-1
+          - name: AWS_DEFAULT_REGION
+            value: us-east-1
+          #snowpipe process had a mysterious problem when using the cluster aws user - need to investigate
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                key: AWS_ACCESS_KEY_ID
+                name: onelearn-secret
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: AWS_SECRET_ACCESS_KEY
+                name: onelearn-secret
+          #this and others can be imported from the config map but want to clean up the other variables in this set first
+          - name: SNOWFLAKE_ACCOUNT
+            valueFrom:
+              secretKeyRef:
+                key: SNOWFLAKE_ACCOUNT
+                name: onelearn-secret
+          #the key or format in secrets manager caused a problem so leaving this here for now
+          - name: SNOWFLAKE_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                key: SNOWFLAKE_PRIVATE_KEY
+                name: onelearn-secret

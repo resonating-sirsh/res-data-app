@@ -1,0 +1,11 @@
+table:
+  name: printfile
+  schema: make
+array_relationships:
+  - name: printfile_pieces
+    using:
+      foreign_key_constraint_on:
+        column: printfile_id
+        table:
+          name: printfile_pieces
+          schema: make

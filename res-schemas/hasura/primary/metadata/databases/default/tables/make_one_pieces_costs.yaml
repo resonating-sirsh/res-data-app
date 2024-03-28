@@ -1,0 +1,11 @@
+table:
+  name: one_pieces_costs
+  schema: make
+array_relationships:
+  - name: one_pieces
+    using:
+      foreign_key_constraint_on:
+        column: one_piece_costs_id
+        table:
+          name: one_pieces
+          schema: make

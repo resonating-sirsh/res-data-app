@@ -1,0 +1,10 @@
+table:
+  name: one_pieces_history
+  schema: make
+object_relationships:
+  - name: node
+    using:
+      foreign_key_constraint_on: node_id
+  - name: piece
+    using:
+      foreign_key_constraint_on: piece_oid

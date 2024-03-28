@@ -1,0 +1,1 @@
+-- Skipping writing a down migration for this

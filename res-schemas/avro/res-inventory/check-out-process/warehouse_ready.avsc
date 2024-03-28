@@ -1,0 +1,90 @@
+{
+	"type": "record",
+	"name": "warehouse_ready",
+	"namespace": "res_inventory.check_out_process",
+	"doc": "This will send information when the record in inventory has been processed.",
+	"fields": [
+		{
+			"name": "record_id",
+			"type": ["null", "string"],
+            "default": null
+		},
+		{
+			"name": "one_number",
+			"type": ["null", "string"],
+            "default": null
+		},
+		{
+			"name": "bar_code_scanned",
+			"type": ["null", "string"],
+            "default": null
+		},
+		{
+			"name": "brand_code",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "reservation",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "notes",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "deduction",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "order_number_key",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "warehouse_location",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "channel",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "place_action",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "res_magic_request_url",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "res_magic_request_type",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "linked_order_line_item_id",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			},
+			"default": {}
+		}
+	]
+}

@@ -1,0 +1,70 @@
+key: "styles"
+name: "styles"
+child_types: []
+interfaces: []
+airtable_table_id: "tblmszDBvO1MvJrlJ"
+airtable_base_id: "appjmzNPXOuynj6xP"
+fields:
+- name: "key"
+  is_key: True
+  is_required: True
+  type: str
+  indexes:
+  - hash
+  airtable_field_name: "Key"
+- name: brand_code
+  is_required: True
+  type: str
+  meta_type: "brands"
+  indexes:
+  - exact
+  airtable_field_name: "Brand Code"
+- name: body_code
+  is_required: True
+  type: str
+  meta_type: "bodies"
+  indexes:
+  - exact
+  airtable_field_name: "Body Code"
+- name: color_code
+  is_required: True
+  type: str
+  meta_type: "colors"
+  indexes:
+  - exact
+  airtable_field_name: "__colorcode"
+- name: material_code
+  is_required: True
+  type: str
+  meta_type: "materials"
+  indexes:
+  - exact
+  airtable_field_name: "__materialcode"
+- name: is_one_ready
+  type: bool
+  airtable_field_name: "isOneReady"
+
+
+#generates in dgraph
+#<styles.brands>: uid  .
+# <brand_code>: string .
+# <styles.bodies>: uid  .
+# <body_code>: string .
+# <styles.colors>: uid  .
+# <color_code>: string .
+# <styles.materials>: uid  .
+# <material_code>: string .
+# <is_one_ready>: bool .
+
+# type styles{
+#   brand_code
+#   body_code
+#   is_one_ready
+#   styles.brands
+#   color_code
+#   key
+#   styles.colors
+#   styles.materials
+#   styles.bodies
+#   material_code
+# } 

@@ -1,0 +1,5 @@
+mutation MyMutation($height_nest_px: Int = 10, $material_code: String = "", $metadata: jsonb = "", $nest_file_path: String = "", $one_number: Int = 10, $piece_count: Int = 10, $piece_set_key: String = "", $piece_type: String = "", $utilization: Float = 1.5, $width_nest_px: Int = 10) {
+  insert_make_nested_ones_one(object: {height_nest_px: $height_nest_px, material_code: $material_code, metadata: $metadata, nest_file_path: $nest_file_path, one_number: $one_number, piece_count: $piece_count, piece_set_key: $piece_set_key, piece_type: $piece_type, utilization: $utilization, width_nest_px: $width_nest_px}) {
+    id
+  }
+}

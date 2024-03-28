@@ -1,0 +1,75 @@
+[{
+	"type": "record",
+	"name": "sew_inspection",
+	"namespace": "res_make.sew.sew_inspection",
+	"doc": "This will send all Sew Inspection data to Kafka",
+	"fields": [
+		{
+			"name": "record_id",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "one_number",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "inspection_type",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "point_of_measurement",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "target_measurement",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "tolerance",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "tolerance_percent",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "actual_measurement",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "accepted",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "rejected",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "contract_name",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			},
+			"default": {}
+		}
+	]
+}]

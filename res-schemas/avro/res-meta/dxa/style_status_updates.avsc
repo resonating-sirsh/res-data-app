@@ -1,0 +1,84 @@
+ {
+ 	"type": "record",
+ 	"name": "style_status_updates",
+ 	"namespace": "res_meta.dxa",
+ 	"doc": "track state changes on some interval in the apply color queue",
+ 	"fields": [{
+ 			"name": "id",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "request_id",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "flow_id",
+ 			"type": ["null", "string"],
+ 			"default": null
+ 		},
+		{
+ 			"name": "flow_version",
+ 			"type": "int"
+ 		},
+		{
+ 			"name": "event_type",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "style_code",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "node",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "node_ordinal",
+ 			"type": "int"
+ 		},
+ 		{
+ 			"name": "entered_at",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "exited_at",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "body_version",
+ 			"type": ["int"]
+ 		},
+ 		{
+ 			"name": "contracts_failed",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			},
+ 			"default": []
+ 		},
+ 		{
+ 			"name": "metadata",
+ 			"type": {
+ 				"type": "map",
+ 				"values": [
+ 					"null",
+ 					"float",
+ 					"string",
+ 					"int",
+ 					"boolean"
+ 				]
+ 			},
+ 			"default": {}
+ 		},
+ 		{
+ 			"name": "created_at",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		}
+ 	]
+ }

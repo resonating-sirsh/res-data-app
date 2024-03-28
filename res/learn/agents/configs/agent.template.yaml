@@ -1,0 +1,14 @@
+agent:
+  name: "someone"
+  config:
+    arg1: value
+    can_lookup_functions: false
+  model: ""
+  plan: ""
+  response_model: "class"
+  questions:
+    - "im curious about"
+    - "i need to know X to do my job"
+  functions:
+    - function_a
+    - function_b

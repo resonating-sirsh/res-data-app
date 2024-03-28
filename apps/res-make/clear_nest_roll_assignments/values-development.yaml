@@ -1,0 +1,8 @@
+deployment:
+  type: "res_workflow"
+  command: python
+  args:
+    - /app/src/main.py
+  env:
+    MATERIALS: "all"
+    ROLLS: "all"

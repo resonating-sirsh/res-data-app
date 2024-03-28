@@ -1,0 +1,57 @@
+ {
+ 	"type": "record",
+ 	"name": "apply_color_request",
+ 	"namespace": "res_meta.dxa",
+ 	"doc": "make requests on the apply color queue from create-one,make or otherwise",
+ 	"fields": [{
+ 			"name": "id",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "flow_id",
+ 			"type": ["null", "string"],
+ 			"default": null
+ 		},
+		{
+ 			"name": "requesting_node",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "style_code",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "body_version",
+ 			"type": ["int"]
+ 		},
+ 		{
+ 			"name": "contracts_failed",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			},
+ 			"default": []
+ 		},
+ 		{
+ 			"name": "metadata",
+ 			"type": {
+ 				"type": "map",
+ 				"values": [
+ 					"null",
+ 					"float",
+ 					"string",
+ 					"int",
+ 					"boolean"
+ 				]
+ 			},
+ 			"default": {}
+ 		},
+ 		{
+ 			"name": "created_at",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		}
+ 	]
+ }

@@ -1,0 +1,10 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    enable: true
+    schedule: "0 */4 * * *"
+  command: python
+  args:
+    - /app/get_missing_orders.py
+  env:
+    RES_TEAM: "res-sell"

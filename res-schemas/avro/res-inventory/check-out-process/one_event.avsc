@@ -1,0 +1,55 @@
+[{
+	"type": "record",
+	"name": "one_event",
+	"namespace": "res_inventory.check_out_process",
+	"doc": "This will send all ONEs and SKU scanned in Inventory",
+	"fields": [
+		{
+			"name": "record_id",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "one_number",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "bar_code_scanned",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "work_station",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "warehouse_checkin_location",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "checkin_type",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "operator_name",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			},
+			"default": {}
+		}
+	]
+}]

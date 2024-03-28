@@ -1,0 +1,1 @@
+This app provides webhooks for Stripe to send incoming events

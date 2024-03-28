@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/0/0d/Bash_Logo_Favicon_Black_and_White.svg"
+        type="image/x-icon">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Accessing Services</h2>
+    <p>The services below are running in our Kubernetes cluster. You will need to configure Telepresence to access using
+        <a href="https://coda.io/d/Platform-Documentation_dbtYplzht1S/Telepresence_sur9D#_luJiZ" target="_blank">this
+            guide</a>
+    </p>
+    <h2>Links</h2>
+    <table>
+        <tr>
+            <th>Service</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><a href="http://kafka-kafdrop.kafka-kafdrop:9000" target="_blank">Kafdrop</a></td>
+            <td>UI for viewing Kafka topics and messages</td>
+        </tr>
+        <tr>
+            <td><a href="http://kafka-schema-registry-ui.kafka-schema-registry-ui:9000" target="_blank">Schema
+                    Registry</a></td>
+            <td>UI for adding/editing Kafka Schema Registry entries</td>
+        </tr>
+        <tr>
+            <td><a href="http://kafka-connect-ui.kafka-connect-ui" target="_blank">Kafka Connect</a></td>
+            <td>UI for viewing/restarting Kafka Connect sinks and sources</td>
+        </tr>
+        <tr>
+            <td><a href="http://argo-server.argo:2746" target="_blank">Argo</a></td>
+            <td>Runs workflows/DAGs that process data or perform a task</td>
+        </tr>
+        <tr>
+            <td><a href="http://druid-router.druid:8888" target="_blank">Druid</a></td>
+            <td>High-performance analytics database</td>
+        </tr>
+        <tr>
+            <td><a href="http://kubernetes-dashboard.kubernetes-dashboard" target="_blank">Kubernetes Dashboard</a></td>
+            <td>UI for managing the Kubernetes cluster</td>
+        </tr>
+        <tr>
+            <td><a href="http://prometheus-kube-prometheus-prometheus.prometheus:9090" target="_blank">Prometheus</a>
+            </td>
+            <td>Monitoring tool for anything running in Kubernetes
+            </td>
+        </tr>
+        <tr>
+            <td><a href="http://prometheus-kube-prometheus-alertmanager.prometheus:9093" target="_blank">Prometheus
+                    Alert Manager</a></td>
+            <td>Alert manager for Prometheus, sends alerts to PagerDuty</td>
+        </tr>
+        <tr>
+            <td><a href="http://prometheus-grafana.prometheus" target="_blank">Grafana</a></td>
+            <td>Dashboarding tool that pulls data from Prometheus</td>
+        </tr>
+        <tr>
+            <td><a href="http://dgraph-dgraph-ratel.dgraph" target="_blank">DGraph Ratel</a></td>
+            <td>Frontend for </td>
+        </tr>
+        <tr>
+            <td><a href="http://dgraph-dgraph-alpha.dgraph" target="_blank">DGraph Alpha</a></td>
+            <td>Frontend for </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

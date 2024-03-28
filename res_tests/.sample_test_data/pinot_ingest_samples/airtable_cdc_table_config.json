@@ -1,0 +1,37 @@
+{
+    "tableName": "res_data_infrastructure_airtable_cdc",
+    "tableType": "OFFLINE",
+    "segmentsConfig": {
+        "replication": 1,
+        "timeColumnName": "timestamp",
+        "timeType": "MILLISECONDS",
+        "retentionTimeUnit": "DAYS",
+        "retentionTimeValue": 365
+    },
+    "tenants": {
+        "broker": "DefaultTenant",
+        "server": "DefaultTenant"
+    },
+    "tableIndexConfig": {
+        "loadMode": "MMAP"
+    },
+    "ingestionConfig": {
+        "batchIngestionConfig": {
+            "segmentIngestionType": "APPEND",
+            "segmentIngestionFrequency": "DAILY",
+            "batchConfigMaps": [
+                {
+                    "inputDirURI": "s3://res-data-platform/samples/data/airtable_cdc/",
+                    "input.fs.className": "org.apache.pinot.plugin.filesystem.S3PinotFS",
+                    "input.fs.prop.region": "us-east-1",
+                    "includeFileNamePattern": "glob:**/*.parquet",
+                    "excludeFileNamePattern": "glob:**/*.tmp",
+                    "inputFormat": "parquet",
+                    "outputDirURI": "s3://pinot-development/sample/airtable_cdc",
+                    "push.mode": "metadata"
+                }
+            ]
+        }
+    },
+    "metadata": {}
+}

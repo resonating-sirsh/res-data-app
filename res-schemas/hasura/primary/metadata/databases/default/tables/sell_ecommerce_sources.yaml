@@ -1,0 +1,12 @@
+table:
+  name: ecommerce_sources
+  schema: sell
+is_enum: true
+array_relationships:
+  - name: orders
+    using:
+      foreign_key_constraint_on:
+        column: ecommerce_source
+        table:
+          name: orders
+          schema: sell

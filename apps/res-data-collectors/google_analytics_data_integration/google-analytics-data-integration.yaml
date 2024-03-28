@@ -1,0 +1,83 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: google-analytics-data-integration
+spec:
+  entrypoint: google-analytics-data-integration
+  arguments:
+    parameters:
+    # Sync type can be overridden to perform full or test syncs
+    - name: sync_type
+      value: "incremental"
+    - name: dev_override
+      value: "" # Can be used to enable running the app in a dev environment
+    - name: single_url
+      value: "" # Can be used to run the app for a single google analytics URL      
+    - name: ua_override
+      value: "" # Can be used to include now-deprecated UA reports          
+  templates:
+  - name: google-analytics-data-integration
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override
+      - name: single_url
+      - name: ua_override
+    steps:  
+    - - name: universal-analytics-reports
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: single_url
+            value: "{{workflow.parameters.single_url}}"       
+          - name: ua_override
+            value: "{{workflow.parameters.ua_override}}"                   
+          - name: flow_name
+            value: "/app/src/universal_analytics_reports.py"
+          - name: memory
+            value: 512Mi    
+        continueOn:
+          failed: true  
+    - - name: ga4-reports
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: single_url
+            value: "{{workflow.parameters.single_url}}"       
+          - name: ua_override
+            value: "{{workflow.parameters.ua_override}}"          
+          - name: flow_name
+            value: "/app/src/ga4_reports.py"
+          - name: memory
+            value: 512Mi                                                            
+  - name: generic-step
+    retryStrategy:
+          limit: "1"
+          retryPolicy: "Always" 
+          backoff:
+            duration: "30m"  
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override      
+      - name: single_url      
+      - name: ua_override      
+      - name: flow_name
+      - name: memory
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.sync_type}}", "{{inputs.parameters.dev_override}}", "{{inputs.parameters.single_url}}", "{{inputs.parameters.ua_override}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+ 

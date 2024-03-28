@@ -1,0 +1,60 @@
+{
+	"type": "record",
+	"name": "style_invalidation_requests",
+	"namespace": "res_meta.dxa",
+	"doc": "request invalidation of a style (or body by contract inspection)",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "flow_id",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "observed_at_node",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "open_order_count",
+			"type": ["null", "int"]
+		},
+		{
+			"name": "style_sku",
+			"type": "string"
+		},
+		{
+			"name": "body_version",
+			"type": ["int"]
+		},
+		{
+			"name": "contracts_failing",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int",
+					"boolean"
+				]
+			},
+			"default": {}
+		},
+		{
+			"name": "created_at",
+			"type": [
+				"string",
+				"null"
+			]
+		}
+	]
+}

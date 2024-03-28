@@ -1,0 +1,186 @@
+[  
+    {
+    "type": "record",
+    "name": "detail_values",
+    "namespace": "subscription.description",
+    "doc": "Details for charges to orders.",
+    "fields": [
+        {
+            "name": "make_cost",
+            "type": [
+                "double",
+                "null"
+            ]
+        },
+        {
+            "name": "price",
+            "type": [
+                "double",
+                "null"
+            ]
+        },
+        {
+            "name": "shipping",
+            "type": [
+                "double",
+                "null"
+            ]
+        },
+        {
+            "name": "sku",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "type",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "order_type",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "order_number",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "order_date",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "revenue_share",
+            "type": [
+                "double",
+                "null"
+            ]
+        },
+        {
+            "name": "total_amount",
+            "type": [
+                "double",
+                "null"
+            ]
+        }
+    ]
+    },
+    {
+        "type": "record",
+        "name": "transaction",
+        "namespace": "subscription",
+        "doc": "This is a Stripe Transaction Schema. Trigger schema.",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "customer_stripe_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name":"type",
+                "type": [
+                    "string",
+                     "null"
+                ]
+            },
+            {
+                "name":"source",
+                "type": [
+                    "string",
+                     "null"
+                ]
+            },
+            {
+                "name":"reference_id",
+                "type": [
+                    "string",
+                     "null"
+                ]
+            },
+            {
+                "name":"currency",
+                "type": [
+                    "string",
+                     "null"
+                ]
+            },
+            {
+                "name":"description",
+                "type": [
+                    "string",
+                     "null"
+                ]
+            }, 
+            {
+                "name":"stripe_charge_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }, 
+            {
+                "name":"receipt_url",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }, 
+            {
+                "name":"direct_stripe_payment",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "details",
+                "type": {
+                    "type": "array",
+                    "items": "subscription.description.detail_values"
+                }
+            },
+            {
+                "name":"is_failed_transaction",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name":"transaction_status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name":"transaction_error_message",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    }
+]

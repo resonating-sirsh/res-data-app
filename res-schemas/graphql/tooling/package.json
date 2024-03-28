@@ -1,0 +1,22 @@
+{
+  "license": "MIT",
+  "dependencies": {
+    "@graphql-codegen/schema-ast": "*",
+    "@graphql-codegen/typescript": "*",
+    "graphql": "^15.6.1",
+    "yarn": "^1.22.15"
+  },
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "generate": "graphql-codegen",
+    "prestart": "yarn generate",
+    "predev": "echo hi",
+    "test": "graphql-codegen --config codegen.yml"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/typescript": "2.2.2",
+    "@graphql-codegen/introspection": "2.1.0"
+  }
+}

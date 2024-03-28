@@ -1,0 +1,125 @@
+{
+	"type": "record",
+	"name": "responses",
+	"namespace": "meta_meta_one",
+	"doc": "The response contract after make meta-one",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "unit_key",
+			"type": "string"
+		},
+		{
+			"name": "body_code",
+			"type": "string"
+		},
+		{
+			"name": "piece_material_hash",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "body_version",
+			"type": [
+				"int",
+				"null"
+			]
+		},
+		{
+			"name": "color_code",
+			"type": "string"
+		},
+		{
+			"name": "size_code",
+			"type": "string"
+		},
+		{
+			"name": "normed_size",
+			"type": "string"
+		},
+		{
+			"name": "dxf_path",
+			"type": "string"
+		},
+		{
+			"name": "pieces_path",
+			"type": "string"
+		},
+		{
+			"name": "meta_one_path",
+			"type": "string"
+		},
+		{
+			"name": "piece_material_mapping",
+			"type": {
+				"type": "map",
+				"values": "string"
+			}
+		},
+		{
+			"name": "piece_color_mapping",
+			"type": {
+				"type": "map",
+				"values": "string"
+			}
+		},
+		{
+			"name": "material_properties",
+			"type": {
+				"type": "map",
+				"values": {
+					"type": "map",
+					"values": [
+						"null",
+						"float",
+						"string"
+					]
+				}
+			}
+		},
+		{
+			"name": "status",
+			"type": [
+				"string",
+				"null"
+			],
+			"default": "ENTERED"
+		},
+		{
+			"name": "style_name",
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		{
+			"name": "tags",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "flow",
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		{
+			"name": "unit_type",
+			"type": [
+				"string",
+				"null"
+			],
+			"default": "RES_STYLE"
+		},
+		{
+			"name": "created_at",
+			"type": "string"
+		}
+	]
+}

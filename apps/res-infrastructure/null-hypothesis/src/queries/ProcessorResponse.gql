@@ -1,0 +1,33 @@
+mutation ProcessorResponse(
+  $offset: Int = 10,
+  $partition: Int = 10,
+  $topic: String = "",
+  $processing_message: String = "",
+  $processing_state: infraestructure_kafka_message_processing_states_enum = PROCESSED_FAILED_FINAL,
+  $processor: jsonb = null,
+  $processor_lock: uuid = null,
+  $target_processor: jsonb = null
+) {
+  update_infraestructure_make_kafka_message_dump_1_by_pk(
+    pk_columns: {
+      offset: $offset, partition: $partition, topic: $topic
+    },
+    _set: {
+      processing_message: $processing_message,
+      processing_state: $processing_state,
+      processor: $processor,
+      processor_lock: $processor_lock,
+      target_processor: $target_processor
+  }) {
+    topic
+    offset
+    partition
+    processing_history
+    processing_message
+    processing_state
+    processing_state_last_transitioned_at
+    processor
+    processor_lock
+    target_processor
+  }
+}

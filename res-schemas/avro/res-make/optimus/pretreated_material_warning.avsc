@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "PretreatedMaterialWarning",
+  "namespace": "optimus.nest_roll_assignment",
+  "doc": "a warning from optimus when pretreated material isn't available for assigning nests",
+  "fields": [
+    {
+      "name": "material",
+      "type": "string"
+    },
+    {
+      "name": "task_key",
+      "type": "string"
+    },
+    {
+      "name": "created_at",
+      "type": "string"
+    },
+    {
+      "name": "print_asset_ct",
+      "type": "int"
+    }
+  ]
+}

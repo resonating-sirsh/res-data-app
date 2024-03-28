@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka-hasura-sink
+  namespace: argocd
+spec:
+  destination:
+    namespace: res-infrastructure
+    server: https://kubernetes.default.svc
+  project: res-infrastructure
+  source:
+    path: apps/res-infrastructure/kafka-hasura-sink/development
+    repoURL: git@github.com:resonance/res-data-platform.git
+    targetRevision: HEAD

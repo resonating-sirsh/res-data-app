@@ -1,0 +1,11 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0 0 * * *"
+  env:
+    BACKFILL: false
+    DAYS_BACK: 1
+    RES_TEAM: "iamcurious"
+  command: python
+  args:
+    - /app/src/main.py

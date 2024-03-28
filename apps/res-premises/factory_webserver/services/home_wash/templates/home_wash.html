@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HOME WASH</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('home_wash.static', filename='css/home_wash.css') }}"
+    />
+  </head>
+
+  <body>
+    <section class="body-section gradient-custom">
+      <div class="container">
+        <div class="continer-body">
+          <div class="div4">
+            <div class="roll-name">
+              <h1 id="roll-name">ROLL NAME</h1>
+              <h4 id="process-name">Procedimiento</h4>
+            </div>
+            <!-- Search nav -->
+            <form class="search-form">
+              <div class="search-container">
+                <select id="select-process" class="classic">
+                  <option value=""></option>
+                  <option value="empacar">Empacar</option>
+                  <option value="recibir">Recibir</option>
+                </select>
+                <input
+                  list="rollSelect"
+                  id="inputSelected"
+                  class="rolls-select"
+                />
+                <datalist name="rollList" id="rollSelect" form="rollform">
+                  {% for record in rolls %}
+                  <option
+                    data-value="{{record.id}}"
+                    value="{{ record['fields']['Name'] }}"
+                  ></option>
+                  {% endfor %}
+                </datalist>
+                <input
+                  type="button"
+                  value="Buscar"
+                  id="btn-search-roll"
+                  class="btn-search-roll"
+                />
+              </div>
+            </form>
+            <!-- Search nav -->
+
+            <!-- Tabs navs -->
+            <div class="nav-tabs">
+              <ul class="nav-list">
+                <li class="nav-item" id="ex1-tab-1">
+                  <a class="nav-link" href="#ex1-tabs-1" name="nab-tab">Jobs</a>
+                </li>
+              </ul>
+              <input type="text" name="" id="job-text" class="search-text" />
+            </div>
+            <!-- Tabs navs -->
+
+            <!-- Tabs content -->
+            <div class="tab-content">
+              <table id="print-jobs-table" class="print-jobs">
+                <tr>
+                  <th></th>
+                  <th>Jobs Faltantes</th>
+                </tr>
+                <tbody id="pending-jobs-table"></tbody>
+              </table>
+
+              <table class="print-jobs">
+                <tr>
+                  <th></th>
+                  <th>Jobs Completos</th>
+                </tr>
+                <tbody id="check-jobs-table"></tbody>
+              </table>
+
+              <div>
+                <label for="weight">Peso (kg):</label>
+                <input type="text" name="weight" id="weight" />
+              </div>
+            </div>
+            <!-- Tabs content -->
+          </div>
+          <div class="div-print">
+            <button id="btn-print" class="print">Imprimir</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+      integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="{{ url_for('home_wash.static', filename='js/home_wash.js') }}"></script>
+  </body>
+</html>

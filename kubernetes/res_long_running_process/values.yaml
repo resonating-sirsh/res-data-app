@@ -1,0 +1,16 @@
+deployment:
+  name: default-name
+  replicas: 1
+  env: {}
+  containers: []
+  containerDefaults: {}
+  annotations: {}
+  labels: {}
+  template:
+    annotations: {}
+    finalizers: []
+    labels: {}
+  metadata:
+    annotations: {}
+    finalizers: []
+    labels: {}

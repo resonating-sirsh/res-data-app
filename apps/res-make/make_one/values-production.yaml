@@ -1,0 +1,8 @@
+deployment:
+  type: "res_long_running_service"
+  name: "meta-one"
+  replicas: 2
+  servicePort: 5000
+  ingressType: "public"
+  memory: 5G
+  healthcheck: "/make-one/healthcheck"

@@ -1,0 +1,13 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0 12 * * *"
+  command: python
+  args:
+    - /app/main.py   
+  env:
+    DEV_OVERRIDE: "false"
+    IS_TEST: "false"
+    TARGET_DBT_MODEL_OVERRIDE: "none"
+    TARGET_JOB_ID_OVERRIDE: "none"
+    RES_TEAM: "iamcurious"  

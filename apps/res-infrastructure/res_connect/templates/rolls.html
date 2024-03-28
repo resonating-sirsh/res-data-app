@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <style>
+        th {
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        td {
+            font-size: 25;
+            font-family: helvetica;
+            text-align: right;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Inspectable Rolls</h1>
+    <br />
+    {% if not rolls_info %}
+    Nothing to inspect...
+    {% else %}
+    <table>
+        <tr>
+            <th>Roll Name</th>
+            <th>Current Substation</th>
+            <th>Nest Count</th>
+        </tr>
+        {% for name, roll in rolls_info.items() %}
+        <tr>
+            <td><a href="roll/{{roll['roll_key']}}" target="_blank">{{name}}</a></td>
+            <td>{{roll['substation']}}</td>
+            <td>{{roll['nests']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+
+</html>

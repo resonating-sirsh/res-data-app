@@ -1,0 +1,6 @@
+#comment enough to nudge this
+deployment:
+  type: "postgraphile_backend"
+  name: "argo_workflows_archive_db"
+  replicas: 1
+  servicePort: 5432

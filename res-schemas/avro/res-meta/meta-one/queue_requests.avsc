@@ -1,0 +1,35 @@
+{
+	"type": "record",
+	"name": "queue_requests",
+	"namespace": "meta_meta_one",
+	"doc": "Request things for the queue such as previews on the body and style",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "unit_key",
+			"type": "string"
+		},
+		{
+			"name": "request_type",
+			"type": "string"
+		},
+		{
+			"name": "unit_type",
+			"type": "string"
+		},
+		{
+			"name": "tags",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "created_at",
+			"type": "string"
+		}
+	]
+}

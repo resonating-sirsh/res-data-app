@@ -1,0 +1,7 @@
+table:
+  name: style_status_history
+  schema: meta
+object_relationships:
+  - name: style
+    using:
+      foreign_key_constraint_on: style_id

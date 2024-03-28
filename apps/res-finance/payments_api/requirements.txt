@@ -1,0 +1,2 @@
+stripe==2.63.0
+#no added requirements used here

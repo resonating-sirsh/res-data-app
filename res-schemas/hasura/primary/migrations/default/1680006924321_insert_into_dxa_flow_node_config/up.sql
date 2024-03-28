@@ -1,0 +1,2 @@
+INSERT INTO "dxa"."flow_node_config"("key", "created_at", "updated_at", "name", "version", "details", "description", "job_type") VALUES (E'3d_model_v0', E'2023-03-28T12:35:24.228576+00:00', E'2023-03-28T12:35:24.228576+00:00', E'3d_model', 0, '{"instructions":[{"type":"EXPORT","bundle_type":"3d_model","export_type":"DXA_ASSET_BUNDLE","output_file_name":"3d_model.zip"}],"remote_destination":"s3://res-temp-public-bucket/style_assets_dev/","remote_destination_subfolder_type":"JOB_ID"}', E'Exports 3d model and point cloud', E'DXA_EXPORT_ASSET_BUNDLE')
+ON CONFLICT DO NOTHING; 

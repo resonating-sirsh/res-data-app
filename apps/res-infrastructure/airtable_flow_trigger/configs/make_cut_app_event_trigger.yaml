@@ -1,0 +1,26 @@
+team: "res-make"
+event_triggers:
+  - base: "appyIrUOJf8KiXD1D"
+    table: "tbld6v3AJUk7IVS4p"
+    flow: "make.cut_app.create_inspection.create_inspection"
+    formula: |
+      AND({Inspection Status}='', {Inspection Created At}='', {make.ONE Request}!='',{Rank}!='Healing')
+    active:
+      development: False
+      production: False
+  # - base: "appyIrUOJf8KiXD1D"
+  #   table: "tblwIFbHo4PsZbDgz"
+  #   flow: "make.cut_app.bin_auto_assignment.bin_auto_assignment"
+  #   formula: |
+  #     AND({Utilized Rolls}!=BLANK(),{Located At}=BLANK(),{__still_stored}=1, {Close Request}=FALSE(),{Number of ONE Markers}>1, {Closed At}='')
+  #   active:
+  #     development: False
+  #     production: False
+  # - base: "appyIrUOJf8KiXD1D"
+  #   table: "tbld6v3AJUk7IVS4p"
+  #   flow: "make.cut_app.inspection_add_roll_resource.inspection_add_roll_resource"
+  #   formula: |
+  #     AND({Inspection Status}!='', {Resource Assignment (from Rolls)}!='', {Rolls}!='',{Is Inspection Ready?}='',{Rank}!='Healing')
+  #   active:
+  #     development: False
+  #     production: False

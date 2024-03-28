@@ -1,0 +1,16 @@
+{
+    "type": "record",
+    "name": "LiveProduct",
+    "namespace": "shopify.product",
+    "doc": "Batch process checks each product to see if it is live, and adds here",
+    "fields": [
+        {
+            "name": "id",
+            "type": "string"
+        },
+        {
+            "name": "live",
+            "type": "boolean"
+        }
+    ]
+}

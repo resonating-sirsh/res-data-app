@@ -1,0 +1,7 @@
+deployment:
+  type: "res_long_running_service"
+  replicas: 1
+  servicePort: 5000
+  ingressType: "public"
+  env:
+    TEST_ENV_VAR: "abcd"

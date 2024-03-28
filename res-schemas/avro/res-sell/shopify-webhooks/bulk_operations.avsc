@@ -1,0 +1,20 @@
+{
+    "type": "record",
+    "name": "bulk_operation",
+    "namespace": "shopify.bulk_operation",
+    "doc": "This is a subset of fields from the bulk operations from a shopify webhook",
+    "fields": [
+        {
+            "name": "id",
+            "type": "string",
+        },
+        {
+            "name": "status",
+            "type": ["string", "null"],
+        },
+        {
+            "name": "raw_data",
+            "type": ["string", "null"]
+        },
+    ]
+}

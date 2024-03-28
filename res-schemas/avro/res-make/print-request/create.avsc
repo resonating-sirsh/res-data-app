@@ -1,0 +1,53 @@
+[
+    {
+        "type": "record",
+        "name": "print_request",
+        "namespace": "res_make.print_request.create",
+        "doc": "This topic will get a message to create a new print asset request.",
+        "fields": [
+             {
+                "name": "id",
+                "type": ["string", "null"]
+            },
+            {
+                "name": "type",
+                "type": "string"
+            },{
+                "name": "make_one_request_id",
+                "type": "string"
+            },
+            {
+                "name": "style_id",
+                "type": "string"
+            },
+            {
+                "name": "body_code",
+                "type": "string"
+            },
+            {
+                "name": "material_code",
+                "type": "string"
+            },
+            {
+                "name": "color_code",
+                "type": "string"
+            },
+            {
+                "name": "size_code",
+                "type": "string"
+            },
+            {
+                "name": "brand_code",
+                "type": "string"
+            },
+            {
+                "name": "sku",
+                "type": "string"
+            },
+            {
+                "name": "order_number",
+                "type": "string"
+            }
+        ]
+    }
+]

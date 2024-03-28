@@ -1,0 +1,12 @@
+table:
+  name: ecommerce_collection_status
+  schema: sell
+is_enum: true
+array_relationships:
+  - name: ecommerce_collections
+    using:
+      foreign_key_constraint_on:
+        column: status
+        table:
+          name: ecommerce_collections
+          schema: sell

@@ -1,0 +1,95 @@
+[{
+	"type": "record",
+	"name": "create_make_one_request",
+	"namespace": "res_make.make_one_request.create",
+	"doc": "This topic will get a message when a new request (ONE) needs to be created.",
+	"fields": [{
+			"name": "id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "type",
+			"type": "string"
+		},
+		{
+			"name": "style_id",
+			"type": "string"
+		},
+		{
+			"name": "style_version",
+			"type": "string"
+		},
+		{
+			"name": "body_code",
+			"type": "string"
+		},
+		{
+			"name": "body_version",
+			"type": "int",
+			"default": 0
+		},
+		{
+			"name": "material_code",
+			"type": "string"
+		},
+		{
+			"name": "color_code",
+			"type": "string"
+		},
+		{
+			"name": "size_code",
+			"type": "string"
+		},
+		{
+			"name": "brand_code",
+			"type": "string"
+		},
+		{
+			"name": "brand_name",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "sales_channel",
+			"type": "string"
+		},
+		{
+			"name": "order_line_item_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "sku",
+			"type": "string"
+		},
+		{
+			"name": "order_number",
+			"type": "string"
+		},
+		{
+			"name": "request_name",
+			"type": "string"
+		},
+		{
+			"name": "channel_line_item_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "channel_order_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "line_item_creation_date",
+			"type": "string"
+		},
+		{
+			"name": "allocation_status",
+			"type": ["string", "null"],
+			"default": "Reserved"
+		},
+		{
+			"name": "make_extra_quantity",
+			"type": [ "int", "null"],
+			"default": 0
+		}
+
+	]
+}]

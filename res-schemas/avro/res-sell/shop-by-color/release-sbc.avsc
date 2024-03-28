@@ -1,0 +1,12 @@
+{
+    "type": "record",
+    "name": "ReleaseShopByColor",
+    "namespace": "sell.release_sbc",
+    "doc": "Batch process to swap materials between styles",
+    "fields": [
+        {
+            "name": "shop_by_color_id",
+            "type": "string"
+        }
+    ]
+}

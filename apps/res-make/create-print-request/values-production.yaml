@@ -1,0 +1,3 @@
+deployment:
+  memory: 1G
+  replicas: 2

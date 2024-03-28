@@ -1,0 +1,108 @@
+table:
+  name: ecommerce_collections
+  schema: sell
+object_relationships:
+  - name: ecommerce_collection_status
+    using:
+      foreign_key_constraint_on: status
+  - name: ecommerce_collections_sort_order_type
+    using:
+      foreign_key_constraint_on: sort_order_fk
+array_relationships:
+  - name: ecommerce_collection_filter_collections
+    using:
+      foreign_key_constraint_on:
+        column: collection_id
+        table:
+          name: ecommerce_collection_filter_collection
+          schema: sell
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        brand_code:
+          _eq: X-Hasura-Brand-Code
+      columns:
+        - body_html
+        - brand_code
+        - disjuntive
+        - ecommerce_id
+        - handle
+        - image_id
+        - published_at
+        - rules
+        - sort_order_fk
+        - status
+        - store_code
+        - title
+        - type_collection
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - title
+        - body_html
+        - created_at
+        - updated_at
+        - image_id
+        - type_collection
+        - store_code
+        - ecommerce_id
+        - published_at
+        - sort_order_fk
+        - handle
+        - publication_metadata
+        - rules
+        - disjuntive
+        - status
+        - synced_at
+      filter:
+        _and:
+          - status:
+              _neq: delete
+          - brand_code:
+              _eq: X-Hasura-Brand-Code
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - body_html
+        - disjuntive
+        - ecommerce_id
+        - handle
+        - id
+        - image_id
+        - publication_metadata
+        - published_at
+        - rules
+        - sort_order_fk
+        - status
+        - store_code
+        - synced_at
+        - title
+        - type_collection
+      filter: {}
+      check: {}
+event_triggers:
+  - name: ecommerce_collections
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+      update:
+        columns:
+          - disjuntive
+          - publication_metadata
+          - rules
+          - body_html
+          - handle
+          - image_id
+          - sort_order_fk
+          - status
+          - title
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://ecommerce-collection-app-service.res-sell.svc.cluster.local:5000/ecommerce-collection-app/webhook

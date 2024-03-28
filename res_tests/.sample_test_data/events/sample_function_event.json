@@ -1,0 +1,17 @@
+{
+    "apiVersion": "resmagic.io/v1",
+    "kind": "resFlow",
+    "metadata": {
+        "name": "flow_node_example",
+        "version": "exp1"
+    },
+    "assets": [
+        {}
+    ],
+    "task": {
+        "key": "test123"
+    },
+    "args": {
+        "spoof_fail": false
+    }
+}

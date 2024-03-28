@@ -1,0 +1,3 @@
+table:
+  name: flow_context_runs
+  schema: infraestructure

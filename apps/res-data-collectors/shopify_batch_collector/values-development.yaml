@@ -1,0 +1,14 @@
+deployment:
+  type: "res_workflow"
+  command: python
+  args:
+    - /app/src/main.py
+
+  cron:
+    schedule: "0 0 * * *"
+  env:
+    backfill: "false"
+    days: 1
+    brand_code: "false"
+    info: "Set backfill to 'true' for full history. If backfill is false, use days to set number of days back."
+    RES_TEAM: "iamcurious"

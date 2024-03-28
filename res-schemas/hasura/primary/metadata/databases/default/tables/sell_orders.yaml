@@ -1,0 +1,18 @@
+table:
+  name: orders
+  schema: sell
+object_relationships:
+  - name: customer
+    using:
+      foreign_key_constraint_on: customer_id
+  - name: ecommerceSourceByEcommerceSource
+    using:
+      foreign_key_constraint_on: ecommerce_source
+array_relationships:
+  - name: order_line_items
+    using:
+      foreign_key_constraint_on:
+        column: order_id
+        table:
+          name: order_line_items
+          schema: sell

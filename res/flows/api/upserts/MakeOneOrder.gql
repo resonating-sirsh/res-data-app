@@ -1,0 +1,55 @@
+mutation update_one_order_request($one_pieces: [make_one_pieces_insert_input!] = {}, $created_at: timestamptz = "", $id: uuid = "", $metadata: jsonb = "",
+ $order_item_id: uuid = "", $order_item_rank: Int = 0, $one_number: Int = 10, $updated_at: timestamptz = "", $status: String = "", $sku: String = "", $flags: jsonb = "", $one_code: String = "",  $order_number: String = "", $one_code_uri: String = "", $customization: jsonb = "", $oid: uuid = "", $make_instance: Int = 1,$style_size_id: uuid="", $deleted_at: timestamptz = "") {
+  
+  update_make_one_pieces(where: {one_order_id: {_eq: $id}}, _set: {deleted_at: $updated_at}) {
+    returning {
+      id
+    }
+  }
+
+  insert_make_one_orders_one(object: {
+  created_at: $created_at, 
+  one_pieces: {data: $one_pieces, on_conflict: {constraint: one_pieces_pkey, update_columns: [ oid,   make_instance, meta_piece_id, metadata, contracts_failed, defects, observed_at, deleted_at ]}}, 
+  id: $id, 
+  oid: $oid, 
+  order_item_id: $order_item_id, 
+  order_item_rank: $order_item_rank, 
+  metadata: $metadata, 
+  one_number: $one_number, 
+  updated_at: $updated_at, 
+  flags: $flags, 
+  status: $status, 
+  sku: $sku, 
+  order_number: $order_number
+  one_code: $one_code, 
+  one_code_uri: $one_code_uri, 
+  customization: $customization, 
+  make_instance: $make_instance,
+  style_size_id: $style_size_id,
+  #  style_group: $style_group, 
+  #  style_rank: $style_rank
+  }, 
+  on_conflict: {constraint: one_orders_pkey, update_columns: [style_size_id, oid, one_code, one_number, order_number, metadata, one_code_uri, customization, status, sku, flags]}) {
+    id
+    oid
+    one_code
+    one_number
+    order_item_rank
+    sku
+    order_number
+    metadata  
+    one_pieces {
+      make_instance
+      code
+      oid
+      node_id
+      piece {
+        base_image_uri
+        body_piece {
+          piece_key
+        }
+      }
+    }
+    make_instance
+  }
+}

@@ -1,0 +1,45 @@
+table:
+  name: transactions
+  schema: sell
+object_relationships:
+  - name: currencyByCurrency
+    using:
+      foreign_key_constraint_on: currency
+  - name: subscriptionBySubscription
+    using:
+      foreign_key_constraint_on: subscription
+  - name: transaction_source
+    using:
+      foreign_key_constraint_on: source
+  - name: transaction_type
+    using:
+      foreign_key_constraint_on: type
+array_relationships:
+  - name: transaction_details
+    using:
+      foreign_key_constraint_on:
+        column: transaction_id
+        table:
+          name: transaction_details
+          schema: sell
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - direct_stripe_payment
+        - is_failed_transaction
+        - id
+        - subscription
+        - currency
+        - description
+        - reference_id
+        - source
+        - stripe_charge_id
+        - transaction_error_message
+        - transaction_status
+        - type
+        - created_at
+        - updated_at
+        - amount
+      filter: {}
+      allow_aggregations: true

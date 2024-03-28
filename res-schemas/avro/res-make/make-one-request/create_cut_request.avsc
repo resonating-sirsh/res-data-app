@@ -1,0 +1,23 @@
+[{
+	"type": "record",
+	"name": "create_cut_request",
+	"namespace": "res_make.make_one_request.create_cut_request",
+	"doc": "This topic will get a message when a new cut request needs to be created.",
+	"fields": [{
+			"name": "id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "sku",
+			"type": "string"
+		},
+		{
+			"name": "one_number",
+			"type": "string"
+		},
+		{
+			"name": "make_id",
+			"type": "string"
+		}
+	]
+}]

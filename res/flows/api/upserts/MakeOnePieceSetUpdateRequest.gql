@@ -1,0 +1,46 @@
+mutation UpdatePiecesStatusAndFetchAllNodes($pieces: [make_one_pieces_insert_input!] = {}, $oid: uuid = "") {
+  update_pieces_status: insert_make_one_pieces(objects: $pieces, on_conflict: {constraint: one_pieces_oid_key, update_columns: [defects, contracts_failed, node_id, observed_at, make_instance, status, set_key, printer_file_id,
+                roll_name,
+                nest_key,
+                roll_key,
+                print_job_name,
+                material_code,
+                metadata]}) {
+    returning {
+      id  
+    }
+  }
+  update_make_one_orders: update_make_one_orders(where: {oid: {_eq: $oid}}, _set: {oid: $oid}) {
+    returning {
+        oid
+        one_number
+        one_code
+        one_number
+        order_number
+        sku
+       
+       one_pieces(where: {deleted_at: {_is_null: true}}) {
+        code
+        contracts_failed
+        defects
+        observed_at
+        node {
+          name
+        }
+        make_instance,
+        set_key,
+        status,
+        printer_file_id,
+        roll_name,
+        nest_key,
+        roll_key,
+        print_job_name,
+        material_code
+
+      }
+    }
+  }
+  
+  
+  
+}

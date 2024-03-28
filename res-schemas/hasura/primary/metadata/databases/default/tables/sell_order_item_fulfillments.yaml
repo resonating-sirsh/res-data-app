@@ -1,0 +1,15 @@
+table:
+  name: order_item_fulfillments
+  schema: sell
+object_relationships:
+  - name: order_line_item
+    using:
+      foreign_key_constraint_on: order_item_id
+array_relationships:
+  - name: bridge_fulfillments_and_ones
+    using:
+      foreign_key_constraint_on:
+        column: order_item_fulfillment_id
+        table:
+          name: bridge_fulfillments_and_ones
+          schema: infraestructure

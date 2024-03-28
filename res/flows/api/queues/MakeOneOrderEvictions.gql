@@ -1,0 +1,7 @@
+query one_order_queue_evictions($window_start_at: timestamptz = "", $window_end_at: timestamptz = "") {
+  make_one_orders(where: {order_line_item: {status: {_neq: "fulfilled"}, updated_at: {_gte: $window_start_at, _lt: $window_end_at}}}) {
+    id
+    one_code
+    updated_at
+  }
+}

@@ -1,0 +1,26 @@
+{
+    "type": "record",
+    "name": "basic_test_topic_2",
+    "doc": "This basic test topic was created to showcase producing to Kafka",
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "age",
+            "type": "int"
+        },
+        {
+            "name": "favorite_color",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "ice_cream_flavor",
+            "type": "string"
+        }
+    ]
+}

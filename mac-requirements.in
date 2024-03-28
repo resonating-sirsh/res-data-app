@@ -1,0 +1,5 @@
+confluent-kafka[avro] --global-option=build_ext \
+    --global-option="-I/usr/local/opt/librdkafka/include" \
+    --global-option="-I/opt/homebrew/opt/librdkafka/include" \
+    --global-option="-L/usr/local/opt/librdkafka/lib" \
+    --global-option="-L/opt/homebrew/opt/librdkafka/lib"

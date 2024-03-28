@@ -1,0 +1,3 @@
+deployment:
+  type: "res_workflow"
+  name: "example-workflow-callable"

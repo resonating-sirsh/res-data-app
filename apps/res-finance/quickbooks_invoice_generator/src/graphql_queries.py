@@ -1,0 +1,42 @@
+GET_LINE_ITEMS = """
+query GetOrderItems($brand:WhereValue,$startDate:WhereValue,$endDate:WhereValue,$after:String){
+		orderLineItems(first:10 after:$after where: {brandCode: {is: $brand} activeOneNumber: {isNot: null} <<date_filter_field>>:{isGreaterThanOrEqualTo: $startDate, isLessThan: $endDate}}){
+    orderLineItems{
+      brand{code}
+      order{
+        salesChannel
+        number
+        channelOrderId
+      }
+      createdAt
+      timestampFulfillment
+      name
+      activeOneNumber
+      size{name}
+      lineItemPrice
+      style{
+        name
+        standardPriceV3
+        body{
+          numberOfPieces
+        }
+        onePrices{
+        price
+        priceBreakdown{
+          rate
+          item
+          quantity
+          category
+          cost
+        }
+          size{
+            name
+          }
+          cost
+        }
+      }
+    }
+    count
+    cursor
+    }
+}"""

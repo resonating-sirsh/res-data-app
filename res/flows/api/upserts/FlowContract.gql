@@ -1,0 +1,19 @@
+mutation upsert_one_contract($asset_type: String = "", $created_at: timestamptz = "", $description: String = "", $id: uuid = "", $key: String = "", $metadata: jsonb = "", $name: String = "", $node_id: uuid = "", $owner_id: uuid = "", $required_exiting_flows: jsonb = "", $requires_contracts: jsonb = "", $status: String = "", $updated_at: timestamptz = "", $uri: String = "", $version: Int = 10) {
+  insert_flow_contracts(objects: {asset_type: $asset_type, created_at: $created_at, description: $description, id: $id, key: $key, metadata: $metadata, name: $name, node_id: $node_id, owner_id: $owner_id, required_exiting_flows: $required_exiting_flows, requires_contracts: $requires_contracts, status: $status, updated_at: $updated_at, uri: $uri, version: $version}, 
+    on_conflict: {update_columns: [key, name, node_id, owner_id, status, metadata,required_exiting_flows ], constraint: contracts_pkey}) {
+    returning {
+      key
+      id
+      status
+      description
+      node {
+        id
+        name
+      }
+      user {
+        email
+      }
+      metadata
+    }
+  }
+}

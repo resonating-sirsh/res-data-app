@@ -1,0 +1,23 @@
+#apply this: it will be applied to prom namespace
+#we can create system alerts in res or add alerts per /app in their deployments
+#kubectl apply -f example.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: a-res-data-service
+    role: alert-rules
+  name: res-example-rule
+  namespace: prometheus
+spec:
+  groups:
+  - name: general.rules
+    rules:
+    - alert: res-data-platform-dms
+      annotations:
+        description: This is a DeadMansSwitch meant to ensure that the entire Alerting
+          pipeline is functional and res-data-platform has deployed alerts to correct namepace
+        summary: res-data-platform Alerting DeadMansSwitch
+      expr: vector(1)
+      labels:
+        severity: none

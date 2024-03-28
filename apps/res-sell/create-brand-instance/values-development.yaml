@@ -1,0 +1,8 @@
+deployment:
+  type: "res_long_running_service"
+  replicas: 1
+  servicePort: 5000
+  memory: 1G
+  env:
+    BRAND_LAYER_ID: "recToR13fVcplQk3X"
+    SHOPIFY_DATASOURCE_ID: "recci2gc1iFBYXHgV"

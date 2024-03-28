@@ -1,0 +1,6 @@
+# -r res/apps/requirements.in
+-r res/.requirements/connector-requirements.in
+-r res/.requirements/dev-requirements.in
+-r res/.requirements/jupyter-requirements.in
+-r res/.requirements/numeric-requirements.in
+-r res/docker/res-data-lite/requirements.in

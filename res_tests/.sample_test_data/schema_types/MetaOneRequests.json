@@ -1,0 +1,77 @@
+{
+    "style_name": "Basic Bias Slip Dress - RainBOW Gradient in Silk Stretch Charmeuse",
+    "body_code": "CC-6008",
+    "body_version": 6,
+    "color_code": "RAINQH",
+    "created_at": "2023-01-24T19:04:35.596417+00:00",
+    "dxf_path": "s3://meta-one-assets-prod/color_on_shape/cc_6008/v6/rainqh/dxf/CC-6008-V6-RAINQH.dxf",
+    "flow": "3d",
+    "id": "reclopp20ArflH4HQ",
+    "piece_color_mapping": {
+        "default": "RAINQH"
+    },
+    "piece_material_mapping": {
+        "default": "CHRST"
+    },
+    "print_type": "Directional",
+    "pieces_path": "s3://meta-one-assets-prod/None",
+    "sample_size": "6ZZ2X",
+    "size_code": "6ZZ2X",
+    "status": "ENTERED",
+    "tags": [],
+    "sku": "CC-6008 CHRST RAINQH 6ZZ2X",
+    "style_sku": "CC-6008 CHRST RAINQH 6ZZ2X",
+    "unit_key": "CC6008 CHRST RAINQH",
+    "unit_type": "RES_STYLE",
+    "metadata": {},
+    "pieces": [
+        {
+            "key": "CC-6008-V6-DRSFTPNL-S",
+            "color_code": "RAINQH",
+            "material_code": "CHRST",
+            "artwork_uri": "s3://resmagic/uploads/21868ce1-06fa-429a-8779-4cf5364f682e.png",
+            "base_image_uri": "s3://meta-one-assets-prod/color_on_shape/cc_6008/v6/rainqh/6zz2x/pieces/CC-6008-V6-DRSFTPNL-S.png",
+            "offset_size_inches": 0.0
+        },
+        {
+            "key": "CC-6008-V6-DRSBKPNL-S",
+            "color_code": "RAINQH",
+            "material_code": "CHRST",
+            "artwork_uri": "s3://resmagic/uploads/21868ce1-06fa-429a-8779-4cf5364f682e.png",
+            "base_image_uri": "s3://meta-one-assets-prod/color_on_shape/cc_6008/v6/rainqh/6zz2x/pieces/CC-6008-V6-DRSBKPNL-S.png",
+            "offset_size_inches": 0.0
+        },
+        {
+            "key": "CC-6008-V6-DRSNKBDG-S",
+            "color_code": "RAINQH",
+            "material_code": "CHRST",
+            "artwork_uri": "s3://resmagic/uploads/21868ce1-06fa-429a-8779-4cf5364f682e.png",
+            "base_image_uri": "s3://meta-one-assets-prod/color_on_shape/cc_6008/v6/rainqh/6zz2x/pieces/CC-6008-V6-DRSNKBDG-S.png",
+            "offset_size_inches": 0.0
+        },
+        {
+            "key": "CC-6008-V6-DRSAHHGL-S",
+            "color_code": "RAINQH",
+            "material_code": "CHRST",
+            "artwork_uri": "s3://resmagic/uploads/21868ce1-06fa-429a-8779-4cf5364f682e.png",
+            "base_image_uri": "s3://meta-one-assets-prod/color_on_shape/cc_6008/v6/rainqh/6zz2x/pieces/CC-6008-V6-DRSAHHGL-S.png",
+            "offset_size_inches": 0.0
+        },
+        {
+            "key": "CC-6008-V6-DRSSHSTRLF-S",
+            "color_code": "RAINQH",
+            "material_code": "CHRST",
+            "artwork_uri": "s3://resmagic/uploads/21868ce1-06fa-429a-8779-4cf5364f682e.png",
+            "base_image_uri": "s3://meta-one-assets-prod/color_on_shape/cc_6008/v6/rainqh/6zz2x/pieces/CC-6008-V6-DRSSHSTRLF-S.png",
+            "offset_size_inches": 0.0
+        },
+        {
+            "key": "CC-6008-V6-DRSSHSTRRT-S",
+            "color_code": "RAINQH",
+            "material_code": "CHRST",
+            "artwork_uri": "s3://resmagic/uploads/21868ce1-06fa-429a-8779-4cf5364f682e.png",
+            "base_image_uri": "s3://meta-one-assets-prod/color_on_shape/cc_6008/v5/rainqh/6zz2x/pieces/CC-6008-V6-DRSSHSTRRT-S.png",
+            "offset_size_inches": 0.0
+        }
+    ]
+}

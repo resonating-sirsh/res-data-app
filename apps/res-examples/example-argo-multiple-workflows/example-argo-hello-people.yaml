@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: example-argo-hello-people
+spec:
+  entrypoint: example-argo-hello-people
+  arguments:
+    parameters:
+    - name: event
+      value: "{}"
+  templates:
+  - name: example-argo-hello-people
+    inputs:
+      parameters:
+      - name: event
+    steps:
+    - - name: hello-people
+        template: generic-step
+        arguments:
+          parameters:
+          # These parameters can be overridden by a developer in the Argo UI
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          # This is the name of the python script you want to run for this step
+          - name: flow_name
+            value: "/app/src/hello_people.py"
+          # We can set memory higher for intensive tasks
+          - name: memory
+            value: 128Mi
+  - name: generic-step
+    retryStrategy:
+          limit: "2"
+          retryPolicy: "OnFailure" 
+          backoff:
+            duration: "3m"  
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+      - name: memory
+    outputs:
+      parameters:
+        - name: dump
+          valueFrom:
+            path: /app/dump.txt
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      # This container image will be replaced during CI with the Dockerfile you included in this folder
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.event}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env

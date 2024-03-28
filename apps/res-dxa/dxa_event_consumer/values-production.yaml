@@ -1,0 +1,9 @@
+deployment:
+  type: "res_long_running_service"
+  replicas: 2
+  memory: 1G
+  env:
+    RES_APP_NAME: "dxa-event-consumer"
+    RES_NAMESPACE: "res-dxa"
+    HASURA_ENDPOINT: "https://hasura.resmagic.io/v1/graphql"
+    RES_TEAM: "dxa"

@@ -1,0 +1,69 @@
+{
+    "type": "record",
+    "name": "one_order_items",
+    "namespace": "res_sell",
+    "doc": "res_sell.one_order_items schema for merged orders from all sources",
+    "fields": [
+        {
+            "name": "uuid",
+            "type": "string"
+        },
+        {
+            "name": "source_order_id",
+            "type": "string"
+        },
+        {
+            "name": "source_line_item_id",
+            "type": "string"
+        },
+        {
+            "name": "source_variant_id",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "quantity",
+            "type": "int"
+        },
+        {
+            "name": "sku",
+            "type": "string"
+        },
+        {
+            "name": "price",
+            "type": [
+                "float",
+                "null"
+            ]
+        },
+        {
+            "name": "brand_code",
+            "type": "string"
+        },
+        {
+            "name": "sales_channel",
+            "type": "string"
+        },
+        {
+            "name": "created_at",
+            "type": "string"
+        },
+        {
+            "name": "updated_at",
+            "type": "string"
+        },
+        {
+            "name": "fulfillment_status",
+            "type": "string"
+        },
+        {
+            "name": "fulfillment_quantity",
+            "type": [
+                "int",
+                "null"
+            ]
+        }
+    ]
+}

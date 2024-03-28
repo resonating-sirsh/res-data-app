@@ -1,0 +1,8 @@
+deployment:
+  type: "res_long_running_service"
+  name: "aftership-webhook-collector"
+  replicas: 1
+  servicePort: 5000
+  ingressType: "public"
+  env:
+    RES_TEAM: "iamcurious"

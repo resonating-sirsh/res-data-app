@@ -1,0 +1,47 @@
+{
+   "schemaName": "res_data_infrastructure_airtable_cdc",
+   "dimensionFieldSpecs": [
+      {
+         "name": "base_id",
+         "dataType": "STRING"
+      },
+      {
+         "name": "table_id",
+         "dataType": "STRING"
+      },
+      {
+         "name": "field_id",
+         "dataType": "STRING"
+      },
+      {
+         "name": "record_id",
+         "dataType": "STRING"
+      },
+      {
+         "name": "primary_key",
+         "dataType": "STRING"
+      },
+      {
+         "name": "value",
+         "dataType": "STRING"
+      },
+      {
+         "name": "old_value",
+         "dataType": "STRING"
+      }
+   ],
+   "dateTimeFieldSpecs": [
+      {
+         "name": "timestamp",
+         "dataType": "LONG",
+         "format": "1:SECONDS:EPOCH",
+         "granularity": "1:SECONDS"
+      },
+      {
+         "name": "old_timestamp",
+         "dataType": "LONG",
+         "format": "1:SECONDS:EPOCH",
+         "granularity": "1:SECONDS"
+      }
+   ]
+}

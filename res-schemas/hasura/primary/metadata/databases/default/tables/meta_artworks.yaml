@@ -1,0 +1,55 @@
+table:
+  name: artworks
+  schema: meta
+array_relationships:
+  - name: colors_artworks
+    using:
+      foreign_key_constraint_on:
+        column: artwork_id
+        table:
+          name: colors_artworks
+          schema: meta
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - dpi_300_uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $dpi_300_uri
+      remote_schema: s3url-signer
+    name: signed_dpi_300_uri
+  - definition:
+      hasura_fields:
+        - dpi_36_uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $dpi_36_uri
+      remote_schema: s3url-signer
+    name: signed_dpi_36_uri
+  - definition:
+      hasura_fields:
+        - dpi_72_uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $dpi_72_uri
+      remote_schema: s3url-signer
+    name: signed_dpi_72_uri
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - metadata
+        - brand
+        - description
+        - dpi_300_uri
+        - dpi_36_uri
+        - dpi_72_uri
+        - name
+        - original_uri
+        - created_at
+        - updated_at
+        - id
+      filter: {}

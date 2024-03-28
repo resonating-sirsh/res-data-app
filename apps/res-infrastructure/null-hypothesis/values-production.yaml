@@ -1,0 +1,7 @@
+deployment:
+  replicas: 5
+  memory: 5G
+  env:
+    RES_APP_NAME: null-hypothesis
+    HASURA_ENDPOINT: https://hasura.resmagic.io
+    RES_TEAM: res-infrastructure

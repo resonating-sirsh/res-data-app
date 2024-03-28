@@ -1,0 +1,92 @@
+# Thoughts:
+# Maybe there's space for abstract versions, to capture the "topology" of a piece.
+# Then subtypes would get concrete by implementing actual points.
+
+type Piece {
+    id: ID
+    key: String!
+    name: String # friendly name
+    bodyIds: [String]
+    polygon: PiecePolygon @hasInverse(field: piece)
+    edges: [PieceEdge]
+    internalLines: [PieceInternalLine]
+}
+
+type PiecePolygon {
+    id: ID
+    key: String # Remove me
+    piece: Piece!
+    points: [PiecePoint]!
+}
+
+type PiecePoint implements GeomPoint {
+    id: ID
+    name: String
+    resIndex: String!
+    x: Float!
+    y: Float!
+}
+
+interface GeomPoint {
+    x: Float!
+    y: Float!
+}
+
+type PieceEdge {
+    key: String
+    name: String
+    points: [PiecePoint]
+    seamCode: String
+    seam: PieceEdgeSeam # note that this is optional
+    # stitches: [PieceStitch]
+}
+
+# seam is function that joins two edges, basically a junction object
+# ie. there will be construction applied to each edge.
+type PieceEdgeSeam {
+    code: String
+    stitchType: StitchType
+    seam: Seam
+    edge1: PieceEdge!
+    edge2: PieceEdge!
+}
+
+# A line drawn inside a piece. (ie. these can't just be floating in the air).
+# e.g. Used to indicate where a chest measurement would be. Used to get specs from a 2D pattern.
+# It is exported in the dxf. Gerber and Browzwear use them similarly.
+type PieceInternalLine {
+    key: String!
+    startPoint: GeomPoint!
+    endPoint: GeomPoint!
+    connections: [PieceEdge]
+}
+
+# type PieceCriticalPoint {
+#     key: String!
+#     point: Point!
+
+# type PieceStitch {
+#     p1: PiecePoint!
+#     p2: PiecePoint!
+# }
+
+type Seam {
+    type: String!
+    allowance: Float
+}
+
+enum StitchType {
+    slip
+    zigzag
+    basting
+}
+
+type Roll {
+    id: ID
+    material: Material
+}
+
+type Material {
+    id: ID
+    name: String
+}

@@ -1,0 +1,8 @@
+deployment:
+  type: "res_workflow"
+  env:
+    RECEIVER_EMAIL: "learning-machines@resonance.nyc"
+    MESSAGE: "Hello World"
+  command: python
+  args:
+    - /app/main.py

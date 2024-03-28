@@ -1,0 +1,8 @@
+deployment:
+  type: "res_long_running_service"
+  replicas: 1
+  servicePort: 5000
+  ingressType: "public"
+  env:
+    URL_DOMAIN: "https://create.one"
+    RES_TEAM: "res-sell"

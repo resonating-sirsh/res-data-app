@@ -1,0 +1,101 @@
+airtable_base_id: apprcULXTWu33KFsh
+airtable_table_id: tblSYU8a71UgbQve4
+fields:
+  - airtable_field_name: Name
+    key: key
+    name: key
+    is_key: True
+    required: True
+    indexes:
+      - hash
+  - airtable_field_name: Material
+    key: material
+    name: material
+  - airtable_field_name: Assigned Yards v3
+    key: assigned_yards
+    name: assigned_yards
+  - airtable_field_name: Unassigned Yards
+    key: unassigned_yards
+    name: unassigned_yards
+  - airtable_field_name: Roll Length (yards)
+    key: roll_length_yards
+    name: roll_length_yards
+  - airtable_field_name: Available Length (yards)
+    key: available_length_yards
+    name: available_length_yards
+  - airtable_field_name: Available Yards v3
+    key: available_yards
+    name: available_yards
+  - airtable_field_name: Total Nested Length
+    key: nested_length
+    name: nested_length
+  - airtable_field_name: Roll Length v3
+    key: roll_length
+    name: roll_length
+  - airtable_field_name: Pretreated Length
+    key: pretreated_length
+    name: pretreated_length
+  - airtable_field_name: Scour Wash Queue
+    key: scour_wash_queue
+    name: scour_wash_queue
+  - airtable_field_name: Wash Queue
+    key: wash_queue
+    name: wash_queue
+  - airtable_field_name: Pretreatment Queue
+    key: pretreatment_queue
+    name: pretreatment_queue
+  - airtable_field_name: Print Flow
+    key: print_flow
+    name: print_flow
+  - airtable_field_name: Roll Status
+    key: roll_status
+    name: roll_status
+  - airtable_field_name: Printer
+    key: printer
+    name: printer
+  - airtable_field_name: Steam Queue
+    key: steam_queue
+    name: steam_queue
+  - airtable_field_name: Dry Queue
+    key: dry_queue
+    name: dry_queue
+  - airtable_field_name: Soften Queue
+    key: soften_queue
+    name: soften_queue
+  - airtable_field_name: Scour Dry Queue
+    key: scour_dry_queue
+    name: scour_dry_queue
+  - airtable_field_name: Straighten Queue
+    key: straighten_queue
+    name: straighten_queue
+  - airtable_field_name: Current Substation
+    key: current_substation
+    name: current_substation
+  - airtable_field_name: Material Code
+    key: material_code
+    name: material_code
+    meta_type: meta.materials
+  - airtable_field_name: Prioritization Master
+    key: priority
+    name: priority
+  - airtable_field_name: pretreated_at
+    key: pretreated_at
+    name: pretreated_at
+  - airtable_field_name: Print Room Location
+    key: print_room
+    name: print_room
+  - airtable_field_name: Flag for Review
+    key: flag_for_review
+    name: flag_for_review
+  - airtable_field_name: Flag for Review Reason
+    key: flag_for_review_reason
+    name: flag_for_review_reason
+  - airtable_field_name: Warning
+    key: warning
+    name: warning
+  - airtable_field_name: Print ONE Ready
+    key: print_one_ready
+    name: print_one_ready
+
+key: make.test_rolls
+name: make.test_rolls

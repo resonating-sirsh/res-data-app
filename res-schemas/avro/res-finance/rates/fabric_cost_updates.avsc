@@ -1,0 +1,47 @@
+ {
+ 	"type": "record",
+ 	"name": "fabric_cost_updates",
+ 	"namespace": "res_finance.rates",
+ 	"doc": "any changes to fabric costs",
+ 	"fields": [{
+ 			"name": "id",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "material_code",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "rate",
+ 			"type": "float"
+ 		},
+ 		{
+ 			"name": "units",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "created_at",
+ 			"type": "string"
+ 		},
+		{
+ 			"name": "airtable_record_id",
+ 			"type": "string"
+ 		},
+		{
+ 			"name": "fabric_type",
+ 			"type": ["null", "string"],
+            "default": null
+ 		},
+		{
+ 			"name": "dominant_content",
+ 			"type": ["null", "string"],
+            "default": null
+ 		},
+
+		{
+ 			"name": "sew_node_rate_minutes",
+ 			"type": ["null", "float"],
+            "default": null
+ 		}
+ 	]
+ }

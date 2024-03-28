@@ -1,0 +1,275 @@
+[
+    {
+        "name": "Pinterest",
+        "type": "record",
+        "namespace": "Pinterest.Campaigns",
+        "fields": [
+            {
+                "name": "Campaign_ID",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Date",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Campaign_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Campaign_status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Campaign_entity_status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Spend_in_account_currency",
+                "type": [
+                    "double",
+                    "null"
+                ]
+            },
+            {
+                "name": "Impressions",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Click_through_conversions_Checkout",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Engagement_conversions_Checkout",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "View_through_conversions_Checkout",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Click_through_order_value_Checkout",
+                "type": [
+                    "double",
+                    "null"
+                ]
+            },
+            {
+                "name": "Engagement_order_value_Checkout",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "View_through_order_value_Checkout",
+                "type": [
+                    "double",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_impressions",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_Pin_clicks",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_video_played_at_25",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_video_played_at_50",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_video_played_at_75",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_video_played_at_95",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_video_played_at_100",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_video_views",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_engagements",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Conversions",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Engagements",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Saves",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Pin_clicks",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Engagement_rate",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_CTR",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "Paid_saves",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "CPM",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "Result",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Cost_per_result",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "CPA_Checkout",
+                "type": [
+                    "double",
+                    "null"
+                ]
+            },
+            {
+                "name": "ROAS_Checkout",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "Conversions_Checkout",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "Order_value_Checkout",
+                "type": [
+                    "double",
+                    "null"
+                ]
+            },
+            {
+                "name": "Box_File_Name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Brand",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    }
+]

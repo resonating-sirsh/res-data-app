@@ -1,0 +1,11 @@
+table:
+  name: colors
+  schema: meta
+array_relationships:
+  - name: colors_artworks
+    using:
+      foreign_key_constraint_on:
+        column: color_id
+        table:
+          name: colors_artworks
+          schema: meta

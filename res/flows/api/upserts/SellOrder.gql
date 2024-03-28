@@ -1,0 +1,124 @@
+mutation update_order(
+  $order_line_items: [sell_order_line_items_insert_input!] = {}
+  $order: sell_orders_insert_input = {}
+  $customer: sell_customers_insert_input = {}
+) {
+  insert_sell_customers_one(
+    object: $customer
+    on_conflict: { constraint: customers_pkey }
+  ) {
+    id
+  }
+
+  insert_sell_orders_one(
+    object: $order
+    on_conflict: {
+      constraint: orders_pkey
+      update_columns: [
+        name
+        status
+        source_order_id
+        order_channel
+        sales_channel
+        email
+        customer_id
+        contracts_failing
+        brand_code
+        was_payment_successful
+        was_balance_not_enough
+        revenue_share_percentage_wholesale
+        revenue_share_percentage_retail
+        sell_brands_pkid
+        line_item_json
+        request_type
+        request_name
+        channel_order_id
+      ]
+    }
+  ) {
+    id
+    brand_code
+    name
+    email
+    status
+    ecommerce_source
+    source_order_id
+    ordered_at
+    order_channel
+    sales_channel
+    contracts_failing
+    was_payment_successful
+    was_balance_not_enough
+    revenue_share_percentage_wholesale
+    revenue_share_percentage_retail
+    sell_brands_pkid
+    line_item_json
+  }
+
+  insert_sell_order_line_items(
+    objects: $order_line_items
+    on_conflict: {
+      constraint: order_line_items_pkey
+      update_columns: [
+        name
+        quantity
+        order_id
+        fulfillable_quantity
+        fulfilled_quantity
+        refunded_quantity
+        status
+        metadata
+        price
+        product_id
+        basic_cost_of_one
+        ecommerce_quantity
+        ecommerce_order_number
+        ecommerce_line_item_id
+        ecommerce_fulfillment_status
+        product_variant_title
+        product_name
+        inventory_airtable_id
+        warehouse_location
+        stock_state_day_of_order
+        inventory_checkin_type
+        unit_ready_in_warehouse
+        one_number
+      ]
+    }
+  ) {
+    returning {
+      id
+      name
+      sku
+      quantity
+      status
+      source_order_line_item_id
+      fulfillable_quantity
+      fulfilled_quantity
+      refunded_quantity
+      basic_cost_of_one
+      ecommerce_quantity
+      ecommerce_order_number
+      ecommerce_line_item_id
+      ecommerce_fulfillment_status
+      product_variant_title
+      product_name
+      inventory_airtable_id
+      warehouse_location
+      stock_state_day_of_order
+      inventory_checkin_type
+      unit_ready_in_warehouse
+      one_number
+      price
+      order_id
+      product {
+        id
+        style_id
+      }
+      order_item_fulfillments {
+        status
+        id
+      }
+    }
+  }
+}

@@ -1,0 +1,2 @@
+intuit-oauth
+python-quickbooks

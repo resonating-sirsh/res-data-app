@@ -1,0 +1,57 @@
+{
+    "instructions": [
+        {
+            "dpi": 80,
+            "type": "EXPORT",
+            "export_type": "MEDIA_RENDER",
+            "include_avatar": false,
+            "camera_position": {
+              "x": -250,
+              "y": -250,
+              "z": 100
+            },
+            "output_file_name": "left_front.png"
+        },
+        {
+            "dpi": 80,
+            "type": "EXPORT",
+            "export_type": "MEDIA_RENDER",
+            "include_avatar": false,
+            "camera_position": {
+              "x": 0,
+              "y": -400,
+              "z": 100
+            },
+            "output_file_name": "front.png"
+        },
+        {
+            "dpi": 80,
+            "type": "EXPORT",
+            "export_type": "MEDIA_RENDER",
+            "include_avatar": false,
+            "camera_position": {
+              "x": 250,
+              "y": -250,
+              "z": 100
+            },
+            "output_file_name": "right_front.png"
+        },
+        {
+            "dpi": 80,
+            "type": "EXPORT",
+            "export_type": "MEDIA_3D_SCENE",
+            "include_avatar": true,
+            "output_file_name": "3d.glb"
+        },
+        {
+            "dpi": 800,
+            "type": "EXPORT",
+            "export_type": "MEDIA_RENDER_RAY_TRACE",
+            "include_avatar": true,
+            "output_file_name": "render.png"
+        }
+    ],
+    "remote_destination": "s3://res-temp-public-bucket/style_assets_dev/",
+    "remote_destination_subfolder_type": "JOB_ID",
+    "should_hide_previous_style_assets": true
+}

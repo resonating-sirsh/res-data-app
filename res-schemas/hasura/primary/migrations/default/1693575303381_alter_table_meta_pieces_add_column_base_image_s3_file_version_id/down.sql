@@ -1,0 +1,4 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- alter table "meta"."pieces" add column "base_image_s3_file_version_id" text
+--  null;

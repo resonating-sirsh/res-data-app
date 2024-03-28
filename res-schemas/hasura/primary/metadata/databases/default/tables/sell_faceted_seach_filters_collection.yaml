@@ -1,0 +1,3 @@
+table:
+  schema: sell
+  name: faceted_seach_filters_collection

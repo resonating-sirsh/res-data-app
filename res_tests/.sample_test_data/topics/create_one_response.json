@@ -1,0 +1,23 @@
+{
+    "id": null,
+    "type": "Finished Goods",
+    "style_id": "recFqT1DIVz3UCvUq",
+    "style_version": "3",
+    "body_code": "KT-6041",
+    "material_code": "ECVIC",
+    "color_code": "MOUNOB",
+    "size_code": "2ZZSM",
+    "brand_code": "KT",
+    "sales_channel": "ECOM",
+    "order_line_item_id": "reclAmLbhV3gnA7a6",
+    "sku": "KT6041 ECVIC MOUNOB 2ZZSM",
+    "order_number": "KT-54095",
+    "one_number": "10258072",
+    "request_name": "Shopify 54095 -  Maya Dress - Mountain Postcard in Ecovero Viscose Crepe ",
+    "channel_line_item_id": "11045953503315",
+    "channel_order_id": "4335482306643",
+    "line_item_creation_date": "2022-07-21T20:45:24.000Z",
+    "is_3d_enabled": false,
+    "is_one_ready": false,
+    "body_version": 7
+}

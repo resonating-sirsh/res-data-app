@@ -1,0 +1,59 @@
+  {
+  	"type": "record",
+  	"name": "body_piece_material_requests",
+  	"namespace": "res_meta.dxa",
+  	"doc": "request processing information for BxMxS",
+  	"fields": [{
+  			"name": "id",
+  			"type": "string"
+  		},
+  		{
+  			"name": "style_pieces_hash",
+  			"type": "string"
+  		},
+  		{
+  			"name": "mode",
+  			"type": [
+  				"string",
+  				"null"
+  			]
+  		},
+		{
+  			"name": "reference_style_size_id",
+  			"type": "string"
+  		},
+  		{
+  			"name": "size_code",
+  			"type": "string"
+  		},
+  		{
+  			"name": "body_code",
+  			"type": "string"
+  		},
+  		{
+  			"name": "body_version",
+  			"type": "int"
+  		},
+  		{
+  			"name": "metadata",
+  			"type": {
+  				"type": "map",
+  				"values": [
+  					"null",
+  					"float",
+  					"string",
+  					"int",
+  					"boolean"
+  				]
+  			},
+  			"default": {}
+  		},
+  		{
+  			"name": "created_at",
+  			"type": [
+  				"string",
+  				"null"
+  			]
+  		}
+  	]
+  }

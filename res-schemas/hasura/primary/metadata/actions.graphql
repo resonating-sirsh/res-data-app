@@ -1,0 +1,79 @@
+type Mutation {
+  create_new_brand_instance(
+    input: json
+  ): NewBrandResponse
+}
+
+type Mutation {
+  publish_sell_ecommerce_collection(
+    id: uuid!
+  ): PublishEcommerceCollectionResponse
+}
+
+type Mutation {
+  stripe_create_payment_intent(
+    arg1: Items!
+  ): SampleOutput
+}
+
+type Mutation {
+  unpublish_sell_ecommerce_collection(
+    id: uuid!
+  ): UnpublishSellEcommerceCollectionResponse
+}
+
+input BrandIDInput {
+  brandID: String!
+}
+
+input StripeSessionInput {
+  brandID: String!
+  sessionID: String!
+}
+
+input SampleInput {
+  username: String!
+  password: String!
+}
+
+input Items {
+  items: [String]!
+}
+
+input ItemsTyped {
+  items: [ItemTyped]!
+}
+
+input ItemTyped {
+  id: String
+}
+
+type RedirectOutput {
+  redirectURL: String!
+}
+
+type BlankOutput {
+  na: String
+}
+
+type PublishEcommerceCollectionResponse {
+  ecommerce_id: String
+  store_code: String
+}
+
+type SampleOutput {
+  accessToken: String!
+}
+
+type UnpublishSellEcommerceCollectionResponse {
+  ok: Boolean
+}
+
+type Response {
+  data: json
+}
+
+type NewBrandResponse {
+  data: json
+}
+

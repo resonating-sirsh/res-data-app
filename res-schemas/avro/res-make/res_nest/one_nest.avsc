@@ -1,0 +1,57 @@
+{
+  "type": "record",
+  "name": "one_nest",
+  "namespace": "res_make.res_nest",
+  "fields": [
+    {
+      "name": "piece_set_key",
+      "type": "string"
+    },
+    {
+      "name": "one_number",
+      "type": "int"
+    },
+    {
+      "name": "piece_type",
+      "type": "string"
+    },
+    {
+      "name": "nest_file_path",
+      "type": "string"
+    },
+    {
+      "name": "material_code",
+      "type": "string"
+    },
+    {
+      "name": "piece_count",
+      "type": "int"
+    },
+    {
+      "name": "width_nest_px",
+      "type": "float"
+    },
+    {
+      "name": "height_nest_px",
+      "type": "float"
+    },
+    {
+      "name": "utilization",
+      "type": "float"
+    },
+    {
+      "name": "created_at",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "pieces_created_at",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  ]
+}

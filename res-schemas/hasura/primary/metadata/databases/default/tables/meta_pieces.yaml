@@ -1,0 +1,29 @@
+table:
+  name: pieces
+  schema: meta
+object_relationships:
+  - name: body_piece
+    using:
+      foreign_key_constraint_on: body_piece_id
+array_relationships:
+  - name: edges
+    using:
+      foreign_key_constraint_on:
+        column: piece_id
+        table:
+          name: edges
+          schema: meta
+  - name: one_pieces
+    using:
+      foreign_key_constraint_on:
+        column: meta_piece_id
+        table:
+          name: one_pieces
+          schema: make
+  - name: style_size_pieces
+    using:
+      foreign_key_constraint_on:
+        column: piece_id
+        table:
+          name: style_size_pieces
+          schema: meta

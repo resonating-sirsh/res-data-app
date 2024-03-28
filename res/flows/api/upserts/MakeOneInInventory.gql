@@ -1,0 +1,49 @@
+mutation update_make_order_in_inventory(
+  $id: uuid = ""
+  $bin_location: String = ""
+  $one_number: String = ""
+  $one_order_id: uuid = ""
+  $operator_name: String = ""
+  $reservation_status: String = ""
+  $sku_bar_code_scanned: String = ""
+  $warehouse_checkin_location: String = ""
+  $work_station: String = ""
+  $checkin_type: String = ""
+  $metadata: jsonb = ""
+) {
+  insert_make_make_order_in_inventory(
+    objects: {
+      id: $id
+      bin_location: $bin_location
+      metadata: $metadata
+      one_number: $one_number
+      one_order_id: $one_order_id
+      operator_name: $operator_name
+      reservation_status: $reservation_status
+      sku_bar_code_scanned: $sku_bar_code_scanned
+      warehouse_checkin_location: $warehouse_checkin_location
+      work_station: $work_station
+      checkin_type: $checkin_type
+    }
+    on_conflict: {
+      constraint: inventory_pkey
+      update_columns: [
+        bin_location
+        metadata
+        one_order_id
+        reservation_status
+        sku_bar_code_scanned
+        warehouse_checkin_location
+        checkin_type
+      ]
+    }
+  ) {
+    returning {
+      id
+      one_number
+      checkin_type
+      sku_bar_code_scanned
+      warehouse_checkin_location
+    }
+  }
+}

@@ -1,0 +1,45 @@
+table:
+  name: subscriptions
+  schema: sell
+object_relationships:
+  - name: brand
+    using:
+      foreign_key_constraint_on: brand_id
+  - name: collectionMethodByCollectionMethod
+    using:
+      foreign_key_constraint_on: collection_method
+  - name: currencyByCurrency
+    using:
+      foreign_key_constraint_on: currency
+array_relationships:
+  - name: transactions
+    using:
+      foreign_key_constraint_on:
+        column: subscription
+        table:
+          name: transactions
+          schema: sell
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - brand_id
+        - id
+        - collection_method
+        - currency
+        - deleted_status
+        - name
+        - payment_method
+        - price
+        - stripe_customer_id
+        - subscription_id
+        - created_at
+        - current_period_end
+        - current_period_start
+        - end_date
+        - start_date
+        - updated_at
+        - price_amount
+        - balance
+      filter: {}
+      allow_aggregations: true

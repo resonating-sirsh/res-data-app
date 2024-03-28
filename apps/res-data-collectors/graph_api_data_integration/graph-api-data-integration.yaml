@@ -1,0 +1,81 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: graph-api-data-integration
+spec:
+  entrypoint: graph-api-data-integration
+  arguments:
+    parameters:
+    # Sync type can be overridden in the developer UI to perform full syncs
+    - name: sync_type
+      value: "incremental"
+    - name: dev_override
+      value: "false" # Enables running the app in a dev environment
+    - name: is_test
+      value: "false" # 'true' only retrieves one page of records    
+    - name: included_steps
+      value: "all" # Can be used to run the app for specific steps        
+  templates:
+  - name: graph-api-data-integration
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override
+      - name: is_test
+      - name: included_steps
+    steps:         
+    - - name: style-size-costs
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"                                                 
+          - name: flow_name
+            value: "/app/src/style_size_costs.py"
+          - name: memory
+            value: 512Mi
+      - name: style-trims
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: included_steps
+            value: "{{workflow.parameters.included_steps}}"                                    
+          - name: flow_name
+            value: "/app/src/style_trims.py"
+          - name: memory
+            value: 1024Mi                                                                
+  - name: generic-step
+    retryStrategy:
+          limit: "3"
+          retryPolicy: "Always" 
+          backoff:
+            duration: "30m"  
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override      
+      - name: is_test
+      - name: flow_name
+      - name: included_steps
+      - name: memory
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.sync_type}}", "{{inputs.parameters.dev_override}}", "{{workflow.parameters.is_test}}", "{{inputs.parameters.included_steps}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+ 

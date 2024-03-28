@@ -1,0 +1,15 @@
+table:
+  name: flow_node_config
+  schema: dxa
+object_relationships:
+  - name: jobTypeByJobType
+    using:
+      foreign_key_constraint_on: job_type
+array_relationships:
+  - name: jobs
+    using:
+      foreign_key_constraint_on:
+        column: preset_key
+        table:
+          name: flow_node_run
+          schema: dxa

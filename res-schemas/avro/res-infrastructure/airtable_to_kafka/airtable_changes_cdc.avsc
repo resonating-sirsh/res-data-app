@@ -1,0 +1,51 @@
+{
+    "type": "record",
+    "name": "airtable_changes_cdc",
+    "doc": "Contains changes to specific base/table/fields from Airtable with added change data capture fields",
+    "fields": [
+        {
+            "name": "base_id",
+            "type": "string"
+        },
+        {
+            "name": "table_id",
+            "type": "string"
+        },
+        {
+            "name": "primary_key",
+            "type": "string"
+        },
+        {
+            "name": "field_id",
+            "type": "string"
+        },
+        {
+            "name": "field_name",
+            "type": "string"
+        },
+        {
+            "name": "record_id",
+            "type": "string"
+        },
+        {
+            "name": "value",
+            "type": "string"
+        },
+        {
+            "name": "timestamp",
+            "type": "string"
+        },
+         {
+            "name": "old_value",
+            "type": "string"
+        },
+        {
+            "name": "old_timestamp",
+            "type": "string"
+        },
+        {
+            "name": "meta_type",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+[
+    {
+        "type": "record",
+        "name": "asset_requests_data",
+        "namespace" : "res_meta",
+        "doc": "This topic gets an event when the record its created to compute pre-required data.",        
+        "fields": [
+            {
+                "name": "record_id",
+                "type": "string"
+            },
+            {
+                "name": "body_code",
+                "type": "string"
+            },
+            {
+                "name": "body_version",
+                "type": "string"
+            },
+            {
+                "name": "color_code",
+                "type": "string"
+            },
+            {
+                "name": "style_id",
+                "type": "string"
+            }
+        ]
+    }
+]

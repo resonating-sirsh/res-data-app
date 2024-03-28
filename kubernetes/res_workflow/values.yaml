@@ -1,0 +1,15 @@
+deployment:
+  type: "res_workflow"
+  memory: "128MiB"
+  defaultEvent: "{}"
+
+  # For Argo cron jobs, schedule should be in cron format e.g. "0 0 * * *"
+  cron:
+    schedule: False
+
+  # comports with argo synch. patterns. see:
+  # https://argoproj.github.io/argo-workflows/synchronization/
+  synchronization: null
+
+  # if the workflow overrides this then be sure to also include this json in the thing or it wont be able to schedule.
+  podSpecPatch: '{"tolerations":[{"key": "workflow", "value": "true", "effect": "NoSchedule"}]}'

@@ -1,0 +1,251 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: mailchimp-data-integration
+spec:
+  entrypoint: mailchimp-data-integration
+  arguments:
+    parameters:
+    - name: dev_override
+      value: "false" # Can be used to enable running the app in a dev environment
+    - name: api_key_override
+      value: "none" # Can be used to run the app for a single account   
+    - name: server_override
+      value: "none" # Can be used to run the app for a single account  
+    - name: is_test
+      value: "false"
+    - name: excluded_steps
+      value: "none" # Comma separated list of steps to exclude (file names without extension)                 
+  templates:
+  - name: mailchimp-data-integration
+    inputs:
+      parameters:
+      - name: dev_override
+      - name: api_key_override
+      - name: server_override
+      - name: is_test
+      - name: excluded_steps
+    steps:  
+    - - name: campaign-stats
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/campaign_stats.py"                    
+          - name: memory
+            value: 1024Mi 
+        continueOn:
+          failed: true          
+    - - name: campaigns
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/campaigns.py"
+          - name: memory
+            value: 1024Mi  
+        continueOn:
+          failed: true               
+    - - name: lists
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/lists.py"
+          - name: memory
+            value: 8192Mi     
+        continueOn:
+          failed: true    
+    - - name: stored-files
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/stored_files.py"
+          - name: memory
+            value: 2048Mi    
+        continueOn:
+          failed: true    
+    - - name: templates
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/templates.py"
+          - name: memory
+            value: 2048Mi    
+        continueOn:
+          failed: true    
+    - - name: unsubscriptions
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/unsubscriptions.py"
+          - name: memory
+            value: 4096Mi    
+        continueOn:
+          failed: true          
+    - - name: subscriber-activity
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/subscriber_activity.py"
+          - name: memory
+            value: 8192Mi     
+        continueOn:
+          failed: true          
+    - - name: campaign-content
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/campaign_content.py"
+          - name: memory
+            value: 1024Mi    
+        continueOn:
+          failed: true          
+    - - name: list-segments
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/list_segments.py"
+          - name: memory
+            value: 1024Mi
+        continueOn:
+          failed: true          
+    - - name: segment-members
+        template: generic-step
+        arguments:
+          parameters:
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"
+          - name: api_key_override
+            value: "{{workflow.parameters.api_key_override}}"
+          - name: server_override
+            value: "{{workflow.parameters.server_override}}"
+          - name: is_test
+            value: "{{workflow.parameters.is_test}}"
+          - name: excluded_steps
+            value: "{{workflow.parameters.excluded_steps}}"                            
+          - name: flow_name
+            value: "/app/src/segment_members.py"
+          - name: memory
+            value: 8192Mi                                                                                                                                                                                               
+  - name: generic-step
+    retryStrategy:
+          limit: "3"
+          retryPolicy: "Always" 
+          backoff:
+            duration: "10m"
+            factor: "2"  
+    inputs:
+      parameters:
+      - name: dev_override
+      - name: api_key_override
+      - name: server_override
+      - name: is_test     
+      - name: excluded_steps     
+      - name: flow_name
+      - name: memory
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.dev_override}}", "{{inputs.parameters.api_key_override}}", "{{inputs.parameters.server_override}}", "{{inputs.parameters.is_test}}", "{{inputs.parameters.excluded_steps}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+ 

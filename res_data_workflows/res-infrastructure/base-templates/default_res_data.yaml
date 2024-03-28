@@ -1,0 +1,59 @@
+#   This is the base template use for most workflows
+#   It uses the res-data Docker image, and calls whatever function is specified
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: default-res-data
+spec:
+  arguments:
+    parameters:
+    - name: event
+      value: "{}"
+  templates:
+  - name: res-data
+    retryStrategy:
+          limit: "2"
+          retryPolicy: "OnFailure" 
+          backoff:
+            #back off for 3 minute and try again - in the scale of the 24 hour cron job 3 minutes is not too bad
+            duration: "3m"  
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+      - name: memory
+    outputs:
+      parameters:
+        - name: dump
+          valueFrom:
+            path: /tmp/dump.txt
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"limits":{ "memory": "{{inputs.parameters.memory}}" }}}], "tolerations":[{"key": "workflow", "value": "true", "effect": "NoSchedule"}]}'
+    script:
+      image: res-data
+      command: [python]
+      source: |
+        import json
+        import sys
+        import importlib
+        from res.utils import logger
+        # User specifies the full path to the module + the function. Strip out the function and import
+        module_name = "res.flows." + ".".join("{{inputs.parameters.flow_name}}".split(".")[:-1])
+        logger.info(f"Loading module: {module_name}")
+        workflow_module = importlib.import_module(module_name, package=None)
+
+        # Parse the JSON event
+        workflow_event = json.loads('{{inputs.parameters.event}}')
+        logger.debug(f"Event Payload: {json.dumps(workflow_event)}")
+
+        # Create a reference to the function
+        workflow_fn = getattr(workflow_module, '{{inputs.parameters.flow_name}}'.split(".")[-1])
+
+        # Call the function and store results
+        data = workflow_fn(workflow_event, None)
+        logger.debug(f"Event Output: {json.dumps(data)}")
+        with open('/tmp/dump.txt', 'w') as f:
+          json.dump(data, f)
+        logger.info("Done!")
+      envFrom:
+       - configMapRef:
+           name: res-data-env

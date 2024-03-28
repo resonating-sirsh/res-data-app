@@ -1,0 +1,36 @@
+{
+    "type": "record",
+    "name": "payments",
+    "namespace": "res_sell",
+    "doc": "res_sell.merge_brand_payments schema",
+    "fields": [
+        {
+            "name": "source",
+            "type": "string"
+        },
+        {
+            "name": "source_payment_id",
+            "type": "string"
+        },
+        {
+            "name": "source_brand_id",
+            "type": "string"
+        },
+        {
+            "name": "payment_type",
+            "type": "string"
+        },
+        {
+            "name": "payment_amount",
+            "type": "float"
+        },
+        {
+            "name": "payment_datetime",
+            "type": "int"
+        },
+        {
+            "name": "brand_code",
+            "type": "string"
+        }
+    ]
+}

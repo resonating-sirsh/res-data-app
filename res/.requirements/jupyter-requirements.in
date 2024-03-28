@@ -1,0 +1,30 @@
+blackcellmagic
+beakerx
+# elyra[all]>=3.1.0
+git+https://github.com/krassowski/python-language-server.git@main
+ipykernel
+ipython-sql
+ipywidgets
+jupyter
+jupyter-client
+jupyter-console
+jupyter-core
+jupyterlab
+jupyterlab-git
+jupyterlab-horizon-theme
+jupyterlab-lsp
+jupyterlab_darkside_ui
+jupyterlab_materialdarker
+jupyterlab_theme_solarized_dark
+jupyter_contrib_nbextensions
+jupyter_enterprise_gateway
+jupyter_nbextensions_configurator
+jupytext
+# lckr-jupyterlab-variableinspector
+metakernel
+nbconvert
+nbdime
+notebook
+py-heat-magic
+theme-darcula
+zsh-jupyter-kernel

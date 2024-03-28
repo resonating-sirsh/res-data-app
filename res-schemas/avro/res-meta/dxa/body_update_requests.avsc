@@ -1,0 +1,119 @@
+[{
+	"type": "record",
+	"name": "body_pieces",
+	"namespace": "res_meta.dxa",
+	"fields": [{
+		"name": "key",
+		"type": "string"
+	}]
+}, {
+	"type": "record",
+	"name": "body_update_requests",
+	"namespace": "res_meta.dxa",
+	"doc": "request to generate a legacy body meta one from pieces changing",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "flow_id",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "body_code",
+			"type": "string"
+		},
+		{
+			"name": "mode",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "size_code",
+			"type": "string"
+		},
+		{
+			"name": "sample_size",
+			"type": "string"
+		},
+		{
+			"name": "body_version",
+			"type": ["int"]
+		},
+		{
+			"name": "sizes",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "contracts_failed",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "contract_failure_context",
+			"type": {
+				"type": "map",
+				"values": "string"
+			},
+			"default": {}
+		},
+		{
+			"name": "previous_differences",
+			"type": {
+				"type": "map",
+				"values": ["string", "float", "null", {
+					"type": "array",
+					"items": "string"				
+				}, {
+					"type": "map",
+					"values": [{
+						"type": "map",
+						"values": "float" 
+					}]
+				}]
+			},
+			"default": {}
+		},
+		{
+			"name": "piece_name_mapping",
+			"type": {
+				"type": "array",
+				"items": "body_pieces"
+			},
+			"default" : []
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int",
+					"boolean"
+				]
+			},
+			"default": {}
+		},
+		{
+			"name": "created_at",
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		{
+			"name": "body_one_ready_request",
+			"type": ["null", "string"],
+			"default": null
+		}
+	]
+}]

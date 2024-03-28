@@ -1,0 +1,30 @@
+{
+    "apiVersion": "resmagic.io/v1",
+    "kind": "resFlow",
+    "metadata": {
+        "name": "test_shopify_sync_media",
+        "version": "experimental",
+        "parallel_set_id": "ebd6d98e-100e-4260-b32d-4a16ae46de07"
+    },
+    "assets": [
+        {}
+    ],
+    "task": {
+        "key": "test123"
+    },
+    "args": {
+        "product_id": "602e2d7c6af438d92eb91ad2",
+        "store_code": "TT",
+        "alt": "This is test",
+        "s3_paths": [
+            "s3://resmagic/thumbnails/2048/73e78c05-3e3c-439b-93be-e74e94a13d24.jpg",
+            "s3://resmagic/thumbnails/2048/7afee1ef-199b-4942-a9a8-3cd35316195f.jpg",
+            "s3://resmagic/thumbnails/2048/8b08f759-eb06-4a52-a1b7-a9c500030017.jpg",
+            "s3://resmagic/thumbnails/2048/e8a07aa2-9d73-4615-86ba-49be87acf5f3.jpg",
+            "s3://resmagic/thumbnails/2048/a612bdf7-18d1-48e0-9b68-e834f6000ada.jpg",
+            "s3://resmagic/thumbnails/2048/6a8172b9-1b10-4920-a962-5b463b2928ea.jpg",
+            "s3://resmagic/thumbnails/2048/f762dadc-97d2-4dbf-9f58-2b61243a2ce1.jpg",
+            "s3://resmagic/thumbnails/2048/519748fe-203e-43e4-803f-a39890e0efe3.jpg"
+        ]
+    }
+}

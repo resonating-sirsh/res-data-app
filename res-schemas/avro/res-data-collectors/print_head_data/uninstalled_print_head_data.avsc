@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "uninstalled_print_head_data",
+  "namespace": "printer.head.data",
+  "doc": "Uninstalled heads",
+  "fields": [
+    {
+      "name": "Printer",
+      "type": "string"
+    },
+    {
+      "name": "Serial",
+      "type": "string"
+    },
+    {
+      "name": "Installed",
+      "type": "int"
+    },
+    {
+      "name": "Removed",
+      "type": "int"
+    },
+    {
+      "name": "Color",
+      "type": "string"
+    },
+    {
+      "name": "InkType",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+orjson>=3.4.5
+ortools
+pyairtable==1.1.0

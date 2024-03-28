@@ -1,0 +1,10 @@
+table:
+  name: style_size_pieces
+  schema: meta
+object_relationships:
+  - name: piece
+    using:
+      foreign_key_constraint_on: piece_id
+  - name: style_size
+    using:
+      foreign_key_constraint_on: style_size_id

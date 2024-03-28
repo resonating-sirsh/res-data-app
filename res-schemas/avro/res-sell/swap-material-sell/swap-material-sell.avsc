@@ -1,0 +1,12 @@
+{
+    "type": "record",
+    "name": "SwapMaterialRequest",
+    "namespace": "sell.swap_material_request",
+    "doc": "Batch process to swap materials between styles",
+    "fields": [
+        {
+            "name": "id",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+metadata:
+  name: example-sops-secret
+  namespace: argocd
+spec:
+  destination:
+    namespace: res-examples
+    server: https://kubernetes.default.svc
+  project: res-examples
+  source:
+    path: apps/res-examples/example-sops-secret/production
+    repoURL: git@github.com:resonance/res-data-platform.git
+    targetRevision: main

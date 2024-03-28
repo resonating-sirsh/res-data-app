@@ -1,0 +1,4 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- alter table "digital_product"."digital_product_request" add column "reason_message" text
+--  null;

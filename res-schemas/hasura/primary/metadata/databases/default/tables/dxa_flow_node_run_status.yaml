@@ -1,0 +1,12 @@
+table:
+  name: flow_node_run_status
+  schema: dxa
+is_enum: true
+array_relationships:
+  - name: jobs
+    using:
+      foreign_key_constraint_on:
+        column: status
+        table:
+          name: flow_node_run
+          schema: dxa

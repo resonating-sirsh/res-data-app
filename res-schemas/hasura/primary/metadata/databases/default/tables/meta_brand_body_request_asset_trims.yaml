@@ -1,0 +1,7 @@
+table:
+  name: brand_body_request_asset_trims
+  schema: meta
+object_relationships:
+  - name: body_request_asset_node
+    using:
+      foreign_key_constraint_on: node_id

@@ -1,0 +1,48 @@
+table:
+  name: styles
+  schema: meta
+object_relationships:
+  - name: pieces_hash_registry
+    using:
+      foreign_key_constraint_on: pieces_hash_id
+array_relationships:
+  - name: products
+    using:
+      foreign_key_constraint_on:
+        column: style_id
+        table:
+          name: products
+          schema: sell
+  - name: style_sizes
+    using:
+      foreign_key_constraint_on:
+        column: style_id
+        table:
+          name: style_sizes
+          schema: meta
+  - name: style_status_histories
+    using:
+      foreign_key_constraint_on:
+        column: style_id
+        table:
+          name: style_status_history
+          schema: meta
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - model_3d_uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $model_3d_uri
+      remote_schema: s3url-signer
+    name: signed_model_3d_uri
+  - definition:
+      hasura_fields:
+        - point_cloud_uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $point_cloud_uri
+      remote_schema: s3url-signer
+    name: signed_point_cloud_uri

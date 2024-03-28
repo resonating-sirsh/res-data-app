@@ -1,0 +1,1 @@
+# Payment Request kafka procesor

@@ -1,0 +1,1 @@
+This Argo job will create a snowflake sink for the given kafka topic.

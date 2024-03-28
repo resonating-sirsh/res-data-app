@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: google-analytics-data-integration-cron
+spec:
+  schedule: "0 4,16 * * *"
+  startingDeadlineSeconds: 0
+  concurrencyPolicy: "Allow"      
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  suspend: false
+  workflowSpec:
+    workflowTemplateRef:
+      name: google-analytics-data-integration

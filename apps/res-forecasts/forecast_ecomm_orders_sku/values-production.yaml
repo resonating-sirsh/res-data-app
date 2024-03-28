@@ -1,0 +1,3 @@
+deployment:
+  env:
+    WRITE_TO_AIRTABLE: True

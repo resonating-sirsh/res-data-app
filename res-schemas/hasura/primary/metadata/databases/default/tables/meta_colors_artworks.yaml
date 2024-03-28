@@ -1,0 +1,10 @@
+table:
+  name: colors_artworks
+  schema: meta
+object_relationships:
+  - name: artwork
+    using:
+      foreign_key_constraint_on: artwork_id
+  - name: color
+    using:
+      foreign_key_constraint_on: color_id

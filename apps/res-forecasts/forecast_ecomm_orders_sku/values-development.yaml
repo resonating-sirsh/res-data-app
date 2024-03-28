@@ -1,0 +1,13 @@
+deployment:
+  type: "res_workflow"
+  name: "forecast-ecomm-orders-sku"
+  command: python
+  args:
+    - -m
+    - src.main
+  cron:
+    schedule: "0 14 * * *"
+  env:
+    WRITE_TO_AIRTABLE: False
+    PRINT_BASE_ID: "apprcULXTWu33KFsh"
+    RECOMMENDED_ORDERS_TABLE: "tblk8Rn7uebu7FRhh"

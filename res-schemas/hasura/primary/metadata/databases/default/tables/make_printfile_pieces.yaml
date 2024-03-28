@@ -1,0 +1,7 @@
+table:
+  name: printfile_pieces
+  schema: make
+object_relationships:
+  - name: printfile
+    using:
+      foreign_key_constraint_on: printfile_id

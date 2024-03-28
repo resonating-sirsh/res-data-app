@@ -1,0 +1,246 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: shopify-data-integration
+spec:
+  entrypoint: shopify-data-integration
+  arguments:
+    parameters:
+    # Sync type can be overridden in the developer UI to perform full syncs
+    - name: sync_type
+      value: "incremental"
+    - name: dev_override
+      value: "" # Can be used to enable running the app in a dev environment
+    - name: single_shop_domain_name
+      value: "none"
+    - name: steps_to_run
+      value: "all"      
+  templates:
+  - name: shopify-data-integration
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override
+      - name: single_shop_domain_name
+      - name: steps_to_run
+    steps:
+    # Setting up steps. Future steps to be added in future PRs        
+    - - name: abandoned-checkouts
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"                              
+          - name: flow_name
+            value: "/app/src/abandoned_checkouts.py"
+          - name: memory
+            value: 512Mi  
+        continueOn:
+          failed: true
+    - - name: carrier-services
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/carrier_services.py"
+          - name: memory
+            value: 512Mi  
+        continueOn:
+          failed: true
+    - - name: customer-visits
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/customer_visits.py"
+          - name: memory
+            value: 8192Mi  
+        continueOn:
+          failed: true                                      
+    - - name: customers
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/customers.py"
+          - name: memory
+            value: 4096Mi 
+        continueOn:
+          failed: true   
+    - - name: fulfillment-timestamps
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/fulfillment_timestamps.py"
+          - name: memory
+            value: 1024Mi  
+        continueOn:
+          failed: true                  
+    - - name: orders
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/orders.py"
+          - name: memory
+            value: 8192Mi  
+        continueOn:
+          failed: true 
+    - - name: order-app-publications
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/order_app_publications.py"
+          - name: memory
+            value: 2048Mi 
+        continueOn:
+          failed: true           
+    - - name: product-performance
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/product_performance.py"
+          - name: memory
+            value: 2048Mi  
+        continueOn:
+          failed: true                       
+    - - name: products
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/products.py"
+          - name: memory
+            value: 1024Mi    
+        continueOn:
+          failed: true                               
+    - - name: shop-content-events
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/shop_content_events.py"
+          - name: memory
+            value: 8192Mi   
+        continueOn:
+          failed: true                               
+    - - name: shops
+        template: generic-step
+        arguments:
+          parameters:
+          - name: sync_type
+            value: "{{workflow.parameters.sync_type}}"
+          - name: dev_override
+            value: "{{workflow.parameters.dev_override}}"    
+          - name: single_shop_domain_name
+            value: "{{workflow.parameters.single_shop_domain_name}}"      
+          - name: steps_to_run
+            value: "{{workflow.parameters.steps_to_run}}"              
+          - name: flow_name
+            value: "/app/src/shops.py"
+          - name: memory
+            value: 256Mi                                          
+  - name: generic-step
+    retryStrategy:
+          limit: "1"
+          retryPolicy: "Always" 
+          backoff:
+            duration: "30m"  
+    inputs:
+      parameters:
+      - name: sync_type
+      - name: dev_override      
+      - name: flow_name
+      - name: single_shop_domain_name
+      - name: steps_to_run
+      - name: memory
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.sync_type}}", "{{inputs.parameters.dev_override}}", "{{workflow.parameters.single_shop_domain_name}}", "{{workflow.parameters.steps_to_run}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+ 

@@ -1,0 +1,23 @@
+name: make.body_pieces
+key: make.body_pieces
+fields:
+- name: key
+  key: key
+  is_key: True
+  required: True
+  indexes:
+  - hash
+- name: body_piece_key
+  key: body_piece_key
+  meta_type: meta.body_pieces
+- name: one_specification_key
+  key: one_specification_key
+  meta_type: make.one_specification
+- name: color_code
+  key: color_code
+  meta_type: colors
+- name: material_code
+  key: material_code
+  meta_type: meta.materials
+- name: piece_customization
+  key: piece_customization

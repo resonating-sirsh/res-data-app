@@ -1,0 +1,11 @@
+table:
+  name: collection_methods
+  schema: sell
+array_relationships:
+  - name: subscriptions
+    using:
+      foreign_key_constraint_on:
+        column: collection_method
+        table:
+          name: subscriptions
+          schema: sell

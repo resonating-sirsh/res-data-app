@@ -1,0 +1,10 @@
+{
+  "apiVersion": "resmagic.io/v1",
+  "args": {
+    "campaign_id": "rec73CWIxcLpBnhQa"
+  },
+  "kind": "resFlow",
+  "task": { "key": "rec3repopwyibb9ysdelete" },
+  "metadata": { "name": "sell.product.group.delete", "version": "dev" },
+  "assets": [{}]
+}

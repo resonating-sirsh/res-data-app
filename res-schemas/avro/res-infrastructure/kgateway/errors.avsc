@@ -1,0 +1,24 @@
+{
+    "type": "record",
+    "name": "kgatewayErrors",
+    "namespace": "kgateway",
+    "doc": "If a message fails to pass thru KGateway, it will be added here for future use",
+    "fields": [
+        {
+            "name": "version",
+            "type": "string"
+        },
+        {
+            "name": "process_name",
+            "type": "string"
+        },
+        {
+            "name": "topic",
+            "type": "string"
+        },
+        {
+            "name": "invalid_payload",
+            "type": "string"
+        }
+    ]
+}

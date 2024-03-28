@@ -1,0 +1,4 @@
+This script get the last processed job for the specified printer via the config manager.
+It has the following formar -> {"jobid": "#####", "status : "#"}
+
+Bumping the app to get the airtable update.

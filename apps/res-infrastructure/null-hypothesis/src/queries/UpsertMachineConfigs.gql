@@ -1,0 +1,38 @@
+mutation UpsertMachineConfigs(
+    $configs: jsonb,
+    $description: String,
+    $name: String,
+    $node: String,
+    $serial_number: String,
+    $metadata: jsonb,
+    $is_active: Boolean = false
+    ) {
+  insert_make_machine_configs(
+    objects: {
+        configs: $configs,
+        description: $description,
+        name: $name,
+        node: $node,
+        serial_number: $serial_number
+        metadata: $metadata
+        is_active: $is_active
+    },
+    on_conflict: {
+        constraint: machine_configs_serial_number_key, 
+        update_columns: [configs, is_active, name, node, description]
+    }
+) {
+    returning {
+      configs
+      created_at
+      description
+      id
+      is_active
+      name
+      node
+      serial_number
+      updated_at
+      metadata
+    }
+  }
+}

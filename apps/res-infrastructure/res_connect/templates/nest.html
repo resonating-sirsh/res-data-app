@@ -1,0 +1,511 @@
+<html>
+
+<head>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" />
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script type='text/javascript'
+        src='https://cdn.jsdelivr.net/npm/imagemapster@1.5.4/dist/jquery.imagemapster.min.js'></script>
+    <script type='text/javascript'
+        src='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js'></script>
+    <style>
+        #begin-msg {
+            position: fixed;
+            left: 33%;
+            top: 50px;
+            width: 60%;
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+        }
+
+        #info-box {
+            position: fixed;
+            left: 33%;
+            top: 0%;
+            width: 60%;
+            font-size: 25;
+            font-family: helvetica;
+            max-height: 100%;
+            overflow-y: auto;
+            display: none;
+            padding-top: 5px;
+        }
+
+        #invert-nest {
+            position: fixed;
+            right: 15%;
+            top: 1%;
+            z-index: 100;
+        }
+
+        .info-box-var {
+            display: inline;
+        }
+
+        .remove-button {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            margin-top: 2px;
+            margin-right: 2px;
+        }
+
+        .button {
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+            color: red;
+            cursor: pointer;
+            display: inline-block;
+            background-color: #CCC;
+            box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.4);
+            padding: 5px;
+            user-select: none;
+        }
+
+        .button:hover {
+            background-color: #AAA;
+        }
+
+        .button:active {
+            box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.8);
+        }
+
+        .defect-image {
+            border: solid 5px transparent;
+        }
+
+        .defect-selected.fail {
+            border: solid 5px red;
+            box-shadow: 0 0 7px red;
+        }
+
+        .defect-selected.pass {
+            border: solid 5px green;
+            box-shadow: 0 0 7px green;
+        }
+
+        .defect {
+            position: relative;
+            padding: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+            border: solid 3px #CCC;
+            margin: 2px;
+        }
+
+        .defect.pass {
+            background-color: #CFC;
+            box-shadow: 0 0 5px #CFC;
+            border: solid 3px #AFA;
+        }
+
+        .defect.fail {
+            background-color: #FCC;
+            box-shadow: 0 0 5px #FCC;
+            border: solid 3px #FAA;
+        }
+
+        .defect.challenge {
+            background-color: #FD3;
+            box-shadow: 0 0 5px #FD3;
+            border: solid 3px #FD0;
+        }
+
+        .selectize-control {
+            width: 70%;
+            display: inline-block;
+            padding-right: 15px;
+            font-family: helvetica;
+            font-size: 20;
+        }
+
+        .selectize-dropdown {
+            font-family: helvetica;
+            font-size: 20;
+        }
+
+        .selectize-input {
+            font-family: helvetica;
+            font-size: 20;
+        }
+
+        .selectize-input>input[placeholder] {
+            font-family: helvetica;
+            font-size: 20;
+        }
+
+        input[type=checkbox] {
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map-container" style="display:none">
+        <div id="map-inverter">
+            <img src='{{ nest_img_path }}' usemap='#nest-map' id='nest-img' />
+            <map id='nest-map' name='nest-map'>
+                {{ nest_map|safe }}
+            </map>
+            {% for i in range(num_markers+1) %}
+            <div
+                style="position:absolute;top:calc({{i*marker_pct}}% - 8px);left:calc(100% + 10px);font-family:helvetica;user-select:none;">
+                {{i*10}}"
+            </div>
+            <div
+                style="position:absolute;top:calc({{i*marker_pct}}% - 8px);right:calc(100% + 10px);width:100px;font-family:helvetica;transform:scale(-1,-1);text-align:left;user-select:none;">
+                {{i*10}}"</div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id='begin-msg' name='begin-msg'>
+        Loading...
+    </div>
+    <div id='invert-nest' class='button'>
+        Invert Nest
+    </div>
+    <div id='info-box' name='info-box'>
+        <div style='display:none'>
+            <b>Piece id:</b>
+            <div id='piece-id' class='info-box-var'></div><br />
+            <b>Piece Code:</b>
+            <div id='piece-code' class='info-box-var'></div><br />
+        </div>
+
+        <b>One Number:</b>
+        <div id='asset-key' class='info-box-var'></div><br />
+        <b>Piece Name:</b>
+        <div id='piece-name' class='info-box-var'></div><br />
+        <b>Piece Description:</b>
+        <div id='piece-desc' class='info-box-var'></div><br />
+        <b>Zone:</b>
+        <div id='piece-zone' class='info-box-var'></div><br />
+        <b>Healing app:</b>
+        <div id='healing-id' class='info-box-var'></div><br />
+        <b>Print app:</b>
+        <div id='print-id' class='info-box-var'></div><br />
+        <b>Piece Resolution:</b>
+        <div id='resolution' class='info-box-var'></div><br />
+        <hr />
+        <div style='padding: 10px;'>
+            <div id='add-defect' class='button'>
+                Add Defect
+            </div>
+        </div>
+        <div id='defects'></div>
+    </div>
+
+    <script type='text/javascript'>
+        var piece_info = { {{ piece_info| safe }} };
+        var defect_info = {{ defect_info| safe }};
+        var nest_key = "{{nest_key| safe}}";
+        var select_options = [];
+        var g_defect_count = 0;
+        var g_tagged = "{{ tagged_piece_ids | safe }}".split(",");
+        var g_inspector_id = {{ inspector_id }};
+        var g_max_image = 4;
+        var g_loading = false;
+        var g_scale = {{ scale_y }};
+
+        function resize() {
+            $('#nest-img').mapster('resize', $(window).width() / 4, 0, 0);
+        }
+
+        function invert() {
+            g_scale = -g_scale;
+            setOrientation();
+        }
+
+        function setOrientation() {
+            $('#map-inverter').css({
+                "position": "relative",
+                "transform": `scale(${g_scale}, ${g_scale})`
+            });
+        }
+
+        function onWindowResize() {
+            var curWidth = $(window).width(),
+                checking = false;
+            if (checking) {
+                return;
+            }
+            checking = true;
+            window.setTimeout(function () {
+                var newWidth = $(window).width();
+                if (newWidth === curWidth) {
+                    resize();
+                }
+                checking = false;
+            }, 100);
+        }
+
+        function updateDefectOptions(zone) {
+            select_options = [];
+            for (var airtable_id in defect_info) {
+                if (zone == "" || defect_info[airtable_id]["zone"] == zone) {
+                    select_options.push({ 'defect_name': defect_info[airtable_id]["defect"], 'defect_id': airtable_id });
+                }
+            }
+        }
+
+        function updateDefectSelection(defect_id, defect) {
+            console.log("updating selection on " + defect_id);
+            $(`${defect_id}_imgs`).css({ 'display': 'block' });
+            $(`${defect_id}_id`).html(defect);
+            $(`${defect_id}_name`).html(defect_info[defect]["defect"]);
+            $(`${defect_id}_outer`).removeClass("fail");
+            $(`${defect_id}_outer`).removeClass("pass");
+            $(`${defect_id}_flag_cont`).css({ 'display': 'none' });
+            var has_repair = g_inspector_id == 1 && defect_info[defect]["image4"] != null;
+            var max_img = has_repair ? 4 : 3;
+            for (var i = 1; i <= max_img; i++) {
+                var url = defect_info[defect]["image" + i]["url"];
+                var pass = defect_info[defect]["image" + i]["pass"];
+                $(`${defect_id}_img_${i}`)
+                    .attr("src", url)
+                    .attr("width", (90 / max_img) + "%")
+                    .css({"display": "inline"})
+                    .removeClass("defect-selected")
+                    .removeClass("fail")
+                    .removeClass("pass")
+                    .removeClass("challenge")
+                    .addClass(pass ? "pass" : "fail");
+            }
+            if (!has_repair) {
+                $(`${defect_id}_img_4`).css({"display": "none"})
+            }
+        }
+
+        function recordInspection(defect_id) {
+            data = {
+                piece_id: $('#piece-id').html(),
+                nest_key: nest_key,
+                inspector: g_inspector_id,
+                airtable_defect_id: $(`${defect_id}_id`).html(),
+                defect_idx: $(`${defect_id}_idx`).html(),
+                defect_name: $(`${defect_id}_name`).html(),
+                challenge: $(`${defect_id}_flag`).prop('checked'),
+                fail: $(`${defect_id}_outer`).hasClass("fail"),
+                image_idx: $(`${defect_id}_sel`).html(),
+            };
+            console.log('sub: ' + JSON.stringify(data));
+            $.ajax({
+                url: "/res-connect/roll_inspection/inspect_piece",
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+            });
+        }
+
+        function updateResolution() {
+            var defects = $("#defects").children();
+            var status = "PASS - no defects";
+            var passes = $("#defects").find(".defect.pass").length;
+            var fails = $("#defects").find(".defect.fail").length;
+            var challenge = $("#defects").find(".defect.challenge").length;
+            console.log(passes + " " + fails + " " + challenge)
+            if (passes > 0 && fails == 0) {
+                status = "PASS - commercially acceptable";
+            }
+            if (fails > 0) {
+                status = "FAIL";
+            }
+            if (challenge > 0) {
+                status += " x Challenge";
+            }
+            console.log(status);
+            $('#resolution').html(status);
+        }
+
+        function addDefectSelection(defect_ind, selected_id, selected_image, challenge) {
+            var defect_idx = defect_ind == -1 ? g_defect_count : defect_ind;
+            console.log(`adding defect ${defect_idx}`)
+            var piece_id = $('#piece-id').html();
+            var checked = challenge ? "checked" : "";
+            $("#defects").prepend(
+                `
+                <div id="defect_${defect_idx}_outer" class="defect">
+                    <select id="defect_${defect_idx}" placeholder="Select a defect"></select>
+                    <div id="defect_${defect_idx}_id" style='display:none'></div>
+                    <div id="defect_${defect_idx}_idx" style='display:none'>${defect_idx}</div>
+                    <div id="defect_${defect_idx}_name" style='display:none'></div>
+                    <div id="defect_${defect_idx}_sel" style='display:none'></div>
+                    <div id="defect_${defect_idx}_rm" class='button remove-button'>X</div>
+                    <div id="defect_${defect_idx}_imgs" style="font-size:20;padding-top:15px;display:none">
+                        <img id="defect_${defect_idx}_img_1" class='defect-image' src='data:,' width=22%></img>
+                        <img id="defect_${defect_idx}_img_2" class='defect-image' src='data:,' width=22%></img>
+                        <img id="defect_${defect_idx}_img_3" class='defect-image' src='data:,' width=22%></img>
+                        <img id="defect_${defect_idx}_img_4" class='defect-image' src='data:,' width=22%></img>
+                        <br/>&nbsp;
+                        <div id="defect_${defect_idx}_flag_cont" style="display: none">
+                            <input type="checkbox" id="defect_${defect_idx}_flag" ${checked}/>
+                            <label for="defect_${defect_idx}_flag">Challenge / Retar</label>
+                        </div>
+                    </div>
+                </div>
+                `
+            );
+            $(`#defect_${defect_idx}`).selectize({
+                options: select_options,
+                valueField: 'defect_id',
+                labelField: 'defect_name',
+                searchField: ['defect_name'],
+                dropdownParent: 'body',
+                placeholder: 'Select defect',
+                onChange: function (v) {
+                    updateDefectSelection(`#defect_${defect_idx}`, v);
+                },
+            });
+            var defect_pre = `#defect_${defect_idx}`;
+            var outer = `#defect_${defect_idx}_outer`;
+            if (challenge) {
+                $(outer).addClass("challenge");
+            }
+            $(`#defect_${defect_idx}_rm`).click(function () {
+                $.ajax({
+                    url: "/res-connect/roll_inspection/delete_piece_state",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        piece_id: piece_id,
+                        nest_key: nest_key,
+                        inspector: g_inspector_id,
+                        defect_idx: defect_idx
+                    })
+                });
+                $(outer).remove();
+                if ($("#defects").children().length == 0) {
+                    g_tagged = g_tagged.filter(function (e) { return e != piece_id });
+                }
+                updateResolution();
+            });
+            var img_box_ids = [];
+            for (var i = 0; i < g_max_image; i++) {
+                img_box_ids[i] = `#defect_${defect_idx}_img_${i+1}`;
+            }
+            img_box_ids = img_box_ids.join(",");
+            for (var i = 1; i <= g_max_image; i++) {
+                var img_box_id = `#defect_${defect_idx}_img_${i}`;
+                $(img_box_id).click((function (i) {
+                    return function () {
+                        $(img_box_ids).each(function () { $(this).removeClass("defect-selected"); })
+                        $(this).addClass("defect-selected");
+                        if ($(this).hasClass("pass")) {
+                            $(outer).addClass("pass").removeClass("fail");
+                        } else if ($(this).hasClass("fail")) {
+                            $(outer).removeClass("pass").addClass("fail");
+                        }
+                        if (!g_tagged.includes(piece_id)) {
+                            g_tagged.push(piece_id);
+                        }
+                        $(`#defect_${defect_idx}_sel`).html(i);
+                        if (!g_loading) {
+                            console.log("inspect due to image click " + img_box_id)
+                            recordInspection(defect_pre);
+                        }
+                        $(`#defect_${defect_idx}_flag_cont`).css({ 'display': 'inline-block' });
+                        updateResolution();
+                    }
+                })(i));
+            }
+            $(`#defect_${defect_idx}_flag`).change(function () {
+                console.log("inspect due to flag change")
+                if ($(this).prop('checked')) {
+                    $(outer).addClass("challenge");
+                    recordInspection(defect_pre);
+                } else {
+                    $(outer).removeClass("challenge");
+                    var clicked = $(`#defect_${defect_idx}_sel`).html();
+                    console.log("re clicking: " + clicked);
+                    $(`${defect_pre}_img_${clicked}`).click();
+                }
+                updateResolution();
+            });
+            g_defect_count++;
+            if (selected_id != -1) {
+                $(`#defect_${defect_idx}`)[0].selectize.setValue(selected_id);
+            }
+            if (selected_image != -1) {
+                $(`#defect_${defect_idx}_img_${selected_image}`).trigger('click');
+                $(`#defect_${defect_idx}_flag_cont`).css({ 'display': 'inline-block' });
+            }
+            updateResolution();
+        }
+
+        function loadDefectInfo(piece_id) {
+            $.ajax({
+                url: "/res-connect/roll_inspection/piece_state",
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    piece_id: piece_id,
+                    nest_key: nest_key,
+                    inspector: g_inspector_id,
+                }),
+                success: function (data) {
+                    g_loading = true;
+                    $('#defects').html("");
+                    JSON.parse(data).forEach(function (e) {
+                        console.log(e);
+                        addDefectSelection(e.defect_idx, e.airtable_defect_id, e.image_idx, e.challenge);
+                        if (e.defect_idx >= g_defect_count) {
+                            g_defect_count = e.defect_idx;
+                        }
+                    });
+                    $('#add-defect').css({ 'display': 'inline-block' });
+                    g_loading = false;
+                }
+            });
+        }
+
+        $(window).on("load", function () {
+            $('#nest-img').mapster({
+                fillColor: 'ff0000',
+                stroke: true,
+                singleSelect: false,
+                mapKey: 'piece_id',
+                onClick: function (e) {
+                    var piece_id = e.key;
+                    var piece_zone = piece_info[piece_id]["zone"];
+                    var healing_id = piece_info[piece_id]["healing_app_record_id"];
+                    var print_id = piece_info[piece_id]["asset_id"];
+                    $('#info-box').css({ 'display': 'inline' });
+                    $('#begin-msg').css({ 'display': 'none' });
+                    $('#piece-id').html(piece_id);
+                    $('#piece-name').html(piece_info[piece_id]["piece_name"]);
+                    $('#asset-key').html(piece_info[piece_id]["asset_key"]);
+                    $('#piece-code').html(piece_info[piece_id]["piece_code"]);
+                    $('#piece-desc').html(piece_info[piece_id]["piece_description"]);
+                    $('#healing-id').html(healing_id == null ? "Healing record not found" : `<a href="https://airtable.com/appWxYpvDIs8JGzzr/tblbRvw7OzX1929Qi/${healing_id}?blocks=hide" target="_blank">${healing_id}</a>`);
+                    $('#print-id').html(print_id == null ? "" : `<a href="https://airtable.com/apprcULXTWu33KFsh/tblwDQtDckvHKXO4w/${print_id}?blocks=hide" target="_blank">${print_id}</a>`);
+                    $('#piece-zone').html(piece_zone);
+                    $('#nest-img').mapster('set', false, $('#nest-img').mapster('get'));
+                    $('#nest-img').mapster('set', true, g_tagged.join(','), { strokeColor: 'ff0000', stroke: true, fillOpacity: 0.2, strokeWidth: 4 });
+                    $('#nest-img').mapster('set', false, piece_id);
+                    $('#nest-img').mapster('set', true, piece_id, { fillColor: 'ff0000' });
+                    $('#add-defect').css({ 'display': 'none' });
+                    g_defect_count = 0;
+                    $('#defects').html("Loading...");
+                    updateDefectOptions(piece_info[piece_id]["zone"]);
+                    loadDefectInfo(piece_id);
+                    updateResolution();
+                    return false;
+                },
+            });
+            $('#nest-img').mapster('set', true, g_tagged.join(','), { strokeColor: 'ff0000', stroke: true, fillOpacity: 0.2, strokeWidth: 4 });
+            $('#add-defect').click(function () {
+                addDefectSelection(-1, -1, -1, false);
+            });
+            $(window).bind('resize', onWindowResize);
+            $("#map-container").css({ "display": "block", "position": "absolute" });
+            $("#begin-msg").html("Select a piece to begin.")
+            $('#invert-nest').click(invert);
+            resize();
+            setOrientation();
+        });
+    </script>
+</body>
+
+</html>

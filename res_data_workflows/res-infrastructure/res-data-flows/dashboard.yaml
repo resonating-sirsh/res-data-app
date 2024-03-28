@@ -1,0 +1,408 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels: 
+    grafana_dashboard: "1"
+  namespace: prometheus
+  name: res-flows-dashboard
+data:
+  res-flows-dashboard.json: |-
+      {
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "type": "dashboard"
+            }
+          ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": 34,
+        "iteration": 1630190146183,
+        "links": [],
+        "panels": [
+          {
+            "datasource": null,
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {},
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 3,
+              "x": 0,
+              "y": 0
+            },
+            "id": 6,
+            "options": {
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true,
+              "text": {}
+            },
+            "pluginVersion": "7.4.2",
+            "targets": [
+              {
+                "expr": "sum(flows{flow=\"etl-airtable-v0\"})",
+                "interval": "",
+                "legendFormat": "Airtable etl flow events",
+                "refId": "A"
+              }
+            ],
+            "title": "Airtable etl flow events",
+            "type": "gauge"
+          },
+          {
+            "datasource": null,
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {},
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 3,
+              "x": 3,
+              "y": 0
+            },
+            "id": 8,
+            "options": {
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true,
+              "text": {}
+            },
+            "pluginVersion": "7.4.2",
+            "targets": [
+              {
+                "expr": "sum(flows{flow=\"dxa-printfile-expv2\"})",
+                "interval": "",
+                "legendFormat": "Nesting events",
+                "refId": "A"
+              }
+            ],
+            "title": "Nesting events",
+            "type": "gauge"
+          },
+          {
+            "datasource": null,
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {},
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 6
+            },
+            "id": 4,
+            "options": {
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true,
+              "text": {}
+            },
+            "pluginVersion": "7.4.2",
+            "targets": [
+              {
+                "expr": "flows",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "title": "Watched flow nodes",
+            "transformations": [
+              {
+                "id": "labelsToFields",
+                "options": {
+                  "valueLabel": "node"
+                }
+              }
+            ],
+            "type": "gauge"
+          },
+          {
+            "datasource": null,
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {},
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 24,
+              "x": 0,
+              "y": 14
+            },
+            "id": 2,
+            "options": {
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true,
+              "text": {}
+            },
+            "pluginVersion": "7.4.2",
+            "targets": [
+              {
+                "expr": "flows",
+                "interval": "",
+                "legendFormat": "{{node}}",
+                "refId": "A"
+              }
+            ],
+            "title": "Watched flows",
+            "transformations": [
+              {
+                "id": "labelsToFields",
+                "options": {
+                  "valueLabel": "flow"
+                }
+              }
+            ],
+            "type": "gauge"
+          }
+        ],
+        "schemaVersion": 27,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": [
+            {
+              "allValue": null,
+              "current": {
+                "isNone": true,
+                "selected": true,
+                "text": "None",
+                "value": ""
+              },
+              "datasource": null,
+              "definition": "node",
+              "description": null,
+              "error": null,
+              "hide": 0,
+              "includeAll": false,
+              "label": null,
+              "multi": false,
+              "name": "node",
+              "options": [
+                {
+                  "isNone": true,
+                  "selected": true,
+                  "text": "None",
+                  "value": ""
+                }
+              ],
+              "query": {
+                "query": "node",
+                "refId": "StandardVariableQuery"
+              },
+              "refresh": 0,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            },
+            {
+              "allValue": null,
+              "current": {
+                "isNone": true,
+                "selected": false,
+                "text": "None",
+                "value": ""
+              },
+              "datasource": null,
+              "definition": "data_group",
+              "description": null,
+              "error": null,
+              "hide": 0,
+              "includeAll": false,
+              "label": null,
+              "multi": false,
+              "name": "data_group",
+              "options": [
+                {
+                  "isNone": true,
+                  "selected": true,
+                  "text": "None",
+                  "value": ""
+                }
+              ],
+              "query": {
+                "query": "data_group",
+                "refId": "StandardVariableQuery"
+              },
+              "refresh": 0,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            },
+            {
+              "allValue": null,
+              "current": {
+                "isNone": true,
+                "selected": false,
+                "text": "None",
+                "value": ""
+              },
+              "datasource": null,
+              "definition": "flow",
+              "description": null,
+              "error": null,
+              "hide": 0,
+              "includeAll": false,
+              "label": null,
+              "multi": false,
+              "name": "flow",
+              "options": [
+                {
+                  "isNone": true,
+                  "selected": true,
+                  "text": "None",
+                  "value": ""
+                }
+              ],
+              "query": {
+                "query": "flow",
+                "refId": "StandardVariableQuery"
+              },
+              "refresh": 0,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            }
+          ]
+        },
+        "time": {
+          "from": "now-24h",
+          "to": "now"
+        },
+        "timepicker": {},
+        "timezone": "",
+        "title": "Flow overview",
+        "uid": "iRehVOV7k",
+        "version": 9
+      }

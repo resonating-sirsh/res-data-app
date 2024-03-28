@@ -1,0 +1,114 @@
+{
+  "type": "record",
+  "name": "AssignNestsToRolls",
+  "namespace": "optimus.assign_nests_to_rolls",
+  "doc": "This is the roll-level rollup of a nest-roll assignment.",
+  "fields": [
+    {
+      "name": "roll_record_id",
+      "type": "string"
+    },
+    {
+      "name": "roll_name",
+      "type": "string"
+    },
+    {
+      "name": "roll_length",
+      "type": ["null", "float"]
+    },
+    {
+      "name": "nest_record_ids",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "nest_keys",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "asset_record_ids",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "task_key",
+      "type": "string"
+    },
+    {
+      "name": "material_record_id",
+      "type": "string"
+    },
+    {
+      "name": "material_code",
+      "type": "string"
+    },
+    {
+      "name": "print_files_bijective_with_rolls",
+      "type": "boolean"
+    },
+    {
+      "name": "stitch_nests",
+      "type": "boolean"
+    },
+    {
+      "name": "stitched_nest_info",
+      "type": "string"
+    },
+    {
+      "name": "utility",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "cost",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "affinity",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "utilization",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "length_utilization",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "check_total_utilization",
+      "type": ["null", "boolean"],
+      "default": null
+    },
+    {
+      "name": "total_utilization",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "length_utilized_yards",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "length_reserved_yards",
+      "type": ["null", "float"],
+      "default": null
+    },
+    {
+      "name": "created_at",
+      "type": "string"
+    }
+  ]
+}

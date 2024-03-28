@@ -1,0 +1,66 @@
+# $id: String = ""
+#order_item_ordinal: $source_order_item_id,
+mutation update_oder_item_request($source_order_item_id: String = "", $sku: String = "", $quantity: Int = 0, $order_id: String = "", $stage: String = "", $status: String = "", $contracts_failed: [String!] = {}, $fulfillment_quantity: Int!) {
+  
+  insert_sell_order_item_fulfillments_one(object: { status: $status, contracts_failing: $contracts_failed, quantity: $quantity, stage: $stage, order_id: $order_id, order_item_id: $source_order_item_id, contracts_failed: $contracts_failed, fulfillment_quantity: $fulfillment_quantity, sku: $sku}) {
+    contracts_failing
+    ended_at
+    id
+    order_item_id
+    order_item_ordinal
+    started_at
+    status
+    fulfillment_quantity
+    stage
+    sku
+  }
+
+
+  # update_make_one_pieces(where: {one_order_id: {_eq: $id}}, _set: {deleted_at: $updated_at}) {
+  #   returning {
+  #     id
+  #   }
+  # }
+
+  # insert_make_one_orders_one(object: {
+  # created_at: $created_at, 
+  # one_pieces: {data: $one_pieces, on_conflict: {constraint: one_pieces_pkey, update_columns: [ make_instance, meta_piece_id, metadata, validation_flags, inspected_at, deleted_at ]}}, 
+  # id: $id, 
+  # order_item_id: $order_item_id, 
+  # metadata: $metadata, 
+  # one_number: $one_number, 
+  # updated_at: $updated_at, 
+  # flags: $flags, 
+  # status: $status, 
+  # sku: $sku, 
+  # one_code: $one_code, 
+  # one_code_uri: $one_code_uri, 
+  # customization: $customization, 
+  # make_instance: $make_instance,
+  # style_size_id: $style_size_id,
+  # #  style_group: $style_group, 
+  # #  style_rank: $style_rank
+  # }, 
+  
+  ,
+  on_conflict: {constraint: one_orders_pkey, update_columns: [style_size_id, one_code, one_number, metadata, one_code_uri, customization, status,sku, flags]}) {
+    id
+    one_code
+    one_number
+    sku
+    order_number
+    metadata  
+    one_pieces {
+      make_instance
+      code
+      node_id
+      piece {
+        base_image_uri
+        body_piece {
+          piece_key
+        }
+      }
+    }
+    make_instance
+  }
+}

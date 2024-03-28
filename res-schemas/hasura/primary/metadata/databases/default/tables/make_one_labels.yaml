@@ -1,0 +1,7 @@
+table:
+  name: one_labels
+  schema: make
+object_relationships:
+  - name: one_order
+    using:
+      foreign_key_constraint_on: oid

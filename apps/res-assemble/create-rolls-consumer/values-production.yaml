@@ -1,0 +1,5 @@
+deployment:
+  replicas: 2
+  env:
+    RES_APP_NAME: "create-rolls"
+    RES_TEAM: "make"

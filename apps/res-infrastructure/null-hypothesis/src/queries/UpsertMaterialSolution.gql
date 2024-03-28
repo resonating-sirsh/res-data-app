@@ -1,0 +1,10 @@
+mutation UpsertMaterialSolution($material_code: String = "", $metadata: jsonb = "", $pending_asset_count: Int = 10, $total_asset_count: Int = 10, $total_length_utilization: Float = 1.5, $total_reserved_length_px: Int = 10, $total_reserved_length_yd: Float = 1.5, $total_roll_length_px: Int = 10, $total_roll_length_yd: Float = 1.5, $total_utilization: Float = 1.5, $solution_status: String = "", $solution_key: String = "", $roll_solutions: [make_roll_solutions_insert_input!] = {}) {
+  insert_make_material_solutions_one(object: {material_code: $material_code, metadata: $metadata, pending_asset_count: $pending_asset_count, total_asset_count: $total_asset_count, total_length_utilization: $total_length_utilization, total_reserved_length_px: $total_reserved_length_px, total_reserved_length_yd: $total_reserved_length_yd, total_roll_length_px: $total_roll_length_px, total_roll_length_yd: $total_roll_length_yd, total_utilization: $total_utilization, solution_status: $solution_status, solution_key: $solution_key, roll_solutions: {data: $roll_solutions, on_conflict: {constraint: roll_solutions_pkey}}}, on_conflict: {constraint: material_solutions_pkey, where: {}}) {
+    id
+    roll_solutions_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}

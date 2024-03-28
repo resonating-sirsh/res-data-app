@@ -1,0 +1,18 @@
+table:
+  name: make_kafka_message_dump_1
+  schema: infraestructure
+event_triggers:
+  - name: make_kafka_message_dump_1_processor
+    definition:
+      enable_manual: true
+      insert:
+        columns: '*'
+      update:
+        columns:
+          - value
+          - target_processor
+    retry_conf:
+      interval_sec: 5
+      num_retries: 3
+      timeout_sec: 60
+    webhook_from_env: NULL_HYPOTHESIS_ENDPOINT

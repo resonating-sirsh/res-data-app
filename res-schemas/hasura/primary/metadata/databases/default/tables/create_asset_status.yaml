@@ -1,0 +1,3 @@
+table:
+  name: asset_status
+  schema: create

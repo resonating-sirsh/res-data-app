@@ -1,0 +1,7 @@
+{
+    "uid": "test_uid_1",
+    "node": "flow_node_example",
+    "payload_json": "{\"apiVersion\": \"v0\", \"kind\": \"resFlow\", \"metadata\": {\"name\": \"flow_node_example\", \"version\": \"exp1\"}, \"args\": {\"apply_cutline\": false, \"assets\": [{\"value\": \"s3://one-meta-artifacts/testb-testm-testc/print/source.png\", \"key\": \"my_key\", \"my_attribite\": \"some_value\"}, {\"value\": \"s3://one-meta-artifacts/testb-testm-testc/print/source.png\", \"key\": \"my_other_key\", \"my_attribite\": \"some_other_value\"}], \"jobKey\": \"job1\", \"material\": \"LTCSL\", \"buffer\": 10, \"user_data\": {\"test\": \"value\"}, \"writeFile\": false}, \"on_nesting_solution_notify\": \"testFunctionSirsh\"}",
+    "client_id": "pytest",
+    "calling_task_uid": "test_uid_0"
+}

@@ -1,0 +1,9 @@
+ARG RES_ENV
+FROM 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data-lite-$RES_ENV:latest
+
+ADD ./apps/res-data-collectors/aftership_webhook_collector/ /app/
+RUN pip install -r /app/requirements.txt
+
+ENV PYTHONPATH "${PYTHONPATH}:/app/"
+EXPOSE 5000
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]

@@ -1,0 +1,10 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0,30 * * * *"
+  command: python
+  args:
+    - /app/src/main.py
+  env:
+    RES_TEAM: "iamcurious"
+    DEV_OVERRIDE: "false"

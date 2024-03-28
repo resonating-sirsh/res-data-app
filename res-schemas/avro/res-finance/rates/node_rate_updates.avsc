@@ -1,0 +1,31 @@
+ {
+ 	"type": "record",
+ 	"name": "node_rate_updates",
+ 	"namespace": "res_finance.rates",
+ 	"doc": "any changes to rates at resonance nodes",
+ 	"fields": [{
+ 			"name": "id",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "node_name",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "rate",
+ 			"type": "float"
+ 		},
+ 		{
+ 			"name": "units",
+ 			"type": "string"
+ 		},
+ 		{
+ 			"name": "created_at",
+ 			"type": "string"
+ 		},
+		{
+ 			"name": "airtable_record_id",
+ 			"type": "string"
+ 		}
+ 	]
+ }

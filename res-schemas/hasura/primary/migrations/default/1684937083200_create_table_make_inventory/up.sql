@@ -1,0 +1,2 @@
+CREATE TABLE "make"."inventory" ("record_id" uuid NOT NULL DEFAULT gen_random_uuid(), "one_number" text NOT NULL, "reservation_status" text NOT NULL, "bin_location" text NOT NULL, "order_line_item_id" text NOT NULL, "order_id" text NOT NULL, "order_name" text NOT NULL, "bar_code_scanned" text NOT NULL, "sku" text NOT NULL, "warehouse_checkin_location" text NOT NULL, "operator_name" text NOT NULL, PRIMARY KEY ("record_id") , UNIQUE ("record_id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

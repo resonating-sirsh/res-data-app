@@ -1,0 +1,3 @@
+table:
+  name: ranked_pieces_hashes
+  schema: public

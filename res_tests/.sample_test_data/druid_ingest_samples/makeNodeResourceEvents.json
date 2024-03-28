@@ -1,0 +1,72 @@
+{
+    "type": "kafka",
+    "spec": {
+        "ioConfig": {
+            "type": "kafka",
+            "consumerProperties": {
+                "bootstrap.servers": "b-2.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-3.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-1.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094",
+                "security.protocol": "SSL",
+                "ssl.truststore.location": "/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/security/cacerts"
+            },
+            "topic": "makeNodeResourceEvents",
+            "useEarliestOffset": true
+        },
+        "tuningConfig": {
+            "type": "kafka",
+            "reportParseExceptions": false
+        },
+        "dataSchema": {
+            "dataSource": "NodeResourceHourlyStates",
+            "parser": {
+                "type": "avro_stream",
+                "avroBytesDecoder": {
+                    "type": "schema_registry",
+                    "url": "http://kafka-schema-registry-cp-schema-registry.kafka-schema-registry.svc.cluster.local:8081",
+                    "capacity": 100
+                },
+                "parseSpec": {
+                    "format": "avro",
+                    "timestampSpec": {
+                        "column": "segment_hour",
+                        "format": "auto"
+                    },
+                    "dimensionsSpec": {
+                        "dimensions": [
+                            "name",
+                            "resource_status",
+                            "resource_type",
+                            "segment_hour",
+                            "timestamp",
+                            "old_timestamp",
+                            "old_cell_value",
+                            "is_not_in_use"
+                        ],
+                        "dimensionExclusions": []
+                    }
+                }
+            },
+            "granularitySpec": {
+                "type": "uniform",
+                "queryGranularity": "MINUTE",
+                "segmentGranularity": "DAY",
+                "rollup": false
+            },
+            "metricsSpec": [
+                {
+                    "name": "count",
+                    "type": "count"
+                },
+                {
+                    "name": "segment_duration_seconds_sum",
+                    "type": "longSum",
+                    "fieldName": "segment_duration_seconds"
+                },
+                {
+                    "name": "segment_duration_minutes_sum",
+                    "type": "longSum",
+                    "fieldName": "segment_duration_minutes"
+                }
+            ]
+        }
+    }
+}

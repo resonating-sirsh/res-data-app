@@ -1,0 +1,38 @@
+{
+    "apiVersion": "v0",
+    "kind": "Flow",
+    "metadata": {
+        "name": "dxa.printfile",
+        "version": "expv2"
+    },
+    "args": {
+        "assets": [
+            {
+                "value": "s3://resmagic/uploads/0fc67c5e-f55a-49c8-997d-d7f9ee5f60ff.png",
+                "asset_id": "rec41oJoKWWzE8nzP",
+                "intelligent_one_marker_file_id": "60ee1cc66d46dc00087299f7",
+                "double_sided_print": false,
+                "number_of_pieces": 21,
+                "material_code": "LTCTW",
+                "key": "10178191"
+            },
+            {
+                "value": "s3://resmagic/uploads/b0320a96-4ae7-4057-9d1f-cdd3807897b4.png",
+                "asset_id": "recP5GqAvtx9CDxaX",
+                "intelligent_one_marker_file_id": "60dede2c31bf190008252d68",
+                "double_sided_print": false,
+                "number_of_pieces": 21,
+                "material_code": "LTCTW",
+                "key": "10172385"
+            }
+        ],
+        "useCache": false,
+        "jobKey": "trouble-shoot-e",
+        "material": "LTCTW",
+        "buffer": 10,
+        "output_bounds_length": 180000,
+        "piece_write_chunk_size": 200,
+        "on_nesting_solution_notify": "testFunctionSirsh"
+    },
+    "nodes": null
+}

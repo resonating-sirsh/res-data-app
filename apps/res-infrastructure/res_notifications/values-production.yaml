@@ -1,0 +1,6 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    enable: true
+    schedule: "*/5 * * * *"
+  replicas: 1

@@ -1,0 +1,18 @@
+table:
+  name: printers
+  schema: make
+array_relationships:
+  - name: printJobsByPrinterName
+    using:
+      foreign_key_constraint_on:
+        column: printer_name
+        table:
+          name: print_jobs
+          schema: make
+  - name: print_jobs
+    using:
+      foreign_key_constraint_on:
+        column: printer_id
+        table:
+          name: print_jobs
+          schema: make

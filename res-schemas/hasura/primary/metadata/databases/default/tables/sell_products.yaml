@@ -1,0 +1,15 @@
+table:
+  name: products
+  schema: sell
+object_relationships:
+  - name: style
+    using:
+      foreign_key_constraint_on: style_id
+array_relationships:
+  - name: order_line_items
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: order_line_items
+          schema: sell

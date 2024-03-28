@@ -1,0 +1,427 @@
+[
+    {
+        "type": "record",
+        "name": "make_piece_assets",
+        "namespace": "res_meta",
+        "fields": [
+            {
+                "name": "piece_id",
+                "type": "string"
+            },
+            {
+                "name": "asset_id",
+                "type": "string"
+            },
+            {
+                "name": "asset_key",
+                "type": "string"
+            },
+            {
+                "name": "piece_name",
+                "type": "string"
+            },
+            {
+                "name": "meta_piece_key",
+                "type": "string"
+            },
+            {
+                "name": "filename",
+                "type": "string"
+            },
+            {
+                "name": "outline_uri",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "multiplicity",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "cutline_uri",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "artwork_uri",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "requires_block_buffer",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "piece_area_yds",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "fusing_type",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "piece_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "annotation_json",
+                "type": [
+                    "null",
+                    "string"
+                ],
+                "default": null,
+            },
+            {
+                "name": "make_sequence",
+                "type": [
+                    "int",
+                    "null"
+                ],
+                "default": 0
+            },
+            {
+                "name": "piece_ordinal",
+                "type": [
+                    "null",
+                    "int"
+                ],
+                "default": null
+            },
+            {
+                "name": "piece_set_size",
+                "type": [
+                    "null",
+                    "int"
+                ],
+                "default": null,
+            },
+            {
+                "name": "piece_type",
+                "type": [
+                    "null",
+                    "string"
+                ],
+                "default": null
+            },
+            {
+                "name": "meta_one_cache_path",
+                "type": [
+                    "null",
+                    "string"
+                ],
+                "default": null,
+            },
+            {
+                "name": "sku_make_sequence_number",
+                "type": [
+                    "null",
+                    "int"
+                ],
+                "default": null,
+            },
+            {
+                "name": "style_make_sequence_number",
+                "type": [
+                    "null",
+                    "int"
+                ],
+                "default": null,
+            },
+        ],
+    },
+    {
+        "type": "record",
+        "name": "prep_pieces_responses",
+        "namespace": "res_meta",
+        "doc": "When we make pieces for print, we publish a record with some stats",
+        "fields": [
+            {
+                "name": "id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "one_number",
+                "type": "string"
+            },
+            {
+                "name": "body_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "body_version",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "sales_channel",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "upstream_request_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "size_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "color_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "material_code",
+                "type": "string"
+            },
+            {
+                "name": "uri",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "piece_type",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "created_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "flow",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "piece_set_key",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "metadata",
+                "type": {
+                    "type": "map",
+                    "values": [
+                        "null",
+                        "float",
+                        "string",
+                        "boolean"
+                    ],
+                },
+            },
+            {
+                "name": "pieces",
+                "type": {
+                    "type": "map",
+                    "values": [
+                        "null",
+                        "string"
+                    ]
+                },
+            },
+            {
+                "name": "make_pieces",
+                "type": {
+                    "type": "array",
+                    "items": "make_piece_assets"
+                },
+                "default": [],
+            },
+            {
+                "name": "height_nest_yds",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "width_nest_yds",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_yds",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_utilized_pct",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_pieces_yds",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "height_nest_yds_physical",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "width_nest_yds_physical",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_yds_physical",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_utilized_pct_physical",
+                "type": [
+                    "float",
+                    "null"
+                ],
+            },
+            {
+                "name": "area_pieces_yds_physical",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "height_nest_yds_raw",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "width_nest_yds_raw",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_yds_raw",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_utilized_pct_raw",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_pieces_yds_raw",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "height_nest_yds_compensated",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "width_nest_yds_compensated",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_yds_compensated",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "area_nest_utilized_pct_compensated",
+                "type": [
+                    "float",
+                    "null"
+                ],
+            },
+            {
+                "name": "area_pieces_yds_compensated",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "piece_count",
+                "type": "float"
+            },
+        ],
+    },
+]

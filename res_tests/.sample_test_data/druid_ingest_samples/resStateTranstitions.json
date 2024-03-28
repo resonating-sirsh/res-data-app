@@ -1,0 +1,69 @@
+{
+    "type": "kafka",
+    "spec": {
+        "ioConfig": {
+            "type": "kafka",
+            "consumerProperties": {
+                "bootstrap.servers": "b-2.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-3.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094,b-1.res-primary-dev.0hn5z0.c13.kafka.us-east-1.amazonaws.com:9094",
+                "security.protocol": "SSL",
+                "ssl.truststore.location": "/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/security/cacerts"
+            },
+            "topic": "resStateTransitions",
+            "useEarliestOffset": true
+        },
+        "tuningConfig": {
+            "type": "kafka",
+            "reportParseExceptions": true
+        },
+        "dataSchema": {
+            "dataSource": "node_states",
+            "parser": {
+                "type": "avro_stream",
+                "avroBytesDecoder": {
+                    "type": "schema_registry",
+                    "url": "http://kafka-schema-registry-cp-schema-registry.kafka-schema-registry.svc.cluster.local:8081",
+                    "capacity": 100
+                },
+                "parseSpec": {
+                    "format": "avro",
+                    "timestampSpec": {
+                        "column": "timestamp",
+                        "format": "auto"
+                    },
+                    "dimensionsSpec": {
+                        "dimensions": [
+                            "node",
+                            "key",
+                            "column_name",
+                            "cell_value",
+                            "timestamp",
+                            "old_timestamp",
+                            "",
+                            "table_id",
+                            "old_cell_value",
+                            "state_type"
+                        ],
+                        "dimensionExclusions": []
+                    }
+                }
+            },
+            "granularitySpec": {
+                "type": "uniform",
+                "queryGranularity": "MINUTE",
+                "segmentGranularity": "DAY",
+                "rollup": false
+            },
+            "metricsSpec": [
+                {
+                    "name": "count",
+                    "type": "count"
+                },
+                {
+                    "name": "sum_time_delta_minutes",
+                    "type": "longSum",
+                    "fieldName": "time_delta_minutes"
+                }
+            ]
+        }
+    }
+}

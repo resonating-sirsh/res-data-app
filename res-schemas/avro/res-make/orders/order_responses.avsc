@@ -1,0 +1,42 @@
+{
+	"type": "record",
+	"name": "order_responses",
+	"namespace": "res_make",
+	"doc": "decision about how we satisfy the make request",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "meta_one_uri",
+			"type": "string"
+		},
+		{
+			"name": "ordered_sku",
+			"type": "string"
+		},
+        {
+			"name": "sku",
+			"type": "string"
+		},
+        {
+			"name": "body_version",
+			"type": "string"
+		},
+		{
+			"name": "fulfillment_action",
+			"type": "string"
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			}
+		}
+	]
+}

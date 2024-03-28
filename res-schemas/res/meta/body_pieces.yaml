@@ -1,0 +1,44 @@
+
+name: meta.body_pieces
+key: meta.body_pieces
+fields:
+- name: key
+  key: key
+  is_key: True
+  required: True
+  indexes:
+  - hash
+- name: code
+  key: code
+- name: name
+  key: name
+- name: type
+  key: type
+#all geometries do not necessarily need to be exported yet rom astm - we can often do batch process by just reading data lake source files
+#for nesting we want to just use the db/api with already processed data - these pieces are res processed pieces
+- name: geometry
+  key:  geometry
+  type: str
+- name: internal_lines
+  key:  internal_lines
+  type: str
+- name: notches
+  key:  notches
+  type: str
+- name: viable_surface
+  key:  viable_surface
+  type: str
+- name: plaid_line
+  key:  plaid_line
+  type: str
+- name: stripe_line
+  key:  stripe_line
+  type: str
+#TODO add annotations (seam_id, key_point_id, element_type, res_type, annotations ) tis could be a foreign generic type 
+- name: body_code
+  key: body_code
+- name: body_key
+  key: body_key
+- name: size
+  key: size
+  

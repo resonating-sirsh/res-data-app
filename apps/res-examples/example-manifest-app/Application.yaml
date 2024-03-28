@@ -1,0 +1,12 @@
+metadata:
+  name: example-manifest-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: argo
+    server: https://kubernetes.default.svc
+  project: workflows-res-examples
+  source:
+    path: apps/res-examples/example-manifest-app/development
+    repoURL: git@github.com:resonance/res-data-platform.git
+    targetRevision: js/github-actions-improvements

@@ -1,0 +1,28 @@
+[
+    {
+        "AllConversionRate": "0.00%",
+        "AllConversions": "0.00",
+        "Amount": "50000000",
+        "AverageCost": "0",
+        "AverageCpc": "0",
+        "AverageCpe": "0",
+        "AverageCpm": "0",
+        "AverageCpv": "0",
+        "AverageTimeOnSite": "0",
+        "CampaignId": "1558031897",
+        "CampaignName": "Unbranded Paid Search",
+        "CampaignStatus": "paused",
+        "Clicks": "0",
+        "Cost": "0",
+        "CostPerAllConversion": "0",
+        "Ctr": "0.00",
+        "Date": "2021-05-06",
+        "EngagementRate": "0.00",
+        "Engagements": "0",
+        "GmailForwards": "0",
+        "HasRecommendedBudget": "false",
+        "Impressions": "0",
+        "InteractionRate": "0.00",
+        "Interactions": "0"
+    }
+]

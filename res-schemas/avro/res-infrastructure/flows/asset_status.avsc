@@ -1,0 +1,47 @@
+{
+    "type": "record",
+    "name": "asset_status",
+    "doc": "Track check-ins and issues of assets being processed in flows at nodes.",
+    "fields": [
+        {
+            "name": "key",
+            "type": "string"
+        },
+        {
+            "name": "value",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "type": "string"
+        },
+        {
+            "name": "prev_key",
+            "type": ["null", "string"]
+        },
+        {
+            "name": "status",
+            "type": "string"
+        },
+        {
+            "name": "message",
+            "type": ["null", "string"]
+        },
+        {
+            "name": "node",
+            "type": "string"
+        },
+        {
+            "name": "flow",
+            "type": "string"
+        },
+        {
+            "name": "task",
+            "type": "string"
+        },
+        {
+            "name": "timestamp",
+            "type": "string"
+        }
+    ]
+}

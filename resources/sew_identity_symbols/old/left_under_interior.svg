@@ -1,0 +1,13 @@
+<svg height="70" width="70">
+   <g transform="translate(0,-40)">
+    <rect x="5" y="45" width="50" height="50" stroke="black" fill="transparent" stroke-width="3" stroke-dasharray="5,8"/>
+    <line x1="5" y1="69" x2="55" y2="69" style="stroke:black;stroke-width:3" />
+    
+    <line x1="55" y1="59" x2="20" y2="69" style="stroke:black;stroke-width:3" />
+    <line x1="55" y1="79" x2="20" y2="69" style="stroke:black;stroke-width:3" />
+    
+     <line x1="3.5" y1="95" x2="56.5" y2="95" style="stroke:black;stroke-width:8" />
+
+ <circle cx="30" cy="95" r="12" fill="white" stroke="black" stroke-width="3"/>
+  </g>
+</svg>

@@ -1,0 +1,61 @@
+[
+    {
+        "site": "https://create.one/",
+        "name": "create.ONE",
+        "method": "GET",
+        "environments": ["production"],
+        "payload": null
+    },
+    {
+        "site": "https://datadev.resmagic.io/kgateway/submitevent",
+        "name": "kgateway",
+        "method": "POST",
+        "environments": ["development"],
+        "payload": {
+            "version": "1.0.0",
+            "process_name": "uptime_monitor",
+            "topic": "example_topic",
+            "data": {"name": "Test", "age": 111}
+        }
+    },
+    {
+        "site": "https://data.resmagic.io/kgateway/submitevent",
+        "name": "kgateway",
+        "method": "POST",
+        "environments": ["production"],
+        "payload": {
+            "version": "1.0.0",
+            "process_name": "uptime_monitor",
+            "topic": "example_topic",
+            "data": {"name": "Test", "age": 111}
+        }
+    },
+    {
+        "site": "https://status.snowflake.com/api/v2/status.json",
+        "name": "Snowflake",
+        "method": "GET",
+        "environments": ["production"],
+        "check_response": true
+    },
+    {
+        "site": "https://status.airtable.com/api/v2/status.json",
+        "name": "Airtable",
+        "method": "GET",
+        "environments": ["production"],
+        "check_response": true
+    },
+    {
+        "site": "https://www.shopifystatus.com/",
+        "name": "Shopify",
+        "method": "GET",
+        "environments": ["production"],
+        "check_response": false
+    },
+    {
+        "site": "https://resonance.looker.com/alive",
+        "name": "Looker",
+        "method": "GET",
+        "environments": ["production"],
+        "check_response": false
+    }
+]

@@ -1,0 +1,49 @@
+table:
+  name: digital_product_request
+  schema: digital_product
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - animation_id
+        - brand_id
+        - status
+        - style_code
+        - thumbnail_id
+        - to_address
+        - token_id
+        - type
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - animation_id
+        - brand_id
+        - contract_address
+        - costing
+        - created_at
+        - id
+        - ipfs_location
+        - reason_message
+        - status
+        - style_code
+        - thumbnail_id
+        - to_address
+        - token_id
+        - transfered_at
+        - type
+      filter:
+        brand_id:
+          _eq: X-Hasura-Brand-Code
+event_triggers:
+  - name: create_digital_product_request
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://digital-product-service.res-sell:5000/digital-product/webhook

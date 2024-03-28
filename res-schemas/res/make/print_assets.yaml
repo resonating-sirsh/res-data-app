@@ -1,0 +1,104 @@
+airtable_base_id: apprcULXTWu33KFsh
+airtable_table_id: tblwDQtDckvHKXO4w
+fields:
+  - airtable_field_name: Key
+    indexes:
+      - hash
+    is_key: true
+    is_required: true
+    key: key
+    name: key
+  - airtable_field_name: SKU
+    key: sku
+    name: sku
+  - airtable_field_name: Print Queue
+    key: print_queue
+    name: print_queue
+  - airtable_field_name: Yards to Print
+    key: yards_to_print
+    name: yards_to_print
+  - airtable_field_name: Unit QTY
+    key: unit_qty
+    name: unit_qty
+  - airtable_field_name: Material Code
+    key: material_code
+    name: material_code
+    meta_type: "meta.materials"
+  - airtable_field_name: Order Number
+    key: order_number
+    name: order_number
+  - airtable_field_name: Created At
+    key: created_at
+    name: created_at
+  - airtable_field_name: Assigned Printer v3
+    key: assigned_printer_v3
+    name: assigned_printer_v3
+  - airtable_field_name: Assigned Printer At
+    key: assigned_printer_date
+    name: assigned_printer_date
+  - airtable_field_name: Assigned Rolls
+    key: assigned_rolls
+    name: assigned_rolls
+  - airtable_field_name: Roll Assigned At
+    key: roll_assigned_date
+    name: roll_assigned_date
+  - airtable_field_name: nested at
+    key: nested_at
+    name: nested_at
+  - airtable_field_name: __request_print_printed_ts
+    key: printed_at
+    name: printed_at
+  - airtable_field_name: Flag For Review
+    key: flag_for_review
+    name: flag_for_review
+  - airtable_field_name: Nested Asset Sets
+    key: nested_asset_sets
+    name: nested_asset_sets
+  - airtable_field_name: "Intelligent ONE Marker File ID"
+    key: intelligent_marker_file_id
+    name: intelligent_marker_file_id
+  - airtable_field_name: "Intelligent ONE Marker Created At"
+    key: intelligent_marker_created_at
+    name: intelligent_marker_created_at
+
+  - airtable_field_name: "Prepared Pieces Count"
+    key: prepared_piece_count
+    name: prepared_piece_count
+
+  - airtable_field_name: "Prepared Pieces Preview"
+    key: piece_previews
+    name: piece_previews
+
+  - airtable_field_name: "Rank"
+    key: rank
+    name: rank
+
+  - airtable_field_name: "Prepared Pieces Area"
+    key: prepared_piece_area
+    name: prepared_piece_area
+
+  - airtable_field_name: "Piece Validation Flags"
+    key: piece_validation_flags
+    name: piece_validation_flags
+  - airtable_field_name: "S3 File URI"
+    key: s3_file_uri
+    name: s3_file_uri
+  - airtable_field_name: "Emphasis"
+    key: emphasis_priority
+    name: emphasis_priority
+
+  - airtable_field_name: "Pieces Type"
+    key: pieces_type
+    name: pieces_type
+
+
+  - airtable_field_name: Prep Pieces Spec Json
+    key: ppp_spec_json
+    name: ppp_spec_json
+
+  - airtable_field_name: SKU Rank
+    key: sku_rank
+    name: sku_rank
+
+key: make.print_assets
+name: make.print_assets

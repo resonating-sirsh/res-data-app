@@ -1,0 +1,49 @@
+table:
+  name: asset
+  schema: create
+object_relationships:
+  - name: asset_type
+    using:
+      foreign_key_constraint_on: type
+  - name: job
+    using:
+      foreign_key_constraint_on: job_id
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - path
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $path
+      remote_schema: s3url-signer
+    name: signed_path
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - created_at
+        - id
+        - job_id
+        - name
+        - path
+        - status
+        - style_id
+        - type
+        - updated_at
+      filter:
+        is_public_facing:
+          _eq: true
+event_triggers:
+  - name: create_asset_upsert
+    definition:
+      enable_manual: true
+      insert:
+        columns: '*'
+      update:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://change-events-processor-service.res-platform.svc.cluster.local:5000/res_create/asset

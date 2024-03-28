@@ -1,0 +1,40 @@
+deployment:
+  replicas: 1
+  name: kafka-hasura-sink
+  env:
+    HASURA_ENDPOINT: https://hasura-dev.resmagic.io
+    RES_APP_NAME: kafka-hasura-sink
+    RES_TEAM: res-infrastructure
+  containerDefaults:
+    resources:
+      limits:
+        memory: 1G
+        cpu: 500m
+  containers:
+    # - name: prep-pieces-requests
+    #   env:
+    #     KAFKA_TOPIC: "res_meta.dxa.prep_pieces_requests"
+    - name: prep-pieces-responses
+      env:
+        KAFKA_TOPIC: "res_meta.dxa.prep_pieces_responses"
+        INTERMESSAGE_DELAY: 0.2
+    - name: roll-solutions
+      env:
+        KAFKA_TOPIC: "res_make.res_nest.roll_solutions"
+        INTERMESSAGE_DELAY: 0.2
+    - name: nested-ones
+      env:
+        KAFKA_TOPIC: "res_make.res_nest.one_nest"
+        INTERMESSAGE_DELAY: 0.2
+    - name: printfile-pieces
+      env:
+        KAFKA_TOPIC: "res_make.optimus.printfile_pieces"
+        INTERMESSAGE_DELAY: 0.2
+    - name: print-job-data
+      env:
+        KAFKA_TOPIC: "res_premises.printer_data_collector.print_job_data"
+        INTERMESSAGE_DELAY: 0.2
+    - name: make-one-orders
+      env:
+        KAFKA_TOPIC: "res_make.make_one_request.create"
+        INTERMESSAGE_DELAY: 0.2

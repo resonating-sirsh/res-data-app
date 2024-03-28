@@ -1,0 +1,2 @@
+pyairtable==1.0.0.post1
+schedule

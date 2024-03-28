@@ -1,0 +1,20 @@
+name: string @index(exact) .
+description: string @index(exact) .
+<Cars.owner>: uid @reverse .
+car_model: uid .
+
+type Persons {
+  key
+  name
+}
+
+type Models {
+  key
+  description
+}
+
+type Cars {
+  key
+  car_model
+  Cars.owner
+}

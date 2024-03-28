@@ -1,0 +1,42 @@
+[
+    {
+        "type": "record",
+        "name": "unpack_asset_bundle",
+        "namespace": "res_meta.body.unpack_asset_bundle",
+        "doc": "This topic unpacks the body zip asset bundle: unzipping & uploading its content into s3.",
+        "fields": [
+            {
+                "name": "record_id",
+                "type": "string"
+            },
+            {
+                "name": "body_code",
+                "type": "string"
+            },
+            {
+                "name": "body_version",
+                "type": "string"
+            },
+            {
+                "name": "asset_bundle_uri",
+                "type": "string"
+            },
+            {
+                "name": "copy_from_body_code",
+                "type": [
+                    "null",
+                    "string"
+                ],
+                "default": null
+            },
+            {
+                "name": "copy_from_body_version",
+                "type": [
+                    "null",
+                    "string"
+                ],
+                "default": null
+            }
+        ]
+    }
+]

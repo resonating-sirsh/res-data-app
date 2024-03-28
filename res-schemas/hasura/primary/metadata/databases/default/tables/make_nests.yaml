@@ -1,0 +1,11 @@
+table:
+  name: nests
+  schema: make
+array_relationships:
+  - name: roll_solutions_nests
+    using:
+      foreign_key_constraint_on:
+        column: nest_id
+        table:
+          name: roll_solutions_nests
+          schema: make

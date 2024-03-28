@@ -1,0 +1,90 @@
+[
+  {
+    "type": "record",
+    "name": "installed_head",
+    "namespace": "printer.head.data",
+    "fields": [
+      {
+        "name": "Column",
+        "type": "int"
+      },
+      {
+        "name": "Row",
+        "type": "int"
+      },
+      {
+        "name": "Serial",
+        "type": "string"
+      },
+      {
+        "name": "Installed",
+        "type": "int"
+      },
+      {
+        "name": "Color",
+        "type": "string"
+      },
+      {
+        "name": "InkType",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "type": "record",
+    "name": "uninstalled_head",
+    "namespace": "printer.head.data",
+    "fields": [
+      {
+        "name": "Serial",
+        "type": "string"
+      },
+      {
+        "name": "Installed",
+        "type": "int"
+      },
+      {
+        "name": "Removed",
+        "type": "int"
+      },
+      {
+        "name": "Color",
+        "type": "string"
+      },
+      {
+        "name": "InkType",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "type": "record",
+    "name": "full_print_head_data",
+    "doc": "Data from the printers' printeheads",
+    "namespace": "printer.head.data",
+    "fields": [
+      {
+        "name": "Printer",
+        "type": "string"
+      },
+      {
+        "name": "Installed",
+        "type": [
+          {
+            "type": "array",
+            "items": "installed_head"
+          }
+        ]
+      },
+      {
+        "name": "Uninstalled",
+        "type": [
+          {
+            "type": "array",
+            "items": "uninstalled_head"
+          }
+        ]
+      }
+    ]
+  }
+]

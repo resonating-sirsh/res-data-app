@@ -1,0 +1,11 @@
+{
+  "apiVersion": "resmagic.io/v1",
+  "args": {
+    "brand_id": "recCLcX9nEvyfuM1m",
+    "brand_code": "TT"
+  },
+  "kind": "resFlow",
+  "task": { "key": "livestatustestTT" },
+  "metadata": { "name": "sell.product.check_live_status", "version": "dev" },
+  "assets": [{}]
+}

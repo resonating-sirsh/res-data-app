@@ -1,0 +1,46 @@
+actions:
+  - name: create_new_brand_instance
+    definition:
+      kind: synchronous
+      handler: http://create-brand-instance-service.res-sell.svc.cluster.local:5000/create
+      forward_client_headers: true
+    permissions:
+      - role: anonymous
+      - role: user
+    comment: To create a fully functional brand
+  - name: publish_sell_ecommerce_collection
+    definition:
+      kind: synchronous
+      handler: http://ecommerce-collection-app-service.res-sell.svc.cluster.local:5000/ecommerce-collection-app/publish
+    comment: Mutation to publish a collection to ecommerce
+  - name: stripe_create_payment_intent
+    definition:
+      kind: synchronous
+      handler: http://stripe-payments-service.res-sell.svc.cluster.local:5000/stripe-payments/create-payment-intent
+      forward_client_headers: true
+    permissions:
+      - role: user
+    comment: stripe_dummy_endpoint
+  - name: unpublish_sell_ecommerce_collection
+    definition:
+      kind: synchronous
+      handler: http://ecommerce-collection-app-service.res-sell.svc.cluster.local:5000/ecommerce-collection-app/unpublish
+    comment: Remove a collection from all of the sale channels in ecommerce.
+custom_types:
+  enums: []
+  input_objects:
+    - name: BrandIDInput
+    - name: StripeSessionInput
+    - name: SampleInput
+    - name: Items
+    - name: ItemsTyped
+    - name: ItemTyped
+  objects:
+    - name: RedirectOutput
+    - name: BlankOutput
+    - name: PublishEcommerceCollectionResponse
+    - name: SampleOutput
+    - name: UnpublishSellEcommerceCollectionResponse
+    - name: Response
+    - name: NewBrandResponse
+  scalars: []

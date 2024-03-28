@@ -1,0 +1,11 @@
+table:
+  name: material_solutions
+  schema: make
+array_relationships:
+  - name: roll_solutions
+    using:
+      foreign_key_constraint_on:
+        column: material_solution_id
+        table:
+          name: roll_solutions
+          schema: make

@@ -1,0 +1,2 @@
+CREATE TABLE "meta"."material_categories" ("name" text NOT NULL, "code" text NOT NULL, "materials" text, "use" text NOT NULL, "metadata" json NOT NULL DEFAULT json_build_object(), "created_at" Timestamp NOT NULL DEFAULT now(), "updated_at" timestamptz NOT NULL DEFAULT now(), "id" uuid NOT NULL DEFAULT gen_random_uuid(), PRIMARY KEY ("id") , UNIQUE ("name"), UNIQUE ("code"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

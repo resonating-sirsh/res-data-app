@@ -1,0 +1,4 @@
+table:
+  name: transaction_statuses
+  schema: sell
+is_enum: true

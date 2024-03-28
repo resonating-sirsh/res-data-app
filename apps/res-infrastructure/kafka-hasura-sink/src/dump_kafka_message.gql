@@ -1,0 +1,143 @@
+
+mutation DumpKafkaMessage(
+    $object: infraestructure_make_kafka_message_dump_1_insert_input! = {
+        headers: "",
+        key: "",
+        length: 0,
+        metadata: "",
+        offset: 0,
+        partition: 0,
+        target_processor: "",
+        timestamp_code: 0,
+        timestamp_type: "",
+        timestamp: "",
+        topic: "",
+        value: ""
+    }
+) {
+    insert_infraestructure_make_kafka_message_dump_1_one(
+        object: $object,
+        on_conflict: {
+            constraint: make_kafka_message_dump_1_pkey,
+            update_columns: [
+                headers
+                key
+                length
+                metadata
+                target_processor
+                timestamp_code
+                timestamp_type
+                timestamp
+                value
+            ]
+        }
+    ) {
+        created_at
+        headers
+        key
+        length
+        metadata
+        num_receipts
+        offset
+        partition
+        processing_history
+        processing_message
+        processing_state
+        processing_state_last_transitioned_at
+        processor
+        processor_lock
+        target_processor
+        timestamp
+        timestamp_code
+        timestamp_type
+        topic
+        updated_at
+        value
+        value_changed
+        version_history
+    }
+}
+# mutation DumpKafkaMessage(
+#     # $headers: jsonb = "",
+#     # $key: jsonb = "",
+#     # $length: Int = 0,
+#     # $metadata: jsonb = "",
+#     # $offset: Int = 0,
+#     # $partition: Int = 0,
+#     # $target_processor: jsonb = ""
+#     # $timestamp_code: Int = "",
+#     # $timestamp_type: String = "",
+#     # $timestamp: timestamp = "",
+#     # $topic: String = "",
+#     # $value: jsonb = ""
+#     $object: infraestructure_make_kafka_message_dump_1_insert_input! = {
+#         headers: "",
+#         key: "",
+#         length: 0,
+#         metadata: "",
+#         offset: 0,
+#         partition: 0,
+#         target_processor: "",
+#         timestamp_code: 0,
+#         timestamp_type: "",
+#         timestamp: "",
+#         topic: "",
+#         value: ""
+#     }
+# ) {
+#     insert_infraestructure_make_kafka_message_dump_1(
+#         objects: $object,
+#         # object: {
+#         #     headers: $headers,
+#         #     key: $key,
+#         #     length: $length,
+#         #     metadata: $metadata,
+#         #     offset: $offset,
+#         #     partition: $partition,
+#         #     target_processor: $target_processor,
+#         #     timestamp_code: $timestamp_code,
+#         #     timestamp_type: $timestamp_type,
+#         #     timestamp: $timestamp,
+#         #     topic: $topic,
+#         #     value: $value
+#         # },
+#         on_conflict: {
+#             constraint: make_kafka_message_dump_1_pkey,
+#             update_columns: [
+#                 headers
+#                 key
+#                 length
+#                 metadata
+#                 target_processor
+#                 timestamp_code
+#                 timestamp_type
+#                 timestamp
+#                 value
+#             ]
+#         }
+#     ) {
+#         created_at
+#         headers
+#         key
+#         length
+#         metadata
+#         num_receipts
+#         offset
+#         partition
+#         processing_history
+#         processing_message
+#         processing_state
+#         processing_state_last_transitioned_at
+#         processor
+#         processor_lock
+#         target_processor
+#         timestamp
+#         timestamp_code
+#         timestamp_type
+#         topic
+#         updated_at
+#         value
+#         value_changed
+#         version_history
+#     }
+# }

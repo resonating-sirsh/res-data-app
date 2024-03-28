@@ -1,0 +1,343 @@
+# by default uses res image and FlowContext to interpret events
+# could add custom image and scripts
+# the "node" is the thing that comes with a generator, a mapper and a reducer (or init, do, finalize)
+# kubectl delete -f res_data_workflows/res-infrastructure/res-data-flows/flow-node.yaml -n argo
+#  argo template create res_data_workflows/res-infrastructure/res-data-flows/flow-node.yaml -n argo
+# bump
+
+#default teams added to-res-data templates and these are overriden in context
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: res-flow-node
+spec:
+  ttlStrategy:
+    secondsAfterCompletion: 60 # Time to live after workflow is completed
+    secondsAfterSuccess: 60 # Time to live after workflow is successful
+    secondsAfterFailure: 720 # Time to live after workflow fails
+  entrypoint: dag
+  onExit: exit-handler
+  arguments:
+    parameters:
+      - name: event
+        value: "{}"
+      - name: context
+        value: "{}"
+      - name: op
+        value: False
+      - name: generator
+        value: False
+      - name: reducer
+        value: False
+      - name: compressed
+        value: False
+  templates:
+    - name: dag
+      inputs:
+        parameters:
+          - name: event
+      steps:
+        ##
+        # in the case that we have no generator we just run the simple mode (maybe more concise way to template this)
+        ##
+        - - name: simple
+            template: res-data
+            when: "{{workflow.parameters.generator}} == false"
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{workflow.parameters.event}}"
+                - name: context
+                  value: "{{workflow.parameters.context}}"
+                - name: op_name
+                  value: "{{workflow.parameters.op}}"
+                - name: compressed
+                  value: "{{workflow.parameters.compressed}}"
+                - name: memory
+                  value: "1Gi"
+                - name: cpu
+                  value: "1000m"
+                - name: disk
+                  value: "2G"
+                - name: allow24xlg
+                  value: False
+        - - name: generate
+            template: res-data
+            when: "{{workflow.parameters.generator}} != false"
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{workflow.parameters.event}}"
+                - name: context
+                  value: "{{workflow.parameters.context}}"
+                - name: op_name
+                  value: "{{workflow.parameters.generator}}"
+                - name: compressed
+                  value: "{{workflow.parameters.compressed}}"
+                - name: memory
+                  value: "512Mi"
+                - name: cpu
+                  value: "1000m"
+                - name: disk
+                  value: "1G"
+                - name: allow24xlg
+                  value: False
+        ########################
+        # if we have a generator we will apply our app over a set as generator by the generator
+        # out event becomes the mapped event over the data in the form of an event
+        #######################
+        - - name: map
+            template: res-data
+            #http://donghao.org/2020/03/27/use-both-withparam-and-when-in-argo-workflows-on-kubernetes/
+            #{{steps.generate.outputs.parameters.out}}
+            when: "{{workflow.parameters.generator}} != false"
+            withParam: "{{steps.generate.outputs.parameters.out}}"
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{item}}"
+                - name: context
+                  value: "{{workflow.parameters.context}}"
+                - name: op_name
+                  value: "{{workflow.parameters.op}}"
+                - name: compressed
+                  value: "{{workflow.parameters.compressed}}"
+                #as we are mapping over data, we allow the memory to be a function of the data but normally its an op decorator
+                - name: memory
+                  value: "{{item.memory}}"
+                - name: cpu
+                  value: "1000m"
+                - name: disk
+                  value: "2G"
+                - name: allow24xlg
+                  value: False
+        ###
+        #  optional reduction step - we don't currently have the artifacts and its assumed the nodes handle their comms
+        ###
+        - - name: reduce
+            #runs optionally
+            template: res-data
+            when: "{{workflow.parameters.reducer}} != false"
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{workflow.parameters.event}}"
+                - name: context
+                  value: "{{workflow.parameters.context}}"
+                - name: op_name
+                  value: "{{workflow.parameters.reducer}}"
+                - name: compressed
+                  value: "{{workflow.parameters.compressed}}"
+                - name: memory
+                  value: "1Gi"
+                - name: cpu
+                  value: "1000m"
+                - name: disk
+                  value: "2G"
+                - name: allow24xlg
+                  value: False
+    #exit handler
+    - name: exit-handler
+      steps:
+        - - name: failure
+            template: failure
+            when: "{{workflow.status}} != Succeeded"
+        - - name: success
+            template: res-data
+            when: "{{workflow.status}} == Succeeded"
+            arguments:
+              parameters:
+                - name: event
+                  value: "{{workflow.parameters.event}}"
+                - name: context
+                  value: "{{workflow.parameters.context}}"
+                - name: compressed
+                  value: "{{workflow.parameters.compressed}}"
+                - name: op_name
+                  value: "on_success"
+                - name: memory
+                  value: "512Mi"
+                - name: cpu
+                  value: "1000m"
+                - name: disk
+                  value: "1G"
+                - name: allow24xlg
+                  value: False
+
+    # container templates
+    - name: res-data
+      outputs:
+        parameters:
+          - name: out
+            default: "[{}]"
+            valueFrom:
+              path: /tmp/out
+            globalName: "global-out"
+
+      inputs:
+        parameters:
+          - name: event
+          - name: compressed
+          - name: context
+          - name: op_name
+          - name: memory
+          - name: cpu
+          - name: disk
+          - name: allow24xlg
+      podSpecPatch: |
+        containers:
+        - name: main
+          resources:
+            limits:
+              memory: "{{inputs.parameters.memory}}"
+              cpu: "{{inputs.parameters.cpu}}"
+              ephemeral-storage: "{{inputs.parameters.disk}}"
+        tolerations:
+        - key: "worker_type_24xlg"
+          value: "{{inputs.parameters.allow24xlg}}"
+          effect: "NoSchedule"
+        - key: "workflow"
+          value: "true"
+          effect: "NoSchedule"
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                - key: node.kubernetes.io/instance-type
+                  operator: In
+                  values:
+                  - m5.large
+                  - m5.xlarge
+                  - m5.2xlarge
+                  - m5.4xlarge
+            - weight: 10
+              preference:
+                matchExpressions:
+                - key: node.kubernetes.io/instance-type
+                  operator: In
+                  values:
+                  - m5.8xlarge
+                  - m5.12xlarge
+            - weight: 1
+              preference:
+                matchExpressions:
+                - key: node.kubernetes.io/instance-type
+                  operator: In
+                  values:
+                  - m5.16xlarge
+                  - m5.24xlarge
+      script:
+        image: res-data
+        command: [python]
+        source: |
+          import res
+          import json
+          import os
+          from res.flows import FlowEventProcessor, FlowContext
+          from res.flows.event_compression import decompress_event, compress_event
+          fp = FlowEventProcessor()
+          op = '{{inputs.parameters.op_name}}'
+          event_string = '{{inputs.parameters.event}}'
+
+          if '{{inputs.parameters.compressed}}' == 'True':
+            print("decompressing event")
+            event = decompress_event(event_string)
+          else:
+            event = json.loads(event_string)
+          context = json.loads('{{inputs.parameters.context}}')
+
+          print("In workflow", context, 'op is', op)
+
+          print("Using memory", '{{inputs.parameters.memory}}')
+
+          result = {}
+
+          #check for errors
+          try:
+
+            event['metadata']['argo.workflow.name'] = '{{workflow.name}}'
+            event['metadata']['argo.pod.name'] = '{{pod.name}}'
+            print(event['metadata'])
+            os.environ['METADATA_ARGO_POD_NAME'] =  '{{pod.name}}'
+            os.environ['METADATA_ARGO_WORKFLOW_NAME'] =  '{{workflow.name}}'
+          except Exception as ex:
+            print("Error pulling error data etc. from workflow", repr(ex))
+            pass
+          #any errors are added to the flow event
+
+          if op == 'false':
+            op = 'handler'
+          try:
+            payload_str = json.dumps(event)
+            if len(payload_str) < 5000:
+              print('invoking op ',op, 'with payload', event)
+            else:
+              print('invoking op ',op, 'payload too big to print')
+            result = fp.process_event(event, context, op)
+            print('called op successfully')
+          except Exception as ex:
+            #if we cannot call a failure handler we should call a generic one
+            if op == "on_failure": 
+              FlowContext.on_failure(event, context)
+            print('there was a problem calling the handler', op, repr(ex))
+            # we only fail silently on this one as its optional - otherwise fail the task
+            # the task will be handled eventually on_exit so that everything will be caught / success or fail
+            if op != 'on_success':
+              raise ex
+
+          with open('/tmp/out', 'w') as f:
+              if '{{inputs.parameters.compressed}}' == 'True':
+                if isinstance(result, list):
+                  print("compressing result")
+                  result = [compress_event(e) for e in result]
+              json.dump(result, f)
+        envFrom:
+          - configMapRef:
+              name: res-data-env
+        env:
+          - name: RES_TEAM
+            value: res-general
+
+    - name: failure
+      podSpecPatch: '{"tolerations":[{"key": "workflow", "value": "true", "effect": "NoSchedule"}]}'
+      script:
+        image: res-data
+        command: [python]
+        source: |
+          import json
+          import sys
+          from res.flows import FlowContext, FlowEventProcessor
+          from res.flows.event_compression import decompress_event
+          errors = json.loads({{workflow.failures}})
+          event_string = '{{workflow.parameters.event}}'
+          if '{{workflow.parameters.compressed}}' == 'True':
+            workflow_event = decompress_event(event_string)
+          else:
+            workflow_event = json.loads(event_string)
+          context = json.loads('{{workflow.parameters.context}}')
+
+          try:
+            fp = FlowEventProcessor()
+            fp.process_event(workflow_event, context, "on_failure")
+          except Exception as ex:
+            print("Failed to call flow on_failure handler", repr(ex))
+
+          if 'metadata' not in workflow_event:
+            workflow_event['metadata'] = {}
+          workflow_event['metadata']['argo.workflow.name'] = '{{workflow.name}}'
+          workflow_event['errors'] = [e['message'] for e in errors]
+          workflow_event['error_details'] = errors
+
+          #example display name in errors - provides full context
+          #migrations(2:args:{"table_id":"tblSYU8a71UgbQve4","name":"rolls","base_id":"apprcULXTWu33KFsh"},memory:32Gi)(1)
+
+          # also calling this generic handler for posterity.
+          FlowContext.on_failure(workflow_event,{})
+        envFrom:
+          - configMapRef:
+              name: res-data-env
+        env:
+          - name: RES_TEAM
+            value: res-general

@@ -1,0 +1,1 @@
+This app merges orders from all sources, splitting into line items and orders, into a new kafka topic

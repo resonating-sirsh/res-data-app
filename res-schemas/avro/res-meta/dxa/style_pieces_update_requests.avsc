@@ -1,0 +1,164 @@
+[{
+	"type": "record",
+	"name": "style_pieces",
+	"namespace": "res_meta.dxa",
+	"fields": [{
+			"name": "key",
+			"type": "string"
+		},
+		{
+			"name": "color_code",
+			"type": "string"
+		},
+		{
+			"name": "material_code",
+			"type": "string"
+		},
+		{
+			"name": "artwork_uri",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "cardinality",
+			"type": ["int", "null"],
+			"default": 1
+		},
+		{
+			"name": "type",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "base_image_uri",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "offset_size_inches",
+			"type": ["null", "float"]
+		}
+	]
+}, {
+	"type": "record",
+	"name": "style_pieces_update_requests",
+	"namespace": "res_meta.dxa",
+	"doc": "request to generate a legacy meta one from pieces changing",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "flow_id",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "body_code",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "mode",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "sku",
+			"type": "string"
+		},
+		{
+			"name": "style_sku",
+			"type": "string"
+		},
+		{
+			"name": "size_code",
+			"type": ["string"]
+		},
+		{
+			"name": "sample_size",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "normed_size",
+			"type": ["null", "string"]
+		},
+		{
+			"name": "style_name",
+			"type": ["string"]
+		},
+		{
+			"name": "body_version",
+			"type": ["int"]
+		},
+		{
+			"name": "print_type",
+			"type": ["string"]
+		},
+		{
+			"name": "offset_size_inches",
+			"type": ["float", "null"]
+		},
+		{
+			"name": "offset_size_inches_combo",
+			"type": ["float", "null"]
+		},
+		{
+			"name": "color_pieces",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "body_asset",
+			"type": {
+				"type": "map",
+				"values": [
+					"string"
+				]
+			},
+			"default": {}
+		},
+		{
+			"name": "piece_name_mapping",
+			"type": {
+				"type": "array",
+				"items": "style_pieces"
+			},
+			"default": []
+		},
+		{
+			"name": "pieces",
+			"type": {
+				"type": "array",
+				"items": "style_pieces"
+			},
+			"default": []
+		},
+		{
+			"name": "contracts_failing",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int",
+					"boolean"
+				]
+			},
+			"default": {}
+		},
+		{
+			"name": "created_at",
+			"type": [
+				"string",
+				"null"
+			]
+		}
+	]
+}]

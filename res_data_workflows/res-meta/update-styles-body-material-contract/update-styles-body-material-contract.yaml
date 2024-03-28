@@ -1,0 +1,79 @@
+
+# argo template create res_data_workflows/res-meta/update-styles-body-material-contract/update-styles-body-material-contract.yaml -n argo
+# kubectl delete -f  res_data_workflows/res-meta/update-styles-body-material-contract/update-styles-body-material-contract.yaml -n argo
+# argo submit --from workflowtemplate/update-styles-body-material-contract -n argo --watch
+# kubectl delete -f  res_data_workflows/res-meta/update-styles-body-material-contract/update-styles-body-material-contract.yaml -n argo && argo template create res_data_workflows/res-meta/update-styles-body-material-contract/update-styles-body-material-contract.yaml -n argo && argo submit --from workflowtemplate/update-styles-body-material-contract -n argo --watch
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: update-styles-body-material-contract
+spec:
+  ttlStrategy:
+    secondsAfterCompletion: 60 # Time to live after workflow is completed, replaces ttlSecondsAfterFinished
+    secondsAfterSuccess: 60 # Time to live after workflow is successful
+    secondsAfterFailure: 900 # Time to live after workflow fails
+  entrypoint: update-styles-body-material-contract-flow
+  # onExit: exit-handler
+  arguments:
+    parameters:
+    - name: event
+      value: "{\"body_code\": \"\"}"
+
+  templates:
+  - name: update-styles-body-material-contract-flow
+    steps:
+    - - name: update-styles-body-material-contract
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          - name: flow_name
+            value: update_styles_body_material_contract_status
+
+  - name: res-data
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /tmp/dump.txt
+    script:
+      image: res-data
+      imagePullPolicy: Always
+      command: [python]
+      source: |
+        import json
+        import sys
+        workflow_event = json.loads('{{inputs.parameters.event}}')
+        from res.flows.meta.update_styles_body_material_contract.update_styles_body_material_contract import *
+
+        flow_name = '{{inputs.parameters.flow_name}}'
+        if flow_name == 'update_styles_body_material_contract_status':
+          data = {{inputs.parameters.flow_name}}(workflow_event)
+          with open('/tmp/dump.txt', 'w') as f:
+            json.dump([data], f)
+
+      resources:
+        requests:
+          memory: "4Gi"
+        limits:
+          memory: "4Gi"
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+      env:
+        - name: GRAPH_API
+          valueFrom:
+            secretKeyRef:
+              key: GRAPH_API
+              name: onelearn-secret
+
+        - name: GRAPH_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: GRAPH_API_KEY
+              name: onelearn-secret

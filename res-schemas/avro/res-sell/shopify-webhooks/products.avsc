@@ -1,0 +1,81 @@
+{
+  "type": "record",
+  "name": "ProductItem",
+  "namespace": "shopify.product",
+  "doc": "This a subset of fields from the product items from a shopify webhook. See https://shopify.dev/docs/admin-api/rest/reference/events/webhook",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "title",
+      "type": [
+        "string",
+        "null"
+    ]
+    },
+    {
+      "name": "description",
+      "type": [
+        "string",
+        "null"
+    ]
+    },
+    {
+      "name": "price",
+      "type": [
+        "string",
+        "null"
+    ]
+    },
+    {
+      "name": "sku",
+      "type": [
+        "string",
+        "null"
+    ]
+    },
+    {
+      "name": "product_type",
+      "type": ["string", "null"]
+    },
+    {
+      "name": "updated_at",
+      "type": ["string", "null"]
+    },
+    {
+      "name": "published_at",
+      "type": ["string", "null"]
+    },
+    {
+      "name": "status",
+      "type": ["string", "null"]
+    },
+    {
+      "name": "tags",
+      "type": [
+        "string",
+        "null"
+    ]
+    },
+    {
+      "name": "type",
+      "type": [
+        "string",
+        "null"
+    ]
+    },
+    {
+      "name": "raw_data",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "brand",
+      "type": ["string", "null"]
+    }
+  ]
+}

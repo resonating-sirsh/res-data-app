@@ -1,0 +1,239 @@
+
+schema {
+  query: Query
+}
+
+scalar WhereValue
+scalar Date
+scalar DateTime
+
+input WhereOperator {
+  is: WhereValue
+  isNot: WhereValue
+  isAnyOf: [WhereValue]
+  isNoneOf: [WhereValue]
+  hasAnyOf: [WhereValue]
+  hasAllOf: [WhereValue]
+  hasNoneOf: [WhereValue]
+  isLessThan: WhereValue
+  isLessThanOrEqualTo: WhereValue
+  isGreaterThan: WhereValue
+  isGreaterThanOrEqualTo: WhereValue
+}
+
+type Material {
+  id: ID!
+  code: String
+  name: String
+  category: String
+  careInstructions: String
+  content: String
+  isOrganic: Boolean
+  pricePerUnit: Float
+  weight: String
+  description: String
+  drapeImages: [Image]
+  isNew: Boolean
+  fabricType: String
+  washCare: String
+  images: [Image]
+  trimColorHexCode: String
+  threadCount: String
+  dryCare: String
+  ironCare: String
+}
+
+type Style {
+    id: ID!
+    code: String
+    nextGenOneReady: String
+    styleKey: String
+    name: String
+    version: Int
+    finalStyleNamer: String
+    body: Body
+    material: Material
+    color: Color
+    brand: Brand
+    readyToOrderStatus: ReadyToOrderStatus
+    isCustomized: Boolean
+    customizations: [StyleCustomization]
+
+}
+
+type PriceBreakdown {
+    item: String
+    category: String
+    rate: Float
+    quantity: Float
+    unit: String
+    cost: Float
+}
+
+
+type OnePrice {
+    size: Size
+    cost: Float
+    price: Float
+    margin: Float
+    priceBreakdown: [PriceBreakdown]
+}
+
+
+type BodyPiece {
+    id: ID!
+    code: String
+    name: String
+    type: String
+    pieceNameSpanish: String
+    pieceNameCode: String
+    pieceTypeCode: String
+    bodiesCode: [String]
+    createdAt: DateTime
+    updatedAt: DateTime
+}
+
+type StyleCustomization {
+    id: ID!
+    bodyPiece: BodyPiece
+    name: String
+    key: String
+    type: StyleCustomizationType
+    font: File
+    createdAt: DateTime
+    updatedAt: DateTime
+    createdBy: User
+}
+
+enum StyleCustomizationType {
+    TEXT
+    IMAGE
+}
+
+
+type ReadyToOrderStatus {
+    statusBySize(
+        sizeCode: String
+        colorPlacementType: String
+    ): [SizeReadyToOrderStatus]
+}
+
+type SizeReadyToOrderStatus {
+    size: Size
+    isReadyToOrder: Boolean
+}
+
+
+type Brand {
+    id: ID!
+    code: String
+    name: String
+}
+
+type Color {
+    id: ID!
+    code: String
+    name: String
+}
+
+type Body {
+    id: ID!
+    code: String
+    name: String
+    availablesSizes: [Size]
+}
+
+type Size {
+    id: ID!
+    name: String
+    code: String
+    sortOrder: Int
+}
+
+type StylesCursor {
+    styles: [Style]
+    cursor: String
+    hasMore: Boolean
+    count: Int
+}
+
+input StylesWhere {
+    id: WhereOperator
+    name: WhereOperator
+    code: WhereOperator
+    totalCost: WhereOperator
+    brandCode: WhereOperator
+    materialCode: WhereOperator
+    artworkFileId: WhereOperator
+    colorCode: WhereOperator
+    colorId: WhereOperator
+    bodyCode: WhereOperator
+    bodyId: WhereOperator
+    printType: WhereOperator
+    retailPrice: WhereOperator
+    allowOverselling: WhereOperator
+    isReadyForEcommerce: WhereOperator
+    campaignIds: WhereOperator
+    isOneReady: WhereOperator
+    isImported: WhereOperator
+    isTrimsMapped: WhereOperator
+    isTrashed: WhereOperator
+    createdAt: WhereOperator
+    updatedAt: WhereOperator
+    productGroup: WhereOperator
+    makeOneReadyStatusBreakdownJSON: WhereOperator
+    brandShippingPricePerOne: WhereOperator
+    brandSoftwarePricePerOne: WhereOperator
+    isBrandEcommerceConfigured: WhereOperator
+    calculatedAverageYield: WhereOperator
+    costType: WhereOperator
+    isBeResonantApproved: WhereOperator
+    gradfathered: WhereOperator
+    laborUnitsCost: WhereOperator
+    bodyTrimCost: WhereOperator
+    sewingActivityCost: WhereOperator
+    bodyVersion: WhereOperator
+    photos: WhereOperator
+    coverImages: WhereOperator
+    stylePiecesMaterials: WhereOperator
+    isBodyNotApprovedForSelectedMaterial: WhereOperator
+
+    placementFilesTooBig: WhereOperator
+    isMissingAnyPlacementFile: WhereOperator
+    placementFilesMissingTagCount: WhereOperator
+    hasPlacementFilesUntagged: WhereOperator
+    isDefaultResonanceOneLabel: WhereOperator
+    isOneLabel: WhereOperator
+    wereComboPiecesValidated: WhereOperator
+
+    stylePiecesJson: WhereOperator
+    requiresComboPieces: WhereOperator
+    and: [StylesWhere]
+    shopifyProductId: WhereOperator
+    or: [StylesWhere]
+}
+
+input StylesSort {
+    field: StylesSortField!
+    direction: SortDirection!
+}
+
+enum StylesSortField {
+    NAME
+    BODY_CODE
+    CREATED_AT
+    UPDATED_AT
+    IS_ONE_READY
+}
+
+type Query{
+    style(id: ID, code: String): Style
+    styles(
+        first: Int!
+        after: String
+        where: StylesWhere
+        sort: [StylesSort!]
+        search: String
+    ): StylesCursor
+
+}

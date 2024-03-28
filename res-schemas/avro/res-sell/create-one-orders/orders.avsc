@@ -1,0 +1,385 @@
+ {
+ 	"type": "record",
+ 	"name": "orders",
+ 	"namespace": "res_sell.create_one_orders",
+ 	"doc": "top level order item",
+ 	"fields": [{
+ 			"name": "id",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "isArchived",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+		{
+			"name": "type",
+			"type": [
+                "string",
+                "null"
+            ]
+		},
+ 		{
+ 			"name": "key",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "code",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "number",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "friendlyName",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "requestName",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "email",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "brandId",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			}
+ 		},
+ 		{
+ 			"name": "brandCode",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			}
+ 		},
+ 		{
+ 			"name": "brandName",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			}
+ 		},
+ 		{
+ 			"name": "orderChannel",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "salesChannel",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "fulfillmentId",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			}
+ 		},
+ 		{
+ 			"name": "lineItemIds",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			}
+ 		},
+ 		{
+ 			"name": "containsExternalItem",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingAddress1",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingAddress2",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingCity",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingZip",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingCountry",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingProvince",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingName",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "shippingPhone",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "orderStatus",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "isClosedv2",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "requestType",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "createdAt",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "keyid",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "styleCodes",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			}
+ 		},
+ 		{
+ 			"name": "isClosed",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "numberLineItems",
+ 			"type": [
+ 				"int",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "lineItemsCreated",
+ 			"type": [
+ 				"int",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "firstTouchSent",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "secondTouchSent",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "thirthTouchSent",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "hasItemsFlaggedForReview",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "deadlineStatus",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "releaseStatus",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "isFlaggedForReview",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "orderStatusV3",
+ 			"type": [
+ 				"string",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "daysOpenInMake",
+ 			"type": [
+ 				"int",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "activeIssuesIds",
+ 			"type": {
+ 				"type": "array",
+ 				"items": "string"
+ 			}
+ 		},
+ 		{
+ 			"name": "daysSinceOrder",
+ 			"type": [
+ 				"int",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "holdEmail",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+ 		{
+ 			"name": "isOrderClosed",
+ 			"type": [
+ 				"boolean",
+ 				"null"
+ 			]
+ 		},
+		{
+			"name": "was_payment_successful",
+			"type": [
+				"boolean",
+				"null"
+			]
+		},
+		{
+			"name": "was_balance_not_enough",
+			"type": [
+				"boolean",
+				"null"
+			]
+		},
+ 		{
+ 			"name": "lineItemsInfo",
+ 			"type": {
+ 				"type": "array",
+ 				"items": {
+ 					"type": "record",
+ 					"name": "lineItemsChildType",
+ 					"namespace": "res_sell.create_one_orders",
+ 					"doc": "child item, lines items from create one order",
+ 					"fields": [{
+ 							"name": "sku",
+ 							"type": [
+ 								"string",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "quantity",
+ 							"type": [
+ 								"int",
+ 								"null"
+ 							]
+ 						},
+ 						{
+ 							"name": "id",
+ 							"type": [
+ 								"string",
+ 								"null"
+ 							]
+ 						}
+ 					]
+ 				}
+ 			},
+ 			"default": []
+ 		}
+ 	]
+ }

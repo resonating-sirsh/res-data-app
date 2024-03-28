@@ -1,0 +1,45 @@
+
+#a physical one that exists somewhere including shipped
+#the key is the one number
+#production requests will be replaced by this
+key: make.ones
+name: make.ones
+fields:
+- key: key
+  name: key
+  indexes:
+  - hash
+  is_key: true
+  is_required: true
+#we could be smarter with the graph relationships
+- key: reproduced_key
+  name: reproduced_key
+  meta_type: "make.ones"
+- key: style_key
+  name: style_key
+  meta_type: "meta.styles"
+#this is a redundant attribute that we keep
+- key: brand_code
+  name: brand_code  
+  meta_type: "meta.brands"
+- key: size_code
+  name: size_code
+#the one specification describes how to make this factory request-> sew instructions pdf docs etc can all be printed 
+- key: one_specification_key
+  name: one_specification_key
+  meta_types: "make.one_specification"
+# the node is very important - it describes what stage we are at as opposed to the node uid below
+- key: node_key
+  name: node_key
+#physical node id e.g. sew factory 3
+- key: node_uid
+  name: node_uid
+#this edge is dynamic and satisfies an order that is to be shipped until it is shipped -if the node is shipped it is a locked edge
+#also for convenience we can tie known ONEs to orders for legacy but really we do not need this to tie to a specific order
+# we may just add the uid manually after as make.order.key -> uid but using the lookup here it can be set on ingest
+- key: make_order_key
+  name: make_order_key
+  meta_Type: "make.orders"
+- key: created_at
+  name: created_at
+  type: datetime

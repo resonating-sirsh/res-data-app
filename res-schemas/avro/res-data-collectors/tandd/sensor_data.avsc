@@ -1,0 +1,89 @@
+[
+    {
+        "type": "record",
+        "name": "reading",
+        "namespace": "sensors.data",
+        "fields": [
+            {
+                "name": "unixtime",
+                "type": "string"
+            },
+            {
+                "name": "data_id",
+                "type": "string"
+            },
+            {
+                "name": "ch1",
+                "type": "string"
+            },
+            {
+                "name": "ch2",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "channel",
+        "namespace": "sensors.data",
+        "fields": [
+            {
+                "name": "num",
+                "type": "string"
+            },
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "unit",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "tandd_sensor_data",
+        "doc": "Data coming from T and D sensors, reading temperature and humidity on various machines in the factory",
+        "namespace": "sensors.data",
+        "fields": [
+            {
+                "name": "serial",
+                "type": "string"
+            },
+            {
+                "name": "model",
+                "type": "string"
+            },
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "time_diff",
+                "type": "string"
+            },
+            {
+                "name": "std_bias",
+                "type": "string"
+            },
+            {
+                "name": "dst_bias",
+                "type": "string"
+            },
+            {
+                "name": "channels",
+                "type": [
+                    {
+                        "type": "array",
+                        "items": "channel"
+                    }
+                ]
+            },
+            {
+                "name": "reading",
+                "type": "reading"
+            }
+        ]
+    }
+]

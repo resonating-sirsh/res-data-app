@@ -1,0 +1,10 @@
+deployment:
+  name: "default"
+  replicas: 1
+  servicePort: 80
+  # Ingress type is one of:
+    # none     - service only accessible within kubernetes
+    # private  - service only accessible within the vpc
+    # public   - service is accessible from anywhere
+  ingressType: "none"
+  healthcheck: "/healthcheck"

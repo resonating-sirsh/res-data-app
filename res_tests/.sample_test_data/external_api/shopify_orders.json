@@ -1,0 +1,625 @@
+{
+    "id": 4683644403795,
+    "admin_graphql_api_id": "gid://shopify/Order/4683644403795",
+    "app_id": 580111,
+    "browser_ip": "47.33.30.151",
+    "buyer_accepts_marketing": true,
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "cart_token": "d29c1eccbde62fbf17b6624fb9fbe148",
+    "checkout_id": 28107631099987,
+    "checkout_token": "ad0c9c64a5348f5ea33f8219eb787417",
+    "client_details": {
+        "accept_language": "en-US",
+        "browser_height": null,
+        "browser_ip": "47.33.30.151",
+        "browser_width": null,
+        "session_hash": null,
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.41"
+    },
+    "closed_at": null,
+    "company": null,
+    "confirmed": true,
+    "contact_email": "jill.stanley01@gmail.com",
+    "created_at": "2023-03-18T19:18:26-04:00",
+    "currency": "USD",
+    "current_subtotal_price": "444.00",
+    "current_subtotal_price_set": {
+        "shop_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_discounts": "0.00",
+    "current_total_discounts_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_duties_set": null,
+    "current_total_price": "444.00",
+    "current_total_price_set": {
+        "shop_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_tax": "0.00",
+    "current_total_tax_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "customer_locale": "en-US",
+    "device_id": null,
+    "discount_codes": "",
+    "email": "jill.stanley01@gmail.com",
+    "estimated_taxes": false,
+    "financial_status": "paid",
+    "fulfillment_status": "partial",
+    "landing_site": null,
+    "landing_site_ref": null,
+    "location_id": null,
+    "merchant_of_record_app_id": null,
+    "name": "#65770",
+    "note": null,
+    "note_attributes": [
+        {
+            "name": "irclickid",
+            "value": "~aejh9cb35WLHICxqsune~346W24532ZV0UPFGwxskf~3XNLCByuk"
+        },
+        {
+            "name": "created_at",
+            "value": "1677695255"
+        },
+        {
+            "name": "mc_cid",
+            "value": "54689bc7e2"
+        }
+    ],
+    "number": 64770,
+    "order_number": 65770,
+    "order_status_url": "https://www.thekit.com/14614882/orders/10ec7264af0e8160c7daecf4794cd965/authenticate?key=eeec7d6a95665587773c5b2b942982f1",
+    "original_total_duties_set": null,
+    "payment_gateway_names": [
+        "shopify_payments"
+    ],
+    "phone": null,
+    "presentment_currency": "USD",
+    "processed_at": "2023-03-18T19:18:22-04:00",
+    "reference": "a07b79b6489296ed189ffcc6fb77d82c",
+    "referring_site": null,
+    "source_identifier": "a07b79b6489296ed189ffcc6fb77d82c",
+    "source_name": "web",
+    "source_url": null,
+    "subtotal_price": "444.00",
+    "subtotal_price_set": {
+        "shop_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        }
+    },
+    "tags": "",
+    "tax_lines": [],
+    "taxes_included": false,
+    "test": false,
+    "token": "10ec7264af0e8160c7daecf4794cd965",
+    "total_discounts": "0.00",
+    "total_discounts_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_line_items_price": "444.00",
+    "total_line_items_price_set": {
+        "shop_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_outstanding": "0.00",
+    "total_price": "444.00",
+    "total_price_set": {
+        "shop_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "444.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_shipping_price_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_tax": "0.00",
+    "total_tax_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_tip_received": "0.00",
+    "total_weight": 0,
+    "updated_at": "2023-04-04T19:43:47-04:00",
+    "user_id": null,
+    "billing_address": {
+        "first_name": "Jill",
+        "address1": "1193 CHAPARRAL DR.",
+        "phone": "5107156185",
+        "city": "CARSON CITY",
+        "zip": "89703",
+        "province": "Nevada",
+        "country": "United States",
+        "last_name": "Stanley",
+        "address2": null,
+        "company": null,
+        "latitude": null,
+        "longitude": null,
+        "name": "Jill Stanley",
+        "country_code": "US",
+        "province_code": "NV"
+    },
+    "customer": {
+        "id": 5537870151763,
+        "email": "jill.stanley01@gmail.com",
+        "accepts_marketing": true,
+        "created_at": "2022-03-13T16:30:11-04:00",
+        "updated_at": "2023-03-30T20:47:56-04:00",
+        "first_name": "Jill",
+        "last_name": "Stanley",
+        "state": "disabled",
+        "note": null,
+        "verified_email": true,
+        "multipass_identifier": null,
+        "tax_exempt": false,
+        "phone": null,
+        "email_marketing_consent": {
+            "state": "subscribed",
+            "opt_in_level": "single_opt_in",
+            "consent_updated_at": "2022-03-13T16:30:55-04:00"
+        },
+        "sms_marketing_consent": null,
+        "tags": "",
+        "currency": "USD",
+        "accepts_marketing_updated_at": "2022-03-13T16:30:55-04:00",
+        "marketing_opt_in_level": "single_opt_in",
+        "tax_exemptions": [],
+        "admin_graphql_api_id": "gid://shopify/Customer/5537870151763",
+        "default_address": {
+            "id": 6830963818579,
+            "customer_id": 5537870151763,
+            "first_name": "Jill",
+            "last_name": "Stanley",
+            "company": "",
+            "address1": "1193 CHAPARRAL DR.",
+            "address2": "",
+            "city": "CARSON CITY",
+            "province": "Nevada",
+            "country": "United States",
+            "zip": "89703",
+            "phone": "5107156185",
+            "name": "Jill Stanley",
+            "province_code": "NV",
+            "country_code": "US",
+            "country_name": "United States",
+            "default": true
+        }
+    },
+    "discount_applications": [],
+    "fulfillments": [
+        {
+            "id": 4233685991507,
+            "admin_graphql_api_id": "gid://shopify/Fulfillment/4233685991507",
+            "created_at": "2023-03-31T13:57:03-04:00",
+            "location_id": 9897804,
+            "name": "#65770.1",
+            "order_id": 4683644403795,
+            "origin_address": {},
+            "receipt": {},
+            "service": "manual",
+            "shipment_status": "delivered",
+            "status": "success",
+            "tracking_company": "UPS",
+            "tracking_number": "1Z638Y506775049938",
+            "tracking_numbers": [
+                "1Z638Y506775049938"
+            ],
+            "tracking_url": "https://www.ups.com/WebTracking?loc=en_US&requester=ST&trackNums=1Z638Y506775049938",
+            "tracking_urls": [
+                "https://www.ups.com/WebTracking?loc=en_US&requester=ST&trackNums=1Z638Y506775049938"
+            ],
+            "updated_at": "2023-04-04T19:43:47-04:00",
+            "line_items": [
+                {
+                    "id": 11775609274451,
+                    "admin_graphql_api_id": "gid://shopify/LineItem/11775609274451",
+                    "fulfillable_quantity": 1,
+                    "fulfillment_status": "partial",
+                    "gift_card": false,
+                    "grams": 0,
+                    "name": "Jia Dress | JLR Sketchbook - XL",
+                    "pre_tax_price": "444.00",
+                    "pre_tax_price_set": {
+                        "shop_money": {
+                            "amount": "444.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "444.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "price": "148.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "148.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "148.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "product_exists": true,
+                    "product_id": 6610596659283,
+                    "properties": [],
+                    "quantity": 1,
+                    "requires_shipping": true,
+                    "sku": "KT6057 CTW70 SKETXI 5ZZXL",
+                    "taxable": true,
+                    "title": "Jia Dress | JLR Sketchbook",
+                    "total_discount": "0.00",
+                    "total_discount_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "variant_id": 39447857201235,
+                    "variant_inventory_management": "shopify",
+                    "variant_title": "XL",
+                    "vendor": "thekitnyc",
+                    "tax_lines": [
+                        {
+                            "channel_liable": false,
+                            "price": "0.00",
+                            "price_set": {
+                                "shop_money": {
+                                    "amount": "0.00",
+                                    "currency_code": "USD"
+                                },
+                                "presentment_money": {
+                                    "amount": "0.00",
+                                    "currency_code": "USD"
+                                }
+                            },
+                            "rate": 0.0,
+                            "title": "NV STATE TAX"
+                        }
+                    ],
+                    "duties": [],
+                    "discount_allocations": []
+                }
+            ]
+        },
+        {
+            "id": 4233686188115,
+            "admin_graphql_api_id": "gid://shopify/Fulfillment/4233686188115",
+            "created_at": "2023-03-31T13:57:06-04:00",
+            "location_id": 9897804,
+            "name": "#65770.2",
+            "order_id": 4683644403795,
+            "origin_address": {},
+            "receipt": {},
+            "service": "manual",
+            "shipment_status": "delivered",
+            "status": "success",
+            "tracking_company": "UPS",
+            "tracking_number": "1Z638Y506773032824",
+            "tracking_numbers": [
+                "1Z638Y506773032824"
+            ],
+            "tracking_url": "https://www.ups.com/WebTracking?loc=en_US&requester=ST&trackNums=1Z638Y506773032824",
+            "tracking_urls": [
+                "https://www.ups.com/WebTracking?loc=en_US&requester=ST&trackNums=1Z638Y506773032824"
+            ],
+            "updated_at": "2023-04-04T19:43:47-04:00",
+            "line_items": [
+                {
+                    "id": 11775609274451,
+                    "admin_graphql_api_id": "gid://shopify/LineItem/11775609274451",
+                    "fulfillable_quantity": 1,
+                    "fulfillment_status": "partial",
+                    "gift_card": false,
+                    "grams": 0,
+                    "name": "Jia Dress | JLR Sketchbook - XL",
+                    "pre_tax_price": "444.00",
+                    "pre_tax_price_set": {
+                        "shop_money": {
+                            "amount": "444.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "444.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "price": "148.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "148.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "148.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "product_exists": true,
+                    "product_id": 6610596659283,
+                    "properties": [],
+                    "quantity": 1,
+                    "requires_shipping": true,
+                    "sku": "KT6057 CTW70 SKETXI 5ZZXL",
+                    "taxable": true,
+                    "title": "Jia Dress | JLR Sketchbook",
+                    "total_discount": "0.00",
+                    "total_discount_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "variant_id": 39447857201235,
+                    "variant_inventory_management": "shopify",
+                    "variant_title": "XL",
+                    "vendor": "thekitnyc",
+                    "tax_lines": [
+                        {
+                            "channel_liable": false,
+                            "price": "0.00",
+                            "price_set": {
+                                "shop_money": {
+                                    "amount": "0.00",
+                                    "currency_code": "USD"
+                                },
+                                "presentment_money": {
+                                    "amount": "0.00",
+                                    "currency_code": "USD"
+                                }
+                            },
+                            "rate": 0.0,
+                            "title": "NV STATE TAX"
+                        }
+                    ],
+                    "duties": [],
+                    "discount_allocations": []
+                }
+            ]
+        }
+    ],
+    "line_items": [
+        {
+            "id": 11775609274451,
+            "admin_graphql_api_id": "gid://shopify/LineItem/11775609274451",
+            "fulfillable_quantity": 1,
+            "fulfillment_status": "partial",
+            "gift_card": false,
+            "grams": 0,
+            "name": "Jia Dress | JLR Sketchbook - XL",
+            "pre_tax_price": "444.00",
+            "pre_tax_price_set": {
+                "shop_money": {
+                    "amount": "444.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "444.00",
+                    "currency_code": "USD"
+                }
+            },
+            "price": "148.00",
+            "price_set": {
+                "shop_money": {
+                    "amount": "148.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "148.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 6610596659283,
+            "properties": [],
+            "quantity": 3,
+            "requires_shipping": true,
+            "sku": "KT6057 CTW70 SKETXI 5ZZXL",
+            "taxable": true,
+            "title": "Jia Dress | JLR Sketchbook",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 39447857201235,
+            "variant_inventory_management": "shopify",
+            "variant_title": "XL",
+            "vendor": "thekitnyc",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.0,
+                    "title": "NV STATE TAX"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": [],
+            "refunded_quantity": 0,
+            "fulfilled_quantity": 2
+        }
+    ],
+    "payment_terms": null,
+    "refunds": [],
+    "shipping_address": {
+        "first_name": "Jill",
+        "address1": "1193 CHAPARRAL DR.",
+        "phone": "5107156185",
+        "city": "CARSON CITY",
+        "zip": "89703",
+        "province": "Nevada",
+        "country": "United States",
+        "last_name": "Stanley",
+        "address2": null,
+        "company": null,
+        "latitude": 39.1756886,
+        "longitude": -119.7776853,
+        "name": "Jill Stanley",
+        "country_code": "US",
+        "province_code": "NV"
+    },
+    "shipping_lines": [
+        {
+            "id": 3941961105491,
+            "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+            "code": "Standard Shipping",
+            "delivery_category": null,
+            "discounted_price": "0.00",
+            "discounted_price_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "phone": null,
+            "price": "0.00",
+            "price_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "requested_fulfillment_service_id": null,
+            "source": "shopify",
+            "title": "Standard Shipping",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.0,
+                    "title": "NV STATE TAX"
+                }
+            ],
+            "discount_allocations": []
+        }
+    ],
+    "shipping_first_name": "Jill",
+    "shipping_address1": "1193 CHAPARRAL DR.",
+    "shipping_phone": "5107156185",
+    "shipping_city": "CARSON CITY",
+    "shipping_zip": "89703",
+    "shipping_province": "Nevada",
+    "shipping_country": "United States",
+    "shipping_last_name": "Stanley",
+    "shipping_address2": null,
+    "shipping_company": null,
+    "shipping_latitude": 39.1756886,
+    "shipping_longitude": -119.7776853,
+    "shipping_name": "Jill Stanley",
+    "shipping_country_code": "US",
+    "shipping_province_code": "NV",
+    "brand": "KT",
+    "shipping_title": "Standard Shipping",
+    "customer_id": 5537870151763,
+    "customer_first_name": "Jill",
+    "customer_orders_count": null,
+    "customer_total_spent": null,
+    "customer_tags": "",
+    "customer_created_at": "2022-03-13T16:30:11-04:00"
+}

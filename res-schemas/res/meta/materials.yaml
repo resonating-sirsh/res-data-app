@@ -1,0 +1,15 @@
+airtable_base_id: app3S9MlbcNCFXdjr
+airtable_table_id: tblV45jYh1PsKuaNi
+fields:
+- airtable_field_name: Key
+  indexes:
+  - hash
+  is_key: true
+  is_required: true
+  key: key
+  name: key
+- airtable_field_name: Material Name
+  key: material_name
+  name: material_name
+key: meta.materials
+name: meta.materials

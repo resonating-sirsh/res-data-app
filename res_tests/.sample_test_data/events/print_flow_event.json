@@ -1,0 +1,18 @@
+{
+  "apiVersion": "v0",
+  "kind": "resFlow",
+  "metadata": {
+    "name": "dxa.printfile",
+    "version": "exp1",
+    "flow": "production"
+  },
+  "args": {
+    "images": [
+      "s3://one-meta-artifacts/testb-testm-testc/print/source.png"
+    ],
+    "jobKey": "job1",
+    "material": "LTCSL",
+    "buffer": 10
+  },
+  "nodes": null
+}

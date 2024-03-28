@@ -1,0 +1,57 @@
+#this was attempt one to load data from the kafka topic directly but we can re-process this into ONEs that are literally one and have an FKEY
+#this is the demand queue that is separate from ONEs produced - it NEEDs to be satisfied if not cancelled but it does not need to be made per se
+key: make.material_properties
+name: make.material_properties
+airtable_base_id: app1FBXxTRoicCW8k
+airtable_table_id: tblD1kPG5jpf6GCQl
+fields:
+  #Key is an instance generated from the unique order Brand-Order_number-SKU_replica_index
+  - key: key
+    name: key
+    indexes:
+      - hash
+    is_key: true
+    is_required: true
+    airtable_field_name: Material Code
+
+  - key: order_key
+    name: order_key
+  - key: cuttable_width
+    name: cuttable_width
+    airtable_field_name: Printable Width (In)
+  - key: compensation_width
+    name: compensation_width
+    airtable_field_name: Locked Width Digital Compensation (Scale)
+  - key: compensation_length
+    name: compensation_length
+    airtable_field_name: Locked Length Digital Compensation (Scale)
+
+  - key: paper_marker_compensation_width
+    name: paper_marker_compensation_width
+    airtable_field_name: Paper Marker Compensation (Width) FORMULA
+  - key: paper_marker_compensation_length
+    name: paper_marker_compensation_length
+    airtable_field_name: Paper Marker Compensation (Length) FORMULA
+
+  - key: material_stability
+    name: material_stability
+    airtable_field_name: Material Stability
+  - key: offset_size
+    name: offset_size
+    airtable_field_name: Offset Size (Inches)
+
+  - key: material_stability
+    name: material_stability
+    airtable_field_name: Material Stability
+
+  - key: fabric_type
+    name: fabric_type
+    airtable_field_name: Fabric Type
+
+  - key: pretreatment_type
+    name: pretreatment_type
+    airtable_field_name: Pretreatment Type
+
+  - key: material_taxonomy
+    name: material_taxonomy
+    airtable_field_name: Material Taxonomy

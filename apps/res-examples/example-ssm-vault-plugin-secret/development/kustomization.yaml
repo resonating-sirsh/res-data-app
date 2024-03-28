@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+  - secrets-application.yaml
+
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: example-ssm-vault-plugin-secret
+      spec:
+        template:
+          spec:
+            containers:
+            - name: example-ssm-vault-plugin-secret
+              env:
+                - name: RES_ENV
+                  value: development

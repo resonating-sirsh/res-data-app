@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "airtable_multifields_update",
+  "namespace": "res_infrastructure.kafka_to_airtable",
+  "doc": "Messages that will trigger an update to multiple fields of a record in airtable.",
+  "fields": [
+    {
+      "name": "submitting_app",
+      "type": "string"
+    },
+    {
+      "name": "submitting_app_namespace",
+      "type": "string"
+    },
+    {
+      "name": "airtable_base",
+      "type": "string"
+    },
+    {
+      "name": "airtable_table",
+      "type": "string"
+    },
+    {
+      "name": "airtable_record",
+      "type": "string"
+    },
+    {
+      "name": "payload",
+      "type": {"type": "map", "values": "string"}
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/job_details",
+  "$defs": {
+    "job_details_brand_onboarding": {
+      "type": "object",
+      "description": "Job details required to run a VStitcher job",
+      "additionalProperties": true,
+      "properties": {
+        "style_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "remote_artwork_file_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "snapshot_name": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "style_id",
+        "body_code",
+        "remote_artwork_file_path"
+      ],
+      "title": "JobDetails"
+    },
+    "job_details_color_queue": {
+      "type": "object",
+      "title": "Details For a Color Queue job",
+      "description": "Job details required to run a VStitcher job",
+      "additionalProperties": true,
+      "properties": {
+        "style_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_file_uri": {
+          "type": "string",
+          "description": "S3 Path of the input .bw file",
+          "minLength": 1
+        },
+        "at_color_queue_record_id": {
+          "type": "string",
+          "description": "Airtable record to update after process .bw file",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "style_id",
+        "input_file_uri",
+        "at_color_queue_record_id"
+      ]
+    }
+  },
+  "definitions": {
+    "job_details": {
+      "anyOf": [
+        {"$ref": "#/$defs/job_details_brand_onboarding"},
+        {"$ref": "#/$defs/job_details_color_queue"}
+      ]
+    }
+  }
+}

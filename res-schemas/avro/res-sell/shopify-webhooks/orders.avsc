@@ -1,0 +1,2583 @@
+[
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.shipping_lines.tax_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.shipping_lines.tax_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "price_set",
+        "namespace": "shopify.orders.shipping_lines.tax_lines",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.shipping_lines.tax_lines.price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.shipping_lines.tax_lines.price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "tax_lines",
+        "namespace": "shopify.orders.shipping_lines",
+        "fields": [
+            {
+                "name": "channel_liable",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "price_set",
+                "type": "shopify.orders.shipping_lines.tax_lines.price_set"
+            },
+            {
+                "name": "rate",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "title",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.shipping_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.shipping_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "price_set",
+        "namespace": "shopify.orders.shipping_lines",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.shipping_lines.price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.shipping_lines.price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.shipping_lines.discounted_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.shipping_lines.discounted_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "discounted_price_set",
+        "namespace": "shopify.orders.shipping_lines",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.shipping_lines.discounted_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.shipping_lines.discounted_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shipping_lines",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "carrier_identifier",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "delivery_category",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "discounted_price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "discounted_price_set",
+                "type": "shopify.orders.shipping_lines.discounted_price_set"
+            },
+            {
+                "name": "phone",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "price_set",
+                "type": "shopify.orders.shipping_lines.price_set"
+            },
+            {
+                "name": "requested_fulfillment_service_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "source",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "title",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "tax_lines",
+                "type": {
+                    "type": "array",
+                    "items": "shopify.orders.shipping_lines.tax_lines"
+                }
+            },
+            {
+                "name": "discount_allocations",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shipping_address",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "first_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "address1",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "phone",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "city",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "zip",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "province",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "country",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "last_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "address2",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "company",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "latitude",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "longitude",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "country_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "province_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.line_items.tax_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.line_items.tax_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "price_set",
+        "namespace": "shopify.orders.line_items.tax_lines",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.line_items.tax_lines.price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.line_items.tax_lines.price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "tax_lines",
+        "namespace": "shopify.orders.line_items",
+        "fields": [
+            {
+                "name": "channel_liable",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "price_set",
+                "type": "shopify.orders.line_items.tax_lines.price_set"
+            },
+            {
+                "name": "rate",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "title",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.line_items.total_discount_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.line_items.total_discount_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "total_discount_set",
+        "namespace": "shopify.orders.line_items",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.line_items.total_discount_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.line_items.total_discount_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.line_items.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.line_items.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "price_set",
+        "namespace": "shopify.orders.line_items",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.line_items.price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.line_items.price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.line_items.pre_tax_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.line_items.pre_tax_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "pre_tax_price_set",
+        "namespace": "shopify.orders.line_items",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.line_items.pre_tax_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.line_items.pre_tax_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "line_items",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "admin_graphql_api_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "fulfillable_quantity",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "fulfillment_quantity",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "fulfillment_service",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "fulfillment_status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "gift_card",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "grams",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "pre_tax_price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "pre_tax_price_set",
+                "type": "shopify.orders.line_items.pre_tax_price_set"
+            },
+            {
+                "name": "price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "price_set",
+                "type": "shopify.orders.line_items.price_set"
+            },
+            {
+                "name": "product_exists",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "product_id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "properties",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "quantity",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "requires_shipping",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "sku",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "taxable",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "title",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_discount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_discount_set",
+                "type": "shopify.orders.line_items.total_discount_set"
+            },
+            {
+                "name": "variant_id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "variant_inventory_management",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "variant_title",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "orderNumber",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "vendor",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "tax_lines",
+                "type": {
+                    "type": "array",
+                    "items": "shopify.orders.line_items.tax_lines"
+                }
+            },
+            {
+                "name": "duties",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "discount_allocations",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "default_address",
+        "namespace": "shopify.orders.customer",
+        "fields": [
+            {
+                "name": "id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "customer_id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "first_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "last_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "company",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "address1",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "address2",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "city",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "province",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "country",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "zip",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "phone",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "province_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "country_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "country_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "default",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "customer",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "email",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "accepts_marketing",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "created_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "updated_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "first_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "last_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "orders_count",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "state",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_spent",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "last_order_id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "note",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "verified_email",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "multipass_identifier",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "tax_exempt",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "phone",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "tags",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "accepts_marketing_updated_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "marketing_opt_in_level",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "tax_exemptions",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "sms_marketing_consent",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "admin_graphql_api_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "default_address",
+                "type": "shopify.orders.customer.default_address"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "billing_address",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "first_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "address1",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "phone",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "city",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "zip",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "province",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "country",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "last_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "address2",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "company",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "latitude",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "longitude",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "country_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "province_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.total_tax_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.total_tax_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "total_tax_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.total_tax_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.total_tax_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.total_shipping_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.total_shipping_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "total_shipping_price_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.total_shipping_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.total_shipping_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.total_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.total_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "total_price_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.total_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.total_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.total_line_items_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.total_line_items_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "total_line_items_price_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.total_line_items_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.total_line_items_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.total_discounts_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.total_discounts_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "total_discounts_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.total_discounts_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.total_discounts_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.tax_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.tax_lines.price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "price_set",
+        "namespace": "shopify.orders.tax_lines",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.tax_lines.price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.tax_lines.price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "tax_lines",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "rate",
+                "type": [
+                    "float",
+                    "null"
+                ]
+            },
+            {
+                "name": "title",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "price_set",
+                "type": "shopify.orders.tax_lines.price_set"
+            },
+            {
+                "name": "channel_liable",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.subtotal_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.subtotal_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "subtotal_price_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.subtotal_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.subtotal_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "note_attributes",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "value",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.current_total_tax_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.current_total_tax_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "current_total_tax_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.current_total_tax_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.current_total_tax_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.current_total_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.current_total_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "current_total_price_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.current_total_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.current_total_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.current_total_discounts_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.current_total_discounts_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "current_total_discounts_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.current_total_discounts_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.current_total_discounts_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "presentment_money",
+        "namespace": "shopify.orders.current_subtotal_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "shop_money",
+        "namespace": "shopify.orders.current_subtotal_price_set",
+        "fields": [
+            {
+                "name": "amount",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency_code",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "current_subtotal_price_set",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "shop_money",
+                "type": "shopify.orders.current_subtotal_price_set.shop_money"
+            },
+            {
+                "name": "presentment_money",
+                "type": "shopify.orders.current_subtotal_price_set.presentment_money"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "client_details",
+        "namespace": "shopify.orders",
+        "fields": [
+            {
+                "name": "accept_language",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "browser_height",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "browser_ip",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "browser_width",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "session_hash",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "user_agent",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "topLevelItem",
+        "namespace": "shopify",
+        "fields": [
+            {
+                "name": "id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "type",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "admin_graphql_api_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "app_id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "browser_ip",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "buyer_accepts_marketing",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "cancel_reason",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "cancelled_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "cart_token",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "checkout_id",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "checkout_token",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "client_details",
+                "type": "shopify.orders.client_details"
+            },
+            {
+                "name": "closed_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "confirmed",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "contact_email",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "created_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "currency",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "current_subtotal_price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "current_subtotal_price_set",
+                "type": "shopify.orders.current_subtotal_price_set"
+            },
+            {
+                "name": "current_total_discounts",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "current_total_discounts_set",
+                "type": "shopify.orders.current_total_discounts_set"
+            },
+            {
+                "name": "current_total_duties_set",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "current_total_price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "current_total_price_set",
+                "type": "shopify.orders.current_total_price_set"
+            },
+            {
+                "name": "current_total_tax",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "current_total_tax_set",
+                "type": "shopify.orders.current_total_tax_set"
+            },
+            {
+                "name": "customer_locale",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "device_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "discount_codes",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "email",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "estimated_taxes",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "financial_status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "fulfillment_status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "landing_site",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "landing_site_ref",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "location_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "note",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "note_attributes",
+                "type": {
+                    "type": "array",
+                    "items": "shopify.orders.note_attributes"
+                }
+            },
+            {
+                "name": "number",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "order_number",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "order_status_url",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "original_total_duties_set",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "payment_gateway_names",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "phone",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "presentment_currency",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "processed_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "referring_site",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "source_identifier",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "source_name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "source_url",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "subtotal_price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "subtotal_price_set",
+                "type": "shopify.orders.subtotal_price_set"
+            },
+            {
+                "name": "tags",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "tax_lines",
+                "type": {
+                    "type": "array",
+                    "items": "shopify.orders.tax_lines"
+                }
+            },
+            {
+                "name": "taxes_included",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "test",
+                "type": [
+                    "boolean",
+                    "null"
+                ]
+            },
+            {
+                "name": "token",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_discounts",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_discounts_set",
+                "type": "shopify.orders.total_discounts_set"
+            },
+            {
+                "name": "total_line_items_price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_line_items_price_set",
+                "type": "shopify.orders.total_line_items_price_set"
+            },
+            {
+                "name": "total_outstanding",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_price",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_price_set",
+                "type": "shopify.orders.total_price_set"
+            },
+            {
+                "name": "total_shipping_price_set",
+                "type": "shopify.orders.total_shipping_price_set"
+            },
+            {
+                "name": "total_tax",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_tax_set",
+                "type": "shopify.orders.total_tax_set"
+            },
+            {
+                "name": "total_tip_received",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "total_weight",
+                "type": [
+                    "int",
+                    "null"
+                ]
+            },
+            {
+                "name": "updated_at",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "user_id",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "billing_address",
+                "type": "shopify.orders.billing_address"
+            },
+            {
+                "name": "customer",
+                "type": "shopify.orders.customer"
+            },
+            {
+                "name": "discount_applications",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "fulfillments",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "line_items",
+                "type": {
+                    "type": "array",
+                    "items": "shopify.orders.line_items"
+                }
+            },
+            {
+                "name": "payment_terms",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "refunds",
+                "type": {
+                    "type": "array",
+                    "items": "string"
+                }
+            },
+            {
+                "name": "shipping_address",
+                "type": "shopify.orders.shipping_address"
+            },
+            {
+                "name": "shipping_lines",
+                "type": {
+                    "type": "array",
+                    "items": "shopify.orders.shipping_lines"
+                }
+            }
+        ]
+    }
+]

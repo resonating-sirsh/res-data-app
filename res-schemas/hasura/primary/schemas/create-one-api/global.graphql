@@ -1,0 +1,28 @@
+scalar WhereValue
+scalar Date
+scalar DateTime
+
+input WhereOperator {
+  is: WhereValue
+  isNot: WhereValue
+  isAnyOf: [WhereValue]
+  isNoneOf: [WhereValue]
+  hasAnyOf: [WhereValue]
+  hasAllOf: [WhereValue]
+  hasNoneOf: [WhereValue]
+  isLessThan: WhereValue
+  isLessThanOrEqualTo: WhereValue
+  isGreaterThan: WhereValue
+  isGreaterThanOrEqualTo: WhereValue
+}
+
+## STYLE_READER
+type Image {
+  id: ID!
+  url: String
+  fileName: String
+  size: Int
+  fullThumbnail: String
+  largeThumbnail: String
+  smallThumbnail: String
+}

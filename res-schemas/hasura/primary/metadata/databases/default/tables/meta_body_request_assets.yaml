@@ -1,0 +1,15 @@
+table:
+  name: body_request_assets
+  schema: meta
+object_relationships:
+  - name: brand_body_request
+    using:
+      foreign_key_constraint_on: brand_body_request_id
+array_relationships:
+  - name: body_request_asset_nodes
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: body_request_asset_annotations
+          schema: meta

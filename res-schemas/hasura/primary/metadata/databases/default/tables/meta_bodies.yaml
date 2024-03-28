@@ -1,0 +1,63 @@
+table:
+  name: bodies
+  schema: meta
+array_relationships:
+  - name: body_pieces
+    using:
+      foreign_key_constraint_on:
+        column: body_id
+        table:
+          name: body_pieces
+          schema: meta
+  - name: body_trims
+    using:
+      foreign_key_constraint_on:
+        column: body_id
+        table:
+          name: body_trims
+          schema: meta
+  - name: brand_body_requests
+    using:
+      foreign_key_constraint_on:
+        column: meta_body_id
+        table:
+          name: body_requests
+          schema: meta
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - model_3d_uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $model_3d_uri
+      remote_schema: s3url-signer
+    name: signed_model_3d_uri
+  - definition:
+      hasura_fields:
+        - point_cloud_uri
+      remote_field:
+        signPath:
+          arguments:
+            privatePath: $point_cloud_uri
+      remote_schema: s3url-signer
+    name: signed_point_cloud_uri
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - body_code
+        - bom
+        - brand_code
+        - contracts_failing
+        - costs
+        - created_at
+        - front_image_uri
+        - id
+        - metadata
+        - model_3d_uri
+        - point_cloud_uri
+        - profile
+        - updated_at
+        - version
+      filter: {}

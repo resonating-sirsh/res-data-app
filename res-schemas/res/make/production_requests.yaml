@@ -1,0 +1,80 @@
+airtable_base_id: appH5S4hIuz99tAjm
+airtable_table_id: tblptyuWfGEUJWwKk
+cache_name: airtable_make_one_production
+fields:
+  - airtable_field_name: Factory Request Name
+    key: factory_request_name
+    name: factory_request_name
+  - airtable_field_name: SKU
+    key: sku
+    name: sku
+  - airtable_field_name: Order Number v3
+    indexes:
+      - hash
+    is_key: true
+    is_required: true
+    key: key
+    name: key
+  - airtable_field_name: Current Make Node
+    key: current_make_node
+    name: current_make_node
+  - airtable_field_name: Current Assembly Node
+    key: current_assembly_node
+    name: current_assembly_node
+  - airtable_field_name: Body Version
+    key: body_version
+    name: body_version
+  - airtable_field_name: Body Code
+    key: body_code
+    name: body_code
+    meta_type: "meta.bodies"
+  - airtable_field_name: Size Code
+    key: size_code
+    name: size_code
+  - airtable_field_name: CreatedTime
+    key: createdtime
+    name: createdtime
+  - airtable_field_name: Print Exit Date
+    key: print_exit_date
+    name: print_exit_date
+  - airtable_field_name: Exit Cut Date
+    key: cut_exit_date
+    name: cut_exit_date
+  - airtable_field_name: _cancel_date
+    key: cancel_date
+    name: cancel_date
+  - airtable_field_name: __cancel_one_id
+    key: is_cancelled
+    name: is_cancelled
+  - airtable_field_name: Defects
+    key: defects
+    name: defects
+
+  - airtable_field_name: styleId
+    key: style_id
+    name: style_id
+  - airtable_field_name: RequestType
+    key: request_type
+    name: request_type
+  - airtable_field_name: Style Code
+    key: style_code
+    name: style_code
+    meta_type: "meta.styles"
+  - airtable_field_name: _order_line_item_id
+    key: order_line_item_id
+    name: order_line_item_id
+  - airtable_field_name: Sales Channel
+    key: sales_channel
+    name: sales_channel
+  - airtable_field_name: Belongs to Order
+    key: order_number
+    name: order_number
+  - airtable_field_name: Contract Variables
+    key: contract_variables
+    name: contract_variables
+  - airtable_field_name: Sew_Contract Variables
+    key: sew_contract_variables
+    name: sew_contract_variables
+
+key: make.production_requests
+name: make.production_requests

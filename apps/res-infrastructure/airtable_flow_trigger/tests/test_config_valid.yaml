@@ -1,0 +1,10 @@
+team: "make"
+event_triggers:
+  - base: "appjmzNPXOuynj6xP"
+    table: "tblmszDBvO1MvJrlJ"
+    flow: "check_required_style_trims"
+    formula: |
+      sample_formula
+    active:
+      development: False
+      production: True

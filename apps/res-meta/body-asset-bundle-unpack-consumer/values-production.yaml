@@ -1,0 +1,6 @@
+deployment:
+  replicas: 2
+  memory: 8G
+  env:
+    RES_APP_NAME: "body-asset-bundle-unpack-consumer"
+    RES_TEAM: "dxa"

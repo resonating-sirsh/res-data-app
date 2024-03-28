@@ -1,0 +1,51 @@
+{
+  "type": "record",
+  "name": "TestPrinterQueue",
+  "namespace": "optimus.test_printer_queue",
+  "doc": "Ordered queue of rolls for single printer.",
+  "fields": [
+
+    {
+      "name": "printer_record_id",
+      "type": "string"
+    },
+    {
+      "name": "printer_name",
+      "type": "string"
+    },
+    {
+      "name": "roll_record_ids",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "roll_names",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "print_length_existing_queue_yards",
+      "type": "float"
+    },
+    {
+      "name": "print_length_additional_queue_yards",
+      "type": "float"
+    },
+    {
+      "name": "print_length_total_queue_yards",
+      "type": "float"
+    },
+    {
+      "name": "task_key",
+      "type": "string"
+    },
+    {
+      "name": "created_at",
+      "type": "string"
+    }
+  ]
+}

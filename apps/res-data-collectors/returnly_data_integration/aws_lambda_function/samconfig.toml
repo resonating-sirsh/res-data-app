@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "returnly-data-integration"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-9l8qwbgoyb8q"
+s3_prefix = "returnly-data-integration"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM CAPABILITY_NAMED_IAM"
+parameter_overrides = "Region=\"us-east-1\""
+image_repositories = []

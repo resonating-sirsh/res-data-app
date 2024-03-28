@@ -1,0 +1,36 @@
+table:
+  name: flow_node_run
+  schema: dxa
+object_relationships:
+  - name: job_status
+    using:
+      foreign_key_constraint_on: status
+  - name: job_type
+    using:
+      foreign_key_constraint_on: type
+  - name: preset
+    using:
+      foreign_key_constraint_on: preset_key
+array_relationships:
+  - name: assets
+    using:
+      manual_configuration:
+        column_mapping:
+          id: job_id
+        insertion_order: null
+        remote_table:
+          name: asset
+          schema: create
+event_triggers:
+  - name: platform_job_status_update
+    definition:
+      enable_manual: true
+      insert:
+        columns: '*'
+      update:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://change-events-processor-service.res-platform.svc.cluster.local:5000/job/status_update

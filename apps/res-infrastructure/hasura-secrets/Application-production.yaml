@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hasura-secrets
+  namespace: argocd
+spec:
+  destination:
+    namespace: hasura
+    server: https://kubernetes.default.svc
+  project: res-infrastructure
+  source:
+    path: apps/res-infrastructure/hasura-secrets/production
+    repoURL: git@github.com:resonance/res-data-platform.git
+    targetRevision: HEAD

@@ -1,0 +1,4 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- alter table "flow"."contracts" add column "required_exiting_flows" jsonb
+--  null default jsonb_build_array();

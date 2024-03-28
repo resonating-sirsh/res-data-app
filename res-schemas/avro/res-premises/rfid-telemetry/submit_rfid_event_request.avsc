@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "res_premises_submit_rfid_event_request",
+  "namespace": "res_premises_telemetry",
+  "doc": "Topic that will store every event triggered by an RFID reader",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "reader",
+      "type": "string"
+    },
+    {
+      "name": "channel",
+      "type": "string"
+    },
+    {
+      "name": "tag_epc",
+      "type": "string"
+    },
+    {
+      "name": "observed_at",
+      "type": "string"
+    },
+    {
+      "name": "metadata",
+      "type": ["null", { "type": "map", "values": "string" }]
+    }
+  ]
+}

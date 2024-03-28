@@ -1,0 +1,37 @@
+airtable_base_id: appqtN4USHTmyC6Dv
+airtable_table_id: tblwhgsCzGpt7odBg
+fields:
+- airtable_field_name: Name
+  indexes:
+  - hash
+  is_key: true
+  is_required: true
+  key: key
+  name: key
+- airtable_field_name: Style Code
+  key: style_code
+  name: style_code
+  meta_type: meta.style
+- airtable_field_name: SKU
+  key: sku
+  name: sku
+- airtable_field_name: Request Type
+  key: request_type
+  name: request_type
+- airtable_field_name: Assignee
+  key: assignee
+  name: assignee
+- airtable_field_name: Brand Code
+  key: brand_code
+  name: brand_code
+- airtable_field_name: Number
+  key: number
+  name: number
+- airtable_field_name: Ready for ONE status
+  key: ready_for_one_status
+  name: ready_for_one_status
+- airtable_field_name: Rasterized Prepared Net File Id
+  key: rasterized_prepared_net_file_id
+  name: rasterized_prepared_net_file_id
+key: meta.marker_requests
+name: meta.marker_requests

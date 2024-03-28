@@ -1,0 +1,31 @@
+[{
+	"type": "record",
+	"name": "airtable_event",
+	"namespace": "res_infrastructure.notification_system.event",
+	"doc": "This is a generic airtable event that anyone can post to",
+	"fields": [{
+			"name": "record_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "user",
+			"type": ["string", "null"],
+			"default": ""
+		},
+		{
+			"name": "base_id",
+			"type": ["string", "null"],
+			"default": ""
+		},
+		{
+			"name": "table_id",
+			"type": ["string", "null"],
+			"default": ""
+		},
+		{
+			"name": "notification_type",
+			"type": ["string", "null"],
+			"default": ""
+		}
+	]
+}]

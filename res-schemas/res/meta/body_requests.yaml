@@ -1,0 +1,49 @@
+airtable_base_id: appa7Sw0ML47cA8D1
+airtable_table_id: tblrq1XfkbuElPh0l
+fields:
+  - airtable_field_name: Name
+    indexes:
+      - hash
+    is_key: true
+    is_required: true
+    key: key
+    name: key
+  - airtable_field_name: Body Number
+    key: body_code
+    name: body_code
+    meta_type: meta.bodies
+  - airtable_field_name: Body ONE Ready Request Type
+    key: body_one_ready_request_type
+    name: body_one_ready_request_type
+  - airtable_field_name: Body Name
+    key: body_name
+    name: body_name
+  - airtable_field_name: Status
+    key: status
+    name: status
+  - airtable_field_name: ONEs Before Make Order Numbers
+    key: ones_before_make_order_numbers
+    name: ones_before_make_order_numbers
+  - airtable_field_name: Body ONE Ready Status
+    key: body_one_ready_status
+    name: body_one_ready_status
+  - airtable_field_name: Create Asset Flow
+    key: create_asset_flow
+    name: create_asset_flow
+  - airtable_field_name: Request Reject Reason
+    key: request_reject_reason
+    name: request_reject_reason
+  - airtable_field_name: Generate Body in 3D Status
+    key: generate_body_in_3d_status
+    name: generate_body_in_3d_status
+  - airtable_field_name: First ONEs in Transit
+    key: first_ones_in_transit
+    name: first_ones_in_transit
+  - airtable_field_name: ONE Review
+    key: one_review
+    name: one_review
+  - airtable_field_name: Material (SOT)
+    key: default_material
+    name: default_material
+key: meta.body_requests
+name: meta.body_requests

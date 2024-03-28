@@ -1,0 +1,45 @@
+# This default exit handler should be used in most workflows
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: default-exit-handler
+spec:
+  templates:
+  - name: exit-handler
+    steps:
+    - - name: failure
+        template: failure
+        when: "{{workflow.status}} != Succeeded"
+  - name: failure
+    script:
+      image: res-data
+      command: [python]
+      source: |
+        import json
+        import sys
+        from res.flows import FlowContext
+        errors = json.loads({{workflow.failures}})
+        workflow_event = json.loads('{{workflow.parameters.event}}')
+        #add metadata for airtable migration
+        if 'metadata' not in workflow_event:
+          workflow_event['metadata'] = {}
+
+        #the name that is derived from the flow context also has v0
+        workflow_event['metadata']['name'] = 'etl-airtable-v0'
+        workflow_event['metadata']['node'] = 'handler'
+        workflow_event['metadata']['argo.workflow.name'] = '{{workflow.name}}'
+        ##
+        workflow_event['errors'] = [e['message'] for e in errors]
+        workflow_event['error_details'] = errors
+
+        #if we are doing work by table_id or in future table_name, we use that as the data key
+        dg = workflow_event.get('table_id', 'any')
+
+        #example display name in errors - provides full context
+        #migrations(2:args:{"table_id":"tblSYU8a71UgbQve4","name":"rolls","base_id":"apprcULXTWu33KFsh"},memory:32Gi)(1)
+
+
+        FlowContext.on_failure(workflow_event,{}, data_group=dg)
+      envFrom:
+       - configMapRef:
+           name: res-data-env

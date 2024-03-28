@@ -1,0 +1,4 @@
+table:
+  name: digital_product_request_statu
+  schema: digital_product
+is_enum: true

@@ -1,0 +1,5 @@
+deployment:
+  replicas: 2
+  env:
+    RES_TEAM: "res-sell"
+    HASURA_ENDPOINT: "https://hasura.resmagic.io"

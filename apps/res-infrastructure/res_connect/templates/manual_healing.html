@@ -1,0 +1,170 @@
+<html>
+
+<head>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script type='text/javascript'
+        src='https://cdn.jsdelivr.net/npm/imagemapster@1.5.4/dist/jquery.imagemapster.min.js'></script>
+
+    <style>
+        #info-box {
+            position: fixed;
+            left: 33%;
+            top: 5px;
+            width: 60%;
+            height: 90%;
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+            overflow-y: scroll;
+        }
+
+        .button {
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+            color: red;
+            cursor: pointer;
+            display: inline-block;
+            background-color: #CCC;
+            box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.4);
+            padding: 5px;
+            user-select: none;
+        }
+
+        .button:hover {
+            background-color: #AAA;
+        }
+
+        .button:active {
+            box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map-container" style="display:none">
+        <img src='{{ printfile_img_path }}' usemap='#nest-map' id='nest-img' />
+        <map id='nest-map' name='nest-map'>
+            {{ printfile_piece_map|safe }}
+        </map>
+    </div>
+    <div id='info-box'>
+        <div id='nest-btn' class='button'>
+            Make Nest
+        </div>
+        <br />
+        <br />
+        <div id='status' style="font-family: 'Courier New', Courier, monospace; font-size: 20;">
+        </div>
+    </div>
+    <script type='text/javascript'>
+
+        g_printfile_key = "{{ printfile_key }}";
+        g_nest_key = "";
+
+        function resize() {
+            $('#nest-img').mapster('resize', $(window).width() / 4, 0, 0);
+        }
+
+        function onWindowResize() {
+            var curWidth = $(window).width(),
+                checking = false;
+            if (checking) {
+                return;
+            }
+            checking = true;
+            window.setTimeout(function () {
+                var newWidth = $(window).width();
+                if (newWidth === curWidth) {
+                    resize();
+                }
+                checking = false;
+            }, 100);
+        }
+
+        function nestPieces() {
+            const piece_ids = $('#nest-img').mapster('get').split(",");
+            $("#status").append("Nesting " + piece_ids.length + " pieces -- may take a while...<br/><br/>");
+            $("#nest-btn").off("click");
+            $("#nest-btn").css({ "color": "gray" });
+            $.ajax({
+                url: '/res-connect/manual_healing/renest',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    piece_ids: piece_ids,
+                    printfile_key: g_printfile_key,
+                }),
+                success: function (data) {
+                    console.log(data);
+                    data = JSON.parse(data);
+                    $("#status").append("Generated nest with length: " + data["nest_length"] + " and key " + data["nest_key"] + "<br/><br/>");
+                    $("#status").append("<img src='" + data["nest_preview"] + "'' style='max-height:400px;'><br/><br/>");
+                    $("#status").append("<div id='comp-btn' class='button'>Composite Printfile</div><br/><br/>");
+                    $("#comp-btn").click(compositePrintfile);
+                    g_nest_key = data["nest_key"];
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#status").append("Failed to generate nest: " + xhr.responseText + "<br/><br/>");
+                    $("#nest-btn").click(nestPieces);
+                    $("#nest-btn").css({ "color": "red" });
+                }
+            });
+        }
+
+        function compositePrintfile() {
+            $("#status").append("Submitting compositing job...<br/><br/>");
+            $("#comp-btn").off("click");
+            $("#comp-btn").css({ "color": "gray" });
+            $.ajax({
+                url: '/res-connect/manual_healing/composite',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    nest_key: g_nest_key,
+                    printfile_key: g_printfile_key,
+                }),
+                success: function (data) {
+                    console.log(data);
+                    data = JSON.parse(data);
+                    $("#status").append("Compositing printfile: " + data["rip_file_name"] + " with key " + data["printfile_id"] + "<br/><br/>");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#status").append("Failed to composite: " + xhr.responseText + "<br/><br/>");
+                    $("#comp-btn").click(compositePrintfile);
+                    $("#comp-btn").css({ "color": "red" });
+                }
+            });
+        }
+
+        $(window).on("load", function () {
+            $('#nest-img').mapster({
+                fillColor: 'ff0000',
+                stroke: true,
+                render_select: {
+                    fillColor: 'ff0000',
+                    stroke: true,
+                    strokeColor: 'ff0000',
+                    strokeWidth: 4,
+                    fillOpacity: 0.5,
+                },
+                mapKey: 'piece_id',
+                onStateChange: function (e) {
+                    if (e.state == "select") {
+                        $("#status").html("");
+                        $("#nest-btn").css({ "color": "red" });
+                        $("#nest-btn").off("click");
+                        $("#nest-btn").click(nestPieces);
+                    }
+                },
+            });
+            $(window).bind('resize', onWindowResize);
+            $("#map-container").css({ "display": "block", "position": "absolute" });
+            $("#nest-btn").off("click");
+            $("#nest-btn").css({ "color": "gray" });
+            resize();
+        });
+    </script>
+</body>
+
+</html>

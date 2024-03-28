@@ -1,0 +1,53 @@
+{
+  "type": "record",
+  "name": "nest_evaluations",
+  "namespace": "res_make.res_nest",
+  "doc": "An evaluation in yards of nest packing",
+  "fields": [
+    {
+      "name": "job_key",
+      "type": "string"
+    },
+    {
+      "name": "material",
+      "type": "string"
+    },
+    {
+      "name": "packing_method",
+      "type": ["string", "null"],
+      "default": "null"
+    },
+    {
+      "name": "asset_count",
+      "type": "int"
+    },
+    {
+      "name": "piece_count",
+      "type": "float"
+    },
+    {
+      "name": "width_nest_yds",
+      "type": "float"
+    },
+     {
+      "name": "height_nest_yds",
+      "type": "float"
+    },
+    {
+      "name": "area_nest_yds",
+      "type": "float"
+    },
+    {
+      "name": "area_pieces_yds",
+      "type": "float"
+    },
+     {
+      "name": "area_nest_utilized_pct",
+      "type": "float"
+    },
+    {
+      "name": "created_at",
+      "type": "string"
+    }
+  ]
+}

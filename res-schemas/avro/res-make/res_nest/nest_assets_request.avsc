@@ -1,0 +1,35 @@
+{
+  "type": "record",
+  "name": "NestAssetsRequest",
+  "namespace": "res_nest.nest_assets_request",
+  "doc": "Request for nesting job.",
+  "fields": [
+    {
+      "name": "argo_jobkey",
+      "type": "string"
+    },
+    {
+      "name": "nest_record_id",
+      "type": "string"
+    },
+    {
+      "name": "asset_record_ids",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "material_code",
+      "type": "string"
+    },
+    {
+      "name": "grouping_approach",
+      "type": "string"
+    },
+    {
+      "name": "nesting_job_payload",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+[{
+		"type": "record",
+		"name": "style_pieces",
+		"namespace": "meta_meta_one",
+		"doc": "style pieces mapping in meta one requests",
+		"fields": [{
+				"name": "key",
+				"type": "string"
+			},
+			{
+				"name": "color_code",
+				"type": "string"
+			},
+			{
+				"name": "material_code",
+				"type": "string"
+			},
+			{
+				"name": "artwork_uri",
+				"type": ["string", "null"]
+			},
+			{
+				"name": "cardinality",
+				"type": ["int", "null"],
+				"default": 1
+			},
+			{
+				"name": "print_color_type",
+				"type": ["string", "null"] 
+			},
+			{
+				"name": "base_image_uri",
+				"type": ["string", "null"]
+		    }
+		]
+	},
+	{
+		"type": "record",
+		"name": "requests",
+		"namespace": "meta_meta_one",
+		"doc": "The request interface to make meta-ones",
+		"fields": [{
+				"name": "id",
+				"type": "string"
+			},
+			{
+				"name": "unit_key",
+				"type": "string"
+			},
+			{
+				"name": "style_name",
+				"type": ["string", "null"],
+				"default": "null"
+			},
+			{
+				"name": "body_code",
+				"type": "string"
+			},
+			{
+				"name": "body_version",
+				"type": [
+					"int",
+					"null"
+				]
+			},
+			{
+				"name": "color_code",
+				"type": "string"
+			},
+			{
+				"name": "size_code",
+				"type": "string"
+			},
+			{
+				"name": "sample_size",
+				"type": ["string", "null"],
+				"default": "null"
+			},
+			{
+				"name": "dxf_path",
+				"type": "string"
+			},
+			{
+				"name": "pieces_path",
+				"type": "string"
+			},
+			{
+				"name": "piece_material_mapping",
+				"type": {
+					"type": "map",
+					"values": "string"
+				}
+			},
+			{
+				"name": "piece_color_mapping",
+				"type": {
+					"type": "map",
+					"values": "string"
+				}
+			},
+			{
+				"name": "status",
+				"type": [
+					"string",
+					"null"
+				],
+				"default": "ENTERED"
+			},
+			{
+				"name": "tags",
+				"type": {
+					"type": "array",
+					"items": "string"
+				},
+				"default": []
+			},
+			{
+				"name": "flow",
+				"type": [
+					"string",
+					"null"
+				]
+			},
+			{
+				"name": "unit_type",
+				"type": [
+					"string",
+					"null"
+				],
+				"default": "RES_STYLE"
+			},
+			{
+				"name": "created_at",
+				"type": "string"
+			},
+			{
+				"name": "piece_mapping",
+				"type": {
+					"type": "array",
+					"items": "style_pieces"
+				},
+				"default": []
+			},
+			{
+				"name": "metadata",
+				"type": {
+					"type": "map",
+					"values": [
+						"null",
+						"float",
+						"string",
+						"boolean"
+					]
+				},
+				"default" : {}
+			}
+		]
+	}
+]

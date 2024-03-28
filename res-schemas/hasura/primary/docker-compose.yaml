@@ -1,0 +1,91 @@
+version: '3.6'
+services:
+  postgres:
+    image: postgres:12
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+  s3url-signer:
+    image: 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data_development_s3url-signer_res-create:87acd64
+    ports:
+      - 30741:5000
+    environment:
+      RES_ENV: development
+      RES_APP_NAME: "s3url-signer"
+      HASURA_GRAPHQL_API_URL: "https://hasura-dev.resmagic.io/v1/graphql"
+      RES_TEAM: "dxa"
+      AWS_REGION: us-east-1
+      AWS_DEFAULT_REGION: us-east-1
+      RES_DATA_BUCKET: res-data-development
+      COGNITO_USERPOOL_ID: us-east-1_Iq9hu7e1j
+      COGNITO_APP_CLIENT_ID: 4i6fnohp1um59dj2vlvhfma8tn
+  null-hypothesis:
+    command: hypercorn --reload --bind 0.0.0.0:5000 src.asgi:app
+    image: 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data_development_null-hypothesis_res-infrastructure:latest
+    pull_policy: always
+    platform: linux/x86_64
+    # # /* Uncomment the following to build the app from the local code. 
+    # build:
+    #   context: ../../../
+    #   dockerfile: apps/res-infrastructure/null-hypothesis/Dockerfile
+    #   args:
+    #     - RES_ENV=local
+    #     - RES_TAG=${RES_TAG}
+    #   tags:
+    #     - 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data_development_null-hypothesis_res-infrastructure:latest
+    # # */
+    volumes:
+      - ../../../res:/app/res
+      - ../../../res-schemas/pydantic:/app/schemas/pydantic
+      - ../../../apps/res-infrastructure/null-hypothesis/src:/app/src
+    ports:
+      - 8881:5000
+    restart: always
+    environment:
+      RES_ENV: local
+      RES_TAG: ${RES_TAG}
+      RES_APP_NAME: "null-hypothesis"
+      HASURA_ENDPOINT: http://graphql-engine:8080
+      RES_TEAM: "res-infrastructure"
+  graphql-engine:
+    image: hasura/graphql-engine:v2.13.2
+    ports:
+      - "8081:8080"
+    depends_on:
+      - "postgres"
+      - "s3url-signer"
+      # - "null-hypothesis"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      ## postgres database to store Hasura metadata
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
+      PG_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: ${ENABLE_CONSOLE:-true} # set to "true" to enable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      # enable permission on remote-schemas
+      HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
+      ## for a non-docker-compose but still local docker version
+      # S3_URL_SIGNER_ENDPOINT: ${S3_URL_SIGNER_ENDPOINT:-http://host.docker.internal:30740/graphql}
+      ## for the docker-compose service (recommended)
+      S3_URL_SIGNER_ENDPOINT: http://s3url-signer:5000/graphql
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      ## for a non-docker-compose but still local docker version
+      # NULL_HYPOTHESIS_ENDPOINT: ${NULL_HYPOTHESIS_ENDPOINT:-http://host.docker.internal:8881/event-trigger}
+      NULL_HYPOTHESIS_ENDPOINT: http://null-hypothesis:5000/event-trigger
+      GRAPHQL_API_URL: ${GRAPHQL_API_URL}
+      GRAPHQL_API_KEY: ${GRAPHQL_API_KEY}
+
+volumes:
+  db_data:
+
+

@@ -1,0 +1,267 @@
+<html>
+
+<head>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" />
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script type='text/javascript'
+        src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.4.0/jquery-migrate.min.js'></script>
+    <script type='text/javascript'
+        src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js'></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <script type='text/javascript'
+        src='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js'></script>
+    <style>
+        .header {
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        #insp-status {
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+            color: red;
+        }
+
+        #container {
+            position: absolute;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            top: 130px;
+            font-size: 18;
+            font-family: helvetica;
+            font-weight: bold;
+        }
+
+        .slick-prev {
+            left: -45px;
+        }
+
+        .slick-next {
+            right: -45px;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: red;
+            width: 40px;
+            height: 40px;
+            font-size: 40px;
+        }
+
+        .nest-container {
+            height: 90%;
+            overflow-y: scroll;
+            cursor: pointer;
+        }
+
+        .nest-container:hover {
+            background: #DDD;
+        }
+
+        .nest-img {
+            margin: 10%;
+        }
+
+        .button {
+            font-size: 25;
+            font-family: helvetica;
+            font-weight: bold;
+            color: red;
+            cursor: pointer;
+            display: inline-block;
+            background-color: #CCC;
+            box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.4);
+            padding: 5px;
+            user-select: none;
+        }
+
+        .button:hover {
+            background-color: #AAA;
+        }
+
+        .button:active {
+            box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.8);
+        }
+
+        #status-msg {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            margin-top: 2px;
+            margin-right: 2px;
+            width: 50%;
+        }
+
+        .selectize-control {
+            width: 70%;
+            display: inline-block;
+            padding-right: 15px;
+            font-family: helvetica;
+            font-size: 20;
+        }
+
+        .selectize-dropdown {
+            font-family: helvetica;
+            font-size: 20;
+        }
+
+        .selectize-input {
+            font-family: helvetica;
+            font-size: 20;
+        }
+
+        .selectize-input>input[placeholder] {
+            font-family: helvetica;
+            font-size: 20;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header"><a href="https://airtable.com/appWxYpvDIs8JGzzr/tblG5x0hWNr3YQ0ge/{{roll_id}}?blocks=hide"
+            target="_blank">Roll {{roll_key}}</a></div>
+    &nbsp;&nbsp;&nbsp;&nbsp;<div class="button" id="start-button">Start</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;<div class="button" id="finish-button">Finish</div>
+    <div id="status-msg"></div>
+    <br />
+    <br />
+    <div id="insp-status"></div>
+    <br />
+    <select id="nest-select" placeholder="Search for nest"></select>
+    <br/>
+    <div id="container">
+        <div id="nest-carousel">
+            {% for nest in nest_info %}
+            <div class="nest-container"
+                onclick="window.open('/res-connect/roll_inspection/{{inspector_id}}/nest/{{nest['key']}}', '_blank');">
+                <div class="nest-img">
+                    {{nest['rank']}}: {{nest['key']}}<br />
+                    <img src="{{nest['url']}}" style="max-width:100%; transform: scale({{scale_y}}, {{scale_y}});"><img>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script type='text/javascript'>
+        var started = {{ started| lower }};
+        var finished = {{ finished| lower }};
+        const g_nest_info = [
+            {% for nest in nest_info %}
+            {
+                "name": "{{nest['key']}}",
+                "rank": {{nest['rank']}},
+            },
+            {% endfor %}
+        ];
+        const g_nests_by_rank = {
+            {% for nest in nest_info %}
+                "{{nest['rank']}}": "{{nest['key']}}",
+            {% endfor %}
+        };
+
+        function updateStatus() {
+            if (finished) {
+                $("#insp-status").html("Roll Inspection Finished");
+            } else if (started) {
+                $("#insp-status").html("Roll Inspection in Progress");
+                $("#finish-button").click(finishButtonHandler);
+                $("#finish-button").css({ "color": "red" });
+            } else {
+                $("#insp-status").html();
+            }
+        }
+
+        function finishButtonHandler() {
+            $("#finish-button").off("click");
+            $("#finish-button").css({ "color": "gray" });
+            $("#status-msg").html("syncing to airtable");
+            $.ajax({
+                url: "/res-connect/roll_inspection/update_progress",
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    roll_id: '{{roll_id}}',
+                    roll_key: '{{roll_key}}',
+                    inspector: '{{inspector_id}}',
+                    state: 'Finish',
+                }),
+                success: function (response) {
+                    finished = true;
+                    $("#status-msg").html("airtable sync successful");
+                    updateStatus();
+                },
+                error: function (xhr, opt, err) {
+                    $("#status-msg").html("error: " + xhr.responseText);
+                    $("#finish-button").click(finishButtonHandler);
+                    $("#finish-button").css({ "color": "red" });
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            updateStatus();
+            $('#nest-carousel').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                adaptiveHeight: true,
+                dots: true,
+                arrows: true,
+                infinite: false,
+            });
+            $('#nest-select').selectize({
+                options: g_nest_info,
+                valueField: 'rank',
+                labelField: 'name',
+                searchField: ['name'],
+                dropdownParent: 'body',
+                placeholder: 'Search for nest',
+                onChange: function (v) {
+                    console.log(v);
+                    $('#nest-carousel').slick('slickGoTo', v);
+                    window.open('/res-connect/roll_inspection/{{inspector_id}}/nest/' + g_nests_by_rank[""+v], '_blank');
+                },
+            });
+            if (!started) {
+                $("#start-button").click(function () {
+                    $.ajax({
+                        url: "/res-connect/roll_inspection/update_progress",
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            roll_id: '{{roll_id}}',
+                            roll_key: '{{roll_key}}',
+                            inspector: '{{inspector_id}}',
+                            state: 'Start',
+                        }),
+                        success: function (response) {
+                            $("#start-button").off("click");
+                            $("#start-button").css({ "color": "gray" });
+                            started = true;
+                            updateStatus();
+                        },
+                        error: function (xhr, opt, err) {
+                            $("#status-msg").html("error: " + xhr.responseText);
+                        }
+                    });
+                });
+            } else {
+                $("#start-button").css({ "color": "gray" });
+            }
+            if (started && !finished) {
+                $("#finish-button").click(finishButtonHandler);
+            } else {
+                $("#finish-button").css({ "color": "gray" });
+            }
+        });
+    </script>
+</body>
+
+</html>

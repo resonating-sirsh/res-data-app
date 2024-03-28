@@ -1,0 +1,20 @@
+key: "workflow_template"
+name: "workflow_template"
+airtable_table_id: "tblt9jo5pmdo0htu3"
+airtable_base_id: "appaaqq2FgooqpAnQ"
+fields:
+- key: "name"
+  name: key 
+  is_key: True
+  is_required: True
+  indexes:
+  - hash
+  airtable_field_name: "Name"
+- key: "issue_reason"
+  name: name
+  is_required: True
+  airtable_field_name: "IssueReason"
+- name: IssueTags
+  is_required: True
+  type: list[str]
+  airtable_field_name: "IssueTags"

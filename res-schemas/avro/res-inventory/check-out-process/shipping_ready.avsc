@@ -1,0 +1,60 @@
+{
+	"type": "record",
+	"name": "shipping_ready",
+	"namespace": "res_inventory.check_out_process",
+	"doc": "This will send information when an order line item is completed and is ready to ship",
+	"fields": [
+		{
+			"name": "record_id",
+			"type": ["null", "string"],
+            "default": null
+		},
+		{
+			"name": "one_number",
+			"type": ["null", "string"],
+            "default": null
+		},
+		{
+			"name": "sku",
+			"type": ["null", "string"],
+            "default": null
+		},
+		{
+			"name": "work_cell",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "tracking_number",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "pick_up_date",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "shipping_label",
+			"type": ["null", "string"],
+			"default": null
+		},
+        {
+			"name": "shipping_cost",
+			"type": ["null", "string"],
+			"default": null
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			},
+			"default": {}
+		}
+	]
+}

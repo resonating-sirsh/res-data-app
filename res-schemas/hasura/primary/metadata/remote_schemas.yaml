@@ -1,0 +1,25 @@
+- name: create-one-api
+  definition:
+    url_from_env: GRAPHQL_API_URL
+    timeout_seconds: 60
+    headers:
+      - name: apollographql-client-name
+        value: hasura
+      - name: apollographql-client-version
+        value: hasura
+      - name: x-api-key
+        value_from_env: GRAPHQL_API_KEY
+    forward_client_headers: true
+  comment: Join of create-one-api on Hasura
+- name: s3url-signer
+  definition:
+    url_from_env: S3_URL_SIGNER_ENDPOINT
+    timeout_seconds: 60
+  comment: ""
+  permissions:
+    - role: user
+      definition:
+        schema: |
+          type Query {
+            signPath(privatePath: String!): String
+          }

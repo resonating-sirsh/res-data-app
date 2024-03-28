@@ -1,0 +1,4 @@
+deployment:
+  replicas: 2
+  env:
+    RES_TEAM: 'res-sell'

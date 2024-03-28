@@ -1,0 +1,19 @@
+table:
+  name: ecommerce_collections_sort_order_type
+  schema: sell
+is_enum: true
+array_relationships:
+  - name: ecommerce_collections
+    using:
+      foreign_key_constraint_on:
+        column: sort_order_fk
+        table:
+          name: ecommerce_collections
+          schema: sell
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - description
+        - value
+      filter: {}

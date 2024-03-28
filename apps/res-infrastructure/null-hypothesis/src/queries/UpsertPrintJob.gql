@@ -1,0 +1,47 @@
+mutation UpsertPrintJob(
+  $printer: make_printers_insert_input = {}, 
+  $end_time: timestamptz = "", 
+  $job_id: String = "", 
+  $metadata: jsonb = "", 
+  $printer_name: String = "", 
+  $start_time: timestamptz = "", 
+  $status: String = "",
+  $status_name: String = "",
+  $name: String = "",
+  $ink_consumption: jsonb =  "",
+  $material_consumption: jsonb = ""
+) {
+  insert_make_print_jobs_one(
+    object: {
+      job_id: $job_id,
+      metadata: $metadata,
+      printer_name: $printer_name,
+      start_time: $start_time,
+      status: $status,
+      printer: {data: $printer, on_conflict: {constraint: printers_name_key, update_columns: [name]}}, 
+      end_time: $end_time,
+      name: $name
+    }, 
+    on_conflict: {
+      constraint: print_jobs_job_id_printer_name_key, 
+      update_columns: [metadata, status, end_time]
+    }
+  ) {
+    created_at
+    end_time
+    id
+    job_id
+    printer {
+      id
+      name
+    }
+    start_time
+    updated_at
+    status
+  }
+  update_make_printfile(where: {printjob_name: {_eq: $name}}, _set: {state: $status_name, ink_consumption_ml: $ink_consumption, material_consumption_mm: $material_consumption }) {
+    returning {
+        name
+    }
+  }
+}

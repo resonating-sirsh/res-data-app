@@ -1,0 +1,13 @@
+node_modules
+.serverless
+package-lock.json
+.vscode
+.scrapbooks
+.pytest_cache
+.ipynb_checkpoints
+.github
+tests
+*.ipynb
+docs
+.keys
+.direnv

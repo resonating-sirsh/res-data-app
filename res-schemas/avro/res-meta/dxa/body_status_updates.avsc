@@ -1,0 +1,113 @@
+{
+	"type": "record",
+	"name": "body_status_updates",
+	"namespace": "res_meta.dxa",
+	"doc": "check status on some interval on the body request queue",
+	"fields": [
+		{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "flow_id",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "request_id",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "flow_version",
+			"type": "int"
+		},
+		{
+			"name": "event_type",
+			"type": "string"
+		},
+		{
+			"name": "body_code",
+			"type": "string"
+		},
+		{
+			"name": "node",
+			"type": "string"
+		},
+		{
+			"name": "node_ordinal",
+			"type": "int"
+		},
+		{
+			"name": "entered_at",
+			"type": "string"
+		},
+		{
+			"name": "exited_at",
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		{
+			"name": "body_version",
+			"type": [
+				"int"
+			]
+		},
+		{
+			"name": "contracts_failed",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "contracts_failed_ids",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default": []
+		},
+		{
+			"name": "sub_statuses",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"string"
+				]
+			},
+			"default": {}
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int",
+					"boolean"
+				]
+			},
+			"default": {}
+		},
+		{
+			"name": "created_at",
+			"type": [
+				"string",
+				"null"
+			]
+		}
+	]
+}

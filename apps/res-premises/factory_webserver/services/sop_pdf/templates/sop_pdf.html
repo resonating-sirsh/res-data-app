@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SOP - Generate PDF</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('sop_pdf.static', filename='css/sop_pdf.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="nav">
+            <form action="" id="sopform" class="form">
+                <label for="sop">Elige el proceso:</label>
+                <input list="sopSelect" id="inputSelected">
+                <datalist name="sop" id="sopSelect" form="sopform">
+                    {% for record in sop %}
+                    <option data-value={{record.id}} value="{{ record['fields']['SOP Translation to Spanish'] }}"></option>
+                    {% endfor %}
+                </datalist>
+                <input type="button" value="Buscar" id="submit" class="submit">
+                <button type="button" id="imprimir" class="imprimir">Imprimir</button>
+            </form>
+        </div>
+
+        <div id="pdfContainer" class="pdfContainer">
+            <div class="pdf" id="pdf">
+                <p id="sopName" class="sopName">
+
+                </p>
+
+                <h3 class="sopDate">
+                    {{current_date}}
+                </h3>
+                <div class="sopSteps">
+                    <h2>Pasos a realizar:</h2>
+                    <ol id="stepList">
+
+                    </ol>
+                    <br>
+                    <br>
+                </div>
+
+                <div class="firmas operadores">
+
+                    <div class="firma">
+                        <hr>
+                        <p>Operador</p>
+                    </div>
+                    <div class="firma">
+                        <hr>
+                        <p>Operador</p>
+                    </div>
+                    <div class="firma">
+                        <hr>
+                        <p>Operador</p>
+                    </div>
+                    <div class="firma">
+                        <hr>
+                        <p>Operador</p>
+                    </div>
+                    <div class="firma">
+                        <hr>
+                        <p>Operador</p>
+                    </div>
+                    <div class="firma">
+                        <hr>
+                        <p>Operador</p>
+                    </div>
+                    <div class="firma supervisores">
+                        <hr>
+                        <p>Supervisor</p>
+                    </div>
+                    <div class="firma supervisores">
+                        <hr>
+                        <p>Gerente de Operaciones</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $("#submit").click(function () {
+        valor = $('#inputSelected').val();
+        $.ajax({
+            type: "POST",
+            url: "/sop_pdf/search_sop",
+            data: JSON.stringify($('#sopSelect [value="' + valor + '"]').data('value')),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                $('#sopName').html(`${result[0]['fields']['SOP Spanish'][0]}<span class='sopNode'>${result[0]['fields']['_governing_node']}</span>`)
+
+                let steps = {}
+
+                result.map(step => {
+                    steps[step["fields"]["Step #"]] = step["fields"]["Step Translated to Spanish"]
+                })
+
+                let li_steps = ""
+                for (const property in steps) {
+                    li_steps = li_steps + `<li>${steps[property]}</li>`
+                }
+
+                $('#stepList').html(li_steps)
+
+                $('#inputSelected').val(null)
+            }
+        });
+    });
+
+    const button = document.getElementById('imprimir');
+
+    function generatePDF() {
+        // Choose the element that your content will be rendered to.
+        const element = document.getElementById('pdf');
+        // Choose the element and save the PDF for your user.
+        var opt = {
+            margin: 0.7,
+            image: { type: 'jpeg', quality: 1 },
+            filename: 'myfile.pdf',
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdfObj) {
+    pdfObj.autoPrint();
+    window.open(pdfObj.output('bloburl'), '_blank');
+});
+    }
+
+    button.addEventListener('click', generatePDF);
+
+</script>
+
+</html>

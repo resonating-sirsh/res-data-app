@@ -1,0 +1,28 @@
+{
+    "type": "record",
+    "name": "digital_assets_queue",
+    "doc": "body and style digital assets created on the data lake (from s3 webhooks)",
+    "fields": [
+        {
+            "name": "key",
+            "type": "string"
+        },
+        {
+            "name": "path",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "type": "string"
+        },
+       
+        {
+            "name": "status",
+            "type": "string"
+        },
+        {
+            "name": "created_at",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+deployment:
+  type: "res_workflow"
+  command: python
+  args:
+    - /app/main.py
+  env:
+    USER_INFO: "KAFKA_TOPIC must be an existing topic in Kafka, in the same environment you run this job"
+    KAFKA_TOPIC: "<topic_name>"

@@ -1,0 +1,25 @@
+table:
+  name: one_orders
+  schema: make
+object_relationships:
+  - name: order_line_item
+    using:
+      foreign_key_constraint_on: order_item_id
+  - name: style_size
+    using:
+      foreign_key_constraint_on: style_size_id
+array_relationships:
+  - name: one_labels
+    using:
+      foreign_key_constraint_on:
+        column: oid
+        table:
+          name: one_labels
+          schema: make
+  - name: one_pieces
+    using:
+      foreign_key_constraint_on:
+        column: one_order_id
+        table:
+          name: one_pieces
+          schema: make

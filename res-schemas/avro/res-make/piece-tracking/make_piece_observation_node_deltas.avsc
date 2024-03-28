@@ -1,0 +1,115 @@
+{
+	"type": "record",
+	"name": "make_piece_observation_node_deltas",
+	"namespace": "res_make.piece_tracking",
+	"doc": "This is an update for a given ONE showing a subset of pieces that have exited a given Node, showing the time they spent at that node",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "one_code",
+			"type": [
+				"null",
+                "string"
+			],
+			"default": null
+		},
+		{
+			"name": "node",
+			"type": "string"
+		},
+		{
+			"name": "one_number",
+			"type": [
+				"null",
+				"int"
+			],
+			"default": null
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int"
+				],
+				"default": {}
+			}
+		},
+		{ 
+			"name": "pieces",
+			"type": {
+				"type": "array",
+				"items": {
+					"type": "record",
+					"name": "piece_update",
+				    "namespace": "res_make.piece_tracking",
+					"doc": "piece update for some or all of pieces in the ONE that have exited a node",
+					"fields": [{
+							"name": "piece_id",
+							"type": [
+								"null",
+								"string"
+							],
+							"default": null
+						},
+						{
+							"name": "piece_oid",
+							"type": [
+								"null",
+								"string"
+							],
+							"default": null
+						},
+                        {
+							"name": "code",
+							"type": [
+								"null",
+								"string"
+							],
+							"default": null
+						},
+						{
+							"name": "type_of_delta",
+							"type": "string"
+						},
+						{
+							"name": "current_node",
+							"type": "string"
+						},
+						{
+							"name": "previous_node",
+							"type": "string"
+						},
+						{
+							"name": "current_status",
+							"type": "string"
+						},
+						{
+							"name": "previous_status",
+							"type": "string"
+						},
+						{
+							"name": "current_observed_at",
+							"type": "string"
+						},
+						{
+							"name": "previous_observed_at",
+							"type": "string"
+						},
+						{
+							"name": "time_delta",
+							"type": "string"
+						}
+					
+					]
+				}
+
+			}
+		}
+	]
+}

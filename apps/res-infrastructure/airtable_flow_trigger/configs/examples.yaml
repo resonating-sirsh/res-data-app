@@ -1,0 +1,10 @@
+team: "res-general"
+event_triggers:
+  - base: "appu11yom3UIdHF2M"
+    table: "tblfjTT2mVQhsC8vm"
+    flow: "examples.example_event_trigger"
+    formula: |
+      {Triggered}=FALSE()
+    active:
+      development: True
+      production: False

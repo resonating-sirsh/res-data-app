@@ -1,0 +1,10 @@
+deployment:
+  type: "res_long_running_process"
+  replicas: 1
+  env:
+    WRITE_TO_AIRTABLE: False
+    KAFKA_TOPIC: "res_make.optimus.assign_nests_to_rolls"
+    PRINT_BASE_ID: "apprcULXTWu33KFsh"
+    NESTS_TABLE: "tbl7n4mKIXpjMnJ3i"
+    PRINT_FILES_TABLE: "tblAQcPuKUDVfU7Fx"
+    ROLLS_TABLE: "tblSYU8a71UgbQve4"

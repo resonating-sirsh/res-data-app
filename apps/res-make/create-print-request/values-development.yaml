@@ -1,0 +1,5 @@
+deployment:
+  type: "res_long_running_service"
+  memory: 1G
+  env:
+    RES_APP_NAME: "create-print-request"

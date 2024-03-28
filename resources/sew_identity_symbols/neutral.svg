@@ -1,0 +1,15 @@
+<svg height="70" width="70">
+    <g transform="translate(5,-35)">
+        
+        <rect x="5" y="45" width="50" height="50" stroke="black" fill="white" stroke-width="3" />
+
+        <!-- centre line -->
+        <line x1="5" y1="69" x2="55" y2="69" style="stroke:black;stroke-width:3" />
+        <!-- bottom line -->
+        <line x1="3.5" y1="95" x2="56.5" y2="95" style="stroke:black;stroke-width:6" />
+
+        
+        
+        
+    </g>
+    </svg>

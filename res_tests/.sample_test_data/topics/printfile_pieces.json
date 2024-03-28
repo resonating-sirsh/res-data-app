@@ -1,0 +1,119 @@
+{
+    "printfile_name": "LY115 - R23207_0 - #001 - optimus-printer-2022-07-12T18:12:26",
+    "airtable_record_id": "recllH34TDwWYL43H",
+    "optimus_task_key": "unkn",
+    "roll_name": "unkn",
+    "num_headers": 0,
+    "header_height_inches": 5,
+    "seperator_height_inches": 6,
+    "nest_job_keys": [
+        "ly115-self-df65697c0e-2022-07-12-16-02-09"
+    ],
+    "stitching_job_key": "stitch-r23207--ly115-1-1657651038",
+    "printfile_s3_path": "s3://res-data-development/flows/v1/make-nest-stitch_printfiles/primary/concat/stitch-r23207--ly115-1-1657651038",
+    "printfile_width_px": 15750,
+    "printfile_height_px": 65185,
+    "printfile_width_inches": 52.5,
+    "printfile_height_inches": 217.28334,
+    "piece_info": [
+        {
+            "asset_id": "recTr7PBK8liapBTR",
+            "asset_key": "10252215",
+            "piece_name": "5",
+            "piece_id": "res577A226314",
+            "min_y_inches": 169.87064,
+            "max_y_inches": 217.50313,
+            "min_x_inches": 0.25,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "recCiJJlsUYAMw2kx",
+            "asset_key": "10254912",
+            "piece_name": "0",
+            "piece_id": "resB1E60DF868",
+            "min_y_inches": 0,
+            "max_y_inches": 11.824895,
+            "min_x_inches": 0.25,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "recdVAql1H2r0o0o3",
+            "asset_key": "10254911",
+            "piece_name": "0",
+            "piece_id": "res78F7E87EFD",
+            "min_y_inches": 60.39536,
+            "max_y_inches": 72.22025,
+            "min_x_inches": 38.80025,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "rec0XzV0nHwGfdeB7",
+            "asset_key": "10255026",
+            "piece_name": "0",
+            "piece_id": "res45B6EBACEA",
+            "min_y_inches": 0,
+            "max_y_inches": 11.824895,
+            "min_x_inches": 9.4736185,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "recOnGG3kekooREyl",
+            "asset_key": "10253451",
+            "piece_name": "KT-6075-V2-DRSAHBDG-S_S",
+            "piece_id": "res6953B5F365",
+            "min_y_inches": 35.33174,
+            "max_y_inches": 72.537224,
+            "min_x_inches": 0.28364682,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "recOnGG3kekooREyl",
+            "asset_key": "10253451",
+            "piece_name": "KT-6075-V2-DRSNKBDG-S_S",
+            "piece_id": "res06932A9A2D",
+            "min_y_inches": 32.819412,
+            "max_y_inches": 70.024895,
+            "min_x_inches": 0.28364682,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "recOnGG3kekooREyl",
+            "asset_key": "10253451",
+            "piece_name": "KT-6075-V2-DRSBKPNL-S_S",
+            "piece_id": "res8BA80A3ECD",
+            "min_y_inches": 67.520424,
+            "max_y_inches": 127.409454,
+            "min_x_inches": 0.17,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "recOnGG3kekooREyl",
+            "asset_key": "10253451",
+            "piece_name": "KT-6075-V2-SKTBKPNL-S_S",
+            "piece_id": "resB094CCA8B9",
+            "min_y_inches": 127.409454,
+            "max_y_inches": 169.87064,
+            "min_x_inches": 0.17,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        },
+        {
+            "asset_id": "recOnGG3kekooREyl",
+            "asset_key": "10253451",
+            "piece_name": "KT-6075-V2-DRSFTPNL-S_S",
+            "piece_id": "res636A5E2C82",
+            "min_y_inches": 0,
+            "max_y_inches": 60.39536,
+            "min_x_inches": 18.617237,
+            "sku": "",
+            "nest_job_key": "ly115-self-df65697c0e-2022-07-12-16-02-09"
+        }
+    ]
+}

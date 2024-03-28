@@ -1,0 +1,10 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0 0 * * *"
+  command: python
+  args:
+    - /app/src/main.py
+  env:
+    RES_TEAM: "iamcurious"
+    TECH_PIRATES_TEST_CUSTOMER_ID: "cus_Ncdum4p5b5Jphd"

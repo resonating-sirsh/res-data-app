@@ -1,0 +1,8 @@
+deployment:
+  type: "res_long_running_service"
+  replicas: 1
+  servicePort: 5000
+  ingressType: "private"
+  env:
+    RES_TEAM: "res-sell"
+    HASURA_ENDPOINT: "https://hasura-dev.resmagic.io"

@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 
+  - AWS::Serverless-2016-10-31
+Description: >
+  returnly_data_integration
+
+  AWS Lambda function to extract data from the Returnly API and insert it into 
+  Snowflake.
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 900
+
+Parameters:
+  Region:
+    Type: String
+    Default: us-east-1
+    Description: AWS region to deploy the stack in
+
+Resources:
+  ReturnlyDataExtractorFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: src/return_data_extractor/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      MemorySize: 256
+      Role: !GetAtt ReturnlyDataExtractorAPIGatewayRole.Arn
+  ReturnlyDataExtractorAPIGatewayPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+               "Sid": "InvokePermission",
+               "Effect": "Allow",
+               "Action": [
+                   "lambda:InvokeFunction"
+               ],
+               "Resource": "*"
+           }
+        ]
+      }
+      PolicyName: ReturnlyDataExtractorAPIGatewayPolicy
+      Roles:
+        - !Ref ReturnlyDataExtractorAPIGatewayRole
+  ReturnlyDataExtractorAPIGatewayRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": "arn:aws:iam::286292902993:root"
+            },
+            "Action": "sts:AssumeRole"
+          },
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+      Description: Role for Eventbridge to invoke Lambda function.
+      RoleName: ReturnlyDataExtractorAPIGatewayRole
+ 
+Outputs:
+  ReturnlyDataExtractorFunction:
+    Description: "ReturnlyDataExtractor Lambda Function ARN"
+    Value: !GetAtt ReturnlyDataExtractorFunction.Arn
+  ReturnlyDataExtractorAPIGatewayRole:
+    Description: "IAM Role to invoke the ReturnlyDataExtractor"
+    Value: !GetAtt ReturnlyDataExtractorAPIGatewayRole.Arn

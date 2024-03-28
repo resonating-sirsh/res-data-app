@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <style>
+        li {
+            font-size: 25;
+            font-family: helvetica;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Print Jobs</h1>
+    <br />
+    {% if not pf_info %}
+    Nothing to print...
+    {% else %}
+    <ul>
+        {% for printer, printfiles in pf_info.items() %}
+        <li><b>{{printer}}</b>
+            <ul>
+                {% for printfile in printfiles %}
+                <li><a href="/res-connect/manual_healing/printfile/{{printfile}}" target="_blank">{{printfile}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>

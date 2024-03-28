@@ -1,0 +1,34 @@
+{{- if and (ne .Values.global.environment "local") (eq .Values.deployment.ingressType "public") }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.deployment.name }}-public-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:286292902993:certificate/404ba1e2-5007-4b76-8986-8bf2381c4eea
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/group.name: res-data-public-ingresses
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: {{ .Values.global.publicSubnet1 }},{{ .Values.global.publicSubnet2 }},{{ .Values.global.publicSubnet3 }}
+    alb.ingress.kubernetes.io/tags: Environment={{ .Values.global.environment }}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                    name: use-annotation
+          - path: /{{ .Values.deployment.name }}/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Values.deployment.name }}-service
+                port:
+                    number: {{ .Values.deployment.servicePort }}
+{{- end }}

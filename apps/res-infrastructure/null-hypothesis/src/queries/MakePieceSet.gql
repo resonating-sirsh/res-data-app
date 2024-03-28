@@ -1,0 +1,54 @@
+mutation InsertMakePieceSet(
+  $one_number: String = "",
+  $key: String = "",
+  $metadata: jsonb = "",
+  $piece_instances: [make_piece_instances_insert_input!] = {},
+  $make_order: make_make_orders_insert_input = {sku: ""}
+) {
+  insert_make_piece_sets_one(
+    object: {
+      metadata: $metadata,
+      key: $key,
+      make_order: {
+        data: $make_order
+        on_conflict: {
+          constraint: make_orders_one_number_key,
+          update_columns: [metadata, order_number, sku]
+        }
+      },
+      piece_instances: {
+        data: $piece_instances,
+        on_conflict: {
+          constraint: piece_instances_pkey,
+          update_columns: metadata
+        }
+      }
+    },
+    on_conflict: {constraint: piece_sets_key_key, update_columns: metadata}
+  ) {
+    piece_instances {
+      id
+      metadata
+      created_at
+      updated_at
+    }
+    make_order {
+      id
+      metadata
+      one_number
+      order_number
+      sku
+      created_at
+    }
+    created_at
+    id
+    metadata
+    one_number
+    updated_at
+    piece_instances_aggregate(distinct_on: id) {
+      aggregate {
+        count(distinct: true)
+      }
+    }
+  }
+}

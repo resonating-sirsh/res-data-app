@@ -1,0 +1,32 @@
+{
+    "type": "record",
+    "name": "endpointResponse",
+    "namespace": "uptime_monitor",
+    "doc": "The uptime monitor pings websites and puts the result here",
+    "fields": [
+        {
+            "name": "timestamp",
+            "type": "string"
+        },
+        {
+            "name": "endpoint",
+            "type": "string"
+        },
+        {
+            "name": "status_code",
+            "type": "string"
+        },
+        {
+            "name": "response",
+            "type": "string"
+        },
+        {
+            "name": "is_up",
+            "type": "boolean"
+        },
+        {
+            "name": "endpoint_name",
+            "type": "string"
+        }
+    ]
+}

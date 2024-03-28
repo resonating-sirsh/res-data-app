@@ -1,0 +1,3 @@
+table:
+  schema: digital_product
+  name: digital_product_requests_status

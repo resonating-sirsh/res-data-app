@@ -1,0 +1,24 @@
+table:
+  name: one_pieces
+  schema: make
+object_relationships:
+  - name: node
+    using:
+      foreign_key_constraint_on: node_id
+  - name: one_order
+    using:
+      foreign_key_constraint_on: one_order_id
+  - name: one_pieces_cost
+    using:
+      foreign_key_constraint_on: one_piece_costs_id
+  - name: piece
+    using:
+      foreign_key_constraint_on: meta_piece_id
+array_relationships:
+  - name: one_pieces_histories
+    using:
+      foreign_key_constraint_on:
+        column: piece_oid
+        table:
+          name: one_pieces_history
+          schema: make

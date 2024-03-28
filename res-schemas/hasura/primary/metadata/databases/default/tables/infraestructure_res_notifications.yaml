@@ -1,0 +1,32 @@
+table:
+  name: res_notifications
+  schema: infraestructure
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - read
+        - received
+        - should_send
+        - channels
+        - links
+        - destination
+        - message
+        - source_record_id
+        - source_table_id
+        - subchannel
+        - topic
+        - created_at
+        - read_at
+        - updated_at
+        - id
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - read
+        - updated_at
+      filter: {}
+      check: null

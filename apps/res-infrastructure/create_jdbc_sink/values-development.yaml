@@ -1,0 +1,11 @@
+deployment:
+  type: "res_workflow"
+  env:
+    USER_INFO: "KAFKA_TOPIC must be an existing topic in Kafka, in the same environment you run this job. INSERT_MODE can be insert, upsert, or update. PK_MODE can be none or record_value. If PK_MODE is record_value, PK_FIELDS should be a comma separated list of fields"
+    KAFKA_TOPIC: "<topic_name>"
+    INSERT_MODE: "insert"
+    PK_MODE: "none"
+    PK_FIELDS: "none"
+  command: python
+  args:
+    - /app/main.py

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+vjr_dir="$(cd "$(dirname $0)"; pwd)"
+
+if [[ -f $vjr_dir/.env ]]; then
+    set -ax
+    . $vjr_dir/.env
+    set +ax
+fi
+
+cd $vjr_dir
+export PYTHONPATH=$PYTHONPATH${PYTHONPATH:+:}"$(dirname "$(dirname "$(dirname $vjr_dir)")")"
+echo $PYTHONPATH
+
+python3 src/git_pull_wait_daemon.py

@@ -1,0 +1,18 @@
+name:  make.one_specification
+key: make.one_specification
+fields:
+- name: key
+  key: key
+  is_key: True
+  required: True
+  indexes:
+  - hash
+- name: body_key
+  key: body_key
+  meta_type: meta.versioned_bodies
+- name: body_pieces
+  key: body_pieces
+  meta_type: '[make.body_pieces]'
+  is_child_type: True
+- name: construction_spec
+  key: construction_spec

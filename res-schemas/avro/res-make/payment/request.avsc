@@ -1,0 +1,22 @@
+[
+    {
+        "type": "record",
+        "name": "request",
+        "namespace": "payment",
+        "doc": "This is a make request for payment. First on Balance then stripe",
+        "fields": [
+            {
+                "name": "order_id",
+                "type": [
+                    "string"
+                ]
+            },
+            {
+                "name": "brand_id",
+                "type": [
+                    "string"
+                ]
+            }
+        ]
+    }
+]

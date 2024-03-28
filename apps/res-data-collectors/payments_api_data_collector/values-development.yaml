@@ -1,0 +1,12 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0 2 * * *"
+  command: python
+  args:
+    - /app/main.py
+  env:
+    sync_type: "incremental"
+    dev_override: "false"
+    info: "Setting to true allows the app to be run while in a dev environment"
+    RES_TEAM: "iamcurious"    

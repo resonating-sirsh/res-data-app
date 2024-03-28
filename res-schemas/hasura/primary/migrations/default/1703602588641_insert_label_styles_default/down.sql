@@ -1,0 +1,16 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- INSERT INTO "meta"."label_styles" (name, thumbnail_uri)
+--     VALUES ('group', 's3://meta-one-assets-prod/label_styles/group.svg');
+--
+-- INSERT INTO "meta"."label_styles" (name, thumbnail_uri)
+--     VALUES ('rectangle', 's3://meta-one-assets-prod/label_styles/rectangle.svg');
+--
+-- INSERT INTO "meta"."label_styles" (name, thumbnail_uri)
+--     VALUES ('rectangleSideways', 's3://meta-one-assets-prod/label_styles/rectangleSideways.svg');
+--
+-- INSERT INTO "meta"."label_styles" (name, thumbnail_uri)
+--     VALUES ('square', 's3://meta-one-assets-prod/label_styles/square.svg');
+--
+-- INSERT INTO "meta"."label_styles" (name, thumbnail_uri)
+--     VALUES ('substract', 's3://meta-one-assets-prod/label_styles/substract.svg');

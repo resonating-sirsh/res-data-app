@@ -1,0 +1,3 @@
+table:
+  name: bridge_order_skus_to_ones
+  schema: infraestructure

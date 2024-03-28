@@ -1,0 +1,58 @@
+[
+	{
+		"type": "record",
+		"name": "one_alerts",
+		"namespace": "res_platform.sla_events",
+		"doc": "Events that impact time to customer on ONE with respect to order dates",
+		"fields": [
+			{
+				"name": "id",
+				"type": "string"
+			},
+			{
+				"name": "one_number",
+				"type": "string"
+			},
+			{
+				"name": "sku",
+				"type": "string"
+			},
+			{
+				"name": "order_number",
+				"type": "string"
+			},
+			{
+				"name": "order_date",
+				"type": "string"
+			},
+			{
+				"name": "event_date",
+				"type": "string"
+			},
+			{
+				"name": "event_type",
+				"type": "string"
+			},
+			{
+				"name": "comments",
+				"type": [
+					"null",
+					"string"
+				]
+			},
+			{
+				"name": "metadata",
+				"type": {
+					"type": "map",
+					"values": [
+						"null",
+						"float",
+						"string",
+						"boolean"
+					]
+				},
+				"default": {}
+			}
+		]
+	}
+]

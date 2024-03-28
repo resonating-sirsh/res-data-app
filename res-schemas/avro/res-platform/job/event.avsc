@@ -1,0 +1,58 @@
+[
+    {
+        "type": "record",
+        "name": "event",
+        "namespace": "job.event",
+        "doc": "This topic will get an event when there's a job update on our job runner.",
+        "fields": [
+            {
+                "name": "event_type",
+                "type": "string"
+            },
+            {
+                "name": "requestor_id",
+                "type": "string"
+            },
+            {
+                "name": "body_version",
+                "type": "int",
+                "default": 0
+            },
+            {
+                "name": "job_type",
+                "type": "string"
+            },
+            {
+                "name": "status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "status_detail",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "result_s3_uri",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "input_file_uri",
+                "type": ["null","string"],
+                "default": "null"
+            },
+            {
+                "name": "rename_input_file",
+                "type": ["null","string"],
+                "default": "null"
+            }
+        ]
+    }
+]

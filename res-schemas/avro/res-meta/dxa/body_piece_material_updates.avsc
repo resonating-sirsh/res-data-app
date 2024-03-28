@@ -1,0 +1,253 @@
+  {
+  	"type": "record",
+  	"name": "body_piece_material_updates",
+  	"namespace": "res_meta.dxa",
+  	"doc": "body material contract such as cost information for BxMxS",
+  	"fields": [{
+  			"name": "id",
+  			"type": "string"
+  		},
+  		{
+  			"name": "style_pieces_hash",
+  			"type": "string"
+  		},
+  		{
+  			"name": "overhead_rate",
+  			"type": ["float", "null"]
+  		},
+  		{
+  			"name": "trim_costs",
+  			"type": "float"
+  		},
+  		{
+  			"name": "sewing_time",
+  			"type": "float"
+  		},
+  		{
+  			"name": "size_code",
+  			"type": "string"
+  		},
+  		{
+  			"name": "number_of_materials",
+  			"type": "int"
+  		},
+  		{
+  			"name": "number_of_printable_pieces",
+  			"type": "int"
+  		},
+  		{
+  			"name": "number_of_body_pieces",
+  			"type": "int"
+  		},
+  		{
+  			"name": "body_code",
+  			"type": "string"
+  		},
+  		{
+  			"name": "body_version",
+  			"type": "int"
+  		},
+		{
+  			"name": "check_sum",
+  			"type": ["null", "float"],
+			"default": null
+  		},
+  		{
+  			"name": "total_raw_pieces_area",
+  			"type": "float"
+  		},
+  		{
+  			"name": "metadata",
+  			"type": {
+  				"type": "map",
+  				"values": [
+  					"null",
+  					"float",
+  					"string",
+  					"int",
+  					"boolean"
+  				]
+  			},
+  			"default": {}
+  		},
+  		{
+  			"name": "piece_map",
+  			"type": {
+  				"type": "map",
+  				"values": [
+  					"null",
+  					"string"
+  				]
+  			},
+  			"default": {}
+  		},
+  		{
+  			"name": "created_at",
+  			"type": [
+  				"string",
+  				"null"
+  			]
+  		},
+  		{
+  			"name": "nesting_statistics",
+  			"type": {
+  				"type": "array",
+  				"items": {
+  					"type": "record",
+  					"name": "piece_material_nesting_statistics",
+  					"namespace": "res_meta.dxa",
+  					"doc": "nesting statistics by material for pieces in a body or style",
+  					"fields": [{
+  							"name": "material_code",
+  							"type": "string"
+  						},
+  						{
+  							"name": "fabric_type",
+  							"type": ["null", "string"]
+  						},
+  						{
+  							"name": "cuttable_width",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "compensation_width",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "compensation_length",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "offset_size",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "height_nest_yds",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "width_nest_yds",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_yds",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_utilized_pct",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_pieces_yds",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "height_nest_yds_physical",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "width_nest_yds_physical",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_yds_physical",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_utilized_pct_physical",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_pieces_yds_physical",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "height_nest_yds_raw",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "width_nest_yds_raw",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_yds_raw",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_utilized_pct_raw",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_pieces_yds_raw",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "height_nest_yds_compensated",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "width_nest_yds_compensated",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_yds_compensated",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_nest_utilized_pct_compensated",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "area_pieces_yds_compensated",
+  							"type": ["float", "null"]
+  						},
+  						{
+  							"name": "piece_count",
+  							"type": "float"
+  						},
+  						{
+  							"name": "height_nest_yds_block_buffered_kernel",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "width_nest_yds_block_buffered_kernel",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "area_nest_yds_block_buffered_kernel",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "area_pieces_yds_block_buffered_kernel",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "area_nest_utilized_pct_block_buffered_kernel",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "height_nest_yds_buffered",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "width_nest_yds_buffered",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "area_nest_yds_buffered",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "area_pieces_yds_buffered",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "area_nest_utilized_pct_buffered",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "twice_buffer_offset_yards",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "height_nest_yds_block_buffered",
+  							"type": ["float", "null"]
+  						}, {
+  							"name": "twice_buffer_offset_yards_with_tolerance",
+  							"type": ["float", "null"]
+  						}
+  					]
+  				}
+  			}
+  		}
+  	]
+  }

@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: example-argo-combined
+spec:
+  entrypoint: example-argo-combined
+  arguments:
+    parameters:
+    - name: event
+      value: "{}"
+  templates:
+  - name: example-argo-combined
+    inputs:
+      parameters:
+      - name: event
+    steps:
+    - - name: hello-people
+        templateRef:
+          name: example-argo-hello-people
+          template: example-argo-hello-people
+        arguments:
+          parameters:
+          # These parameters can be overridden by a developer in the Argo UI
+          - name: event
+            value: "{{workflow.parameters.event}}"
+    - - name: hello-world
+        templateRef:
+          name: example-argo-hello-world
+          template: example-argo-hello-world
+        arguments:
+          parameters:
+          # These parameters can be overridden by a developer in the Argo UI
+          - name: event
+            value: "{{workflow.parameters.event}}"
+    - - name: other-worlds
+        templateRef:
+          name: example-argo-dag
+          template: example-argo-dag
+        arguments:
+          parameters:
+          # These parameters can be overridden by a developer in the Argo UI
+          - name: event
+            value: "{{workflow.parameters.event}}"

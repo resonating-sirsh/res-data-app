@@ -1,0 +1,11 @@
+alphashape
+ezdxf
+git+https://github.com/jskrzypek/scikit-geometry.git@js/fix-setup-homebrew
+pyvips
+Rtree
+scikit-image
+scikit-learn
+scipy
+shapely>=1.8.4
+Pillow
+Wand

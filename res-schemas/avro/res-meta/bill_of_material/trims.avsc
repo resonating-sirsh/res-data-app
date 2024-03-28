@@ -1,0 +1,46 @@
+[
+    {
+        "type": "record",
+        "name": "trims",
+        "namespace" : "res_meta.bill_of_material.trims",
+        "doc": "This topic if for the trims of the body.",        
+        "fields": [
+            {
+                "name": "record_id",
+                "type": "string"
+            },
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "type",
+                "type": "string"
+            },
+            {
+                "name": "unit",
+                "type": "string"
+            },
+            {
+                "name": "taxonomy_id",
+                "type": "string"
+            },
+            {
+                "name": "specific_size_ids",
+                "type": "string"
+            },
+            {
+                "name": "quantity",
+                "type": "string"
+            },
+            {
+                "name": "length",
+                "type": "string"
+            },
+            {
+                "name": "body_id",
+                "type": "string"
+            }
+        ]
+    }
+]

@@ -1,0 +1,94 @@
+[
+    {
+        "type": "record",
+        "name": "create_response",
+        "namespace": "res_make.make_one_request",
+        "doc": "This topic is the response of the create processes - we like responses for every request",
+        "fields": [
+             {
+                "name": "id",
+                "type": ["string", "null"]
+            },
+            {
+                "name": "type",
+                "type": "string"
+            },
+            {
+                "name": "style_id",
+                "type": "string"
+            },
+            {
+                "name": "style_version",
+                "type": "string"
+            },
+            {
+                "name": "body_code",
+                "type": "string"
+            },
+            {
+                "name": "material_code",
+                "type": "string"
+            },
+            {
+                "name": "color_code",
+                "type": "string"
+            },
+            {
+                "name": "size_code",
+                "type": "string"
+            },
+            {
+                "name": "brand_code",
+                "type": "string"
+            },
+            {
+                "name": "sales_channel",
+                "type": "string"
+            },
+            {
+                "name": "order_line_item_id",
+                "type": "string"
+            },
+            {
+                "name": "sku",
+                "type": "string"
+            },
+            {
+                "name": "order_number",
+                "type": "string"
+            },
+             {
+                "name": "one_number",
+                "type": "string"
+            },
+            {
+                "name": "request_name",
+                "type": "string"
+            },
+            {
+                "name": "channel_line_item_id",
+                "type": ["string", "null"]
+            },
+            {
+                "name": "channel_order_id",
+                "type":  ["string", "null"]
+            },
+            {
+                "name": "line_item_creation_date",
+                "type": "string"
+            },
+            {
+                "name": "is_3d_enabled",
+                "type": ["boolean", "null"]
+            },
+            {
+                "name": "is_one_ready",
+                "type": ["boolean", "null"]
+            },
+            {
+                "name": "body_version",
+                "type": ["int", "null"]
+            }
+        ]
+    }
+]

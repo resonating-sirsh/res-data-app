@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: airtable-to-snowflake-cron
+spec:
+  schedule: "0 7 * * *"
+  startingDeadlineSeconds: 0
+  concurrencyPolicy: "Allow"      
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  workflowSpec:
+    workflowTemplateRef:
+      name: airtable-to-snowflake
+      

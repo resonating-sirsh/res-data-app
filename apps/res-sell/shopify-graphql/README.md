@@ -1,0 +1,1 @@
+Pulls shopify data from Kafka and sends to GraphQL

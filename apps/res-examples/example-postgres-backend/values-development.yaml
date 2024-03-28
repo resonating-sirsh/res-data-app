@@ -1,0 +1,4 @@
+deployment:
+  type: "postgraphile_backend"
+  replicas: 1
+  servicePort: 5000

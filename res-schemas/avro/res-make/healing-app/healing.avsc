@@ -1,0 +1,58 @@
+[{
+	"type": "record",
+	"name": "healing",
+	"namespace": "res_make.healing.event",
+	"doc": "This will send all healing info to kafka message",
+	"fields": [{
+			"name": "record_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "one_number",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "s3_piece_uri",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "one_marker_s3_file_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "print_asset_id",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "error",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "sku",
+			"type": ["string", "null"],
+			"default": "null"
+		},
+		{
+			"name": "piece_name",
+			"type": ["string", "null"],
+			"default": "null"
+		},
+		{
+			"name": "piece_iteration",
+			"type": ["string", "null"],
+			"default": "null"
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string"
+				]
+			},
+			"default": "null"
+		}
+	]
+}]

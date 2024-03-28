@@ -1,0 +1,4 @@
+# Unlike .gitignore proper, this upper-level unignore overrides the lower-level
+# ignore directive in res-schemas/avro/res-meta/.validateignore
+
+!res-meta/dxa/prep_pieces_requests.avsc

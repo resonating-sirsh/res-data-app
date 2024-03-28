@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS sell.order_item_fulfillments_status_history;

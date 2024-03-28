@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: graph-api-data-integration-cron
+spec:
+  schedule: "0 0 * * *"
+  startingDeadlineSeconds: 0
+  concurrencyPolicy: "Allow"      
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  suspend: false
+  workflowSpec:
+    workflowTemplateRef:
+      name: graph-api-data-integration

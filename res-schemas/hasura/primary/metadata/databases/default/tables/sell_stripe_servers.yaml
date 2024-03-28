@@ -1,0 +1,3 @@
+table:
+  name: stripe_servers
+  schema: sell

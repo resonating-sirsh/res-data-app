@@ -1,0 +1,9 @@
+mutation upsert_body_piece_material($piece_map: jsonb = "", $sewing_time: numeric = "", $size_code: String = "", $trim_costs: numeric = "", $number_of_materials: Int = 10, $metadata: jsonb = "", $nesting_statistics: jsonb = "", $id: uuid = "", $body_code: String = "", $body_version: Int = 10, $checksum: Int = 10) {
+  insert_meta_body_pieces_with_material_one(object: {trim_costs: $trim_costs, size_code: $size_code, sewing_time: $sewing_time, piece_map: $piece_map, number_of_materials: $number_of_materials, nesting_statistics: $nesting_statistics, metadata: $metadata, id: $id, body_version: $body_version, body_code: $body_code, checksum: $checksum}, on_conflict: {constraint: body_pieces_with_material_pkey,
+    update_columns: [trim_costs, number_of_materials, nesting_statistics, sewing_time, checksum, metadata]}) {
+    id
+    created_at
+    updated_at
+    checksum
+  }
+}

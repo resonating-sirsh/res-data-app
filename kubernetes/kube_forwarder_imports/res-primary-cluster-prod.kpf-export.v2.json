@@ -1,0 +1,166 @@
+{
+   "version": 2,
+   "clusters": [
+      {
+         "name": "arn:aws:eks:us-east-1:286292902993:cluster/res-primary-cluster-prod",
+         "_services": [
+            {
+               "alias": "Kafka Connect",
+               "namespace": "kafka-connect",
+               "workloadType": "service",
+               "workloadName": "kafka-connect-cp-kafka-connect",
+               "forwards": [
+                  {
+                     "localPort": 8003,
+                     "remotePort": 8083,
+                     "id": "42ad5c5d-92bf-40c8-b791-e4140b930c42"
+                  }
+               ]
+            },
+            {
+               "alias": "Kafdrop",
+               "namespace": "kafka-kafdrop",
+               "workloadType": "service",
+               "workloadName": "kafka-kafdrop",
+               "forwards": [
+                  {
+                     "localPort": 8002,
+                     "remotePort": 9000,
+                     "id": "4890deca-aec3-4b00-8666-1fc2fa883043"
+                  }
+               ]
+            },
+            {
+               "alias": "Schema Registry UI",
+               "namespace": "kafka-schema-registry-ui",
+               "workloadType": "service",
+               "workloadName": "kafka-schema-registry-ui",
+               "forwards": [
+                  {
+                     "localPort": 8000,
+                     "remotePort": 80,
+                     "id": "e70f967e-3d70-415f-9d9e-099b50e3d9ee"
+                  }
+               ]
+            },
+            {
+               "alias": "Schema Registry",
+               "namespace": "kafka-schema-registry",
+               "workloadType": "service",
+               "workloadName": "kafka-schema-registry-cp-schema-registry",
+               "forwards": [
+                  {
+                     "localPort": 8001,
+                     "remotePort": 8081,
+                     "id": "a31f2f59-74bd-47e3-9f79-1ddf6e44f66f"
+                  }
+               ]
+            },
+            {
+               "alias": "Argo",
+               "namespace": "argo",
+               "workloadType": "service",
+               "workloadName": "argo-server",
+               "forwards": [
+                  {
+                     "localPort": 8004,
+                     "remotePort": 2746,
+                     "id": "85eacfa2-db07-4ba0-840a-426c707f0adc"
+                  }
+               ]
+            },
+            {
+               "alias": "Druid",
+               "namespace": "druid",
+               "workloadType": "service",
+               "workloadName": "druid-router",
+               "forwards": [
+                  {
+                     "localPort": 8005,
+                     "remotePort": 8888,
+                     "id": "ae652736-83bd-42ba-b84a-ffb0cb6c5210"
+                  }
+               ]
+            },
+            {
+               "alias": "Kubernetes Dashboard",
+               "namespace": "kubernetes-dashboard",
+               "workloadType": "service",
+               "workloadName": "kubernetes-dashboard",
+               "forwards": [
+                  {
+                     "localPort": 8011,
+                     "remotePort": 80,
+                     "id": "583da866-788e-4f5d-8818-86a1727b9bd5"
+                  }
+               ]
+            },
+            {
+               "alias": "Prometheus",
+               "namespace": "prometheus",
+               "workloadType": "service",
+               "workloadName": "prometheus-kube-prometheus-prometheus",
+               "forwards": [
+                  {
+                     "localPort": 8012,
+                     "remotePort": 9090,
+                     "id": "f4de862c-2547-432d-ab22-20820b0d0929"
+                  }
+               ]
+            },
+            {
+               "alias": "Prometheus Alert Manager",
+               "namespace": "prometheus",
+               "workloadType": "service",
+               "workloadName": "prometheus-kube-prometheus-alertmanager",
+               "forwards": [
+                  {
+                     "localPort": 8013,
+                     "remotePort": 9093,
+                     "id": "637bc946-b5dc-11eb-9dd0-1e00d23a3139"
+                  }
+               ]
+            },
+            {
+               "alias": "Statsd Metrics",
+               "namespace": "statsd-exporter",
+               "workloadType": "service",
+               "workloadName": "statsd-exporter-prometheus-statsd-exporter",
+               "forwards": [
+                  {
+                     "localPort": 8014,
+                     "remotePort": 9093,
+                     "id": "72ff3c9a-b5dc-11eb-9dd0-1e00d23a3139"
+                  }
+               ]
+            },
+            {
+               "alias": "Grafana",
+               "namespace": "prometheus",
+               "workloadType": "service",
+               "workloadName": "prometheus-grafana",
+               "forwards": [
+                  {
+                     "localPort": 8015,
+                     "remotePort": 80,
+                     "id": "690523de-b5dd-11eb-9dd0-1e00d23a3139"
+                  }
+               ]
+            },
+            {
+               "alias": "Kafka Connect UI",
+               "namespace": "kafka-connect-ui",
+               "workloadType": "service",
+               "workloadName": "kafka-connect-ui",
+               "forwards": [
+                  {
+                     "localPort": 8016,
+                     "remotePort": 80,
+                     "id": "690523de-b5dd-11eb-9dd0-1e00d23a3139"
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

@@ -1,0 +1,5 @@
+mutation ($height_in: Float = 1.5, $height_px: Int = 10, $id: uuid = "", $metadata: jsonb = "", $name: String = "", $printjob_name: String = "", $roll_name: String = "", $s3_path: String = "", $width_in: Float = 1.5, $width_px: Int = 10, $airtable_record_id: String = "", $printfile_pieces: [make_printfile_pieces_insert_input!] = {}) {
+  insert_make_printfile_one(object: {state: "PENDING", height_in: $height_in, height_px: $height_px, metadata: $metadata, name: $name, roll_name: $roll_name, printjob_name: $printjob_name, s3_path: $s3_path, width_in: $width_in, width_px: $width_px, airtable_record_id: $airtable_record_id, printfile_pieces: {data: $printfile_pieces}}) {
+    id
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "required": ["event", "trigger", "table"],
+  "properties": {
+    "event": {
+      "type": "object",
+      "required": ["op", "data"],
+      "properties": {
+        "op": {
+          "type": "string",
+          "enum": ["UPDATE", "MANUAL", "INSERT"]
+        },
+        "data": {
+          "type": "object",
+          "required": ["new"],
+          "properties": {
+            "old": {"type": ["object", "null"]},
+            "new": {"type": "object"}
+          }
+        }
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "table": {
+      "type": "object",
+      "required": ["schema", "name"],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

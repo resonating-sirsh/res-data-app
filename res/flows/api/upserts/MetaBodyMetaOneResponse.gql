@@ -1,0 +1,25 @@
+mutation update_bodies_queue($id: uuid = "", $node_id: uuid, $status: String = "", $contracts_failed:jsonb="") {
+  insert_flow_queue_bodies(objects:  {id: $id, node_id:$node_id, status: $status, contracts_failed: $contracts_failed}, on_conflict: {constraint: queue_bodies_pkey, update_columns: [node_id, status, contracts_failed]}) {
+    returning {
+      id
+      created_at
+      updated_at
+      status
+      node_id
+      last_updated_at
+      node_id_last_updated_at
+      status_last_updated_at
+      last_status
+      last_node_id
+      contracts_failed
+      node {
+        name
+      }
+      body {
+        body_code
+        version
+        metadata
+      }
+    }
+  }
+}

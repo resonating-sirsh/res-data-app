@@ -1,0 +1,20 @@
+table:
+  name: brands
+  schema: sell
+object_relationships:
+  - name: subscription
+    using:
+      foreign_key_constraint_on:
+        column: brand_id
+        table:
+          name: subscriptions
+          schema: sell
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - airtable_brand_code
+        - airtable_brand_id
+      filter: {}
+      allow_aggregations: true

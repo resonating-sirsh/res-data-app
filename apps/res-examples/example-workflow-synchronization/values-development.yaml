@@ -1,0 +1,12 @@
+deployment:
+  type: "res_workflow"
+  name: "example-workflow-synchronization"
+  command: sh
+  args:
+    - "-c"
+    - "sleep 60 && echo 'Done!' && date"
+  synchronization:
+    # comports with argo synch. patterns. see:
+    # https://argoproj.github.io/argo-workflows/synchronization/
+    mutex:
+      name: "my-mutex"

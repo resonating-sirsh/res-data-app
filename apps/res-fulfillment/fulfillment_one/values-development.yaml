@@ -1,0 +1,8 @@
+deployment:
+  type: "res_long_running_service"
+  name: "fulfillment_one"
+  replicas: 1
+  servicePort: 5000
+  ingressType: "public"
+  memory: 1G
+  healthcheck: "/fulfillment-one/healthcheck"

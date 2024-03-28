@@ -1,0 +1,23 @@
+key: "bodies"
+name: "bodies"
+airtable_table_id: "tblXXuR9kBZvbRqoU"
+airtable_base_id: "appa7Sw0ML47cA8D1"
+fields:
+- key: "bodies.key"
+  name: key 
+  is_key: True
+  is_required: True
+  indexes:
+  - hash
+  airtable_field_name: "Body Number"
+- key: "bodies.name"
+  name: name
+  is_required: True
+  airtable_field_name: "Body Name"
+- name: material_categories
+  is_required: True
+  type: list[str]
+  airtable_field_name: "Material Categories"
+- key: "bodies.style"
+  type: str
+  meta_type: styles

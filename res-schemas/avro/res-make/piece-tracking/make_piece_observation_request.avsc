@@ -1,0 +1,124 @@
+[
+	{
+		"type": "record",
+		"name": "one_pieces",
+		"namespace": "res_make_node_observations_request",
+		"fields": [
+			{
+				"name": "id",
+				"type": [
+					"null",
+					"string"
+				]
+			},
+			{
+				"name": "oid",
+				"type": [
+					"null",
+					"string"
+				]
+			},
+			{
+				"name": "code",
+				"type": "string"
+			},
+			{
+				"name": "make_instance",
+				"type": [
+					"null",
+					"int"
+				],
+				"default": null
+			},
+			{
+				"name": "sequence_number",
+				"type": [
+					"null",
+					"int"
+				],
+				"default": null
+			}
+		]
+	},
+	{
+		"type": "record",
+		"name": "make_node_observations_request",
+		"namespace": "res_make_node_observations_request",
+		"doc": "Piece level updates coming from the different nodes.",
+		"fields": [
+			{
+				"name": "id",
+				"type": "string"
+			},
+			{
+				"name": "pieces",
+				"type": {
+					"type": "array",
+					"items": "one_pieces"
+				}
+			},
+			{
+				"name": "one_number",
+				"type": "int"
+			},
+			{
+				"name": "one_code",
+				"type": [
+					"string",
+					"null"
+				]
+			},
+			{
+				"name": "node",
+				"type": "string"
+			},
+			{
+				"name": "status",
+				"type": [
+					"null",
+					"string"
+				]
+			},
+			{
+				"name": "contracts_failed",
+				"type": {
+					"type": "array",
+					"items": "string"
+				},
+				"default": []
+			},
+			{
+				"name": "defects",
+				"type": {
+					"type": "array",
+					"items": "string"
+				},
+				"default": []
+			},
+			{
+				"name": "observed_at",
+				"type": "string"
+			},
+			{
+				"name": "observation_confidence",
+				"type": [
+					"float",
+					"null"
+				]
+			},
+			{
+				"name": "metadata",
+				"type": {
+					"type": "map",
+					"values": [
+						"null",
+						"float",
+						"string",
+						"int"
+					],
+					"default": {}
+				}
+			}
+		]
+	}
+]

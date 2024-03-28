@@ -1,0 +1,86 @@
+{
+	"type": "record",
+	"name": "piece_set_consumption_at_node",
+	"namespace": "res_make.costs",
+	"doc": "event to register consumption data at make nodes",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "group_id",
+			"type": "string"
+		},
+		{
+			"name": "one_number",
+			"type": "string"
+		},
+		{
+			"name": "node",
+			"type":["null", "string"],
+			"default" : null
+		},
+		{
+			"name": "piece_codes",
+			"type": {
+				"type": "array",
+				"items": "string"
+			}
+		},
+		{
+			"name": "piece_count",
+			"type": "int"
+		},
+		{
+			"name": "consumption",
+			"type": {
+				"type": "array",
+				"items": {
+					"type": "record",
+					"name": "consumption_item",
+					"namespace": "res_make.costs",
+					"doc": "consumption schema",
+					"fields": [{
+							"name": "label",
+							"type": "string"
+						},
+						{
+							"name": "name",
+							"type": "string"
+						},
+						{
+							"name": "category",
+							"type": "string"
+						},
+						{
+							"name": "value",
+							"type": "float"
+						},
+
+						{
+							"name": "units",
+							"type": "string"
+						}
+					]
+				}
+			}
+		},
+
+		{
+			"name": "created_at",
+			"type": "string"
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int"
+				]
+			}
+		}
+	]
+}

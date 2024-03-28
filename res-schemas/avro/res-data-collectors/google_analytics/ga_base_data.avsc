@@ -1,0 +1,64 @@
+{
+    "type": "record",
+    "name": "dataCollectorGoogleAnalytics",
+    "namespace": "com.datacollectors.googleanalytics",
+    "doc": "This is the raw data coming from Google Analytics Data Collector",
+    "fields": [
+        {
+            "name": "brand_code",
+            "type": "string"
+        },
+        {
+            "name": "ga_campaign",
+            "type": "string"
+        },
+        {
+            "name": "ga_date",
+            "type": "string"
+        },
+        {
+            "name": "ga_transactionId",
+            "type": "string"
+        },
+        {
+            "name": "ga_channelGrouping",
+            "type": "string"
+        },
+        {
+            "name": "ga_source",
+            "type": "string"
+        },
+        {
+            "name": "ga_medium",
+            "type": "string"
+        },
+        {
+            "name": "ga_adDistributionNetwork",
+            "type": "string"
+        },
+        {
+            "name": "ga_transactions",
+            "type": "float"
+        },
+        {
+            "name": "ga_transactionRevenue",
+            "type": "float"
+        },
+        {
+            "name": "ga_sessions",
+            "type": "float"
+        },
+        {
+            "name": "ga_users",
+            "type": "float"
+        },
+        {
+            "name": "ga_newUsers",
+            "type": "float"
+        },
+        {
+            "name": "ga_bounces",
+            "type": "float"
+        }
+    ]
+}

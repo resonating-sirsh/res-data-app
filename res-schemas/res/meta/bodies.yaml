@@ -1,0 +1,42 @@
+name: meta.bodies
+key: meta.bodies
+airtable_table_id: "tblXXuR9kBZvbRqoU"
+airtable_base_id: "appa7Sw0ML47cA8D1"
+fields:
+  - name: key
+    key: key
+    is_key: True
+    required: True
+    indexes:
+      - hash
+    airtable_field_name: "Body Number"
+  - name: brand_code
+    key: brand_code
+    airtable_field_name: "Brand Name"
+  - name: sample_size
+    key: sample_size
+    airtable_field_name: "__base_pattern_size"
+  - name: version
+    key: version
+    airtable_field_name: "Pattern Version Number"
+  - name: category_code
+    key: category_code
+    airtable_field_name: "Category Code"
+  - name: taxonomy_code
+    key: taxonomy_code
+    airtable_field_name: "Taxonomy Code"
+  - name: name
+    key: name
+    airtable_field_name: "Body Name"
+  - name: body_flow_tags
+    key: body_flow_Tags
+    airtable_field_name: "Body Flow Tags"
+  - name: default_material
+    key: default_material
+    airtable_field_name: "Onboarding Material (SOT)"
+  - name: "available_sizes"
+    key: available_sizes
+    airtable_field_name: "Available Sizes"
+  - name: "is_3d_enabled"
+    key: is_3d_enabled
+    airtable_field_name: "3D Enabled"

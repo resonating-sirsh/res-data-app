@@ -1,0 +1,4 @@
+jsonschema
+flask-cognito
+flask-cors
+redis

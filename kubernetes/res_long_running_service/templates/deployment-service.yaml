@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.deployment.name }}-service
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: {{ .Values.deployment.healthcheck }}
+  labels:
+    app: {{ .Values.deployment.name }}
+spec:
+  {{- if ne .Values.global.environment "local" }}
+  type: NodePort
+  {{- else }}
+  type: LoadBalancer
+  {{- end }}
+  ports:
+  - port: {{ .Values.deployment.servicePort }}
+    targetPort: backend-tcp
+  selector:
+    app: {{ .Values.deployment.name }}
+    component: {{ .Values.deployment.name }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    app: {{ .Values.deployment.name }}
+    component: {{ .Values.deployment.name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.name }}
+      component: {{ .Values.deployment.name }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.name }}
+        component: {{ .Values.deployment.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.name }}
+        image: {{ .Values.global.ecrRepo }}/res-data_{{ .Values.global.environment }}_{{ .Values.deployment.name }}_{{ .Values.deployment.folder }}:{{ .Values.commitHash }}
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: {{ .Values.deployment.memory | default "200M" | quote }}
+        env:
+          - name: RES_ENV
+            value: {{ .Values.global.environment }}
+          - name: RES_APP_NAME
+            value: {{ .Values.deployment.name }}
+          - name: RES_NAMESPACE
+            value: {{ .Values.deployment.folder }}
+        # Loop thru base env vars
+          {{- range $key, $value := $.Values.baseEnvs }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
+        # Loop thru user-supplied env vars
+        {{- if .Values.deployment.env }}
+          {{- range $key, $value := .Values.deployment.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
+        {{- end }}
+        ports:
+        - containerPort: {{ .Values.deployment.servicePort }}
+          name: backend-tcp

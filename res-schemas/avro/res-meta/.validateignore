@@ -1,0 +1,5 @@
+# This is a silly example, but demonstrates how this works... NOTE: unignore (!)
+# directives take precedence over ignore directives, they cancel out subsequent
+# ignore directives in addition to preceding ones.
+
+responses.avsc

@@ -1,0 +1,75 @@
+fragment LineItemInfo on LineItem 
+{
+  id
+  sku
+  name
+  quantity
+  fulfillableQuantity
+  fulfillmentStatus
+  title
+}
+fragment OrderInfo on Order {
+    id
+    name
+    createdAt
+    updatedAt
+    cancelledAt
+    cancelReason
+    email
+    displayFulfillmentStatus
+    lineItems(first: 100) {
+      edges {
+        node {
+            ...LineItemInfo
+        }
+      }
+    }
+    
+    fulfillments {
+      fulfillmentLineItems(first: 100) {
+        edges {
+          node {
+            lineItem {
+              id
+              sku
+              name
+              quantity
+            }
+          }
+        }
+      }
+    }
+  }
+
+query getOrdersInfoByDates($query:String!){
+    orders(first: 250, query:$query) {
+        edges {
+          node {
+            id
+            name
+            createdAt
+            updatedAt
+            cancelledAt
+          }
+        }
+      }
+    }
+
+query getOneOrder($order_id: ID!){
+        node(id: $order_id){
+            ...OrderInfo
+        }
+    }
+    
+query getOrdersByQuery($query:String){
+  orders(first: 1, query:$query) {
+    edges {
+      node {
+        ...OrderInfo
+      }
+    }
+  }
+  
+}
+
+ 

@@ -1,0 +1,1 @@
+This shows how to use the DynamoDB-backed configuration client / service

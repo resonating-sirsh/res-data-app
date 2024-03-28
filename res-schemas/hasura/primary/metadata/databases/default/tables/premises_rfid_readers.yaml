@@ -1,0 +1,3 @@
+table:
+  name: rfid_readers
+  schema: premises

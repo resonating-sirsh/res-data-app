@@ -1,0 +1,10 @@
+table:
+  name: designs
+  schema: meta
+object_relationships:
+  - name: body
+    using:
+      foreign_key_constraint_on: body_id
+  - name: color
+    using:
+      foreign_key_constraint_on: color_id

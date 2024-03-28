@@ -1,0 +1,6 @@
+deployment:
+  type: "res_long_running_service"
+  memory: 2G
+  replicas: 1
+  env:
+    RES_APP_NAME: "sell-orders-relay"

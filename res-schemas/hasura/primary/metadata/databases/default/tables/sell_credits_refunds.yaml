@@ -1,0 +1,58 @@
+table:
+  name: credits_refunds
+  schema: sell
+object_relationships:
+  - name: brand
+    using:
+      foreign_key_constraint_on: brand_code
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - id
+        - brand_code
+        - styles_ids
+        - description
+        - order_id
+        - images_ids
+        - is_approved
+        - resolved_by
+        - resolved_on
+        - amount
+        - status
+        - created_by
+        - created_at
+        - transaction_id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - is_approved
+        - amount
+        - id
+        - transaction_id
+        - images_ids
+        - styles_ids
+        - resolved_by
+        - brand_code
+        - created_by
+        - description
+        - order_id
+        - status
+        - resolved_on
+        - created_at
+        - resolution_context
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - amount
+        - resolved_by
+        - resolved_on
+        - is_approved
+        - status
+      filter: {}
+      check: null

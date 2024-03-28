@@ -1,0 +1,9 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    enable: true
+    schedule: "0 0 * * *"
+  env:
+    BACKFILL: 0
+    SHORTCUT_HOST: https://api.app.shortcut.com
+    DRY_RUN: 0

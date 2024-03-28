@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "name": "consumer_worker",
+    "doc": "Created to showcase using the kafka_consumer_worker decorator",
+    "fields": [
+        {
+            "name": "message",
+            "type": "string"
+        }
+    ]
+}

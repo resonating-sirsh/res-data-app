@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "TestRollPrinterAssignment",
+  "namespace": "optimus.test_roll_printer_assignment",
+  "doc": "This is a single assignment of a roll to a printer.",
+  "fields": [
+    {
+      "name": "printer_name",
+      "type": "string"
+    },
+    {
+      "name": "roll_key",
+      "type": "string"
+    },
+    {
+      "name": "rank",
+      "type": "int"
+    },
+    {
+      "name": "printer_assigned_roll_count",
+      "type": "int"
+    },
+    {
+      "name": "task_key",
+      "type": "string"
+    },
+    {
+      "name": "created_at",
+      "type": "string"
+    }
+  ]
+}

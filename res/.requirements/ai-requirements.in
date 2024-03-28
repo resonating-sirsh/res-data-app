@@ -1,0 +1,8 @@
+openai
+unstructured
+weaviate-client
+langchain
+llama_index
+transformers
+datasets
+torch

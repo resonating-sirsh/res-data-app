@@ -1,0 +1,13 @@
+deployment:
+  type: "res_workflow"
+  cron:
+    schedule: "0 11 * * *"
+  command: python
+  args:
+    - -m
+    - res
+    - flow
+    - run
+    - infra.reports.looker_brand_reports
+  env:
+    RES_TEAM: "iamcurious"

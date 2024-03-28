@@ -1,0 +1,202 @@
+{
+  "$ref": "#/definitions/job_preset",
+  "$defs": {
+    "export_instruction": {
+      "type": "object",
+      "title": "Export",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "EXPORT"
+          ]
+        },
+        "export_type": {
+          "type": "string",
+          "enum": [
+            "MEDIA_RENDER",
+            "MEDIA_RENDER_RAY_TRACE",
+            "MEDIA_3D_SCENE"
+          ]
+        },
+        "include_avatar": {
+          "type": "boolean"
+        },
+        "dpi": {
+          "type": "number"
+        },
+        "output_file_name": {
+          "type": "string"
+        },
+        "camera_position": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "z"
+          ]
+        }
+      },
+      "required": [
+        "dpi",
+        "export_type",
+        "output_file_name",
+        "type"
+      ]
+    },
+    "export_instruction_turntable": {
+      "type": "object",
+      "title": "Turntable Export Instruction",
+      "description": "Turntable Export Instruction",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "EXPORT"
+          ]
+        },
+        "export_type": {
+          "type": "string",
+          "enum": [
+            "TURNTABLE"
+          ]
+        },
+        "number_of_snapshots": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "output_file_name": {
+          "type": "string",
+          "pattern": "^\\w*\\.zip$",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "export_type",
+        "number_of_snapshots",
+        "output_file_name"
+      ]
+    },
+    "asset_bundle_export_instruction": {
+      "type": "object",
+      "title": "Asset Bundle Export",
+      "description": "Export configuration for an asset bundle, using a vstitcher techpack configuration",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "EXPORT"
+          ]
+        },
+        "export_type": {
+          "type": "string",
+          "enum": [
+            "DXA_ASSET_BUNDLE"
+          ]
+        },
+        "techpack_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_file_name": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "export_type",
+        "techpack_name",
+        "output_file_name"
+      ]
+    },
+    "save_vstitcher_file_instruction": {
+      "type": "object",
+      "title": "Save VSticher file",
+      "description": "Step to save a VStitcher file",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "EXPORT"
+          ]
+        },
+        "export_type": {
+          "type": "string",
+          "enum": [
+            "VSTITCHER_FILE"
+          ]
+        },
+        "output_file_name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\w*\\.bw$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "export_type",
+        "output_file_name"
+      ]
+    }
+  },
+  "definitions": {
+    "job_preset": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "instructions": {
+          "type": "array",
+          "title": "Instructions",
+          "minItems": 1,
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/export_instruction"
+              },
+              {
+                "$ref": "#/$defs/export_instruction_turntable"
+              },
+              {
+                "$ref": "#/$defs/asset_bundle_export_instruction"
+              },
+              {
+                "$ref": "#/$defs/save_vstitcher_file_instruction"
+              }
+            ]
+          }
+        },
+        "should_hide_previous_style_assets": {
+          "type": "boolean",
+          "description": "This is a stupid hack to accomodate brand-onboarding temporarily"
+        },
+        "remote_destination": {
+          "type": "string"
+        },
+        "remote_destination_subfolder_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "remote_destination",
+        "instructions"
+      ],
+      "title": "Job Preset"
+    }
+  }
+}

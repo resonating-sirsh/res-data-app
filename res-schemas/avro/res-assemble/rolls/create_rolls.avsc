@@ -1,0 +1,63 @@
+[
+    {
+        "type": "record",
+        "name": "create_rolls",
+        "namespace": "res_assemble.rolls.create_rolls",
+        "doc": "This topic will get a message when a new roll is checked out from warehouse.",
+        "fields": [
+             {
+                "name": "id",
+                "type": ["string", "null"]
+            },
+            {
+                "name": "roll_type",
+                "type": "string",
+                "default": "Parent"
+            },
+            {
+                "name": "roll_length",
+                "type": "float"
+            },
+            {
+                "name": "roll_key",
+                "type": "string"
+            },
+            {
+                "name": "material_name_match",
+                "type": "string"
+            },
+            {
+                "name": "roll_id",
+                "type": "int"
+            },
+            {
+                "name": "material",
+                "type": "string"
+            },
+            {
+                "name": "purchasing_record_id",
+                "type": "string"
+            },
+            {
+                "name": "_warehouse_rack_location",
+                "type": ["string", "null"]
+            },
+            {
+                "name": "location_id",
+                "type": ["string", "null"]
+            },
+            {
+                "name": "po_number",
+                "type": ["string", "null"]
+            },
+            {
+                "name": "standard_cost_per_unit",
+                "type": ["float", "null"]
+            },
+            {
+                "name": "child_id",
+                "type": ["int", "null"]
+            }
+        ]
+    }
+]

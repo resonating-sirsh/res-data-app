@@ -1,0 +1,33 @@
+{
+    "stage": "02 All Contracts Checked",
+    "printable_pieces": [
+        "s3://res-data-platform/samples/body-requests-previews/CC-3120/v2/cc-3120-v2-swsslpnllf-s.png"
+    ],
+    "complementary_pieces": [],
+    "cut_files": [
+        "s3://meta-one-assets-prod/bodies/cut/cc_3120/v2/2zzsm/stamper_CC-3120-V2-S-X.plt"
+    ],
+    "poms": [
+        "s3://meta-one-assets-prod/bodies/3d_body_files/cc_3120/v2/extracted/rulers/rulers.csv"
+    ],
+    "name": "CC-3120-V2",
+    "body_code": "CC-3120",
+    "body_version": 2,
+    "size_code": "3ZZMD",
+    "sample_size": "3ZZMD",
+    "sizes": [
+        "8ZZ4X",
+        "4ZZLG",
+        "3ZZMD",
+        "1ZZXS",
+        "7ZZ3X",
+        "6ZZ2X",
+        "5ZZXL",
+        "2ZZSM"
+    ],
+    "status": "Pending",
+    "node": "Meta.ONE.Body",
+    "contracts_failed": [
+        "TEST"
+    ]
+}

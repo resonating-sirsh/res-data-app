@@ -1,0 +1,11 @@
+table:
+  name: pieces_hash_registry
+  schema: meta
+array_relationships:
+  - name: styles
+    using:
+      foreign_key_constraint_on:
+        column: pieces_hash_id
+        table:
+          name: styles
+          schema: meta

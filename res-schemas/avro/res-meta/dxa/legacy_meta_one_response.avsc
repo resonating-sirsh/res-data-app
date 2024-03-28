@@ -1,0 +1,95 @@
+{
+	"type": "record",
+	"name": "legacy_meta_one_response",
+	"namespace": "res_meta",
+	"doc": "response after generate a legacy meta one from pieces and body asset",
+	"fields": [{
+			"name": "id",
+			"type": "string"
+		},
+		{
+			"name": "sku",
+			"type": "string"
+		},
+		{
+			"name": "style_name",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "uri",
+			"type": "string"
+		},
+		{
+			"name": "body_version",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "body_asset_version",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "color_asset_version",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "print_type",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "print_type_combo",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "offset_size_inches",
+			"type": ["float", "null"]
+		},
+		{
+			"name": "offset_size_inches_combo",
+			"type": ["float", "null"]
+		},
+		{
+			"name": "body_asset",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "body_asset_combo",
+			"type": ["string", "null"]
+		},
+		{
+			"name": "color_pieces",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+			"default" : []
+		},
+		{
+			"name": "color_pieces_combo",
+			"type": {
+				"type": "array",
+				"items": "string"
+			},
+	    	"default" : []
+		},
+		{
+			"name": "metadata",
+			"type": {
+				"type": "map",
+				"values": [
+					"null",
+					"float",
+					"string",
+					"int",
+					"boolean"
+				]
+			}
+		},
+		{
+			"name": "created_at",
+			"type": [
+				"string",
+				"null"
+			]
+		}
+	]
+}

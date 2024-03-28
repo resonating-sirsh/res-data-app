@@ -1,0 +1,54 @@
+airtable_base_id: apprcULXTWu33KFsh
+airtable_table_id: tbl7n4mKIXpjMnJ3i
+fields:
+  - airtable_field_name: Key
+    indexes:
+      - hash
+    is_key: true
+    is_required: true
+    key: key
+    name: key
+  - airtable_field_name: Created At
+    key: created_at
+    name: created_at
+  - airtable_field_name: Nesting Approach
+    key: nesting_approach
+    name: nesting_approach
+  - airtable_field_name: "RIP File Name"
+    key: ripped_filename
+    name: ripped_filename
+  - airtable_field_name: Asset Ids
+    key: asset_ids
+    name: asset_ids
+    type: "list[str]"
+    meta_type: "[make.print_assets]"
+  - airtable_field_name: Nested Length in Yards
+    key: nested_length_in_yards
+    name: nested_length_in_yards
+    type: float
+  - airtable_field_name: Asset Path
+    key: asset_path
+    name: asset_path
+  # - airtable_field_name: Belongs to Order
+  #   key: belongs_to_order
+  #   name: belongs_to_order
+
+  - airtable_field_name: Material Code
+    key: material_code
+    name: material_code
+    meta_type: "meta.materials"
+
+  - airtable_field_name: Compensation X
+    key: compensation_x
+    name: compensation_x
+    type: float
+  - airtable_field_name: Compensation Y
+    key: compensation_y
+    name: compensation_y
+    type: float
+  - airtable_field_name: Roll Name
+    key: roll_name
+    name: roll_name
+    meta_type: make.test_rolls
+key: make.nest_assets
+name: make.nest_assets

@@ -1,0 +1,173 @@
+
+# argo template create res_data_workflows/res-meta/generate-meta-one/generate-meta-one.yaml -n argo
+# kubectl delete -f  res_data_workflows/res-meta/generate-meta-one/generate-meta-one.yaml -n argo
+# argo submit --from workflowtemplate/generate-meta-one -n argo --watch
+# kubectl delete -f  res_data_workflows/res-meta/generate-meta-one/generate-meta-one.yaml -n argo && argo template create res_data_workflows/res-meta/generate-meta-one/generate-meta-one.yaml -n argo && argo submit --from workflowtemplate/generate-meta-one -n argo --watch  
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: generate-meta-one
+spec:
+  ttlStrategy:
+    secondsAfterCompletion: 120 
+    secondsAfterSuccess: 120
+    secondsAfterFailure: 900
+  entrypoint: generate-meta-one-flow
+  onExit: exit-handler
+  arguments:
+    parameters:
+    - name: event
+      value: "{\"record_id\": \"reciF2l1nAee37Kaj\"}"
+      
+  templates:
+  - name: generate-meta-one-flow
+    steps:
+    - - name: start
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          - name: flow_name
+            value: start_generate_meta_one
+
+      - name: unpack-turntable
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          - name: flow_name
+            value: unpack_turntable
+
+    - - name: sort-pieces-by-size
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{steps.start.outputs.parameters.result}}"
+          - name: flow_name
+            value: unpack_pieces_and_sort_by_size
+    
+    - - name: extract-pieces-images
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{item}}"
+          - name: flow_name
+            value: extract_images_from_pdf_pieces
+        withParam: "{{steps.sort-pieces-by-size.outputs.parameters.result}}"
+
+    - - name: run-pieces-checks
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{item}}"
+          - name: flow_name
+            value: run_pieces_checks
+        withParam: "{{steps.extract-pieces-images.outputs.parameters.result}}"
+      
+    - - name: validate-pieces-checks
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{steps.start.outputs.parameters.result}}" 
+          - name: flow_name
+            value: validate_pieces_checks
+
+    - - name: request-meta-one
+        template: res-data
+        when: "{{steps.validate-pieces-checks.outputs.parameters.result}} != false"
+        arguments:
+          parameters:
+          - name: event
+            value: "{{item}}"
+          - name: flow_name
+            value: request_meta_one
+        withParam: "{{steps.extract-pieces-images.outputs.parameters.result}}"
+    
+    - - name: finish
+        template: res-data
+        # when: "{{steps.validate-pieces-checks.outputs.parameters.result}} != false"
+        arguments:
+          parameters:
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          - name: flow_name
+            value: finish_generate_meta_one
+
+  - name: res-data
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /tmp/dump.txt
+    podSpecPatch: '{"tolerations":[{"key": "workflow", "value": "true", "effect": "NoSchedule"}]}'
+    script:
+      image: res-data
+      imagePullPolicy: Always
+      command: [python]
+      source: |
+        import json
+        import sys
+        import os
+        from res.flows.meta.one_marker.generate_meta_one.generate_meta_one import *
+
+        flow_name = '{{inputs.parameters.flow_name}}'
+        os.environ['RES_APP_NAME'] =  'generate-meta-one'
+        os.environ['RES_NAMESPACE'] =  'res-meta'
+
+
+        workflow_event = json.loads('{{inputs.parameters.event}}')
+        data = {{inputs.parameters.flow_name}}(workflow_event)
+
+        with open('/tmp/dump.txt', 'w') as f:
+          json.dump(data, f)
+
+      resources:
+        requests:
+          memory: "50Gi"
+        limits:
+          memory: "50Gi"
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+
+
+  #exit handler
+  - name: exit-handler
+    steps:
+    - - name: failure
+        template: failure
+        when: "{{workflow.status}} != Succeeded"
+  - name: failure
+    script:
+      image: res-data
+      command: [python]
+      source: |
+        import json
+        import sys
+        import os
+        from res.flows.meta.one_marker.generate_meta_one.generate_meta_one import handle_failure
+
+        os.environ["RES_APP_NAME"] = "generate-meta-one"
+        os.environ["RES_NAMESPACE"] = "res-meta"
+
+        errors = json.loads({{workflow.failures}})
+        workflow_event = json.loads('{{workflow.parameters.event}}')
+        workflow_event['errors'] = [e['message'] for e in errors]
+        workflow_event['error_details'] = errors
+
+        handle_failure(workflow_event)
+
+
+      envFrom:
+       - configMapRef:
+           name: res-data-env

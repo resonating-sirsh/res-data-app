@@ -1,0 +1,31 @@
+#this is generated from the res.meta payload and stored in dgraph
+#we also store the res.meta payload in this table
+
+<meta.entities.child_types>: [string] .
+airtable_table_id: string .
+airtable_base_id: string .
+meta_type: string .
+<meta.entities.fields>: [uid] .
+is_required: bool .
+is_key: bool . 
+is_child_type: bool . 
+
+
+type <meta.entities> {
+  key
+  name
+  type
+  airtable_table_id
+  airtable_base_id
+  meta.entities.fields
+}
+
+type <meta.fields> {
+  name
+  is_required
+  is_child_type
+  type
+  meta_type
+  indexes
+  airtable_field_name
+}

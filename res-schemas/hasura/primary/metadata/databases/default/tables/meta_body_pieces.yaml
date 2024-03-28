@@ -1,0 +1,15 @@
+table:
+  name: body_pieces
+  schema: meta
+object_relationships:
+  - name: body
+    using:
+      foreign_key_constraint_on: body_id
+array_relationships:
+  - name: pieces
+    using:
+      foreign_key_constraint_on:
+        column: body_piece_id
+        table:
+          name: pieces
+          schema: meta

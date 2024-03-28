@@ -1,0 +1,5 @@
+allure-pytest
+orjson
+statsd-exporter==3.2.1
+jsonschema
+ShopifyAPI

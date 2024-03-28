@@ -1,0 +1,56 @@
+[
+    {
+        "type": "record",
+        "name": "app_config",
+        "namespace": "device.apps.status",
+        "fields": [
+            {
+                "name": "status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "pid",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "run_time",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "time_last_run",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "device_app_status",
+        "namespace": "device.apps.status",
+        "fields": [
+            {
+                "name": "device",
+                "type": "string"
+            },
+            {
+                "name": "app_name",
+                "type": "string"
+            },
+            {
+                "name": "app_config",
+                "type": "app_config"
+            }
+        ]
+    }
+]

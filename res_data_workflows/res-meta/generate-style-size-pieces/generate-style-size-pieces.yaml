@@ -1,0 +1,273 @@
+
+# argo template create res_data_workflows/res-meta/generate-style-size-pieces/generate-style-size-pieces.yaml -n argo 
+# kubectl delete -f  res_data_workflows/res-meta/generate-style-size-pieces/generate-style-size-pieces.yaml -n argo
+# argo submit --from workflowtemplate/generate-style-size-pieces -n argo --watch
+# kubectl delete -f  res_data_workflows/res-meta/generate-style-size-pieces/generate-style-size-pieces.yaml -n argo && argo template create res_data_workflows/res-meta/generate-style-size-pieces/generate-style-size-pieces.yaml -n argo && argo submit --from workflowtemplate/generate-style-size-pieces -n argo --watch
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: generate-style-size-pieces
+spec:
+  ttlStrategy:
+    secondsAfterCompletion: 60 # Time to live after workflow is completed, replaces ttlSecondsAfterFinished
+    secondsAfterSuccess: 60 # Time to live after workflow is successful
+    secondsAfterFailure: 900 # Time to live after workflow fails
+  entrypoint: generate-style-size-pieces-flow
+  # onExit: exit-handler
+  arguments:
+    parameters:
+    - name: event
+      value: "{\"record_id\": \"\"}"
+    - name: name_pieces_enabled
+      value: true
+      
+  templates:
+  - name: generate-style-size-pieces-flow
+    steps:
+    - - name: start-generate-style-size-pieces-job
+        template: res-data
+        arguments:
+          parameters:
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          - name: flow_name
+            value: get_generate_style_size_pieces_payload
+
+    - - name: rasterize-prepared-file-job
+        template: rasterize-file
+        arguments:
+          parameters:
+          - name: s3_input_key
+            value: "{{item.rasterization_input_file_key}}"
+          - name: s3_input_bucket
+            value: "{{item.rasterization_input_file_bucket}}"
+          - name: s3_output_key
+            value: "{{item.rasterization_output_file_key}}"
+          - name: s3_output_bucket
+            value: "{{item.rasterization_output_file_bucket}}"
+        withParam: "{{steps.start-generate-style-size-pieces-job.outputs.parameters.result}}"
+
+    - - name: split-pieces-job
+        template: res-data
+        arguments:
+          parameters:
+          - name: flow_name
+            value: split_style_size_pieces
+          - name: event
+            value: "{{steps.start-generate-style-size-pieces-job.outputs.parameters.result}}"
+    
+     #this is redundant to the last step but adding it "out of band" to test in parallel opportunistically in production - errors suppressed
+     #we will create meta markers here but also in response to kafka events in future
+      - name: split-named-pieces-job
+        template: res-data
+        when: "{{workflow.parameters.name_pieces_enabled}} != false"
+        arguments:
+          parameters:
+          - name: flow_name
+            value: split_pieces_and_export_spec
+          - name: event
+            value: "{{steps.start-generate-style-size-pieces-job.outputs.parameters.result}}"
+
+    - - name: finish-generate-style-size-pieces-job
+        template: res-data
+        arguments:
+          parameters:
+          - name: flow_name
+            value: finish_generate_style_size_pieces_job
+          - name: event
+            value: "{{steps.split-pieces-job.outputs.parameters.result}}"
+
+  #exit handler
+  # - name: exit-handler
+  #   steps:
+  #   - - name: failure
+  #       template: res-data-exit
+  #       when: "{{workflow.status}} != Succeeded"    
+  #       arguments:
+  #         parameters:
+  #         - name: flow_name
+  #           value: "on_failure"
+  #   - - name: success
+  #       template: res-data-exit
+  #       when: "{{workflow.status}} == Succeeded"
+  #       arguments:
+  #         parameters:
+  #         - name: flow_name
+  #           value: "on_success"
+
+  - name: res-data
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /tmp/dump.txt
+    podSpecPatch: '{"tolerations":[{"key": "workflow", "value": "true", "effect": "NoSchedule"}]}'
+    script:
+      image: res-data
+      imagePullPolicy: Always
+      command: [python]
+      source: |
+        import json
+        import sys
+       
+        from res.flows.meta.generate_style_size_pieces.generate_style_size_pieces import *
+        from res.flows.meta.generate_style_size_pieces.split_pieces import *
+
+        flow_name = '{{inputs.parameters.flow_name}}'
+        workflow_event = json.loads('{{inputs.parameters.event}}')
+
+        if flow_name == 'get_generate_style_size_pieces_payload':
+          data = {{inputs.parameters.flow_name}}(workflow_event)
+          with open('/tmp/dump.txt', 'w') as f:
+            json.dump([data], f)
+
+        elif flow_name == 'split_style_size_pieces':
+          event = {
+            'input_file_uri': f"s3://meta-one-assets-prod/{workflow_event[0]['rasterization_output_file_key']}"
+          }
+          data = {{inputs.parameters.flow_name}}(event)
+          data['record_id'] = workflow_event[0]['asset_request_record_id']
+          with open('/tmp/dump.txt', 'w') as f:
+            json.dump(data, f)
+          
+        elif flow_name == "split_pieces_and_export_spec":
+          #workflow event is already a list and we assign this to the assets
+          if not isinstance(workflow_event,list):
+            workflow_event = [workflow_event]
+          workflow_name= '{{workflow.name}}'
+          event = {"assets": workflow_event }
+          event["metadata"] = {"name": "dxa.generate_style",
+                               "node": "name_pieces",
+                               "argo.workflow.name" : workflow_name }
+          _ = eval(flow_name)(event)
+          with open('/tmp/dump.txt', 'w') as f:
+            json.dump(workflow_event, f)
+
+        elif flow_name == 'finish_generate_style_size_pieces_job':
+          event = {
+            'record_id': workflow_event.get('record_id'),
+            'pieces_s3_folder': workflow_event.get('pieces_folder_uri'),
+            'pieces_keys': workflow_event.get('pieces_keys')
+          }
+          
+          data = {{inputs.parameters.flow_name}}(event)
+
+          with open('/tmp/dump.txt', 'w') as f:
+            json.dump(data, f)
+
+      resources:
+        requests:
+          memory: "50Gi"
+        limits:
+          memory: "50Gi"
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+      env:
+        - name: AWS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: onelearn-secret
+        - name: AWS_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: onelearn-secret
+        - name: GRAPH_API
+          valueFrom:
+            secretKeyRef:
+              key: GRAPH_API
+              name: onelearn-secret
+
+        - name: GRAPH_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: GRAPH_API_KEY
+              name: onelearn-secret
+
+        - name: OPENCV_IO_MAX_IMAGE_PIXELS
+          value: "1099511627776" # 2^40 pixels
+
+  - name: rasterize-file
+    inputs:
+      parameters:
+      - name: s3_input_key
+      - name: s3_input_bucket
+      - name: s3_output_key
+      - name: s3_output_bucket
+    podSpecPatch: '{"tolerations":[{"key": "workflow", "value": "true", "effect": "NoSchedule"}]}'
+    script:
+      image: 286292902993.dkr.ecr.us-east-1.amazonaws.com/rasterize_pdf:july29
+      imagePullPolicy: Always
+      command: ["python"]
+      args: ["rasterize_pdf.py","-i","{{inputs.parameters.s3_input_key}}", "-o", "{{inputs.parameters.s3_output_key}}", "-ib", "{{inputs.parameters.s3_input_bucket}}", "-ob", "{{inputs.parameters.s3_output_bucket}}"]
+
+      #TODO can we template the env
+      env:
+        - name: AWS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: onelearn-secret
+        - name: AWS_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: onelearn-secret
+      resources:
+        requests:
+          memory: "50Gi"
+        limits:
+          memory: "50Gi"
+
+  #exit handler for success and failure - these will write data onto kafka for digital asset status
+  # - name: res-data-exit
+  #   inputs:
+  #     parameters:
+  #     - name: flow_name
+  #   script:
+  #     image: res-data
+  #     command: ["python"]
+  #     source: |
+  #       import json
+  #       import sys
+  #       from res.flows import FlowContext
+  #       workflow_event = json.loads('{{workflow.parameters.event}}')
+  #       if 'metadata' not in workflow_event:
+  #           workflow_event['metadata'] = {}
+  #       workflow_event['metadata']['argo.workflow.name'] = '{{workflow.name}}'
+  #       workflow_event['metadata']['flow'] = 'dxa'
+  #       workflow_event['metadata']['node'] = 'generate-stye-markers'
+
+  #       #because the event has no formal structure we need to add it here
+  #       #it would be great if we knew things like style codes etc to make this richer 
+  #       #assuming just one asset here for now but need to be careful if this changes
+  #       workflow_event['assets'] = [
+  #         {"key": workflow_event.get('record_id'), "asset_type": "style_markers"}
+  #       ]
+
+  #       flow_name = '{{inputs.parameters.flow_name}}'
+
+  #       if flow_name == 'on_failure':
+  #         errors = json.loads({{workflow.failures}})           
+  #         workflow_event['errors'] = [e['message'] for e in errors]
+  #         workflow_event['error_details'] = errors
+
+  #         print('on_failure triggered with event', workflow_event)
+  #         FlowContext.on_failure(workflow_event, publish_asset_status=True)
+
+  #       elif flow_name == 'on_success':
+  #         print('on_success triggered with event', workflow_event)
+  #         FlowContext.on_success(workflow_event, publish_asset_status=True)
+
+  #       #asset status event structure for this should be key="style code", value="(airtable) record id", prev_key = "something useful or empty string", task_key="workflow name"
+  #       #the payload structure is documented here: https://coda.io/d/Platform-Documentation_dbtYplzht1S/Event-contracts_suH9L#Asset-assignment_turCy/r6
+
+  #     envFrom:
+  #      - configMapRef:
+  #          name: res-data-env

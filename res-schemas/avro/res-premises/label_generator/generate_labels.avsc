@@ -1,0 +1,53 @@
+[
+    {
+        "type": "record",
+        "name": "generate_labels",
+        "namespace": "res_premises.label_generator.generate_labels",
+        "doc": "This topic will get a message when a label needs to be generated.",
+        "fields": [
+            {
+                "name": "payload",
+                "type": {
+                    "type": "map",
+                    "values": [
+                        "string",
+                        "int",
+                        "float"
+                    ]
+                }
+            },
+            {
+                "name": "template_name",
+                "type": "string"
+            },
+            {
+                "name": "style_name",
+                "type": "string"
+            },
+            {
+                "name": "label_name",
+                "type": "string"
+            },
+            {
+                "name": "s3_folder",
+                "type": "string"
+            },
+            {
+                "name": "base_id",
+                "type": "string"
+            },
+            {
+                "name": "table_id",
+                "type": "string"
+            },
+            {
+                "name": "field_name",
+                "type": "string"
+            },
+            {
+                "name": "record_id",
+                "type": "string"
+            }
+        ]
+    }
+]

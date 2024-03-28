@@ -1,0 +1,147 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: airtable-to-snowflake
+spec:
+  entrypoint: airtable-to-snowflake
+  # onExit: exit-handler
+  arguments:
+    parameters:
+    - name: event
+      value: "{}"
+  templates:
+  - name: airtable-to-snowflake
+    inputs:
+      parameters:
+      - name: event
+    steps:     
+    - - name: generate-tables
+        template: generic-step
+        arguments:
+          parameters:
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          - name: flow_name
+            value: "/app/src/01_generate_tables.py"
+          - name: memory
+            value: 1024Mi
+    - - name: airtable-to-s3
+        template: generic-step-with-semaphore
+        arguments:
+          parameters:
+          - name: event
+            value: "{{item}}"
+          - name: flow_name
+            value: "/app/src/02_airtable_to_s3.py"
+          - name: memory
+            value: 8192Mi
+        withParam: "{{steps.generate-tables.outputs.parameters.dump}}"
+        when: "{{item.is_latest}} == true"
+        continueOn:
+          failed: true
+    - - name: s3-to-snowflake
+        template: generic-step
+        arguments:
+          parameters:
+          - name: event
+            value: "{{item}}"
+          - name: flow_name
+            value: "/app/src/03_s3_to_snowflake.py"
+          - name: memory
+            value: 1024Mi
+        withParam: "{{steps.generate-tables.outputs.parameters.dump}}"
+        continueOn:
+          failed: true
+    - - name: create-columnar-tables
+        template: generic-step
+        arguments:
+          parameters:
+          - name: event
+            value: "{{item}}"
+          - name: flow_name
+            value: "/app/src/04_create_columnar_tables.py"
+          - name: memory
+            value: 1024Mi
+        withParam: "{{steps.generate-tables.outputs.parameters.dump}}"
+        when: "{{item.is_latest}} == true"
+        continueOn:
+          failed: true
+    - - name: run-patch-queries
+        template: generic-step
+        arguments:
+          parameters:
+          - name: event
+            value: "{{workflow.parameters.event}}"
+          - name: flow_name
+            value: "/app/src/05_run_patch_queries.py"
+          - name: memory
+            value: 256Mi
+    - - name: upload-attachements-and-delete-old-records
+        template: generic-step
+        arguments:
+          parameters:
+          - name: event
+            value: "{{item}}"
+          - name: flow_name
+            value: "/app/src/06_upload_attachment_and_delete_old_records.py"
+          - name: memory
+            value: 4096Mi
+        withParam: "{{steps.generate-tables.outputs.parameters.dump}}"
+        when: "{{item.is_latest}} == true"
+        continueOn:
+          failed: true    
+  - name: generic-step
+    retryStrategy:
+          limit: "2"
+          retryPolicy: "OnFailure" 
+          backoff:
+            duration: "3m"  
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+      - name: memory
+    outputs:
+      parameters:
+        - name: dump
+          valueFrom:
+            default: "{}"
+            path: /app/dump.txt
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.event}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env
+  - name: generic-step-with-semaphore
+    synchronization:
+      semaphore:
+          configMapKeyRef:
+            name: semaphore-config
+            key: template    
+    retryStrategy:
+          limit: "2"
+          retryPolicy: "OnFailure" 
+          backoff:
+            duration: "3m"  
+    inputs:
+      parameters:
+      - name: event
+      - name: flow_name
+      - name: memory
+    outputs:
+      parameters:
+        - name: dump
+          valueFrom:
+            default: "{}"
+            path: /app/dump.txt
+    podSpecPatch: '{"containers":[{"name":"main", "resources":{"requests": { "memory": "{{inputs.parameters.memory}}" }, "limits":{ "memory": "{{inputs.parameters.memory}}" }}}]}'
+    container:
+      image: this-image
+      command: [python]
+      args: [ "{{inputs.parameters.flow_name}}", "{{inputs.parameters.event}}" ]
+      envFrom:
+       - configMapRef:
+           name: res-data-env           

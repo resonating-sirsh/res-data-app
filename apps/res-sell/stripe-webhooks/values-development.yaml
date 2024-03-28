@@ -1,0 +1,7 @@
+deployment:
+  type: "res_long_running_service"
+  replicas: 1
+  servicePort: 5000
+  ingressType: "public"
+  env:
+    TECH_PIRATES_TEST_CUSTOMER_ID: "cus_Ncdum4p5b5Jphd"

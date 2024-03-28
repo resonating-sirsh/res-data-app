@@ -1,0 +1,1383 @@
+- name: create-one-api
+  definition:
+    url_from_env: GRAPHQL_API_URL
+    timeout_seconds: 60
+    headers:
+      - name: apollographql-client-name
+        value: hasura
+      - name: apollographql-client-version
+        value: hasura
+      - name: x-api-key
+        value_from_env: GRAPHQL_API_KEY
+    forward_client_headers: true
+  comment: Join of create-one-api on Hasura
+  permissions:
+    - role: user
+      definition:
+        schema: |
+          schema {
+            query: Query
+            mutation: Mutation
+          }
+          scalar Date
+          scalar DateTime
+          scalar WhereValue
+          type Arc {
+            id: ID!
+            name: String
+          }
+          type ArtworkFile {
+            file: File
+            id: ID!
+            isOneReady: Boolean
+            oneReadyGate: String
+          }
+          type BillOfMaterial {
+            code: String
+            id: ID!
+            name: String
+            styleBomFriendlyName: String
+            trim: Trim
+            trimTaxonomy: TrimTaxonomy
+            trimType: String
+          }
+          type BodiesCursor {
+            bodies: [Body]
+            count: Int
+            cursor: String
+            hasMore: Boolean
+          }
+          type Body {
+            allSupportedMaterials: [Material]
+            availableSizes: [Size]
+            billOfMaterials: [BillOfMaterial]
+            bodyImages: [Image]
+            categoryName: String
+            cloPrintPlacementLink: String
+            code: String
+            constructions: [BodyConstruction]
+            description: String
+            globalId: ID!
+            id: String!
+            materialCategories: [String]
+            materialDefaultPrices: [BodyMaterialPrice]
+            measurementDiagram: [Image]
+            name: String
+            nextGenOneReady: String
+            oneReadyStatus: String
+            oneReadyStatusGate: String
+            productTags: [ProductTag]
+            productTaxonomy: ProductTaxonomy
+            sizeScale: String
+          }
+          type BodyConstruction {
+            id: ID!
+            operation: BodyOperation
+          }
+          type BodyMaterialPrice {
+            defaultPrice: Float
+            materialCode: String
+          }
+          type BodyOperation {
+            id: ID!
+            image: [Image]
+            name: String
+          }
+          type BodyPiece {
+            bodiesCode: [String]
+            code: String
+            createdAt: DateTime
+            id: ID!
+            name: String
+            pieceNameCode: String
+            pieceNameSpanish: String
+            pieceTypeCode: String
+            type: String
+            updatedAt: DateTime
+          }
+          type Brand {
+            about: String
+            accountName: String
+            addToCartQuerySelector: String
+            approvedDistributionCenters: [String]
+            bodies(first: Int!, after: String, where: BodiesWhere, sort: [BodiesSort!], search: String): BodiesCursor
+            brandPrimaryColor: String
+            brandSpaceId: String
+            canAccessAllBrands: Boolean
+            code: String
+            collectionMethod: String
+            colorImage: File
+            colors(first: Int!, after: String, where: ColorsWhere, sort: [ColorsSort!], search: String): ColorsCursor
+            compositions(first: Int!, after: String, where: CompositionsWhere, sort: [CompositionsSort!], search: String): CompositionsCursor
+            contactEmail: String
+            contextThemingEnabled: Boolean
+            createdAt: DateTime
+            darkMode: Int
+            daysLateWaived: Int
+            defaultInventoryQuantity: Int
+            embeddableOnBoardingGuide: String
+            font: [Image]
+            fromName: String
+            fulfillmentId: String
+            hero: [Image]
+            homePageUrl: String
+            id: ID!
+            integrationNotes: String
+            invoiceVersion: String
+            isActive: Boolean
+            isDarkMode: Boolean
+            isEcommerceConfigured: Boolean
+            isEcommerceTrackingActive: String
+            isFetchingOrdersOn: Boolean
+            isMainLabelInMaterial: Boolean
+            isMainLabelOutofDate: Boolean
+            isMainLabelWithSize: Boolean
+            isOnboarded: Boolean
+            isOneReady: Boolean
+            isSellEnabled: Boolean
+            isShopByOptionEnableDefault: Boolean
+            isTestingFetchingOrdersOn: Boolean
+            isUsingResTheme: Boolean
+            lastDayNewCustomers: Int
+            lastDayNewCustomersDifference: Float
+            lastDayNewOrders: Int
+            lastDayReturningCustomers: Int
+            lastDayReturningCustomersDifference: Float
+            lastDayRevenue: Float
+            lastDayRevenueDifference: Float
+            lastShopifyOrdersCheckAt: DateTime
+            lastShopifyOrdersUpdateAt: DateTime
+            logo: [Image]
+            logoUrl: String
+            mainLabelType: String
+            mainLabelTypeOptions: [String]
+            materialMainLabel: Material
+            materialSizeLabels: [Material]
+            metaOneId: String
+            name: String
+            needsUpdateLabelGateTrigger: String
+            needsUpdateLabelGateTriggerMirror: String
+            notifyMeOrderLateEmail: Boolean
+            nycLocationId: String
+            onboardingGuide: String
+            pixelId: String
+            primaryColor: String
+            recordLink: String
+            resmagicCoreId: String
+            returnPolicy: String
+            returnspageUrl: String
+            revenueShareEcommerce: Float
+            revenueShareWholesale: Float
+            scope: String
+            secondaryColor: String
+            sellEnabled: Boolean
+            sendCreateOneOrderEmail: Boolean
+            sendOrderDelayedEmail: Boolean
+            shippingPricePerOne: Float
+            shopByOptionsDefault: [String]
+            shopifyAccessToken: String
+            shopifyApiKey: String
+            shopifyApiPassword: String
+            shopifySharedSecret: String
+            shopifyStatus: Boolean
+            shopifyStoreName: String
+            shouldSyncInventory: Boolean
+            sizeChart: File
+            sizeLabel: String
+            sizeLabelColor: String
+            socialsFacebook: String
+            socialsInstagram: String
+            socialsPinterest: String
+            socialsTwitter: String
+            softwarePricePerOne: Float
+            stiLocationId: String
+            storeLink: String
+            stores: [Brand]
+            stripeCustomerId: String
+            styleMainLabel: Style
+            styles(first: Int!, after: String, where: StylesWhere, sort: [StylesSort!], search: String): StylesCursor
+            subdomainName: String
+            themeConfiguration: String
+            updatedAt: DateTime
+            userIds: [String]
+            validLogo: [Image]
+          }
+          type BrandBodyCategory {
+            brandCode: String
+            createdAt: DateTime
+            id: ID!
+            isEcommerceReady: Boolean
+            isMultipleStylesEnabled: Boolean
+            longName: String
+            name: String
+            needsSyncWithBodiesTrigger: String
+            needsSyncWithBodiesTriggerMirror: String
+            productTitlePart1: String
+            productTitlePart2: String
+            sellStatus: String
+            shopifyOption1Name: String
+            shopifyOption2Name: String
+            shopifyOption3Name: String
+            styleGroupingAttribute1: String
+            styleGroupingAttribute2: String
+            styleGroupingAttributes: [String]
+            updatedAt: DateTime
+          }
+          type BrandMutationResponse {
+            brand: Brand
+          }
+          type BrandsCursor {
+            brands: [Brand]
+            count: Int
+            cursor: String
+            hasMore: Boolean
+          }
+          type Campaign {
+            id: ID!
+          }
+          type CheckShopifyStatusResponse {
+            brand: Brand
+            message: String
+            status: Boolean
+          }
+          type Color {
+            artworkFiles: [ArtworkFile]
+            brand: Brand
+            code: String
+            collection: String
+            createdAt: DateTime
+            createdBy: User
+            description: String
+            font: String
+            id: ID!
+            images: [Image]
+            isAColor: Boolean
+            isTrashed: Boolean
+            marketplaceItem: MarketplaceItem
+            name: String
+            nextGenOneReady: String
+            notes: String
+            productTags: [ProductTag]
+            repeatSize: String
+            styles(first: Int!, after: String, where: StylesWhere, sort: [StylesSort!], search: String): StylesCursor
+            updatedAt: DateTime
+          }
+          type ColorMutationResponse {
+            color: Color
+          }
+          type ColorsCursor {
+            colors: [Color]
+            count: Int
+            cursor: String
+            hasMore: Boolean
+          }
+          type Composition {
+            canvasPosition: [Int]
+            description: String
+            entity: CompositionItemEntity
+            entityType: String
+            id: ID!
+            images: [Image]
+            name: String
+            oneWorkflow: OneWorkflow
+            parentLink: [String]
+          }
+          type CompositionMutationResponse {
+            composition: Composition
+          }
+          type CompositionsCursor {
+            compositions: [Composition]
+            count: Int
+            cursor: String
+            hasMore: Boolean
+          }
+          type CreateStyleBillOfMaterialsResponse {
+            styleBillOfMaterials: StyleBillOfMaterials
+          }
+          type File {
+            createdAt: DateTime
+            createdBy: User
+            extension: String
+            id: ID!
+            isPublic: Boolean
+            name: String
+            s3: FileS3
+            size: Float
+            storageType: String
+            thumbnail(size: Int): FileThumbnail
+            type: String
+            updatedAt: DateTime
+            url(downloadName: String): String
+          }
+          type FileS3 {
+            bucket: String
+            key: String
+          }
+          type FileThumbnail {
+            url: String
+          }
+          type Image {
+            fileName: String
+            fullThumbnail: String
+            id: ID!
+            largeThumbnail: String
+            size: Int
+            smallThumbnail: String
+            url: String
+          }
+          type IpfsFile implements Model {
+            createdAt: DateTime
+            hash: String
+            id: ID!
+            ipfsUrl: String
+            name: String
+            styleId: String
+            type: String
+            updatedAt: DateTime
+            url: String
+          }
+          type IpfsFileMutationResponse {
+            metadataFile: String
+          }
+          type MarketplaceItem {
+            availability: [String]
+            category: [String]
+            id: ID!
+            parentColor: Color
+            price: Float
+          }
+          type MarketplaceItemsCursor {
+            count: Int
+            cursor: String
+            hasMore: Boolean
+            marketplaceItems: [MarketplaceItem]
+          }
+          type Material {
+            careInstructions: String
+            category: String
+            code: String
+            content: String
+            description: String
+            drapeImages: [Image]
+            dryCare: String
+            fabricType: String
+            id: ID!
+            images: [Image]
+            ironCare: String
+            isNew: Boolean
+            isOrganic: Boolean
+            materialTaxonomyParent: MaterialTaxonomy
+            name: String
+            pricePerUnit: Float
+            threadCount: String
+            trimColorHexCode: String
+            vendor: PurchasingVendor
+            vendorCertification: [VendorCertification]
+            washCare: String
+            weight: String
+          }
+          type MaterialTaxonomy {
+            id: ID!
+            weightCategory: String
+          }
+          type MaterialsCursor {
+            count: Int
+            cursor: String
+            hasMore: Boolean
+            materials: [Material]
+          }
+          type Mutation {
+            addArtworkFileToColor(id: ID!, input: AddArtworkFileToColorInput): ColorMutationResponse!
+            addPhotosToProduct(id: ID!, input: AddPhotosToProdutInput!): ProductMutationResponse!
+            addPhotosToStyle(id: ID!, input: AddPhotosToStyleInput!): StyleMutationResponse!
+            checkShopifyStatus(id: ID): CheckShopifyStatusResponse!
+            createBrand(input: CreateBrandInput!): BrandMutationResponse!
+            createColor(input: CreateColorInput!): ColorMutationResponse!
+            createComposition(input: CreateCompositionInput!): CompositionMutationResponse!
+            createIpfsMetadata(input: CreateIpfsFileForStyle!): IpfsFileMutationResponse
+            createStyle(input: CreateStyleMutation!): StyleMutationResponse!
+            createStyleBillOfMaterials(input: CreateStyleBillOfMaterialsInput): CreateStyleBillOfMaterialsResponse
+            deleteComposition(id: ID!, input: DeleteCompositionInput!): CompositionMutationResponse!
+            importProductToEcommerce(id: ID!): ProductMutationResponse!
+            removePhotoFromProduct(id: ID!, input: RemovePhotoFromProductInput!): ProductMutationResponse!
+            removePhotoFromStyle(id: ID!, input: RemovePhotoFromStyleInput!): StyleMutationResponse!
+            reorderProductPhoto(id: ID!, input: ReorderProductPhotoInput!): ProductMutationResponse!
+            syncProductPhotosWithEcommerce(id: ID!): ProductMutationResponse!
+            updateBrand(id: ID!, input: UpdateBrandInput!): BrandMutationResponse!
+            updateComposition(id: ID!, input: UpdateCompositionInput!): CompositionMutationResponse!
+            updateEcommerceProduct(id: ID!): ProductMutationResponse!
+            updateOneWorkflowStep(id: ID!, input: inputOneWorkflowStep!): OneWorkflowStepMutationResponse
+            updateProduct(id: ID!, input: UpdateProductInput): UpdateProductMutationResponse!
+            updateStyle(id: ID!, input: UpdateStyleInput!): StyleMutationResponse!
+            updateStyleBillOfMaterials(id: ID!, input: UpdateStyleBillOfMaterialsInput): UpdateStyleBillOfMaterialsResponse
+            welcome: String
+          }
+          type One {
+            avatar: [Image]
+            biodegradable: Float
+            carbonComparison: Float
+            cover: [Image]
+            dyeWasteComparison: Float
+            id: ID!
+            materialComparison: Float
+            name: String
+            oneId: String
+            orderId: String
+            orderLineItemId: String
+            status: String
+            styleId: String
+            tempColor: String
+            thumbprint: String
+            waterComparison: Float
+          }
+          type OnePrice {
+            cost: Float
+            margin: Float
+            price: Float
+            priceBreakdown: [PriceBreakdown]
+            size: Size
+          }
+          type OneWorkflow {
+            brand: Brand
+            composition: Composition
+            createdAt: DateTime
+            id: ID!
+            name: String
+            tasks: [OneWorkflowTask]
+            templateWorkflow: TemplateWorkflow
+            updatedAt: DateTime
+          }
+          type OneWorkflowStep {
+            createdAt: DateTime
+            ctxLocId: String
+            description: String
+            feature: String
+            id: ID!
+            isComplete: Boolean
+            location: String
+            name: String
+            stepOrder: Int
+            subfeature: String
+            task: OneWorkflowTask
+            templateStep: TemplateStep
+            updatedAt: DateTime
+            updatedLocation: String
+          }
+          type OneWorkflowStepMutationResponse {
+            oneWorkflowStep: OneWorkflowStep
+          }
+          type OneWorkflowTask {
+            createdAt: DateTime
+            id: ID!
+            location: String
+            name: String
+            steps: [OneWorkflowStep]
+            templateTask: TemplateTask
+            updatedAt: DateTime
+            workflow: OneWorkflow
+          }
+          type Origin {
+            id: ID!
+            name: String
+          }
+          type PointOfMeasure {
+            measurement: Float
+            name: String
+            number: Int
+          }
+          type PointsOfMeasureBySize {
+            pointsOfMeasure: [PointOfMeasure]
+          }
+          type Post {
+            id: ID!
+          }
+          type PriceBreakdown {
+            category: String
+            cost: Float
+            item: String
+            quantity: Float
+            rate: Float
+            unit: String
+          }
+          type Product {
+            allSku: [String]
+            allowOverselling: Boolean
+            bodyCode: String
+            brandCode: String
+            campaignIds: [String]
+            category: BrandBodyCategory
+            categoryId: String
+            createdAt: DateTime
+            createdBy: String
+            defaultTags: String
+            deletedInEcommerceAt: DateTime
+            description: String
+            ecommTags: String
+            ecommerceId: String
+            ecommerceTags: [ProductTag]
+            groupByKey: String
+            id: ID!
+            importedAt: DateTime
+            isImported: Boolean
+            isLive: Boolean
+            isOneReady: Boolean
+            isReadyForEcommerce: Boolean
+            isShopByOptionEnable: Boolean
+            isTrashed: Boolean
+            lastSyncedAt: DateTime
+            linkToEcommerce: String
+            name: String
+            originBrand: Brand
+            photos: [ProductPhoto]
+            previewLink: String
+            price: Float
+            productHandle: String
+            publishedAt: DateTime
+            readyForEcommerceStatus: String
+            resCode: String
+            shouldSyncTags: Boolean
+            startedEditingAt: DateTime
+            storeBrand: Brand
+            storeCode: String
+            style: Style
+            styleId: String
+            tags: String
+            title: String
+            unplublishedAt: DateTime
+            updatedAt: DateTime
+            url: String
+            wasDeletedInEcommerce: Boolean
+          }
+          type ProductMutationResponse {
+            product: Product
+          }
+          type ProductPhoto {
+            bucket: String
+            id: ID!
+            key: String
+            name: String
+            tags: [String]
+            thumbnail(size: Int): ProductPhotoThumbnail
+            type: String
+            url: String
+            """Size in bytes"""
+            size: Int
+          }
+          type ProductPhotoThumbnail {
+            url: String
+          }
+          type ProductTag {
+            id: ID!
+            name: String
+          }
+          type ProductTaxonomy {
+            id: ID!
+            types: [String]
+          }
+          type PurchasingTrimTaxonomiesCursor {
+            cursor: String
+            hasMore: Boolean
+            purchasingTrimTaxonomies: [PurchasingTrimTaxonomy]
+          }
+          type PurchasingTrimTaxonomy {
+            attachments: [Image]
+            category: String
+            childTaxonomy(first: Int!, after: String, where: PurchasingTrimTaxonomiesWhere, sort: [PurchasingTrimTaxonomiesSort!], search: String): PurchasingTrimTaxonomiesCursor
+            createdAt: DateTime
+            function: String
+            id: ID!
+            materials: [Material]
+            metaOneId: String
+            name: String
+            parentTaxonomy(first: Int!, after: String, where: PurchasingTrimTaxonomiesWhere, sort: [PurchasingTrimTaxonomiesSort!], search: String): PurchasingTrimTaxonomiesCursor
+            size: String
+            taxonomyParentId: String
+            type: String
+            updatedAt: DateTime
+          }
+          type PurchasingVendor {
+            name: String
+            origin: Origin
+          }
+          type Query {
+            bodies(first: Int!, after: String, where: BodiesWhere, sort: [BodiesSort!], search: String): BodiesCursor
+            brand(id: ID, code: String @preset(value: "X-Hasura-Brand-Code")): Brand
+            brands(first: Int!, after: String, where: BrandsWhere, sort: [BrandsSort!], search: String): BrandsCursor
+            colors(first: Int!, after: String, where: ColorsWhere, sort: [ColorsSort!], search: String): ColorsCursor
+            compositions(first: Int!, after: String, where: CompositionsWhere, sort: [CompositionsSort!], search: String): CompositionsCursor
+            marketplaceItem(id: ID!): MarketplaceItem
+            marketplaceItems(first: Int!, after: String, where: MarketplaceItemsWhere, sort: [MarketplaceItemsSort!], search: String): MarketplaceItemsCursor
+            materials(first: Int!, after: String, where: MaterialsWhere, sort: [MaterialsSort!], search: String): MaterialsCursor
+            purchasingTrimTaxonomies(first: Int!, after: String, where: PurchasingTrimTaxonomiesWhere, sort: [PurchasingTrimTaxonomiesSort!], search: String): PurchasingTrimTaxonomiesCursor
+            style(code: String, id: ID, version: Int): Style
+            styleRender(id: ID!): StyleRender
+            styles(first: Int!, after: String, where: StylesWhere, sort: [StylesSort!], search: String): StylesCursor
+            user(id: ID, email: String): User
+            welcome: String
+          }
+          type ReadyToOrderStatus {
+            statusBySize(sizeCode: String, colorPlacementType: String): [SizeReadyToOrderStatus]
+          }
+          type ShopifyProduct {
+            createdAt: DateTime
+            id: ID!
+            isPublished: Boolean
+            name: String
+            previewLink: String
+            price: Float
+            updatedAt: DateTime
+          }
+          type Size {
+            code: String
+            id: ID!
+            name: String
+            sortOrder: Int
+          }
+          type SizeReadyToOrderStatus {
+            isReadyToOrder: Boolean
+            size: Size
+          }
+          type Style {
+            availableSizes: [Size]
+            body: Body
+            brand: Brand
+            brandCode: String
+            code: String
+            color: Color
+            coverImages: [File]
+            customProductDescription: String
+            customProductName: String
+            customizations: [StyleCustomization]
+            ecommerce: StyleEcommerce
+            finalProductDescription: String
+            finalStyleName: String
+            id: ID!
+            isCustomized: Boolean
+            material: Material
+            name: String
+            nextGenOneReady: String
+            onePrices: [OnePrice]
+            photos: [StylePhoto]
+            qrCode: [Image]
+            readyToOrderStatus: ReadyToOrderStatus
+            retailPrice: Float
+            styleBillOfMaterials: [StyleBillOfMaterials]
+            styleKey: String
+            versions: [Version]
+          }
+          type StyleBillOfMaterials {
+            billOfMaterial: BillOfMaterial
+            id: ID!
+            include: Boolean
+            trimItem: Material
+          }
+          type StyleCustomization {
+            bodyPiece: BodyPiece
+            createdAt: DateTime
+            font: File
+            id: ID!
+            key: String
+            name: String
+            type: StyleCustomizationType
+            updatedAt: DateTime
+          }
+          type StyleEcommerce {
+            shopify: StyleShopify
+          }
+          type StyleMutationResponse {
+            style: Style
+          }
+          type StylePhoto {
+            bucket: String
+            id: ID!
+            key: String
+            name: String
+            size: Int
+            tags: [String]
+            thumbnail(size: Int): StylePhotoThumbnail
+            type: String
+            url: String
+          }
+          type StylePhotoThumbnail {
+            url: String
+          }
+          type StyleRender {
+            artifactPaths: [String!]
+            bodyCode: String!
+            brand: Brand!
+            colorImagePath: String!
+            createdAt: DateTime!
+            id: ID!
+            status: StyleRenderStatus!
+            userId: ID!
+          }
+          type StyleShopify {
+            product: ShopifyProduct
+          }
+          type StylesCursor {
+            count: Int
+            cursor: String
+            hasMore: Boolean
+            styles: [Style]
+          }
+          type TemplateStep {
+            createdAt: DateTime
+            feature: String
+            helperText: String
+            id: ID!
+            instantiations: [OneWorkflowStep]
+            location: String
+            name: String
+            oneReadyCriteria: [String]
+            stepOrder: Int
+            subfeature: String
+            templateTasks: [TemplateTask]
+            updatedAt: DateTime
+          }
+          type TemplateTask {
+            closestLinearOrdering: Int
+            createdAt: DateTime
+            description: String
+            id: ID!
+            instantiations: [OneWorkflowTask]
+            name: String
+            templateSteps: [TemplateStep]
+            templateWorkflow: [TemplateWorkflow]
+            updatedAt: DateTime
+          }
+          type TemplateWorkflow {
+            createdAt: DateTime
+            description: String
+            id: ID!
+            instantiations: [OneWorkflow]
+            name: String
+            templateTasks: [TemplateTask]
+            updatedAt: DateTime
+          }
+          type Trim {
+            categoryName: String
+            id: ID!
+            images: [Image]
+            name: String
+          }
+          type TrimTaxonomy {
+            id: ID!
+            isHiddenFromCreator: Boolean
+          }
+          type UpdateProductMutationResponse {
+            product: Product
+          }
+          type UpdateStyleBillOfMaterialsResponse {
+            styleBillOfMaterials: StyleBillOfMaterials
+          }
+          type User {
+            brand: Brand
+            createdAt: DateTime
+            email: String
+            firstName: String
+            hasCrossLayerAccess: Boolean
+            hasMultiBrandAccess: Boolean
+            hasPermissionsAssigned: Boolean
+            id: ID!
+            isActive: Boolean
+            isNextGenActive: Boolean
+            lastName: String
+            name: String
+            status: String
+            updatedAt: DateTime
+          }
+          type VendorCertification {
+            certification: String
+            createdAt: DateTime
+            id: ID!
+            name: String
+            type: String
+            updatedAt: DateTime
+          }
+          type Version {
+            changes: [VersionChange]
+            id: ID!
+          }
+          type VersionChange {
+            changedAt: DateTime
+            changedFrom: String
+            changedTo: String
+            field: String
+          }
+          union CompositionItemEntity = Arc | Body | Brand | Campaign | Color | File | Material | Post | Style
+          enum BodiesSortField {
+            BRAND_CODE
+            CREATED_AT
+            GENERATED_NUMBER
+            IS_ONE_READY
+            NAME
+            SORT_PRIORITY
+            UPDATED_AT
+          }
+          enum BrandsSortField {
+            CREATED_AT
+            NAME
+            UPDATED_AT
+          }
+          enum ColorsSortField {
+            CREATED_AT
+            NAME
+            UPDATED_AT
+          }
+          enum CompositionsSortField {
+            CREATED_AT
+            NAME
+            UPDATED_AT
+          }
+          enum MarketplaceItemsSortField {
+            CREATED_AT
+            NAME
+            UPDATED_AT
+          }
+          enum MaterialsOnboardingSortField {
+            CODE
+            CREATED_AT
+            NAME
+            UPDATED_AT
+          }
+          enum MaterialsSortField {
+            BRAND_CODE
+            CATEGORY
+            CODE
+            CONTENT
+            COST_PER_UNIT
+            CREATED_AT
+            FABRIC_PRICE_PER_YARD
+            NAME
+            STATUS_SORT
+            UPDATED_AT
+            WEIGHT
+          }
+          enum PrintType {
+            DIRECTIONAL
+            PLACEMENT
+          }
+          enum PurchasingTrimTaxonomiesSortField {
+            CREATED_AT
+            UPDATED_AT
+          }
+          enum SortDirection {
+            ASCENDING
+            DESCENDING
+          }
+          enum StyleCustomizationType {
+            IMAGE
+            TEXT
+          }
+          enum StyleRenderStatus {
+            ACKNOWLEDGED
+            COMPLETED_ERRORS
+            COMPLETED_SUCCESS
+            NEW
+            RENDER_IN_PROGRESS
+          }
+          enum StylesSortField {
+            BODY_CODE
+            CREATED_AT
+            IS_ONE_READY
+            NAME
+            UPDATED_AT
+          }
+          enum ThemeConfiguration {
+            CUSTOM
+            DARK
+            LIGHT
+          }
+          input AddArtworkFileToColorInput {
+            boxFileId: String
+            fileId: String
+            isApprovedForAllMaterials: Boolean
+            name: String!
+          }
+          input AddPhotosToProdutInput {
+            photos: [ProductPhotoInput]!
+          }
+          input AddPhotosToStyleInput {
+            photos: [StylePhotoInput]!
+          }
+          input AttachmentInput {
+            url: String
+          }
+          input BodiesSort {
+            direction: SortDirection!
+            field: BodiesSortField!
+          }
+          input BodiesWhere {
+            allSupportedMaterialsArray: WhereOperator
+            and: [BodiesWhere]
+            availableInMaterialCodes: WhereOperator
+            availableSizeIds: WhereOperator
+            availableSizes: WhereOperator
+            body3Enabled: WhereOperator
+            bodyImages: WhereOperator
+            bodyOneReadyStatus: WhereOperator
+            brandBodyCategoryId: WhereOperator
+            brandCode: WhereOperator @preset(value: {is:"X-Hasura-Brand-Code"})
+            categoryId: WhereOperator
+            createdAt: WhereOperator
+            generatedNumber: WhereOperator
+            hasComboPieces: WhereOperator
+            id: WhereOperator
+            isApproved: WhereOperator
+            isHiddenForBrands: WhereOperator
+            isOneReady: WhereOperator
+            name: WhereOperator
+            number: WhereOperator
+            or: [BodiesWhere]
+            productTaxonomyCode: WhereOperator
+            sewOneReady: WhereOperator
+            sizeScale: WhereOperator
+            updatedAt: WhereOperator
+            vStitcherStatus: WhereOperator
+          }
+          input BrandsSort {
+            direction: SortDirection!
+            field: BrandsSortField!
+          }
+          input BrandsWhere {
+            and: [BrandsWhere]
+            canAccessAllBrands: WhereOperator
+            code: WhereOperator
+            contactEmail: WhereOperator
+            createdAt: WhereOperator
+            id: WhereOperator
+            isActive: WhereOperator
+            isFetchingOrdersOn: WhereOperator
+            isOneReady: WhereOperator
+            isSellEnabled: WhereOperator
+            isTestingFetchingOrdersOn: WhereOperator
+            isUsingResTheme: WhereOperator
+            or: [BrandsWhere]
+            shopifyStatus: WhereOperator
+            shopifyStoreName: WhereOperator
+            stripeCustomerId: WhereOperator
+            subdomainName: WhereOperator
+            updatedAt: WhereOperator
+          }
+          input ColorImageInput {
+            fileId: ID!
+          }
+          input ColorsSort {
+            direction: SortDirection!
+            field: ColorsSortField!
+          }
+          input ColorsWhere {
+            and: [ColorsWhere]
+            brandCode: WhereOperator @preset(value: {is:"X-Hasura-Brand-Code"})
+            code: WhereOperator
+            collection: WhereOperator
+            createdAt: WhereOperator
+            id: WhereOperator
+            isTrashed: WhereOperator
+            needsSyncWithMarkers: WhereOperator
+            needsSyncWithStyles: WhereOperator
+            or: [ColorsWhere]
+            updatedAt: WhereOperator
+          }
+          input CompositionImageInput {
+            url: String
+          }
+          input CompositionsSort {
+            direction: SortDirection!
+            field: CompositionsSortField!
+          }
+          input CompositionsWhere {
+            and: [CompositionsWhere]
+            brandCode: WhereOperator @preset(value: {is:"X-Hasura-Brand-Code"})
+            brandId: WhereOperator
+            demoBrand: WhereOperator
+            id: WhereOperator
+            or: [CompositionsWhere]
+            pathName: WhereOperator
+          }
+          input CreateBrandInput {
+            about: String
+            contextThemingEnabled: Boolean
+            font: [AttachmentInput]
+            hero: [AttachmentInput]
+            isActive: Boolean
+            name: String
+            primaryColor: String
+            secondaryColor: String
+            themeConfiguration: ThemeConfiguration
+            validLogo: [AttachmentInput]
+          }
+          input CreateColorInput {
+            brandId: ID!
+            collection: String
+            image: ColorImageInput
+            name: String!
+          }
+          input CreateCompositionInput {
+            brandCode: String @preset(value: "X-Hasura-Brand-Code")
+            brandId: String
+            canvasPosition: [Int]
+            endDate: DateTime
+            entityId: String
+            entityType: String
+            images: [CompositionImageInput]
+            name: String!
+            oneWorkflow: ID
+            parentLink: [String]
+            startDate: DateTime
+          }
+          input CreateIpfsFileForStyle {
+            previewImageS3Url: String!
+            render3DS3Url: String!
+            styleCode: String!
+          }
+          input CreateStyleBillOfMaterialsInput {
+            billOfMaterialId: String
+            include: Boolean
+            materialId: String
+            name: String
+            sizeLabelIds: [String]
+            styleCode: String
+            styleId: String
+            styleVersion: Int
+            trackingLabelIds: [String]
+          }
+          input CreateStyleMutation {
+            brandCode: String! @preset(value: "X-Hasura-Brand-Code")
+          }
+          input DeleteCompositionInput {
+            entityId: String
+            entityType: String
+            parentLink: [String]
+          }
+          input ImageInput {
+            id: String
+            url: String
+          }
+          input MarketplaceItemsSort {
+            direction: SortDirection!
+            field: MarketplaceItemsSortField!
+          }
+          input MarketplaceItemsWhere {
+            and: [MarketplaceItemsWhere]
+            availability: WhereOperator
+            description: WhereOperator
+            id: WhereOperator
+            or: [MarketplaceItemsWhere]
+            parentColor: WhereOperator
+            price: WhereOperator
+            purchasedBy: WhereOperator
+          }
+          input MaterialsOnboardingSort {
+            direction: SortDirection!
+            field: MaterialsOnboardingSortField!
+          }
+          input MaterialsOnboardingWhere {
+            and: [MaterialsOnboardingWhere]
+            code: WhereOperator
+            createdAt: WhereOperator
+            id: WhereOperator
+            isHiddenForBrands: WhereOperator
+            name: WhereOperator
+            or: [MaterialsOnboardingWhere]
+          }
+          input MaterialsSort {
+            direction: SortDirection!
+            field: MaterialsSortField!
+          }
+          input MaterialsWhere {
+            and: [MaterialsWhere]
+            applicableMaterial: WhereOperator
+            brandCode: WhereOperator @preset(value: {is:"X-Hasura-Brand-Code"})
+            brandName: WhereOperator
+            category: WhereOperator
+            categoryId: WhereOperator
+            code: WhereOperator
+            costPerUnit: WhereOperator
+            createdAt: WhereOperator
+            developmentStatus: WhereOperator
+            drapeImages: WhereOperator
+            fabricCostPerYard: WhereOperator
+            fabricType: WhereOperator
+            id: WhereOperator
+            isApprovedForProduction: WhereOperator
+            isHiddenForBrands: WhereOperator
+            isHideFromTrimsTab: WhereOperator
+            isOneReady: WhereOperator
+            materialTaxonomyCategory: WhereOperator
+            materialTaxonomyCode: WhereOperator
+            name: WhereOperator
+            or: [MaterialsWhere]
+            packCode: WhereOperator
+            resPackCode: WhereOperator
+            size: WhereOperator
+            skuCode: WhereOperator
+            stationCategory: WhereOperator
+            subCategory: WhereOperator
+            threadQualities: WhereOperator
+            threadTexture: WhereOperator
+            trimTaxonomyId: WhereOperator
+            trimType: WhereOperator
+          }
+          input ProductPhotoInput {
+            bucket: String!
+            key: String!
+            name: String!
+            size: Int!
+            type: String!
+          }
+          input PurchasingTrimTaxonomiesSort {
+            direction: SortDirection!
+            field: PurchasingTrimTaxonomiesSortField!
+          }
+          input PurchasingTrimTaxonomiesWhere {
+            and: [PurchasingTrimTaxonomiesWhere]
+            id: WhereOperator
+            metaOneId: WhereOperator
+            name: WhereOperator
+            or: [PurchasingTrimTaxonomiesWhere]
+            taxonomyParentId: WhereOperator
+            updatedAt: WhereOperator
+          }
+          input RemovePhotoFromProductInput {
+            photoId: ID!
+          }
+          input RemovePhotoFromStyleInput {
+            photoId: ID!
+          }
+          input ReorderProductPhotoInput {
+            photoId: ID!
+            position: Int!
+          }
+          input ResThemeMetaDataInput {
+            developmentId: String
+            productionId: String
+            stagingId: String
+          }
+          input StylePhotoInput {
+            bucket: String!
+            key: String!
+            name: String!
+            type: String!
+            """File size in bytes"""
+            size: Int!
+          }
+          input StylesSort {
+            direction: SortDirection!
+            field: StylesSortField!
+          }
+          input StylesWhere {
+            and: [StylesWhere]
+            bodyCode: WhereOperator
+            bodyId: WhereOperator
+            brandCode: WhereOperator @preset(value: {is:"X-Hasura-Brand-Code"})
+            code: WhereOperator
+            colorCode: WhereOperator
+            colorId: WhereOperator
+            id: WhereOperator
+            materialCode: WhereOperator
+            name: WhereOperator
+            or: [StylesWhere]
+            retailPrice: WhereOperator
+            totalCost: WhereOperator
+          }
+          input UpdateBrandInput {
+            accountName: String
+            activeHeroesSectionIds: [String]
+            brandPrimaryColor: String
+            brandSpaceId: String
+            canAccessAllBrands: Boolean
+            code: String
+            collectionMethod: String
+            colorImageJson: [ImageInput]
+            contactEmail: String
+            contextThemingEnabled: Boolean
+            darkMode: Int
+            daysLateWaived: Int
+            defaultInventoryQuantity: Int
+            fromName: String
+            integrationNotes: String
+            invoiceVersion: String
+            isEcommerceConfigured: Boolean
+            isFetchingOrdersOn: Boolean
+            isOnboarded: Boolean
+            isShopByOptionEnableDefault: Boolean
+            isUsingResTheme: Boolean
+            lastShopifyOrdersCheckAt: DateTime
+            lastShopifyOrdersUpdateAt: DateTime
+            name: String
+            notifyMeOrderLateEmail: Boolean
+            nycLocationId: String
+            releaseSettingJson: String
+            resThemeMetadata: ResThemeMetaDataInput
+            revenueShareEcommerce: Float
+            revenueShareWholesale: Float
+            scope: String
+            sendCreateOneOrderEmail: Boolean
+            sendOrderDelayedEmail: Boolean
+            shippingPricePerOne: Float
+            shopByOptionsDefault: [String]
+            shopifyAccessToken: String
+            shopifyApiKey: String
+            shopifyApiPassword: String
+            shopifySharedSecret: String
+            shopifyStatus: Boolean
+            shopifyStoreName: String
+            shouldSyncInventory: Boolean
+            sizeChartFileId: String
+            sizeLabel: String
+            softwarePricePerOne: Float
+            stiLocationId: String
+            stripeCustomerId: String
+            styleMainLabel: String
+            themeConfiguration: ThemeConfiguration
+          }
+          input UpdateCompositionInput {
+            brandId: String
+            canvasPosition: [Int]
+            entityId: String
+            entityType: String
+            images: [CompositionImageInput]
+            name: String
+            oneWorkflow: ID
+            parentLink: [String]
+            startDate: DateTime
+          }
+          input UpdateProductInput {
+            allowOverselling: Boolean
+            brandCode: String @preset(value: "X-Hasura-Brand-Code")
+            categoryId: String
+            createdAt: DateTime
+            deletedInEcommerceAt: DateTime
+            description: String
+            ecommerceId: String
+            groupByKey: String
+            importedAt: DateTime
+            isImported: Boolean
+            isLive: Boolean
+            isShopByOptionEnable: Boolean
+            lastSyncedAt: DateTime
+            name: String
+            previewLink: String
+            price: Float
+            productHandle: String
+            publishedAt: DateTime
+            shopByColorId: String
+            shouldSyncTags: Boolean
+            storeCode: String
+            styleId: String
+            tags: String
+            title: String
+            unplublishedAt: DateTime
+            updatedAt: DateTime
+            url: String
+            wasDeletedInEcommerce: Boolean
+          }
+          input UpdateStyleBillOfMaterialsInput {
+            include: Boolean
+            materialId: String
+            sizeLabelIds: [String]
+            trackingLabelIds: [String]
+          }
+          input UpdateStyleInput {
+            activeEcomPrice: Float
+            allowOversellingMirror: String
+            approvedForChannels: [String]
+            arePlacementFilesReady: Boolean
+            artworkFileId: String
+            artworkFileIdMirror: String
+            assetsFolderId: String
+            bodyCode: String
+            bodyEcommerceTags: String
+            bodyId: String
+            bodyPiecesIdsMirror: [String]
+            brandShippingPricePerOne: Float
+            brandSoftwarePricePerOne: Float
+            categoryId: String
+            colorId: String
+            customProductDescription: String
+            customProductName: String
+            ecommerceCategoryName: String
+            finalPrice: Float
+            generateDxaAssets: Boolean
+            generatedGroupName: String
+            gradfathered: Boolean
+            hasBeenMade: Boolean
+            isBodyNotApprovedForSelectedMaterial: Boolean
+            isBrandEcommerceConfigured: Boolean
+            isBrandLabelConfigured: Boolean
+            isLocked: Boolean
+            isMissingAnyPlacementFile: Boolean
+            isOneReadyMirror: String
+            isSwappingMaterials: Boolean
+            isTrimsMapped: Boolean
+            markersErrors: String
+            materialCode: String
+            materialCodeMirror: String
+            materialEcommerceTags: String
+            materialNotApprovedReasons: String
+            needsToUpdateBodyMaterialContract: Boolean
+            notes: String
+            photoAssetsFolderId: String
+            placementFilesFolderId: String
+            placementFilesGrandfatheredCount: Int
+            placementFilesJson: String
+            placementFilesMissingTagCount: Int
+            placementFilesSizesUploaded: String
+            placementFilesTooBig: Boolean
+            placementFilesUnknown: Int
+            placementFilesUntagged: Int
+            previousStyleBillOfMaterialsIds: [String]
+            printType: PrintType
+            printTypeMirror: PrintType
+            requiredTrimCheckedAt: DateTime
+            requiredTrimGate: String
+            retailPrice: Float
+            shopifyFixedGrouping1: String
+            shopifyFixedGrouping2: String
+            simulationBrandFeedback: String
+            simulationStatus: String
+            storesJson: String
+            styleBillOfMaterialsIds: [String]
+            styleBillOfMaterialsVersion: Int
+            stylePieces: String
+            stylePiecesMaterials: [String]
+            stylePiecesMaterialsUpdatedAt: DateTime
+            stylePiecesMirror: String
+            tags: String
+            triggerPricingRefresh: Boolean
+            trimNotes: String
+            version: Int
+            wasOnboardRequested: Boolean
+          }
+          input WhereOperator {
+            hasAllOf: [WhereValue]
+            hasAnyOf: [WhereValue]
+            hasNoneOf: [WhereValue]
+            is: WhereValue
+            isAnyOf: [WhereValue]
+            isGreaterThan: WhereValue
+            isGreaterThanOrEqualTo: WhereValue
+            isLessThan: WhereValue
+            isLessThanOrEqualTo: WhereValue
+            isNoneOf: [WhereValue]
+            isNot: WhereValue
+          }
+          input inputOneWorkflowStep {
+            isComplete: Boolean
+            task: ID
+            templateStep: ID
+            updatedLocation: String
+          }
+- name: s3url-signer
+  definition:
+    url_from_env: S3_URL_SIGNER_ENDPOINT
+    timeout_seconds: 60
+  comment: ""
+  permissions:
+    - role: user
+      definition:
+        schema: |
+          type Query {
+            signPath(privatePath: String!): String
+          }

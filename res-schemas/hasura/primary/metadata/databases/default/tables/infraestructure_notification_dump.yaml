@@ -1,0 +1,14 @@
+table:
+  name: notification_dump
+  schema: infraestructure
+event_triggers:
+  - name: send_notification
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: https://datadev.resmagic.io/res-connect/flows/send-notification

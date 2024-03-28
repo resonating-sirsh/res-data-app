@@ -1,0 +1,23 @@
+table:
+  name: brands_wallets
+  schema: digital_product
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        brand_code:
+          _eq: X-Hasura-Brand-Code
+      columns:
+        - brand_code
+        - id
+        - wallet_address
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - brand_code
+        - id
+        - wallet_address
+      filter:
+        brand_code:
+          _eq: X-Hasura-Brand-Code

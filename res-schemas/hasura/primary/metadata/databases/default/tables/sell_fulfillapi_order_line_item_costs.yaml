@@ -1,0 +1,7 @@
+table:
+  name: fulfillapi_order_line_item_costs
+  schema: sell
+object_relationships:
+  - name: fulfillapi_order_line_item
+    using:
+      foreign_key_constraint_on: order_line_item_id

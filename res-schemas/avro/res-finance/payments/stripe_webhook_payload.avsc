@@ -1,0 +1,71 @@
+
+
+{
+  "type": "record",
+  "name": "stripe_webhook_payload",
+  "namespace": "res_finance.payments",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "object",
+      "type": ["null", "string"],
+        "default": null
+    },
+    {
+      "name": "api_version",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "created",
+      "type": ["null", "long"],
+      "default": null
+     
+    },
+   
+    {
+      "name": "livemode",
+      "type": "boolean"
+    },
+    {
+      "name": "pending_webhooks",
+      "type": "int"
+    },
+    {
+      "name": "full_json_dump_payload",
+        "type": ["null", "string"],
+          "default": null
+    },
+    {
+      "name": "request",
+      "type": {
+        "type": "record",
+        "name": "Request", 
+        "fields": [
+        {
+          "name": "id",
+          "type": ["null", "string"],
+          "default": null
+        },
+        {
+          "name": "idempotency_key",
+          "type": ["null", "string"],
+          "default": null
+        }
+      ]
+      }
+    },
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "is_dev",
+      "type": "boolean",
+      "default": true
+    }
+  ]
+}

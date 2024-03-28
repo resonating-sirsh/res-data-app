@@ -1,0 +1,60 @@
+# type <meta.fields> {
+#   key
+#   name
+#   is_key
+#   is_required
+#   is_child_type
+#   type
+#   meta_type
+#   indexes
+#   airtable_field_name
+# }
+key: "meta.fields"
+name: "meta.fields"
+fields:
+- name: "key"
+  is_required: True
+  is_key: True
+  indexes:
+  - hash
+- name: "name"
+  is_required: True
+- name: "is_required"
+  type: bool
+- name: "is_key"
+  type: bool
+- name: "airtable_field_name"
+- name: "indexes"
+  type: list[str]
+- name: meta_type
+- name: type
+---
+# type <meta.entities> {
+#   key
+#   name
+#   airtable_table_id
+#   airtable_base_id
+#   meta.entities.fields
+# }
+key: "meta.entities"
+name: "meta.entities"
+fields:
+- name: "key"
+  is_required: True
+  is_key: True
+  indexes:
+  - hash
+- name: "name"
+  is_required: True
+- name: "airtable_table_id"
+- name: "airtable_base_id"
+- name: fields
+  meta_type: "[meta.fields]"
+  is_child_type: True
+- name: interfaces
+  type: list[str]
+
+#we can create a "meta" meta payload to insert meta.entities into meta.entities
+#but we dont because its confusing. the only thing we need it for is to denote
+#that there are child types of type fields for the mutation when inserting the nested
+#meta.entities payload

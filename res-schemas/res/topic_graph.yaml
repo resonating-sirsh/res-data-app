@@ -1,0 +1,57 @@
+topics:
+  - name: res_make.make_one_request.create_response
+    schema_key: create_response
+    alias: make_orders
+    key: one_number
+
+  - name: res_make.piece_tracking.make_asset_status
+    schema_key: make_asset_status
+    alias: make_piece_assets
+    key: id
+    airtable:
+      key_map_name: piece_id
+      attachments:
+        - name: filename
+
+  - name: res_make.printer.printfile_events
+    schema_key: printfile_events
+    alias: printfile_events
+    key: name
+
+  - name: res_meta.dxa.prep_pieces_responses
+    schema_key: prep_pieces_responses
+    alias: print_assets
+    key: id
+    airtable:
+      attachments:
+        - name: pieces
+          path: value
+
+  - name: res_meta.dxa.prep_pieces_responses
+    schema_key: make_piece_assets
+    alias: make_piece_assets
+    key: piece_id
+    airtable:
+      attachments:
+        - name: filename
+
+  - name: res_make.optimus.printfile_pieces
+    schema_path: res-make/optimus/printfile_pieces.avsc
+    schema_key: PrintfilePieceInfo
+    alias: make_piece_assets
+    key: piece_id
+    airtable:
+      attachments:
+        - name: filename
+
+  - name: res_make.optimus.printfile_pieces
+    schema_path: res-make/optimus/printfile_pieces.avsc
+    schema_key: PrintfilePieces
+    alias: stitched_files
+    key: stitching_job_key
+
+  - name: res_make.res_nest.one_nest
+    schema_path: res-make/res_nest/one_nest.avsc
+    schema_key: one_nest
+    alias: one_nest
+    key: piece_set_key

@@ -1,0 +1,222 @@
+#!/usr/bin/env bash
+
+i_can_haz() {
+    which "$1" > /dev/null 2>&1
+}
+
+if ! i_can_haz hasura; then
+    set -e
+    echo "Could not find hasura binary! Installing..."
+    set -x
+    curl -L https://github.com/hasura/graphql-engine/raw/stable/cli/get.sh | bash
+    set +x
+    echo "Done! Starting service..."
+fi
+
+if ! i_can_haz aws; then
+    echo "No aws-cli binary found on path!"
+    echo "Try 'brew install aws-cli' if you are on a Mac."
+    exit 123
+fi
+
+if ! i_can_haz jq; then
+    echo "No jq binary found on path!"
+    echo "Try 'brew install jq' if you are on a Mac."
+    exit 123
+fi
+
+if ! i_can_haz docker; then
+    echo "No docker binary found on path!"
+    echo "Try 'brew install --cask docker' if you are on a Mac."
+    exit 123
+fi
+
+RDP_ROOT="$(git rev-parse --show-toplevel)"
+
+source "$RDP_ROOT/scripts/common.sh"
+
+hasura_project_dir="$RDP_ROOT/res-schemas/hasura/primary"
+
+cd "$hasura_project_dir" || exit
+
+export docker_started_here="no"
+export dockerd_started_here="no"
+export shutdown_dockerd=":"
+export dockerd_name="a docker backend"
+
+dockerd_is_running() {
+    if [[ $(uname -a) =~ Darwin ]]; then
+        export dockerd_name="Docker Desktop"
+        export shutdown_dockerd="pkill -SIGHUP -f /Applications/Docker.app 'docker serve'"
+        if launchctl list | grep -Eqsm1 "application\.com\.docker\.docker\.\S+"; then
+            return 0
+        fi
+    elif systemctl show docker > /dev/null 2>&1; then
+        export dockerd_name="the docker service"
+        export shutdown_dockerd="systemctl stop docker"
+        if systemctl show --property ActiveState docker | grep -iqsm1w 'active'; then
+            return 0
+        fi
+    elif i_can_haz dockerd; then
+        export dockerd_name="the docker daemon"
+        export shutdown_dockerd="[[ -n $dockerd_pid ]] && kill $dockerd_pid || pkill -x dockerd"
+        if pgrep -qx dockerd && docker system info > /dev/null 2>&1; then
+            return 0
+        fi
+    else
+        die_no_dockerd "Cannot find how to check if $dockerd_name is running or how to start it."
+    fi
+    return 1
+}
+
+ensure_dockerd_is_running() {
+    dockerd_should_start() {
+        inquire_user_yes_NO \
+            "${dockerd_name@u} is not running. Should I start it for you? ('No' will cause this program to exit)" \
+            "yes"
+    }
+    die_no_dockerd() {
+        die "${1:+$1 }Unable to start local hasura service without $dockerd_name. Exiting."; 
+    }
+    if dockerd_is_running; then
+        return 0
+    fi
+    if dockerd_should_start; then
+        if [[ $dockerd_name == "Docker Desktop" ]]; then
+            open -a Docker
+        elif [[ $dockerd_name == "the docker service" ]]; then
+            systemctl start docker
+        elif [[ $dockerd_name == "the docker daemon" ]]; then
+            dockerd &
+            dockerd_pid=
+        fi
+        # we get here if we started dockerd
+        export dockerd_started_here="yes"
+        export dockerd_name
+        infon "Waiting for $dockerd_name to start..."
+        local timeout=$(( 60 * 2 ))
+        while ! docker system info > /dev/null 2>&1; do
+            sleep 0.5
+            (( timeout-- ))
+        done
+        infon "${dockerd_name@u} started!"
+    else
+        die_no_dockerd
+    fi
+}
+
+docker_is_running() {
+    if docker compose ls --format pretty | grep -qswm1 "$hasura_project_dir"; then
+        info "Local hasura docker compose services are currently running"
+        if [[ $docker_started_here == no ]]; then
+            infon ", but were not started by this process."
+        else
+            infon "."
+        fi
+    else
+        infon "Local hasura docker compose services are not running."
+    fi
+}
+
+docker_should_stop() {
+    inquire_user_yes_NO \
+        "Shut down local hasura docker compse services?" \
+        "$docker_started_here"
+}
+
+dockerd_should_stop() {
+    inquire_user_yes_NO "Shut down $dockerd_name?" "$dockerd_started_here"
+}
+
+cat <<EOF | add_cleanup_task "start-hasura docker cleanup"
+$(declare -p docker_started_here shutdown_dockerd)
+$(declare -f docker_cleanup docker_is_running docker_should_stop)
+$(declare -f dockerd_is_running dockerd_should_stop)
+docker_cleanup() {
+    if docker_is_running && docker_should_stop; then
+        docker compose down
+        if dockerd_is_running && dockerd_should_stop; then
+            bash -c "$shutdown_dockerd"
+        fi
+    fi
+    unset docker_started_here
+    export docker_started_here
+    unset docker_cleanup
+}
+docker_cleanup
+EOF
+
+get_admin_secret() {
+    aws secretsmanager get-secret-value --secret-id HASURA_API_SECRET_KEY \
+        | jq -r ".SecretString | fromjson | .${1:-development}"
+}
+
+docker_should_start() {
+    if docker_is_running; then
+        action="Force restart"
+    else
+        action="Start"
+    fi
+    inquire_user_yes_NO \
+        "$action local hasura docker compse services?" \
+        "$docker_started_here"
+}
+
+start_docker() {
+    if docker_should_start; then
+        docker compose up -d || exit
+        export docker_started_here="yes"
+        infon "Docker started!"
+    fi
+}
+
+
+wait_for_docker_services() {
+    local -a docker_services=( "${HASURA_DOCKER_SERVICES:-localhost:8081 localhost:30741/graphql localhost:8881}" )
+    if wait_for_up "${docker_services[@]}"; then
+        infon "Starting Hasura Console!"
+        "$@"
+    else
+        die "Timed out waiting for local docker services."
+    fi
+}
+
+find_args() {
+    local target="$1" rc=1
+    while [[ -n "$*" ]]; do
+        shift
+        if [[ $1 = "$target" ]]; then
+            rc=0
+            echo "$*"
+        fi
+    done
+    return "$rc"
+}
+
+declare -a pass_thru_args
+pass_thru_args=( "$(find_args "--" "$@")" )
+export pass_thru_args
+
+if [[ $* =~ --use-dev ]]; then
+    hasura console "${pass_thru_args[@]}" \
+        --admin-secret "$(get_admin_secret development)" \
+        --endpoint https://hasura-dev.resmagic.io
+elif [[ $* =~ --use-prod ]]; then
+    hasura console "${pass_thru_args[@]}" \
+        --admin-secret "$(get_admin_secret production)" \
+        --endpoint https://hasura.resmagic.io
+else
+    if [[ $* =~ --no-migrations ]]; then
+        export ENABLE_CONSOLE=true
+    else
+        export ENABLE_CONSOLE=false
+    fi
+    ensure_dockerd_is_running
+    start_docker
+    if [[ $ENABLE_CONSOLE == false ]]; then
+        wait_for_docker_services \
+            hasura console "${pass_thru_args[@]}"
+    else
+        docker compose logs -f
+    fi
+fi

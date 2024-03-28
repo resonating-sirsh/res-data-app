@@ -1,0 +1,63 @@
+key: "markers"
+name: "markers"
+child_types: []
+interfaces: []
+airtable_table_id: "tbl4g5Me2UigK9z3l"
+airtable_base_id: "appjmzNPXOuynj6xP"
+fields:
+  - name: "key"
+    key: "key"
+    is_key: True
+    is_required: True
+    type: str
+    indexes:
+      - hash
+    airtable_field_name: "Code"
+
+  - name: "res_key"
+    key: "res_key"
+    type: str
+    airtable_field_name: "Style Rescode"
+
+  - name: "style_name"
+    key: "style_name"
+    type: str
+    airtable_field_name: "Style"
+
+  - name: "type"
+    key: "type"
+    type: str
+    airtable_field_name: "Type"
+
+  - name: "rank"
+    key: "rank"
+    type: str
+    airtable_field_name: "Rank"
+
+  - name: "print_type"
+    key: "print_type"
+    type: str
+    airtable_field_name: "Print Type"
+
+  - name: body_code
+    key: body_code
+    is_required: True
+    type: str
+    meta_type: "meta.bodies"
+    airtable_field_name: "Body Code"
+  - name: body_version
+    key: body_version
+    type: str
+    airtable_field_name: "Body Version"
+
+  - name: material_code
+    key: material_code
+    is_required: True
+    type: str
+    airtable_field_name: "Material Code"
+
+  - name: filenames
+    key: filenames
+    is_required: True
+    type: str
+    airtable_field_name: "_net_place_files"

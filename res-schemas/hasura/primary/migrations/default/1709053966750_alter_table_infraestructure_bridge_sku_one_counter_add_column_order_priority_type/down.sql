@@ -1,0 +1,4 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- alter table "infraestructure"."bridge_sku_one_counter" add column "order_priority_type" text
+--  null;

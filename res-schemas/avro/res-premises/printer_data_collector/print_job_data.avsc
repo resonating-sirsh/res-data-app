@@ -1,0 +1,214 @@
+[
+    {
+        "type": "record",
+        "name": "Usage",
+        "namespace": "printers.data.topLevelItem.MSjobinfo.MSinkusage.Ink.Usage",
+        "fields": [
+            {
+                "name": "ToPrint",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "ToClean",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "Cleanings",
+        "namespace": "printers.data.topLevelItem.MSjobinfo.MSinkusage.Ink.Cleanings",
+        "fields": [
+            {
+                "name": "Soft",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Normal",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Strong",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "Ink",
+        "namespace": "printers.data.topLevelItem.MSjobinfo.MSinkusage.Ink",
+        "fields": [
+            {
+                "name": "Color",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Type",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Cleanings",
+                "type": "Cleanings"
+            },
+            {
+                "name": "Usage",
+                "type": "Usage"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "MSinkusage",
+        "namespace": "printers.data.topLevelItem.MSjobinfo.MSinkusage",
+        "fields": [
+            {
+                "name": "Ink",
+                "type": {
+                    "type": "array",
+                    "items": "Ink"
+                }
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "MSjobinfo",
+        "namespace": "printers.data.topLevelItem.MSjobinfo",
+        "fields": [
+            {
+                "name": "Printer",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Jobid",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Name",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Status",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "PrintMode",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Direction",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Media",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "HeadGap",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "Width",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "RequestedLength",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "StartTime",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "EndTime",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "PrintedLength",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "FoldDetected",
+                "type": [
+                    "string",
+                    "null"
+                ]
+            },
+            {
+                "name": "MSinkusage",
+                "type": "MSinkusage"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "topLevelItem",
+        "namespace": "printers.data.topLevelItem",
+        "fields": [
+            {
+                "name": "MSjobinfo",
+                "type": "MSjobinfo"
+            }
+        ]
+    }
+]

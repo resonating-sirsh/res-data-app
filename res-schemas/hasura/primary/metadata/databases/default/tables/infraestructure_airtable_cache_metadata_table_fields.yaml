@@ -1,0 +1,3 @@
+table:
+  name: airtable_cache_metadata_table_fields
+  schema: infraestructure

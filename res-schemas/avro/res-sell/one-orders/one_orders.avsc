@@ -1,0 +1,110 @@
+{
+    "type": "record",
+    "name": "one_orders",
+    "namespace": "res_sell",
+    "doc": "res_sell.one_orders schema for merged orders from all sources",
+    "fields": [
+        {
+            "name": "uuid",
+            "type": "string"
+        },
+        {
+            "name": "source",
+            "type": "string"
+        },
+        {
+            "name": "source_order_id",
+            "type": "string"
+        },
+        {
+            "name": "source_order_secondary_id",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "source_customer_id",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "brand_code",
+            "type": "string"
+        },
+        {
+            "name": "created_at",
+            "type": "string"
+        },
+        {
+            "name": "updated_at",
+            "type": "string"
+        },
+        {
+            "name": "sales_channel",
+            "type": "string"
+        },
+        {
+            "name": "total_line_items_price",
+            "type": "float"
+        },
+        {
+            "name": "total_discounts",
+            "type": "float"
+        },
+        {
+            "name": "subtotal_price",
+            "type": "float"
+        },
+        {
+            "name": "total_tax",
+            "type": "float"
+        },
+        {
+            "name": "total_price",
+            "type": "float"
+        },
+        {
+            "name": "fulfillment_status",
+            "type": "string"
+        },
+        {
+            "name": "cancel_reason",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "cancelled_at",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "type",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "name": "was_payment_successful",
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        {
+            "name": "was_balance_not_enough",
+            "type": [
+                "boolean",
+                "null"
+            ]
+        }
+
+    ]
+}

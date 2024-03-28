@@ -1,0 +1,11 @@
+deployment:
+  type: "res_long_running_service"
+  name: "res-connect"
+  replicas: 3
+  servicePort: 5000
+  ingressType: "public"
+  memory: 5G
+  env:
+    RES_SECRET_NAME: res-data-dev
+    #TODO - it can be convenient to bulk import secrets but you may want to control defaults
+    SECRET_IMPORT_TYPE: not-exists

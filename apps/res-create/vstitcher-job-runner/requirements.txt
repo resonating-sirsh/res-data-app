@@ -1,0 +1,65 @@
+watchdog
+gql[all]==3.0.0a6
+supervisor
+jsonschema
+zstd
+# Faker-17.6.0.dist-info
+# PyYAML-6.0.dist-info
+# aiobotocore-2.4.2.dist-info
+# aiohttp-3.8.4.dist-info
+# aioitertools-0.11.0.dist-info
+# aiosignal-1.3.1.dist-info
+# airtable-0.4.8.dist-info
+# async_timeout-4.0.2.dist-info
+# attrs-22.2.0.dist-info
+# backoff-2.2.1.dist-info
+# boto3-1.26.93.dist-info
+# botocore-1.27.59.dist-info
+# boxsdk-3.7.0.dist-info
+# bson-0.5.10.dist-info
+# certifi-2022.12.7.dist-info
+# charset_normalizer-3.1.0.dist-info
+# compose-1.4.8.dist-info
+# dacite-1.8.0.dist-info
+# dataclasses_avroschema-0.27.0.dist-info
+# dataclasses_jsonschema-2.15.1.dist-info
+# dateparser-1.1.7.dist-info
+# dnspython-2.1.0.dist-info
+# fastavro-1.7.3.dist-info
+# frozenlist-1.3.3.dist-info
+# fsspec-2023.3.0.dist-info
+# gql-3.4.0.dist-info
+# graphql_core-3.2.3.dist-info
+# idna-3.4.dist-info
+# inflect-6.0.2.dist-info
+# jmespath-1.0.1.dist-info
+# jsonschema-4.17.3.dist-info
+# multidict-6.0.4.dist-info
+# numpy-1.24.2.dist-info
+# orjson-3.8.7.dist-info
+# pandas-1.5.3.dist-info
+# pip-23.0.1.dist-info
+# pydantic-1.10.6.dist-info
+# pymongo-4.3.3.dist-info
+# pyrsistent-0.19.3.dist-info
+# python_dateutil-2.8.2.dist-info
+# pytz-2022.7.1.dist-info
+# pytz_deprecation_shim-0.1.0.post0.dist-info
+# regex-2022.10.31.dist-info
+# requests-2.28.2.dist-info
+# requests_toolbelt-0.10.1.dist-info
+# s3fs-2023.3.0.dist-info
+# s3transfer-0.6.0.dist-info
+# sentry_sdk-1.3.1.dist-info
+# statsd_exporter-3.2.1.dist-info
+# stringcase-1.2.0.dist-info
+# structlog-22.3.0.dist-info
+# tenacity-8.2.2.dist-info
+# typing_extensions-4.5.0.dist-info
+# tzdata-2022.7.dist-info
+# tzlocal-4.2.dist-info
+# urllib3-1.26.15.dist-info
+# websockets-10.4.dist-info
+# wrapt-1.15.0.dist-info
+# yarl-1.8.2.dist-info
+# watchdog
