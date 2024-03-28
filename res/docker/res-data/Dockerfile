@@ -32,6 +32,13 @@ ENV PYTHONPATH "${PYTHONPATH}:/app"
 ENV PYTHONUNBUFFERED=0
 
 ##aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 286292902993.dkr.ecr.us-east-1.amazonaws.com
+#  docker build -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data-app:latest --platform linux/amd64  \
+#      --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data-app:cache \
+#      --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data-app:cache ../../../
+
+
+
+
 #docker build --pull --rm -f "Dockerfile" -t res-data:latest --platform linux/amd64 ../../../
 #docker tag res-data:latest 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:latest & docker push 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:latest
 #docker run -e RES_ENV='testing' --platform linux/amd64 --entrypoint pytest  -t res-data -m "not slow and not data and not service"
