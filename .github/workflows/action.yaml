@@ -26,10 +26,13 @@ jobs:
           aws-region: us-east-1
 
       #basics
-      #- run: pipenv run isort --recursive --diff
-      - run: black --check .
-      #- run: pipenv run flake8
-      #- run: pipenv run mypy
+      - uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "./res"
+          jupyter: true
+          version: "21.5b1"
+
       - run: pytest --cov --cov-fail-under=100
       #####
 
