@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "apps/**"
-    #   - "res/**"
+    paths:
+      - "apps/**"
+      - "res/**"
 jobs:
   build-core:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v35
-        with:
+        with: #should be yaml and docker files too
           files: "**/*.py"
       - name: Setup Python env
         uses: actions/setup-python@v3
@@ -45,34 +45,28 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      #https://medium.com/@int128/effective-buildkit-cache-in-github-actions-e36d08804ffb
-      #https://docs.docker.com/build/cache/backends/
-      - name: Build and push container image to registry
-        run: |
-          docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
-          --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
-          --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v3
+      # #https://medium.com/@int128/effective-buildkit-cache-in-github-actions-e36d08804ffb
+      # #https://docs.docker.com/build/cache/backends/
+      # - name: Build and push container image to registry
+      #   run: |
+      #     docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
+      #     --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
+      #     --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
   find-out-changes:
     runs-on: ubuntu-latest
     outputs:
-      dirs: ${{ steps.changed-files.dirs }}
+      apps: ${{ steps.detect-changes.outputs.apps }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v35
-        with:
-          dir_names: true
 
   do-stuff:
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.find-out-changes.outputs.dirs)}}
+      matrix: ${{fromJson(needs.find-out-changes.outputs.apps)}}
     needs:
       - find-out-changes
       - build-core
