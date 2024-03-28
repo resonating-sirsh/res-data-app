@@ -25,16 +25,23 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # #basics
-      # - uses: psf/black@stable
-      #   with:
-      #     options: "--check --verbose"
-      #     src: "./res"
-      #     jupyter: true
-      #     version: "21.5b1"
+      #python bits
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          files: "**/*.py"
+      - name: Setup Python env
+        uses: actions/setup-python@v3
+      - name: Install black
+        run: pip install black
 
-      # - run: pytest --cov --cov-fail-under=100
-      # #####
+      - name: Black and Sort changed files
+        run: |
+          changed_files=$(git diff --diff-filter=d --name-only $(git merge-base HEAD origin/master) HEAD | grep .py)
+          if [ ! -z "$changed_files" ];
+            then black --check -S --line-length 120 $(git diff --diff-filter=d --name-only $(git merge-base HEAD origin/master) HEAD | grep .py);
+          fi
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -48,17 +55,6 @@ jobs:
           docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
           --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
           --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
-
-      #   uses: docker/build-push-action@v2
-      #   id: build
-      #   with:
-      #     push: true
-      #     context: .
-      #     file: ./res/docker/res-data/Dockerfile
-      #     tags: latest
-      #     labels: latest
-      #     cache-from: type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data-app:latest
-      #     cache-to: mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data-app:cache
 
 #build the main docker image with caching after running tests
 #if apps have changed, also build the docker under their folder
