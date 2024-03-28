@@ -7,6 +7,12 @@ on:
     paths:
       - "apps/**"
       - "res/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "apps/**"
+      - "res/**"
 jobs:
   build-core:
     runs-on: ubuntu-latest
@@ -30,11 +36,13 @@ jobs:
           aws-region: us-east-1
 
       #python bits
+
       - name: Get changed directories
         id: get-dirs
         run: |
           changed_dirs=($(git diff --name-only ${{ github.event.before }}...${{ github.sha }} | xargs -I {} dirname {} | sort -u))
           echo "::set-output name=directories::${changed_dirs[*]}"
+
       # - name: Setup Python env
       #   uses: actions/setup-python@v3
       # - name: Install black
