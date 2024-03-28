@@ -38,10 +38,7 @@ jobs:
 
       - name: Black and Sort changed files
         run: |
-          changed_files=$(git diff --diff-filter=d --name-only $(git merge-base HEAD origin/main) HEAD | grep .py)
-          if [ ! -z "$changed_files" ];
-            then black -S --line-length 120 $(git diff --diff-filter=d --name-only $(git merge-base HEAD origin/main) HEAD | grep .py);
-          fi
+          black --check reorder-python-imports ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Login to Amazon ECR
         id: login-ecr
