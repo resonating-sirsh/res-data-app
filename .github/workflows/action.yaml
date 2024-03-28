@@ -27,10 +27,10 @@ jobs:
 
       #basics
       #- run: pipenv run isort --recursive --diff
-      - run: run black --check .
+      - run: black --check .
       #- run: pipenv run flake8
       #- run: pipenv run mypy
-      - run: run pytest --cov --cov-fail-under=100
+      - run: pytest --cov --cov-fail-under=100
       #####
 
       - name: Login to Amazon ECR
