@@ -8,7 +8,7 @@ on:
       - res/**
       - apps/**
 jobs:
-  build-core:
+  buildcore:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -54,6 +54,7 @@ jobs:
           docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
           --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
           --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
+  #################
   apps: # Job that list subdirectories
     runs-on: ubuntu-latest
     outputs:
@@ -63,14 +64,15 @@ jobs:
       - id: set-dirs # Give it an id to handle to get step outputs in the outputs key above
         run: echo "::set-output name=dir::$(ls -d */ | jq -R -s -c 'split("\n")[:-1]')"
         # Define step output named dir base on ls command transformed to JSON thanks to jq
-  loop:
-    runs-on: ubuntu-latest
-    needs: [directories] # Depends on previous job
-    strategy:
-      matrix:
-        dir: ${{fromJson(needs.directories.outputs.dir)}} # List matrix strategy from directories dynamically
-    steps:
-      - run: echo ${{matrix.dir}}
+  ##################
+  # loop:
+  #   runs-on: ubuntu-latest
+  #   needs: [directories] # Depends on previous job
+  #   strategy:
+  #     matrix:
+  #       dir: ${{fromJson(needs.directories.outputs.dir)}} # List matrix strategy from directories dynamically
+  #   steps:
+  #     - run: echo ${{matrix.dir}}
 #build the main docker image with caching after running tests
 #if apps have changed, also build the docker under their folder
 #then call the infra repo to update its image tag and argo will do the rest since we will one time setup the applications
