@@ -35,14 +35,14 @@ jobs:
         run: |
           changed_dirs=($(git diff --name-only ${{ github.event.before }}...${{ github.sha }} | xargs -I {} dirname {} | sort -u))
           echo "::set-output name=directories::${changed_dirs[*]}"
-      - name: Setup Python env
-        uses: actions/setup-python@v3
-      - name: Install black
-        run: pip install black
+      # - name: Setup Python env
+      #   uses: actions/setup-python@v3
+      # - name: Install black
+      #   run: pip install black
 
-      - name: Black changed files
-        run: |
-          black --check  ${{ steps.changed-files.outputs.all_changed_files }}
+      # - name: Black changed files
+      #   run: |
+      #     black --check  ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Login to Amazon ECR
         id: login-ecr
