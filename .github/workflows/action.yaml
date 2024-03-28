@@ -5,9 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "apps/**""
-      - "res/**""
-
+      - "apps/**"
+      - "res/**"
 jobs:
   build-core:
     runs-on: ubuntu-latest
@@ -72,7 +71,6 @@ jobs:
         dir: ${{fromJson(needs.directories.outputs.dir)}} # List matrix strategy from directories dynamically
     steps:
       - run: echo ${{matrix.dir}}
-
 #build the main docker image with caching after running tests
 #if apps have changed, also build the docker under their folder
 #then call the infra repo to update its image tag and argo will do the rest since we will one time setup the applications
