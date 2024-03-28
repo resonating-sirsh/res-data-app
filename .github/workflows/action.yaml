@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - res/**
 jobs:
   buildx:
     runs-on: ubuntu-latest
@@ -36,7 +37,7 @@ jobs:
       - name: Install black
         run: pip install black
 
-      - name: Black and Sort changed files
+      - name: Black changed files
         run: |
           black --check  ${{ steps.changed-files.outputs.all_changed_files }}
 
