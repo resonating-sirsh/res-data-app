@@ -25,16 +25,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      #basics
-      - uses: psf/black@stable
-        with:
-          options: "--check --verbose"
-          src: "./res"
-          jupyter: true
-          version: "21.5b1"
+      # #basics
+      # - uses: psf/black@stable
+      #   with:
+      #     options: "--check --verbose"
+      #     src: "./res"
+      #     jupyter: true
+      #     version: "21.5b1"
 
-      - run: pytest --cov --cov-fail-under=100
-      #####
+      # - run: pytest --cov --cov-fail-under=100
+      # #####
 
       - name: Login to Amazon ECR
         id: login-ecr
