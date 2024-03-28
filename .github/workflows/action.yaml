@@ -35,10 +35,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: changed-apps
-        id: changes
+      - name: Get changed folders
+        id: get-changed-folders
         run: |
-          echo "::set-output name=apps::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
+          git fetch origin main
+          git diff --name-only main FETCH_HEAD | xargs -I {} dirname {} | sort -u > changed_folders.txt
+          cat changed_folders.txt
+
+      - name: Set output
+        run: echo "::set-output name=changed_folders::$(cat changed_folders.txt)"
 
       # - name: Setup Python env
       #   uses: actions/setup-python@v3
@@ -70,10 +75,9 @@ jobs:
       matrix:
         app: ${{fromJson(needs.build-core.outputs.apps)}}
     steps:
-      - name: Process directory ${{ matrix.app }}
+      - name: Process app ${{ matrix.app }}
         run: |
-          echo "Processing directory: ${{ matrix.directory }}"
-          # Add your processing logic here for each directory
+          echo "Processing directory: ${{ matrix.app }}"
 
 #build the main docker image with caching after running tests
 #if apps have changed, also build the docker under their folder
