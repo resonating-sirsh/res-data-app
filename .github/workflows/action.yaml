@@ -37,8 +37,7 @@ jobs:
       - name: get-changed-apps
         uses: jitterbit/get-changed-files@v1
       - run: |
-          diffs = ${{ steps.get-changed-apps.outputs.all }}
-          app_list=$(diff | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
+          app_list=$(${{ steps.get-changed-apps.outputs.all }} | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
           echo "::set-output name=apps::$app_list"
 
       # - name: Setup Python env
