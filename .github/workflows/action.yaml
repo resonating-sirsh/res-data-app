@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - res/**
+      - apps/**
 jobs:
   build-core:
     runs-on: ubuntu-latest
