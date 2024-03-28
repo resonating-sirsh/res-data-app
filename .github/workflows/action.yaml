@@ -38,9 +38,8 @@ jobs:
       - name: Get changed folders
         id: get-changed-folders
         run: |
-          git fetch origin main
-          git diff --name-only main FETCH_HEAD | xargs -I {} dirname {} | sort -u > changed_folders.txt
-          cat changed_folders.txt
+          app_list=$(git diff --name-only origin/main | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") )
+          echo "::set-output name=apps::$app_list"
 
       - name: Set output
         run: echo "::set-output name=changed_folders::$(cat changed_folders.txt)"
