@@ -10,6 +10,8 @@ on:
 jobs:
   build-core:
     runs-on: ubuntu-latest
+    outputs:
+      directories: ${{ steps.get-dirs.outputs.directories }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,11 +30,11 @@ jobs:
           aws-region: us-east-1
 
       #python bits
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v35
-        with: #should be yaml and docker files too
-          files: "**/*.py"
+      - name: Get changed directories
+        id: get-dirs
+        run: |
+          changed_dirs=($(git diff --name-only ${{ github.event.before }}...${{ github.sha }} | xargs -I {} dirname {} | sort -u))
+          echo "::set-output name=directories::${changed_dirs[*]}"
       - name: Setup Python env
         uses: actions/setup-python@v3
       - name: Install black
@@ -54,31 +56,15 @@ jobs:
       #     docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
       #     --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
       #     --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
-  detect-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      directories: ${{ steps.get-dirs.outputs.directories }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Get changed directories
-        id: get-dirs
-        run: |
-          changed_dirs=($(git diff --name-only ${{ github.event.before }}...${{ github.sha }} | xargs -I {} dirname {} | sort -u))
-          echo "::set-output name=directories::${changed_dirs[*]}"
 
   process-directory:
     needs: detect-changes
     runs-on: ubuntu-latest
-    if: ${{ needs.detect-changes.outputs.directories != '[]' && needs.detect-changes.outputs.directories != '' }}
+    if: ${{ needs.build-core.outputs.directories != '[]' && needs.build-core.outputs.directories != '' }}
     strategy:
       matrix:
-        directory: ${{fromJson(needs.detect-changes.outputs.directories)}}
+        directory: ${{fromJson(needs.build-core.outputs.directories)}}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Process directory ${{ matrix.directory }}
         run: |
           echo "Processing directory: ${{ matrix.directory }}"
