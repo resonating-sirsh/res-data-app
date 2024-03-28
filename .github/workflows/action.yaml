@@ -39,10 +39,10 @@ jobs:
       - name: Get changed Apps
         id: get-changed-apps
         run: |
-          app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -cR '.' | sed 's/"/\\"/g')
+          app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
           echo $app_list
-          echo "::set-output name=apps::$app_list"
-
+          echo "apps=$( echo "[ \"a\", \"B\" "]" )" >> $GITHUB_OUTPUT
+      #echo "::set-output name=apps::$app_list"
       # - name: Setup Python env
       #   uses: actions/setup-python@v3
       # - name: Install black
@@ -84,3 +84,5 @@ jobs:
 
 # app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
 # a=$($app_list | jq -r 'join(",")')
+
+#git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -cR '.' | sed 's/"/\\"/g'
