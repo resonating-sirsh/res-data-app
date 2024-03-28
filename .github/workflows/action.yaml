@@ -40,7 +40,7 @@ jobs:
         id: get-changed-apps
         run: |
           app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
-          a = $app_list | jq -r 'join(",")'
+          a=$($app_list | jq -r 'join(",")')
           echo "{apps}={$a}" >> $GITHUB_OUTPUT
 
       # - name: Setup Python env
