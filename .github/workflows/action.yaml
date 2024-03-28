@@ -71,6 +71,7 @@ jobs:
   process-directory:
     needs: detect-changes
     runs-on: ubuntu-latest
+    if: ${{ needs.detect-changes.outputs.directories != '[]' && needs.detect-changes.outputs.directories != '' }}
     strategy:
       matrix:
         directory: ${{fromJson(needs.detect-changes.outputs.directories)}}
