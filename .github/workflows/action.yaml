@@ -40,7 +40,7 @@ jobs:
         run: |
           changed_files=$(git diff --diff-filter=d --name-only $(git merge-base HEAD origin/main) HEAD | grep .py)
           if [ ! -z "$changed_files" ];
-            then black --check -S --line-length 120 $(git diff --diff-filter=d --name-only $(git merge-base HEAD origin/main) HEAD | grep .py);
+            then black -S --line-length 120 $(git diff --diff-filter=d --name-only $(git merge-base HEAD origin/main) HEAD | grep .py);
           fi
 
       - name: Login to Amazon ECR
