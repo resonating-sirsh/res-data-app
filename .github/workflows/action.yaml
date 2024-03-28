@@ -58,7 +58,7 @@ jobs:
       #     --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
 
   process-directory:
-    needs: detect-changes
+    needs: build-core
     runs-on: ubuntu-latest
     if: ${{ needs.build-core.outputs.directories != '[]' && needs.build-core.outputs.directories != '' }}
     strategy:
