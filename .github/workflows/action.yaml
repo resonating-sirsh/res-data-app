@@ -41,7 +41,7 @@ jobs:
         run: |
           app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
           echo $app_list
-          echo "apps='[\"apps/res-make/make_one\", \"apps/res-meta/meta_one\"]' >> $GITHUB_OUTPUT
+          echo "apps='[\"apps/res-make/make_one\", \"apps/res-meta/meta_one\"]'" >> $GITHUB_OUTPUT
       #echo "::set-output name=apps::$app_list"
       # - name: Setup Python env
       #   uses: actions/setup-python@v3
