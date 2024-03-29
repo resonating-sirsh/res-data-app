@@ -120,7 +120,8 @@ jobs:
       # if we are pushing, we can update that branch on the target and if there is a PR event, we can create the PR one time
       # see the on_close action to see how we close or merge the PR
       - name: Install kustomize
-        working-directory: app/manifest
+        #working-directory: app/manifest
+        # ./kustomize edit set image 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-$tag
         run: |
           curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
       - name: Update and commit
@@ -143,7 +144,7 @@ jobs:
           fi
 
           echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
-          ./kustomize edit set image 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-$tag
+
           git add .
           git commit -m "adding tags"
           git push origin $branch
