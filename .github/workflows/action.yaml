@@ -127,7 +127,9 @@ jobs:
       - name: Update and commit
         run: |
           tag=${{needs.build-core.outputs.tag}}
-          branch="sourced-pr-${{  github.event.pull_request.number  }}"
+          pr_number=$(git log --merges --grep="Merge pull request" --pretty=%B | grep -oE '#[0-9]+' | head -1 | grep -oE '[0-9]+')
+          echo "the pr number we got from the git command is $pr_number"
+          branch="sourced-pr-${{  github.event.pull_request.number || pr_number  }}"
           echo "The branch is $branch and the tag is $tag"
 
           cd res-data-infra
