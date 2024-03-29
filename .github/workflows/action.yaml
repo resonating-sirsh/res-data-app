@@ -42,6 +42,7 @@ jobs:
         run: |
           app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
           echo $app_list
+          echo "TAG=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
 
       #echo "::set-output name=apps::$app_list"
@@ -83,11 +84,13 @@ jobs:
       - name: Process app ${{ matrix.app }}
         #process the app by processing its docker file - all docker files are assumed to use root of repo as context
         #buildx context needs to be setup and is done in the first core step
+        #the RES_TAG is temp and comes from the core build (see env.TAG)
         run: |
           echo "Processing dockerfile directory: ${{ matrix.app }}/Dockerfile"
           label=$(echo ${{ matrix.app }} | sed 's/[^[:alpha:]]/-/g')
           echo "Using tag prefix {$label}"
-          docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-latest  \
+          docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-latest \
+          --build-arg="RES_TAG=app" \
           --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache \
           --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache  .
 
