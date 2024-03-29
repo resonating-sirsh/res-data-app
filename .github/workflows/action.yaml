@@ -41,7 +41,8 @@ jobs:
           git push origin INFRA-${GITHUB_SHA:0:7}
 
           gh config set git_protocol ssh -h github.com
-          echo "opening the PR with gh cli"
+          echo "opening the PR with gh cli after logging in"
+          gh auth login
           gh pr create --title "merging infra for app changes ${GITHUB_SHA:0:7}" --body "k8s infra will be updated" --head "INFRA-${GITHUB_SHA:0:7}" --base main
 
   # build-core:
