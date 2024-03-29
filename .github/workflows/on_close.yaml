@@ -12,7 +12,9 @@ jobs:
           echo PR #${{ github.event.number }} has been merged
       - name: Close infra PR
         run: |
-          gh pr close INFRA-${GITHUB_SHA:0:7}
+          branch=${{ github.ref_name }}
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          gh pr close INFRA-$branch
 
   # close_job:
   #   if: github.event.pull_request.merged == false

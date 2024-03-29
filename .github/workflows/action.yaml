@@ -128,8 +128,8 @@ jobs:
           git commit -m "adding tags"
           git push origin INFRA-$branch
 
-          echo "will open a PR if needed for this branch..."
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          echo "will open a PR if needed for this branch..."
           pr_exists=$(gh pr list --state open --base main --head $(git rev-parse --abbrev-ref HEAD) | grep -c "No open pull requests")
           echo "Does the PR exist? $pr_exists"
           if [[ $pr_exists -eq 0 ]]; then
