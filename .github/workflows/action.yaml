@@ -115,7 +115,7 @@ jobs:
       - name: Update and commit
         run: |
           tag=${{needs.build-core.outputs.tag}}
-          branch=${GITHUB_REF#refs/heads/}
+          branch=${{ github.ref_name }}
           cd res-data-infra
           git config --global user.email "techpirates@resonance.nyc"
           git config --global user.name "CI Bot"
