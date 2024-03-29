@@ -38,14 +38,10 @@ jobs:
           aws-region: us-east-1
       - name: Get changed Apps
         id: get-changed-apps
-        run: echo "apps={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
+        run: |
+          app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
 
-        # |
-        #   app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
-
-        #   set -eux
-        #   DATA=$(echo ${{ steps.changed-files-specific.outputs.all_changed_files }} | jq -c '. | map(split("/")[0]) | unique')
-        #   echo "matrix=$DATA" >> "$GITHUB_OUTPUT"
+          echo "apps=$app_list" >> "$GITHUB_OUTPUT"
 
       #echo "::set-output name=apps::$app_list"
       # - name: Setup Python env
