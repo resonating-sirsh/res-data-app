@@ -114,7 +114,7 @@ jobs:
       #what if the PR is already open
       - name: Update and commit
         run: |
-          tag = ${{needs.build-core.outputs.tag}}
+          tag=$("${{needs.build-core.outputs.tag}}")
           cd res-data-infra
           git config --global user.email "techpirates@resonance.nyc"
           git config --global user.name "CI Bot"
