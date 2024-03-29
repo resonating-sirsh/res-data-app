@@ -131,3 +131,4 @@ jobs:
           echo "opening the PR with cli after logging in"
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
           gh pr create --base main  --title "Infra PR from App: INFRA-$branch" --body "adding infra"
+          gh pr create -B main --title "Merge ${{ github.ref_name }} into main" --body 'Created by CI Bot' || gh pr edit -B main --title "Merge ${{ github.ref_name }} into main" --body 'Created by CI Bot'
