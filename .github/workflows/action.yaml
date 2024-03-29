@@ -75,8 +75,12 @@ jobs:
       matrix:
         app: ${{fromJson(needs.build-core.outputs.apps)}}
     steps:
+      #do we really need this in parallel steps?
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Process app ${{ matrix.app }}
         #process the app by processing its docker file - all docker files are assumed to use root of repo as context
+        #buildx context needs to be setup and is done in the first core step
         run: |
           echo "Processing dockerfile directory: ${{ matrix.app }}/Dockerfile"
           docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${{ matrix.app }}-app-latest  \
