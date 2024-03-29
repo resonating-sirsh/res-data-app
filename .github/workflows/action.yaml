@@ -25,12 +25,13 @@ jobs:
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: res-data-infra
           ref: main
-      - name: Install hub
-        uses: geertvdc/setup-hub@master
+      # - name: Install hub
+      #   uses: geertvdc/setup-hub@master
 
       #hwat if the PR is already open
       - name: Update and commit
         run: |
+          sudo apt install hub
           cd res-data-infra
           git config --global user.email "techpirates@resonance.nyc"
           git config --global user.name "CI Bot"
@@ -41,7 +42,6 @@ jobs:
           git add .
           git commit -m "adding tags"
           git push origin INFRA-${GITHUB_SHA:0:7}
-
 
           echo "opening the PR with gh cli after logging in"
           hub pull-request --base main --message "merging infra for app changes ${GITHUB_SHA:0:7}"
