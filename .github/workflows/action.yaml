@@ -126,10 +126,16 @@ jobs:
           curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
       - name: Update and commit
         run: |
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          echo "syncing remote infra PR..."
+
           tag=${{needs.build-core.outputs.tag}}
-          pr_number=$(git log --merges --grep="Merge pull request" --pretty=%B | grep -oE '#[0-9]+' | head -1 | grep -oE '[0-9]+')
-          echo "the pr number we got from the git command is $pr_number"
-          branch="sourced-pr-${{  github.event.pull_request.number || $pr_number  }}"
+          if [[ ${{github.event_name}} == 'pull_request' ]]; then
+            branch="sourced-pr-${{  github.event.pull_request.number }}"
+          else:
+            branch="sourced-pr-$(git log --merges --grep="Merge pull request" --pretty=%B | grep -oE '#[0-9]+' | head -1 | grep -oE '[0-9]+'))
+          fi
+
           echo "The branch is $branch and the tag is $tag"
 
           cd res-data-infra
@@ -146,13 +152,9 @@ jobs:
           fi
 
           echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
-
           git add .
           git commit -m "adding tags"
           git push origin $branch
-
-          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          echo "syncing remote infra PR..."
 
           prs=$(gh pr list -B main -H $branch)  
           if [[ ${{github.event_name}} == 'pull_request' ]]; then
