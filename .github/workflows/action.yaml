@@ -122,7 +122,10 @@ jobs:
           git config --global credential.helper cache
 
           git checkout -b INFRA-$branch
-          git pull origin INFRA-$branch
+          if git ls-remote --heads $remote_name | grep -q INFRA-$branch; then
+              git pull origin INFRA-$branch
+          fi
+
           echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
           git add .
           git commit -m "adding tags"

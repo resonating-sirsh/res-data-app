@@ -4,8 +4,9 @@ on:
     types: [closed]
 
 jobs:
-  merge_job:
+  clean-up-infra:
     #if: github.event.pull_request.merged == true
+    ##   if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -26,11 +27,6 @@ jobs:
           git checkout -b INFRA-$branch
           branch=${{ github.ref_name }}
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          gh pr close INFRA-$branch
-
-  # close_job:
-  #   if: github.event.pull_request.merged == false
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - run: |
-  #         echo PR #${{ github.event.number }} has been closed without being merged
+          prs=$(gh pr list -B main -H INFRA-$branch)  
+          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+            gh pr close INFRA-$branch
