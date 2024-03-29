@@ -97,35 +97,35 @@ jobs:
           --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache \
           --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache  .
 
-    update-infra:
-      needs:
-        - process-app
-        - buld-core
-      runs-on: ubuntu-latest
-      #if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
-      steps:
-        - name: Checkout private tools
-          uses: actions/checkout@v4
-          with:
-            repository: resonance/res-data-infra
-            ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
-            path: res-data-infra
-            ref: main
-        #what if the PR is already open
-        - name: Update and commit
-          run: |
-            tag = ${{needs.build-core.outputs.tag}}
-            cd res-data-infra
-            git config --global user.email "techpirates@resonance.nyc"
-            git config --global user.name "CI Bot"
-            git config --global credential.helper cache
+  update-infra:
+    needs:
+      - process-app
+      - buld-core
+    runs-on: ubuntu-latest
+    #if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
+    steps:
+      - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          path: res-data-infra
+          ref: main
+      #what if the PR is already open
+      - name: Update and commit
+        run: |
+          tag = ${{needs.build-core.outputs.tag}}
+          cd res-data-infra
+          git config --global user.email "techpirates@resonance.nyc"
+          git config --global user.name "CI Bot"
+          git config --global credential.helper cache
 
-            git checkout -b INFRA-$tag
-            echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
-            git add .
-            git commit -m "adding tags"
-            git push origin INFRA-$tag
+          git checkout -b INFRA-$tag
+          echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
+          git add .
+          git commit -m "adding tags"
+          git push origin INFRA-$tag
 
-            echo "opening the PR with cli after logging in"
-            gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-            gh pr create --base main  --title "Infra PR from App: INFRA-$tag" --body "adding infra"
+          echo "opening the PR with cli after logging in"
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          gh pr create --base main  --title "Infra PR from App: INFRA-$tag" --body "adding infra"
