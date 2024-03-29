@@ -122,8 +122,10 @@ jobs:
           git config --global credential.helper cache
 
           git checkout -b INFRA-$branch
-          if git ls-remote --heads origin | grep -q INFRA-$branch; then
-              git pull origin INFRA-$branch
+          if git ls-remote --heads $remote_name | grep -q "refs/heads/$branch"; then
+             echo "Remote branch '$branch' exists."
+          else
+             git pull origin INFRA-$branch
           fi
 
           echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
