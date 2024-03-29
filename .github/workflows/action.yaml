@@ -25,8 +25,8 @@ jobs:
           git config --global user.email "cibot@resonance.nyc"
           git config --global user.name "CI Bot"
           git config --global credential.helper cache
+          ssh-agent sh -c 'echo "${{ secrets.INFRA_SSH_KEY }}" | ssh-add - && git clone git@github.com:resonance/res-data-infra.git'
 
-          git clone https://github.com/resonance/res-data-infra
           cd res-data-infra
           git checkout -b INFRA-${GITHUB_SHA:0:7}
           touch apps/res-meta/meta_one/kustomize.yaml
@@ -36,94 +36,94 @@ jobs:
           git push origin INFRA-${GITHUB_SHA:0:7}
           gh pr create --title "merging infra for app changes ${GITHUB_SHA:0:7}" --body k8s infra will be updated" --head "INFRA-${GITHUB_SHA:0:7}" --base main
 
-  build-core:
-    runs-on: ubuntu-latest
-    outputs:
-      apps: ${{ steps.get-changed-apps.outputs.apps }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      # - # Add support for more platforms with QEMU (optional)
-      #   # https://github.com/docker/setup-qemu-action
-      #   name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # - name: Git branch name
-      #   id: git-branch-name
-      #   uses: EthanSK/git-branch-name-action@v1
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      #we get all the distinct folders which are apps under [apps]/namespace/[app]{changed_files}
-      - name: Get changed Apps
-        id: get-changed-apps
-        run: |
-          app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
-          echo $app_list
-          echo "TAG=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
-          echo "apps=$app_list" >> "$GITHUB_OUTPUT"
+  # build-core:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     apps: ${{ steps.get-changed-apps.outputs.apps }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     # - # Add support for more platforms with QEMU (optional)
+  #     #   # https://github.com/docker/setup-qemu-action
+  #     #   name: Set up QEMU
+  #     #   uses: docker/setup-qemu-action@v3
+  #     # - name: Git branch name
+  #     #   id: git-branch-name
+  #     #   uses: EthanSK/git-branch-name-action@v1
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v1
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: us-east-1
+  #     #we get all the distinct folders which are apps under [apps]/namespace/[app]{changed_files}
+  #     - name: Get changed Apps
+  #       id: get-changed-apps
+  #       run: |
+  #         app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
+  #         echo $app_list
+  #         echo "TAG=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
+  #         echo "apps=$app_list" >> "$GITHUB_OUTPUT"
 
-      #echo "::set-output name=apps::$app_list"
-      # - name: Setup Python env
-      #   uses: actions/setup-python@v3
-      # - name: Install black
-      #   run: pip install black
+  #     #echo "::set-output name=apps::$app_list"
+  #     # - name: Setup Python env
+  #     #   uses: actions/setup-python@v3
+  #     # - name: Install black
+  #     #   run: pip install black
 
-      # - name: Black changed files
-      #   run: |
-      #     black --check  ${{ steps.changed-files.outputs.all_changed_files }}
+  #     # - name: Black changed files
+  #     #   run: |
+  #     #     black --check  ${{ steps.changed-files.outputs.all_changed_files }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      # #https://medium.com/@int128/effective-buildkit-cache-in-github-actions-e36d08804ffb
-      # #https://docs.docker.com/build/cache/backends/
-      - name: Build and push container image to registry
-        run: |
-          docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
-          --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
-          --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
+  #     - name: Login to Amazon ECR
+  #       id: login-ecr
+  #       uses: aws-actions/amazon-ecr-login@v1
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+  #     # #https://medium.com/@int128/effective-buildkit-cache-in-github-actions-e36d08804ffb
+  #     # #https://docs.docker.com/build/cache/backends/
+  #     - name: Build and push container image to registry
+  #       run: |
+  #         docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
+  #         --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
+  #         --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
 
-  process-app:
-    needs: build-core
-    runs-on: ubuntu-latest
-    if: ${{ needs.build-core.outputs.apps != '[]' && needs.build-core.outputs.apps != '' }}
-    strategy:
-      matrix:
-        app: ${{fromJson(needs.build-core.outputs.apps)}}
-    steps:
-      #do we really need this in parallel steps? can we share these for all steps for reuse?
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Process app ${{ matrix.app }}
-        #process the app by processing its docker file - all docker files are assumed to use root of repo as context
-        #buildx context needs to be setup and is done in the first core step
-        #the RES_TAG is temp and comes from the core build (see env.TAG)
-        run: |
-          echo "Processing dockerfile directory: ${{ matrix.app }}/Dockerfile"
-          label=$(echo ${{ matrix.app }} | sed 's/[^[:alpha:]]/-/g')
-          echo "Using tag prefix {$label}"
-          docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-latest \
-          --build-arg="RES_TAG=app" \
-          --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache \
-          --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache  .
+  # process-app:
+  #   needs: build-core
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.build-core.outputs.apps != '[]' && needs.build-core.outputs.apps != '' }}
+  #   strategy:
+  #     matrix:
+  #       app: ${{fromJson(needs.build-core.outputs.apps)}}
+  #   steps:
+  #     #do we really need this in parallel steps? can we share these for all steps for reuse?
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v1
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: us-east-1
+  #     - name: Login to Amazon ECR
+  #       id: login-ecr
+  #       uses: aws-actions/amazon-ecr-login@v1
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+  #     - name: Process app ${{ matrix.app }}
+  #       #process the app by processing its docker file - all docker files are assumed to use root of repo as context
+  #       #buildx context needs to be setup and is done in the first core step
+  #       #the RES_TAG is temp and comes from the core build (see env.TAG)
+  #       run: |
+  #         echo "Processing dockerfile directory: ${{ matrix.app }}/Dockerfile"
+  #         label=$(echo ${{ matrix.app }} | sed 's/[^[:alpha:]]/-/g')
+  #         echo "Using tag prefix {$label}"
+  #         docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-latest \
+  #         --build-arg="RES_TAG=app" \
+  #         --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache \
+  #         --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache  .
 
 #build the main docker image with caching after running tests
 #if apps have changed, also build the docker under their folder
