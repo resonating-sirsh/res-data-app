@@ -22,6 +22,10 @@ jobs:
         id: merge-infra
         if: github.event_name == 'pull_request'
         run: |
+          git config --global user.email "cibot@resonance.nyc"
+          git config --global user.name "CI Bot"
+          git config --global credential.helper cache
+
           git clone https://github.com/resonance/res-data-infra
           cd res-data-infra
           git checkout -b INFRA-${GITHUB_SHA:0:7}
