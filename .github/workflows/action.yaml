@@ -125,6 +125,7 @@ jobs:
           if git ls-remote --heads origin | grep -q "refs/heads/INFRA-$branch"; then
              echo "Remote branch INFRA-$branch exists."
           else
+             echo "pulling from origin."
              git pull origin INFRA-$branch
           fi
 
