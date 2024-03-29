@@ -115,16 +115,20 @@ jobs:
       - uses: actions/github-script@v7
         id: get_pr_data
         #when we are merging we can go back and get the pull request data
-        if: github.event_name != 'pull_request'
+        #if: github.event_name != 'pull_request'
         with:
           script: |
-            return (
-              await github.rest.repos.listPullRequestsAssociatedWithCommit({
-                commit_sha: context.sha,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-              })
-            ).data[0];
+            if [[ "${{github.event_name}}" != 'pull_request' ]]; then
+              return (
+                await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                  commit_sha: context.sha,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                })
+              ).data[0];
+            else
+              echo "N/A"
+            fi
       # - name: Pull Request data
       #   run: |
       #     echo '${{ fromJson(steps.get_pr_data.outputs.result).number }}'
