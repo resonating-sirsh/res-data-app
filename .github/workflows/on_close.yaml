@@ -30,3 +30,4 @@ jobs:
           prs=$(gh pr list -B main -H INFRA-$branch)  
           if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
             gh pr close INFRA-$branch
+          fi
