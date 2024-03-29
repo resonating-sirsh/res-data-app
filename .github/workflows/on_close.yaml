@@ -5,6 +5,7 @@ on:
 
 jobs:
   clean-up-infra:
+    #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
     #if: github.event.pull_request.merged == true
     ##   if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
@@ -25,7 +26,10 @@ jobs:
           git config --global user.name "CI Bot"
           git config --global credential.helper cache
           git checkout -b INFRA-$branch
-          branch=${{ github.ref_name }}
+          branch=${{ github.event.pull_request.number }}
+
+          echo "Using the branch ref $branch"
+
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
           prs=$(gh pr list -B main -H INFRA-$branch)  
           if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
@@ -34,3 +38,5 @@ jobs:
           else
             echo "Did not match INFRA-$branch"
           fi
+
+#ref name is the branch when closed but is is main when we merge
