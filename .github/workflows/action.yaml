@@ -170,6 +170,7 @@ jobs:
               echo "Warning! when merging the PR there was no remote infra PR"
             else    
               echo "Will create and merge the main branch"
-              gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster" --auto-merge
+              gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster" 
+              gh pr merge --auto --rebase 
             fi
           fi
