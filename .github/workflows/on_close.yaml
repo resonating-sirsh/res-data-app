@@ -1,4 +1,4 @@
-name: close-pr
+name: close-infra-pr
 on:
   pull_request:
     types: [closed]
