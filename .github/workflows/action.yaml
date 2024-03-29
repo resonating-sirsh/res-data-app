@@ -103,6 +103,9 @@ jobs:
           --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache  .
 
   update-infra:
+    permissions:
+      contents: read
+      pull-requests: read
     needs:
       - process-app
       - build-core
@@ -127,10 +130,10 @@ jobs:
       - name: Update and commit
         run: |
           tag=${{needs.build-core.outputs.tag}}
-          if [[ "${{github.event_name}}" == 'pull_request' ]]; then
+          if [[ "${{github.event_name}}" != 'push' ]]; then
             branch="sourced-pr-${{  github.event.pull_request.number }}"
           else
-            branch="sourced-pr-$(git log --merges --grep='Merge pull request' --pretty=%B | grep -oE '#[0-9]+' | head -1 | grep -oE '[0-9]+'))"
+            branch="sourced-main-$tag"
           fi
 
           echo "The target infra branch is $branch and the tag is $tag"
@@ -166,6 +169,7 @@ jobs:
             if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
               echo "Warning! when merging the PR there was no remote infra PR"
             else    
-              gh pr merge $branch --rebase
+              echo "Will create and merge the main branch"
+              gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster" --auto-merge
             fi
           fi
