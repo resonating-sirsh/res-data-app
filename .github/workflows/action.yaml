@@ -76,6 +76,8 @@ jobs:
         app: ${{fromJson(needs.build-core.outputs.apps)}}
     steps:
       #do we really need this in parallel steps?
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Process app ${{ matrix.app }}
