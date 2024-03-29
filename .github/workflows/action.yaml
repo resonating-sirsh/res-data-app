@@ -24,8 +24,11 @@ jobs:
           repository: resonance/res-data-infra
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: res-data-infra
+          ref: main
+
       - name: Update and commit
         run: |
+          cd res-data-infra
           git checkout -b INFRA-${GITHUB_SHA:0:7}
           echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
           git add .
