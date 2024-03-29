@@ -127,10 +127,10 @@ jobs:
       - name: Update and commit
         run: |
           tag=${{needs.build-core.outputs.tag}}
-          if [[ ${{github.event_name}} == 'pull_request' ]]; then
+          if [[ "${{github.event_name}}" == 'pull_request' ]]; then
             branch="sourced-pr-${{  github.event.pull_request.number }}"
           else
-            branch="sourced-pr-$(git log --merges --grep="Merge pull request" --pretty=%B | grep -oE '#[0-9]+' | head -1 | grep -oE '[0-9]+'))
+            branch="sourced-pr-$(git log --merges --grep='Merge pull request' --pretty=%B | grep -oE '#[0-9]+' | head -1 | grep -oE '[0-9]+'))"
           fi
 
           echo "The target infra branch is $branch and the tag is $tag"
@@ -156,7 +156,7 @@ jobs:
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
           echo "syncing remote infra PR..."
           prs=$(gh pr list -B main -H $branch)  
-          if [[ ${{github.event_name}} == 'pull_request' ]]; then
+          if [[ "${{github.event_name}}" == 'pull_request' ]]; then
             if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
               echo "Skipping creation as we already have a PR for this branch"
             else    
