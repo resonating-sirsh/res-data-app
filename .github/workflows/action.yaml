@@ -123,10 +123,10 @@ jobs:
                 repo: context.repo.repo,
               })
             ).data[0];
-      # - name: Pull Request data
-      #   run: |
-      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).number }}'
-      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).title }}'
+      - name: Pull Request data
+        run: |
+          echo '${{ fromJson(steps.get_pr_data.outputs.result).number }}'
+          echo '${{ fromJson(steps.get_pr_data.outputs.result).title }}'
       - name: Checkout private tools
         uses: actions/checkout@v4
         with:
