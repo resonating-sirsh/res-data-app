@@ -1,0 +1,36 @@
+name: close-pr
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  clean-up-infra:
+    #if: github.event.pull_request.merged == true
+    ##   if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo PR #${{ github.event.number }} has been merged
+      - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          path: res-data-infra
+          ref: main
+      - name: Close infra PR
+        run: |
+          cd res-data-infra
+          git config --global user.email "techpirates@resonance.nyc"
+          git config --global user.name "CI Bot"
+          git config --global credential.helper cache
+          git checkout -b INFRA-$branch
+          branch=${{ github.ref_name }}
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          prs=$(gh pr list -B main -H INFRA-$branch)  
+          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+            echo "Closing PR on branch INFRA-$branch"
+            gh pr close INFRA-$branch
+          else
+            echo "Did not match INFRA-$branch"
+          fi
