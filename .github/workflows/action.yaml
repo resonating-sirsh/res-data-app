@@ -122,7 +122,7 @@ jobs:
           git config --global credential.helper cache
 
           git checkout -b INFRA-$branch
-          if git ls-remote --heads $remote_name | grep -q "refs/heads/INFRA-$branch"; then
+          if git ls-remote --heads origin | grep -q "refs/heads/INFRA-$branch"; then
              echo "Remote branch INFRA-$branch exists."
           else
              git pull origin INFRA-$branch
