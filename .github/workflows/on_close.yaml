@@ -42,7 +42,7 @@ jobs:
           echo "Using the branch ref $branch"
 
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          prs=$(gh pr list -B main -H -$branch)  
+          prs=$(gh pr list -B main -H $branch)  
           if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
             echo "Closing PR on branch $branch"
             gh pr close $branch
