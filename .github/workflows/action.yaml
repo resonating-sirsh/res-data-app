@@ -154,7 +154,7 @@ jobs:
 
           echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
           git add .
-          git commit -m "adding tags"
+          git commit -m "adding tags $tag"
           git push origin $branch
 
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
