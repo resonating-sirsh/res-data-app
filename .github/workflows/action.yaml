@@ -29,6 +29,10 @@ jobs:
       - name: Update and commit
         run: |
           cd res-data-infra
+          git config --global user.email "techpirates@resonance.nyc"
+          git config --global user.name "CI Bot"
+          git config --global credential.helper cache
+
           git checkout -b INFRA-${GITHUB_SHA:0:7}
           echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
           git add .
