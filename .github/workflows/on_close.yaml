@@ -1,0 +1,22 @@
+name: Close Pull Request
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  merge_job:
+    #if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo PR #${{ github.event.number }} has been merged
+      - name: Close infra PR
+        run: |
+          gh pr close INFRA-${GITHUB_SHA:0:7}
+
+  # close_job:
+  #   if: github.event.pull_request.merged == false
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: |
+  #         echo PR #${{ github.event.number }} has been closed without being merged

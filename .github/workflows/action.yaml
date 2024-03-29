@@ -14,6 +14,24 @@ on:
       - "apps/**"
       - "res/**"
 jobs:
+  update-infra:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Merge Apps to Infra
+        id: merge-infra
+        if: github.event_name == 'pull_request'
+        run: |
+          git clone https://github.com/resonance/res-data-infra
+          cd res-data-infra
+          git checkout -b INFRA-${GITHUB_SHA:0:7}
+          touch apps/res-meta/meta_one/kustomize.yaml
+          cat "stuff" >> apps/res-meta/meta_one/kustomize.yaml
+          git add .
+          git commit -m "adding tags" 
+          git push origin INFRA-${GITHUB_SHA:0:7}
+          gh pr create --title "merging infra for app changes ${GITHUB_SHA:0:7}" --body k8s infra will be updated" --head "INFRA-${GITHUB_SHA:0:7}" --base main
+
   build-core:
     runs-on: ubuntu-latest
     outputs:
