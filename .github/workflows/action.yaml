@@ -34,6 +34,7 @@ jobs:
           git add .
           git commit -m "adding tags" 
           git push origin INFRA-${GITHUB_SHA:0:7}
+          echo "pushed changes and opening PR"
           gh pr create --title "merging infra for app changes ${GITHUB_SHA:0:7}" --body k8s infra will be updated" --head "INFRA-${GITHUB_SHA:0:7}" --base main
 
   # build-core:
