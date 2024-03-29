@@ -17,7 +17,7 @@ jobs:
   build-core:
     runs-on: ubuntu-latest
     outputs:
-      apps: ${{ steps.get-changed-apps.apps }}
+      apps: ${{ steps.get-changed-apps.outputs.apps }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,6 +36,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - name: Get changed Apps
+        id: get-changed-apps
+        run: echo "apps={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
 
         # |
         #   app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' )
@@ -66,9 +69,6 @@ jobs:
       #     docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
       #     --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
       #     --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
-      - name: Get changed Apps
-        id: get-changed-apps
-        run: echo "apps={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
 
   process-directory:
     needs: build-core
