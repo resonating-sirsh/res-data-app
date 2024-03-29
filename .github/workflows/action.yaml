@@ -116,35 +116,53 @@ jobs:
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: res-data-infra
           ref: main
-      #what if the PR is already open
+      # we use the PR number as the target branch since this is the id of the link
+      # if we are pushing, we can update that branch on the target and if there is a PR event, we can create the PR one time
+      # see the on_close action to see how we close or merge the PR
+      - name: Install kustomize
+        #working-directory: app/manifest
+        # ./kustomize edit set image 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-$tag
+        run: |
+          curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
       - name: Update and commit
         run: |
           tag=${{needs.build-core.outputs.tag}}
-          branch=${{ github.ref_name }}
+          branch="sourced-pr-${{  github.event.pull_request.number  }}"
+          echo "The branch is $branch and the tag is $tag"
+
           cd res-data-infra
           git config --global user.email "techpirates@resonance.nyc"
           git config --global user.name "CI Bot"
           git config --global credential.helper cache
 
-          git checkout -b INFRA-$branch
-          if git ls-remote --heads origin | grep -q "refs/heads/INFRA-$branch"; then
+          git checkout -b $branch
+          if git ls-remote --heads origin | grep -q "refs/heads/$branch"; then
              echo "pulling from origin."
-             git pull origin INFRA-$branch
+             git pull origin $branch
           else
-             echo "Remote branch INFRA-$branch exists."
+             echo "Remote branch $branch exists."
           fi
 
-          echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
+          echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
+
           git add .
           git commit -m "adding tags"
-          git push origin INFRA-$branch
+          git push origin $branch
 
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          echo "will open a PR if needed for this branch..."
-          prs=$(gh pr list -B main -H INFRA-$branch)  
-                  
-          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-            echo "Skipping creation as we already have a PR for this branch"
+          echo "syncing remote infra PR..."
+
+          prs=$(gh pr list -B main -H $branch)  
+          if [[ ${{github.event_name}} == 'pull_request' ]]; then
+            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+              echo "Skipping creation as we already have a PR for this branch"
+            else    
+              gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
+            fi
           else
-            gh pr create --base main  --title "Infra PR from App: INFRA-$branch" --body "adding infra"
+            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+              echo "Warning! when merging the PR there was no remote infra PR"
+            else    
+              gh pr merge $branch --rebase
+            fi
           fi

@@ -7,7 +7,8 @@ jobs:
   clean-up-infra:
     #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
     #if: github.event.pull_request.merged == true
-    ##   if: github.event.pull_request.merged == false
+    #we only do this for now on cancel as a clean up and we handle the normal merge in the primary push to main
+    if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - run: |
