@@ -29,8 +29,8 @@ jobs:
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
           prs=$(gh pr list -B main -H INFRA-$branch)  
           if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-            echo "Closing PR on branch $INFRA-$branch"
-            gh pr close $INFRA-$branch
+            echo "Closing PR on branch INFRA-$branch"
+            gh pr close INFRA-$branch
           else
-            echo "Did not match $INFRA-$branch"
+            echo "Did not match INFRA-$branch"
           fi
