@@ -29,7 +29,7 @@ jobs:
 
           cd res-data-infra
           git checkout -b INFRA-${GITHUB_SHA:0:7}
-          touch apps/res-meta/meta_one/kustomize.yaml
+
           cat "stuff" >> apps/res-meta/meta_one/kustomize.yaml
           git add .
           git commit -m "adding tags" 
