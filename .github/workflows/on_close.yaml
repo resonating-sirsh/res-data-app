@@ -4,18 +4,16 @@ on:
     types: [closed]
 
 jobs:
-  clean-up-merged-pr:
-    #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
-    #if: github.event.pull_request.merged == true
-    #we could only do this for now on cancel as a clean up and we handle the normal merge in the primary push to main
-    #however we treat them as separate events - we close this and rebuild the docker on a main-sha-pr
+  #https://github.com/orgs/community/discussions/27071
+  pr-number:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
-       - uses: actions/github-script@v7
+      - uses: actions/github-script@v7
         id: get_pr_data
-        #when we are merging we can go back and get the pull request data
-        #if: github.event_name != 'pull_request'
         with:
           script: |
             return (
@@ -25,37 +23,33 @@ jobs:
                 repo: context.repo.repo,
               })
             ).data[0];
+  clean-up-merged-pr:
+    - name: Checkout private tools
+      uses: actions/checkout@v4
+      with:
+        repository: resonance/res-data-infra
+        ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+        path: res-data-infra
+        ref: main
+    - name: Close infra PR after source merged
+      run: |
+        branch=sourced-pr-${{ fromJson(steps.get_pr_data.outputs.result).number }}
+        cd res-data-infra
+        git config --global user.email "techpirates@resonance.nyc"
+        git config --global user.name "CI Bot"
+        git config --global credential.helper cache
+        git checkout -b $branch
 
-      # - name: Pull Request data
-      #   run: |
-      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).number }}'
-      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).title }}'
-      - name: Checkout private tools
-        uses: actions/checkout@v4
-        with:
-          repository: resonance/res-data-infra
-          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
-          path: res-data-infra
-          ref: main
-      - name: Close infra PR after source merged
-        run: |
-          cd res-data-infra
-          git config --global user.email "techpirates@resonance.nyc"
-          git config --global user.name "CI Bot"
-          git config --global credential.helper cache
-          git checkout -b INFRA-$branch
-          branch=sourced-pr-${{ fromJson(steps.get_pr_data.outputs.result).number }}
+        echo "Using the branch ref $branch"
 
-          echo "Using the branch ref $branch"
-
-          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          prs=$(gh pr list -B main -H -$branch)  
-          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-            echo "Closing PR on branch $branch"
-            gh pr close $branch
-          else
-            echo "Did not match $branch"
-          fi
+        gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+        prs=$(gh pr list -B main -H -$branch)  
+        if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+          echo "Closing PR on branch $branch"
+          gh pr close $branch
+        else
+          echo "Did not match $branch"
+        fi
 
   clean-up-closed-pr:
     #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
@@ -76,12 +70,12 @@ jobs:
           ref: main
       - name: Close infra PR after source close
         run: |
+          branch=sourced-pr-${{  github.event.pull_request.number }}
           cd res-data-infra
           git config --global user.email "techpirates@resonance.nyc"
           git config --global user.name "CI Bot"
           git config --global credential.helper cache
-          git checkout -b INFRA-$branch
-          branch=sourced-pr-${{  github.event.pull_request.number }}
+          git checkout -b $branch
 
           echo "Using the branch ref $branch"
 
@@ -93,4 +87,3 @@ jobs:
           else
             echo "Did not match $branch"
           fi
-          
