@@ -143,13 +143,19 @@ jobs:
           git commit -m "adding tags"
           git push origin $branch
 
-          if ${{github.event_name}} == 'pull_request' then;
-            gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-            echo "will open a PR if needed for this branch..."
-            prs=$(gh pr list -B main -H $branch)  
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          echo "syncing remote infra PR..."
+
+          prs=$(gh pr list -B main -H $branch)  
+          if ${{github.event_name}} == 'pull_request'; then
             if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
               echo "Skipping creation as we already have a PR for this branch"
-            else
-                gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
+            else    
+              gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
             fi
+          else
+            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+              echo "Warning! when closing the PR there was no remote infra"
+            else    
+              gh pr merge $branch --rebase
           fi
