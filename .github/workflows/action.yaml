@@ -138,7 +138,7 @@ jobs:
              echo "Remote branch $branch exists."
           fi
 
-          echo "stuff" > apps/res-meta/meta_one/kustomize.yaml
+          echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
           git add .
           git commit -m "adding tags"
           git push origin $branch
@@ -155,7 +155,7 @@ jobs:
             fi
           else
             if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-              echo "Warning! when closing the PR there was no remote infra"
+              echo "Warning! when merging the PR there was no remote infra PR"
             else    
               gh pr merge $branch --rebase
           fi
