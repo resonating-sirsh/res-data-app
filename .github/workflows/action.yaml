@@ -26,6 +26,7 @@ jobs:
           path: res-data-infra
           ref: main
 
+      #hwat if the PR is already open
       - name: Update and commit
         run: |
           cd res-data-infra
@@ -39,26 +40,8 @@ jobs:
           git commit -m "adding tags"
           git push origin INFRA-${GITHUB_SHA:0:7}
 
-      # - name: Merge Apps to Infra
-      #   id: merge-infra
-      #   if: github.event_name == 'pull_request'
-      #   run: |
-      #     git config --global user.email "techpirates@resonance.nyc"
-      #     git config --global user.name "CI Bot"
-      #     git config --global credential.helper cache
-      #     ssh-agent sh -c 'echo "${{ secrets.INFRA_SSH_KEY }}" | ssh-add - && git clone git@github.com:resonance/res-data-infra.git'
-
-      #     cd res-data-infra
-      #     git checkout -b INFRA-${GITHUB_SHA:0:7}
-
-      #     echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
-      #     git add .
-      #     git commit -m "adding tags"
-      #     echo "pushing changes for this commit"
-      #     ssh-agent sh -c 'echo "${{ secrets.INFRA_SSH_KEY }}" | ssh-add - && git push origin INFRA-${GITHUB_SHA:0:7}'
-      #     echo "pushed changes and opening PR"
-      #     gh config set git_protocol ssh -h github.com
-      #     gh pr create --title "merging infra for app changes ${GITHUB_SHA:0:7}" --body k8s infra will be updated" --head "INFRA-${GITHUB_SHA:0:7}" --base main
+          gh config set git_protocol ssh -h github.com
+          gh pr create --title "merging infra for app changes ${GITHUB_SHA:0:7}" --body k8s infra will be updated" --head "INFRA-${GITHUB_SHA:0:7}" --base main
 
   # build-core:
   #   runs-on: ubuntu-latest
