@@ -24,32 +24,35 @@ jobs:
               })
             ).data[0];
   clean-up-merged-pr:
-    - name: Checkout private tools
-      uses: actions/checkout@v4
-      with:
-        repository: resonance/res-data-infra
-        ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
-        path: res-data-infra
-        ref: main
-    - name: Close infra PR after source merged
-      run: |
-        branch=sourced-pr-${{ fromJson(steps.get_pr_data.outputs.result).number }}
-        cd res-data-infra
-        git config --global user.email "techpirates@resonance.nyc"
-        git config --global user.name "CI Bot"
-        git config --global credential.helper cache
-        git checkout -b $branch
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Infra
+        uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          path: res-data-infra
+          ref: main
+      - name: Close infra PR after source merged
+        run: |
+          branch=sourced-pr-${{ fromJson(steps.get_pr_data.outputs.result).number }}
+          cd res-data-infra
+          git config --global user.email "techpirates@resonance.nyc"
+          git config --global user.name "CI Bot"
+          git config --global credential.helper cache
+          git checkout -b $branch
 
-        echo "Using the branch ref $branch"
+          echo "Using the branch ref $branch"
 
-        gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-        prs=$(gh pr list -B main -H -$branch)  
-        if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-          echo "Closing PR on branch $branch"
-          gh pr close $branch
-        else
-          echo "Did not match $branch"
-        fi
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          prs=$(gh pr list -B main -H -$branch)  
+          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+            echo "Closing PR on branch $branch"
+            gh pr close $branch
+          else
+            echo "Did not match $branch"
+          fi
 
   clean-up-closed-pr:
     #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
@@ -61,7 +64,7 @@ jobs:
     steps:
       - run: |
           echo PR #${{ github.event.number }} has been merged
-      - name: Checkout private tools
+      - name: Checkout infra
         uses: actions/checkout@v4
         with:
           repository: resonance/res-data-infra
