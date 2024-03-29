@@ -115,17 +115,18 @@ jobs:
       - name: Update and commit
         run: |
           tag=${{needs.build-core.outputs.tag}}
+          branch=${GITHUB_REF#refs/heads/}
           cd res-data-infra
           git config --global user.email "techpirates@resonance.nyc"
           git config --global user.name "CI Bot"
           git config --global credential.helper cache
 
-          git checkout -b INFRA-$tag
+          git checkout -b INFRA-$branch
           echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
           git add .
           git commit -m "adding tags"
-          git push origin INFRA-$tag
+          git push origin INFRA-$branch
 
           echo "opening the PR with cli after logging in"
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          gh pr create --base main  --title "Infra PR from App: INFRA-$tag" --body "adding infra"
+          gh pr create --base main  --title "Infra PR from App: INFRA-$branch" --body "adding infra"
