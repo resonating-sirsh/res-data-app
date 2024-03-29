@@ -83,9 +83,11 @@ jobs:
         #buildx context needs to be setup and is done in the first core step
         run: |
           echo "Processing dockerfile directory: ${{ matrix.app }}/Dockerfile"
-          docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${{ matrix.app }}-app-latest  \
-          --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${{ matrix.app }}-app-cache \
-          --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${{ matrix.app }}-app-cache  .
+          label = ${{ matrix.app }} | sed 's/[^[:alpha:]]/-/g'
+          echo "Using tag prefix {$label}"
+          docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-latest  \
+          --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache \
+          --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache  .
 
 #build the main docker image with caching after running tests
 #if apps have changed, also build the docker under their folder
