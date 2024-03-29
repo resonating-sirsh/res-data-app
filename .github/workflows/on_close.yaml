@@ -4,12 +4,65 @@ on:
     types: [closed]
 
 jobs:
-  clean-up-infra:
+  clean-up-merged-pr:
     #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
     #if: github.event.pull_request.merged == true
     #we could only do this for now on cancel as a clean up and we handle the normal merge in the primary push to main
     #however we treat them as separate events - we close this and rebuild the docker on a main-sha-pr
-    #if: github.event.pull_request.merged == false
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+       - uses: actions/github-script@v7
+        id: get_pr_data
+        #when we are merging we can go back and get the pull request data
+        #if: github.event_name != 'pull_request'
+        with:
+          script: |
+            return (
+              await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                commit_sha: context.sha,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              })
+            ).data[0];
+
+      # - name: Pull Request data
+      #   run: |
+      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).number }}'
+      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).title }}'
+      - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          path: res-data-infra
+          ref: main
+      - name: Close infra PR after source merged
+        run: |
+          cd res-data-infra
+          git config --global user.email "techpirates@resonance.nyc"
+          git config --global user.name "CI Bot"
+          git config --global credential.helper cache
+          git checkout -b INFRA-$branch
+          branch=sourced-pr-${{ fromJson(steps.get_pr_data.outputs.result).number }}
+
+          echo "Using the branch ref $branch"
+
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          prs=$(gh pr list -B main -H -$branch)  
+          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+            echo "Closing PR on branch $branch"
+            gh pr close $branch
+          else
+            echo "Did not match $branch"
+          fi
+
+  clean-up-closed-pr:
+    #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
+    #if: github.event.pull_request.merged == true
+    #we could only do this for now on cancel as a clean up and we handle the normal merge in the primary push to main
+    #however we treat them as separate events - we close this and rebuild the docker on a main-sha-pr
+    if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -21,24 +74,23 @@ jobs:
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: res-data-infra
           ref: main
-      - name: Close infra PR
+      - name: Close infra PR after source close
         run: |
           cd res-data-infra
           git config --global user.email "techpirates@resonance.nyc"
           git config --global user.name "CI Bot"
           git config --global credential.helper cache
           git checkout -b INFRA-$branch
-          branch=${{ github.event.pull_request.number }}
+          branch=sourced-pr-${{  github.event.pull_request.number }}
 
           echo "Using the branch ref $branch"
 
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          prs=$(gh pr list -B main -H INFRA-$branch)  
+          prs=$(gh pr list -B main -H -$branch)  
           if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-            echo "Closing PR on branch INFRA-$branch"
-            gh pr close INFRA-$branch
+            echo "Closing PR on branch $branch"
+            gh pr close $branch
           else
-            echo "Did not match INFRA-$branch"
+            echo "Did not match $branch"
           fi
-
-#ref name is the branch when closed but is is main when we merge
+          
