@@ -43,8 +43,11 @@ jobs:
           git commit -m "adding tags"
           git push origin INFRA-${GITHUB_SHA:0:7}
 
-          echo "opening the PR with gh cli after logging in"
-          hub pull-request --base main --message "merging infra for app changes ${GITHUB_SHA:0:7}"
+          echo "opening the PR with cli after logging in"
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          gh pr create --base main  --title "Infra PR from App: INFRA-${GITHUB_SHA:0:7} " --body "adding infra"
+
+  #hub pull-request --base main --message "merging infra for app changes ${GITHUB_SHA:0:7}"
 
   # build-core:
   #   runs-on: ubuntu-latest
@@ -147,3 +150,4 @@ jobs:
 #https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
 #https://hub.github.com/hub-pull-request.1.html
 #https://github.com/marketplace/actions/setup-hub
+#https://hub.github.com/
