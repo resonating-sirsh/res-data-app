@@ -1,4 +1,4 @@
-name: Close Pull Request
+name: close-pr
 on:
   pull_request:
     types: [closed]
@@ -10,8 +10,20 @@ jobs:
     steps:
       - run: |
           echo PR #${{ github.event.number }} has been merged
+      - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          path: res-data-infra
+          ref: main
       - name: Close infra PR
         run: |
+          cd res-data-infra
+          git config --global user.email "techpirates@resonance.nyc"
+          git config --global user.name "CI Bot"
+          git config --global credential.helper cache
+          git checkout -b INFRA-$branch
           branch=${{ github.ref_name }}
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
           gh pr close INFRA-$branch
