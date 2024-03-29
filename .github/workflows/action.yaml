@@ -130,6 +130,10 @@ jobs:
 
           echo "opening the PR with cli after logging in"
           gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          pr_exists=$(gh pr list --state open --base main --head $(git rev-parse --abbrev-ref HEAD) | grep -c "0")
-          echo f"$pr_exists"
-          gh pr create --base main  --title "Infra PR from App: INFRA-$branch" --body "adding infra"
+          pr_exists=$(gh pr list --state open --base main --head $(git rev-parse --abbrev-ref HEAD) | grep -c "No open pull requests")
+
+          if [[ $pr_exists -eq 0 ]]; then
+            gh pr create --base main  --title "Infra PR from App: INFRA-$branch" --body "adding infra"
+          else
+            echo "The PR is already open for this branch PR request to main"
+          fi
