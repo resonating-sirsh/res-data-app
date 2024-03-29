@@ -100,7 +100,7 @@ jobs:
   update-infra:
     needs:
       - process-app
-      - buld-core
+      - build-core
     runs-on: ubuntu-latest
     #if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
     steps:
