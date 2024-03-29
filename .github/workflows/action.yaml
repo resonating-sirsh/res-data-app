@@ -164,4 +164,5 @@ jobs:
               echo "Warning! when merging the PR there was no remote infra PR"
             else    
               gh pr merge $branch --rebase
+            fi
           fi
