@@ -123,10 +123,10 @@ jobs:
 
           git checkout -b INFRA-$branch
           if git ls-remote --heads origin | grep -q "refs/heads/INFRA-$branch"; then
-             echo "Remote branch INFRA-$branch exists."
-          else
              echo "pulling from origin."
              git pull origin INFRA-$branch
+          else
+             echo "Remote branch INFRA-$branch exists."
           fi
 
           echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
