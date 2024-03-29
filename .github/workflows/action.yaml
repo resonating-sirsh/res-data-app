@@ -123,6 +123,7 @@ jobs:
 
           git checkout -b INFRA-$branch
           echo "stuff" >> apps/res-meta/meta_one/kustomize.yaml
+          git pull
           git add .
           git commit -m "adding tags"
           git push origin INFRA-$branch
