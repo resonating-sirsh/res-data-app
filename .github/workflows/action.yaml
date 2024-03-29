@@ -34,7 +34,7 @@ jobs:
           git add .
           git commit -m "adding tags" 
           echo "pushing changes for this commit"
-          git push origin INFRA-${GITHUB_SHA:0:7}
+          ssh-agent sh -c 'echo "${{ secrets.INFRA_SSH_KEY }}" | ssh-add - && git push origin INFRA-${GITHUB_SHA:0:7}
           echo "pushed changes and opening PR"
           gh config set git_protocol ssh -h github.com
           gh pr create --title "merging infra for app changes ${GITHUB_SHA:0:7}" --body k8s infra will be updated" --head "INFRA-${GITHUB_SHA:0:7}" --base main
