@@ -127,6 +127,7 @@ jobs:
         # ./kustomize edit set image 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-$tag
         run: |
           curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
+      # WE MAY TO CHECK IF THE PR IS STILL OPEN e.g IF ITS CANCELLED MID BUILD, WE WOULD ADD THE INFRA HERE AND IT WOULD BE ORPHANED
       - name: Update and commit
         run: |
           tag=${{needs.build-core.outputs.tag}}
