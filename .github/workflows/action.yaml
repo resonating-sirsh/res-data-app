@@ -78,11 +78,12 @@ jobs:
 
           echo "processing apps and workflows $apps $workflows"
 
-          for item in "$apps"; do
+          IFS=',' read -r -a apps <<< "$apps"
+          for item in "${apps[@]}"; do
               echo "Processing app: $item"
               #echo "#comment $tag" >> "$item/kustomize.yaml"
           done
-          for item in "$workflows"; do
+          for item in "${workflows[@]}"; do
               echo "Processing workflow: $item"
               #echo "#comment $tag" >> "$item/kustomize.yaml"
           done
