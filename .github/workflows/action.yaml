@@ -55,7 +55,7 @@ jobs:
         with:
           repository: resonance/res-data-infra
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
-          path: "res-data-infra"
+          path: ""
           ref: main
       #we can do this only when we have tested our local build to avoid bloat
       - name: ensure-infra-branch
