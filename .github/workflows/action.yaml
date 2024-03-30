@@ -57,7 +57,7 @@ jobs:
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: ""
           ref: main
-      - name: ensure-infra-branch
+      - name: ensure-infra-branch-and-pr
         run: |
           branch=${{steps.prep-changed-apps.outputs.infra_branch}}
           git checkout -b $branch
