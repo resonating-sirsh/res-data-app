@@ -50,9 +50,11 @@ jobs:
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflow_list" >> "$GITHUB_OUTPUT"
 
-          # all_applications=$(jq -n --argjson a "$app_list" --argjson b "$workflow_list" '$a + $b')
-          # echo "$all_applications"
-          # echo "all_applications=$all_applications" >> "$GITHUB_OUTPUT"
+          copy1=$(echo "$app_list" | jq '.')
+          copy2=$(echo "$workflow_list" | jq '.')
+          all_applications=$(jq -n --argjson a "$copy1" --argjson b "$copy2" '$a + $b')
+          echo "$all_applications"
+          echo "all_applications=$all_applications" >> "$GITHUB_OUTPUT"
 
       - name: Checkout infra repo
         uses: actions/checkout@v4
