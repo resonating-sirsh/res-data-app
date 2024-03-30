@@ -76,11 +76,13 @@ jobs:
           apps=${{steps.prep-changed-apps.outputs.apps}}
           workflows=${{steps.prep-changed-apps.outputs.workflows}}
 
+          echo "processing apps and workflows $apps $workflows"
+
           jq -c '.[]' <<< "$apps" | while read -r item; do
               echo "Processing app: $item"
           jq -c '.[]' <<< "$workflows" | while read -r item; do
               echo "Processing workflow: $item"
-
+          echo "updated tags"
 
           echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
           git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
