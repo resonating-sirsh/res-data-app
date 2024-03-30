@@ -54,6 +54,7 @@ jobs:
     needs:
       - setup
     steps:
+      - uses: actions/checkout@v3
       - id: update-apps
         uses: "./.github/actions/update-infra"
         with:
