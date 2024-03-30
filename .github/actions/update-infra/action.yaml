@@ -34,6 +34,7 @@ runs:
         ref: main
     #we can do this only when we have tested our local build to avoid bloat
     - name: ensure-infra-branch
+      shell: bash
       run: |
         branch=${{inputs.infra_branch}}
         git checkout -b $branch
@@ -43,9 +44,11 @@ runs:
           git push origin $branch
         fi
     - name: Install kustomize
+      shell: bash
       run: |
         curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
     - name: tag-apps
+      shell: bash
       run: |
         #test adding a change
 
@@ -74,6 +77,7 @@ runs:
 
     #we should run this only if there are commits
     - name: ensure-infra-pr
+      shell: bash
       run: |
         branch=${{inputs.infra_branch}}
         gh auth login --with-token <<< "${{inputs.infra_token}}"
