@@ -56,7 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: update-apps
-        uses: "./.github/actions/update-infra"
+        uses: actions/update-infra@v1
         with:
           infra_branch: ${{needs.setup.outputs.infra_branch}}
           tag: ${{needs.setup.outputs.tag}}
