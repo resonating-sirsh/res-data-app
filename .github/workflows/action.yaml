@@ -42,13 +42,14 @@ jobs:
             branch="sourced-main-$tag"
           fi
 
-          echo "Apps changed are $app_list"
-          echo "Workflows to update are $workflow_list"
+          all_kustomize = $app_list + $workflow_list"
+          echo "Apps changed are $all_kustomize"
 
           echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflows" >> "$GITHUB_OUTPUT"
           echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "all_kustomize=$all_kustomize" >> "$GITHUB_OUTPUT"
 
       - name: Checkout infra repo
         uses: actions/checkout@v4
@@ -67,33 +68,35 @@ jobs:
           else
             git push origin $branch
           fi
-          #test adding a change
-          git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
-          tag=${{steps.prep-changed-apps.outputs.infra_branch}}
-          echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
-          git add .
-          git commit -m "adding tags $tag"
-          git push origin $branch
+      # - name: tag-apps
+      #   run: |
+      #     #test adding a change
+      #     git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
+      #     tag=${{steps.prep-changed-apps.outputs.infra_branch}}
+      #     echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
+      #     git add .
+      #     git commit -m "adding tags $tag"
+      #     git push origin $branch
       #we should run this only if there are commit
-      - name: ensure-infra-pr
-        run: |
-          branch=${{steps.prep-changed-apps.outputs.infra_branch}}
-          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          echo "syncing remote infra PR..."
-          prs=$(gh pr list -B main -H $branch)  
-          if [[ "${{github.event_name}}" == 'pull_request' ]]; then
-            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-              echo "Skipping creation as we already have a PR for this branch"
-            else    
-              gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
-            fi
-          else
-            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-              echo "Warning! when merging the PR there was no remote infra PR"
-            else    
-              echo "Will create and merge the main branch"
-              gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster" 
-              gh pr merge --auto --rebase 
-            fi
-          fi
-        #################
+      # - name: ensure-infra-pr
+      #   run: |
+      #     branch=${{steps.prep-changed-apps.outputs.infra_branch}}
+      #     gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+      #     echo "syncing remote infra PR..."
+      #     prs=$(gh pr list -B main -H $branch)
+      #     if [[ "${{github.event_name}}" == 'pull_request' ]]; then
+      #       if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+      #         echo "Skipping creation as we already have a PR for this branch"
+      #       else
+      #         gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
+      #       fi
+      #     else
+      #       if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+      #         echo "Warning! when merging the PR there was no remote infra PR"
+      #       else
+      #         echo "Will create and merge the main branch"
+      #         gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster"
+      #         gh pr merge --auto --rebase
+      #       fi
+      #     fi
+      #################
