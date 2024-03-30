@@ -76,10 +76,10 @@ jobs:
         run: |
           #test adding a change
           ls
-          branch=${{needs.setup..outputs.infra_branch}}
-          tag=${{needs.setup..outputs.infra_branch}}
-          apps=${{needs.setup..outputs.apps}}
-          workflows=${{needs.setup..outputs.workflows}}
+          branch=${{needs.setup.outputs.infra_branch}}
+          tag=${{needs.setup.outputs.infra_branch}}
+          apps=${{needs.setup.outputs.apps}}
+          workflows=${{needs.setup.outputs.workflows}}
 
           echo "processing apps and workflows $apps $workflows"
 
@@ -104,7 +104,7 @@ jobs:
     #we should run this only if there are commit
     # - name: ensure-infra-pr
     #   run: |
-    #     branch=${{needs.setup..outputs.infra_branch}}
+    #     branch=${{needs.setup.outputs.infra_branch}}
     #     gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
     #     echo "syncing remote infra PR..."
     #     prs=$(gh pr list -B main -H $branch)
