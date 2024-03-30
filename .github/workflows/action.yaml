@@ -21,6 +21,7 @@ jobs:
       tag: ${{ steps.prep-changed-apps.outputs.tag }}
       workflows: ${{ steps.prep-changed-apps.outputs.workflows }}
       infra_branch: ${{ steps.prep-changed-apps.outputs.infra_branch}}
+      all_applications: ${{ steps.prep-changed-apps.outputs.all_applications}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,15 +43,14 @@ jobs:
             branch="sourced-main-$tag"
           fi
 
-          echo "$app_list"
-          echo "$workflow_list"
-          merged_json=$(jq -n --argjson a "$app_list" --argjson b "$workflow_list" '$a + $b')
-
+          all_applications=$(jq -n --argjson a "$app_list" --argjson b "$workflow_list" '$a + $b')
+          echo "$all_applications"
 
           echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflow_list" >> "$GITHUB_OUTPUT"
           echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "all_applications=$all_applications" >> "$GITHUB_OUTPUT"
 
       - name: Checkout infra repo
         uses: actions/checkout@v4
