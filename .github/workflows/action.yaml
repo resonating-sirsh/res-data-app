@@ -55,7 +55,7 @@ jobs:
         with:
           repository: resonance/res-data-infra
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
-          path: ""
+          path: res_data_platform
           ref: main
       #we can do this only when we have tested our local build to avoid bloat
       - name: ensure-infra-branch
@@ -70,6 +70,7 @@ jobs:
       - name: tag-apps
         run: |
           #test adding a change
+          ls
           cd res_data_platform
           branch=${{steps.prep-changed-apps.outputs.infra_branch}}
           tag=${{steps.prep-changed-apps.outputs.infra_branch}}
