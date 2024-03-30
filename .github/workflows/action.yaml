@@ -54,7 +54,10 @@ jobs:
     needs:
       - setup
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{inputs.infra_key}}
       - id: update-apps
         uses: actions/update-infra@v1
         with:
