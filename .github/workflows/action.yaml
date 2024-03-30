@@ -78,9 +78,14 @@ jobs:
 
           echo "processing apps and workflows $apps $workflows"
 
-          readarray -t items_array <<< "$(echo "$apps" | tr -d '[]' | tr ',' '\n')"; 
-          for item in "${items_array[@]}"; do 
-            echo "Processing item: $item"; 
+          readarray -t app_array <<< "$(echo "$apps" | tr -d '[]' | tr ',' '\n')"; 
+          for item in "${app_array[@]}"; do 
+            echo "Processing app item: $item"; 
+            echo "#$tag" >> "$item/kustomize.yaml"
+          done
+          readarray -t workflow_array <<< "$(echo "$workflows" | tr -d '[]' | tr ',' '\n')"; 
+          for item in "${workflow_array[@]}"; do 
+            echo "Processing workflow item: $item"; 
             echo "#$tag" >> "$item/kustomize.yaml"
           done
 
