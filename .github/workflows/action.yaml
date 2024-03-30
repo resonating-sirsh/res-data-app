@@ -78,11 +78,11 @@ jobs:
 
           echo "processing apps and workflows $apps $workflows"
 
-          for item in "${apps[@]}"; do
-              echo "Processing app: $item"
-          for item in "${workflows[@]}"; do
-              echo "Processing workflow: $item"
-          echo "updated tags"
+          # for item in "${apps[@]}"; do
+          #     echo "Processing app: $item"
+          # for item in "${workflows[@]}"; do
+          #     echo "Processing workflow: $item"
+          # echo "updated tags"
 
           echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
           git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
