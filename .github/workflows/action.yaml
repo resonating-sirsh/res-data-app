@@ -45,11 +45,13 @@ jobs:
 
           all_applications=$(jq -n --argjson a "$app_list" --argjson b "$workflow_list" '$a + $b')
           echo "$all_applications"
+          echo "preparing output"
 
+          echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
           echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflow_list" >> "$GITHUB_OUTPUT"
-          echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
+
           echo "all_applications=$all_applications" >> "$GITHUB_OUTPUT"
 
       - name: Checkout infra repo
