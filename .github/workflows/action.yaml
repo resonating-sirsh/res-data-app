@@ -68,6 +68,7 @@ jobs:
             git push origin $branch
           fi
           #test adding a change
+          git config --global user.email "techpirates@resonance.nyc"
           tag=${{steps.prep-changed-apps.outputs.infra_branch}}
           echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
           git add .
