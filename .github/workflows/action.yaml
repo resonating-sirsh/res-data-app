@@ -77,17 +77,13 @@ jobs:
           workflows=${{steps.prep-changed-apps.outputs.workflows}}
 
           echo "processing apps and workflows $apps $workflows"
-          declare -p apps
-          declare -p workflows
 
-          jq -r '.[]' <<< "$apps" | while read -r item; do
-              echo "Processing app: $item"
-              #echo "#comment $tag" >> "$item/kustomize.yaml"
+          readarray -t items_array <<< "$(echo "$apps" | tr -d '[]' | tr ',' '\n')"; 
+          for item in "${items_array[@]}"; do 
+            echo "Processing item: $item"; 
+            echo "#$tag" >> "$item/kustomize.yaml"
           done
-          jq -r '.[]' <<< "$workflows" | while read -r item; do
-              echo "Processing workflow: $item"
-              #echo "#comment $tag" >> "$item/kustomize.yaml"
-          done
+
           echo "updated tags"
 
           git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
