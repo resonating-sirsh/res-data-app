@@ -43,8 +43,6 @@ jobs:
             branch="sourced-main-$tag"
           fi
 
-          all_applications=$(jq -n --argjson a "$app_list" --argjson b "$workflow_list" '$a + $b')
-          echo "$all_applications"
           echo "preparing output"
 
           echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
@@ -52,6 +50,8 @@ jobs:
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflow_list" >> "$GITHUB_OUTPUT"
 
+          all_applications=$(jq -n --argjson a "$app_list" --argjson b "$workflow_list" '$a + $b')
+          echo "$all_applications"
           echo "all_applications=$all_applications" >> "$GITHUB_OUTPUT"
 
       - name: Checkout infra repo
