@@ -70,9 +70,10 @@ jobs:
       - name: tag-apps
         run: |
           #test adding a change
+          cd res_data_platform
           branch=${{steps.prep-changed-apps.outputs.infra_branch}}
           tag=${{steps.prep-changed-apps.outputs.infra_branch}}
-          apps = ${{steps.prep-changed-apps.outputs.apps}}
+          apps=${{steps.prep-changed-apps.outputs.apps}}
           workflows = ${{steps.prep-changed-apps.outputs.workflows}}
 
           jq -c '.[]' <<< "$apps" | while read -r item; do
