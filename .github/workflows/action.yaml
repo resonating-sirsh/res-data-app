@@ -13,19 +13,21 @@ on:
       - "apps/**"
       - "res/**"
 jobs:
-  build-core:
+  #get the local changes and create a target infra PR
+  setup:
     runs-on: ubuntu-latest
     outputs:
-      apps: ${{ steps.get-changed-apps.outputs.apps }}
-      tag: ${{ steps.get-changed-apps.outputs.tag }}
-      workflows: ${{ steps.get-changed-apps.outputs.workflows }}
+      apps: ${{ steps.prep-changed-apps.outputs.apps }}
+      tag: ${{ steps.prep-changed-apps.outputs.tag }}
+      workflows: ${{ steps.prep-changed-apps.outputs.workflows }}
+      infra_branch: ${{ steps.prep-changed-apps.outputs.infra_branch}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Get changed Apps
-        id: get-changed-apps
+      - name: Prep changed Apps
+        id: prep-changed-apps
         run: |
           workflows=$(find "res_data_workflows" -mindepth 2 -maxdepth 2 -type d | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
           if [[ ${{ github.event_name }} == 'pull_request' ]]; then
@@ -33,7 +35,25 @@ jobs:
           elif [[ ${{ github.event_name }} == 'push' ]]; then
             app_list=$(git diff --name-only HEAD^  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
           fi
-          echo $app_list
+
+          if [[ "${{github.event_name}}" != 'push' ]]; then
+            branch="sourced-pr-${{  github.event.pull_request.number }}"
+          else
+            branch="sourced-main-$tag"
+          fi
+
+          echo "Apps changed are $app_list"
+          echo "Workflows to update are $workflow_list"
+
           echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflows" >> "$GITHUB_OUTPUT"
+          echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout infra repo
+        uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          path: ""
+          ref: f"sourced-{steps.prep-changed-apps.outputs.infra_branch}"
