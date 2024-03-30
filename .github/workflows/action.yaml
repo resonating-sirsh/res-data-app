@@ -64,4 +64,3 @@ jobs:
           workflows: ${{needs.setup.outputs.workflows}}
           infra_token: ${{ secrets.INFRA_TOKEN }}
           infra_key: ${{ secrets.INFRA_SSH_KEY }}
-      - uses: actions/checkout@v3
