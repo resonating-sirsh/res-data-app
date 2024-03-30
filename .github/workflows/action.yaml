@@ -57,7 +57,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: resonance/res-data-infra
-          ssh-key: ${{inputs.infra_key}}
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }}
       - id: update-apps
         uses: ./.github/actions/update-infra
         with:
