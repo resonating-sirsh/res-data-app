@@ -1,0 +1,90 @@
+name: Update Infra Apps
+description: When we build docker images for the base or apps, we can kustomize the infra in a PR on the infra repo
+inputs:
+  infra_branch:
+    description: The branch name to use in the infra
+    required: true
+  tag:
+    description: The build tag to use in the infra
+    required: true
+  apps:
+    description: The list of apps
+    required: true
+  workflows:
+    description: The list of workflows
+    required: true
+branding:
+  icon: cloud
+  color: orange
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout infra repo
+      uses: actions/checkout@v4
+      with:
+        repository: resonance/res-data-infra
+        ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+        path: ""
+        ref: main
+    #we can do this only when we have tested our local build to avoid bloat
+    - name: ensure-infra-branch
+      run: |
+        branch=${{inputs.infra_branch}}
+        git checkout -b $branch
+        if git ls-remote --heads origin | grep -q "refs/heads/$branch"; then
+            git pull origin $branch
+        else
+          git push origin $branch
+        fi
+    - name: Install kustomize
+      run: |
+        curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
+    - name: tag-apps
+      run: |
+        #test adding a change
+
+        branch=${{inputs.infra_branch}}
+        tag=${{inputs.tag}}
+        apps=${{inputs.apps}}
+        workflows=${{inputs.workflows}}
+
+        readarray -t app_array <<< "$(echo "$apps" | tr -d '[]' | tr ',' '\n')"; 
+        for item in "${app_array[@]}"; do 
+          echo "Processing app item: $item"; 
+          echo "#$tag" >> "$item/kustomize.yaml"
+        done
+        readarray -t workflow_array <<< "$(echo "$workflows" | tr -d '[]' | tr ',' '\n')"; 
+        for item in "${workflow_array[@]}"; do 
+          if [ -e "$item/kustomize.yaml" ]; then
+            echo "Processing workflow item: $item"; 
+            echo "#$tag" >> "$item/kustomize.yaml"
+          fi
+        done
+
+        git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
+        git add .
+        git commit -m "adding tags $tag to multiple apps"
+        git push origin $branch
+
+    #we should run this only if there are commits
+    - name: ensure-infra-pr
+      run: |
+        branch=${{inputs.infra_branch}}
+        gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+        echo "syncing remote infra PR..."
+        prs=$(gh pr list -B main -H $branch)
+        if [[ "${{github.event_name}}" == 'pull_request' ]]; then
+          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+            echo "Skipping creation as we already have a PR for this branch"
+          else
+            gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
+          fi
+        else
+          if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+            echo "Warning! when merging the PR there was no remote infra PR"
+          else
+            echo "Will create and merge the main branch"
+            gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster"
+            gh pr merge --auto --rebase
+          fi
+        fi
