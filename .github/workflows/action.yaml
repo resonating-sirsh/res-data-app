@@ -83,7 +83,7 @@ jobs:
               echo "Processing app: $item"
               #echo "#comment $tag" >> "$item/kustomize.yaml"
           done
-           jq -r '.[]' <<< "$workflows" | while read -r item; do
+          jq -r '.[]' <<< "$workflows" | while read -r item; do
               echo "Processing workflow: $item"
               #echo "#comment $tag" >> "$item/kustomize.yaml"
           done
