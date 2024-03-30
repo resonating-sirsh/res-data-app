@@ -37,6 +37,7 @@ runs:
       shell: bash
       run: |
         branch=${{inputs.infra_branch}}
+        git config pull.rebase true
         git checkout -b $branch
         if git ls-remote --heads origin | grep -q "refs/heads/$branch"; then
             git pull origin $branch
