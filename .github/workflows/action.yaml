@@ -70,16 +70,16 @@ jobs:
       - name: tag-apps
         run: |
           #test adding a change
-          git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
+          branch=${{steps.prep-changed-apps.outputs.infra_branch}}
           tag=${{steps.prep-changed-apps.outputs.infra_branch}}
-          echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
+          apps = ${{steps.prep-changed-apps.outputs.apps}}
+          workflows = ${{steps.prep-changed-apps.outputs.workflows}}
 
-          jq -c '.[]' <<< "${{steps.prep-changed-apps.outputs.apps}}" | while read -r item; do
+          jq -c '.[]' <<< "$apps" | while read -r item; do
               echo "Processing app: $item"
 
-          jq -c '.[]' <<< "${{steps.prep-changed-apps.outputs.workflows}}" | while read -r item; do
-              echo "Processing workflow: $item"
-
+          echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
+          git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
           git add .
           git commit -m "adding tags $tag to multiple apps"
           git push origin $branch
