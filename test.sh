@@ -1,6 +1,6 @@
-json1='["a", "b", "c"]'
-json2='["d", "e", "f"]'
+my_list=("item1" "item2" "item3")
 
-merged_json=$(jq -n --argjson a "$json1" --argjson b "$json2" '$a + $b')
-
-echo "$merged_json"
+for item in "${my_list[@]}"; do
+    echo "Processing item: $item"
+    # Add your processing logic here
+done
