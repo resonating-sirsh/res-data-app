@@ -80,11 +80,11 @@ jobs:
 
           for item in "${apps[@]}"; do
               echo "Processing app: $item"
-              echo "#comment $tag" >> "$item/kustomize.yaml"
+              #echo "#comment $tag" >> "$item/kustomize.yaml"
           done
           for item in "${workflows[@]}"; do
               echo "Processing workflow: $item"
-              echo "#comment $tag" >> "$item/kustomize.yaml"
+              #echo "#comment $tag" >> "$item/kustomize.yaml"
           done
           echo "updated tags"
 
