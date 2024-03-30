@@ -42,7 +42,8 @@ jobs:
             branch="sourced-main-$tag"
           fi
 
-          all_kustomize=$($app_list + $workflow_list)
+          all_kustomize=$(jq -n --argjson a "$app_list" --argjson b "$workflow_list" '$a + $b')
+
           echo "Apps changed are $all_kustomize"
 
           echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
