@@ -44,26 +44,61 @@ jobs:
           fi
 
           echo "preparing output"
-
           echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
           echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
           echo "apps=$app_list" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflow_list" >> "$GITHUB_OUTPUT"
-  update-apps:
+  build-core:
     runs-on: ubuntu-latest
     needs:
       - setup
     steps:
       - uses: actions/checkout@v4
+      - id: build-core-image
+        #NB! this action is in the just checked out TARGET infra repo and NOT the apps repo
+        uses: ./.github/actions/image-builder
         with:
-          repository: resonance/res-data-infra
-          ssh-key: ${{ secrets.INFRA_SSH_KEY }}
-      - id: update-apps
-        uses: ./.github/actions/update-infra
-        with:
-          infra_branch: ${{needs.setup.outputs.infra_branch}}
           tag: ${{needs.setup.outputs.tag}}
-          apps: ${{needs.setup.outputs.apps}}
-          workflows: ${{needs.setup.outputs.workflows}}
-          infra_token: ${{ secrets.INFRA_TOKEN }}
-          infra_key: ${{ secrets.INFRA_SSH_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  process-app:
+    needs:
+      - build-core
+      - setup
+    runs-on: ubuntu-latest
+    if: ${{ needs.setup.outputs.apps != '[]' && needs.setup.outputs.apps != '' }}
+    strategy:
+      matrix:
+        app: ${{fromJson(needs.setup.outputs.apps)}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - id: build-app-image
+        #NB! this action is in the just checked out TARGET infra repo and NOT the apps repo
+        uses: ./.github/actions/image-builder
+        with:
+          tag: ${{needs.setup.outputs.tag}}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          name: ${{ matrix.app }}
+          path: ${{ matrix.app }}
+
+  # update-apps:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - setup
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         repository: resonance/res-data-infra
+  #         ssh-key: ${{ secrets.INFRA_SSH_KEY }}
+  #     - id: update-apps
+  #       #NB! this action is in the just checked out TARGET infra repo and NOT the apps repo
+  #       uses: ./.github/actions/update-infra
+  #       with:
+  #         infra_branch: ${{needs.setup.outputs.infra_branch}}
+  #         tag: ${{needs.setup.outputs.tag}}
+  #         apps: ${{needs.setup.outputs.apps}}
+  #         workflows: ${{needs.setup.outputs.workflows}}
+  #         infra_token: ${{ secrets.INFRA_TOKEN }}
+  #         infra_key: ${{ secrets.INFRA_SSH_KEY }}
