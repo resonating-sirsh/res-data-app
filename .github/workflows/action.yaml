@@ -56,4 +56,4 @@ jobs:
           repository: resonance/res-data-infra
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: ""
-          ref: f"sourced-{steps.prep-changed-apps.outputs.infra_branch}"
+          ref: test-new-branch
