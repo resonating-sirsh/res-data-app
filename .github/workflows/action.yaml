@@ -55,7 +55,7 @@ jobs:
       - setup
     steps:
       - id: update-apps
-        uses: "./.github/actions/update-infra"
+        uses: "update-infra@latest"
         with:
           infra_branch: "{{needs.setup.output.infra_branch}}"
           tag: "{{needs.setup.output.tag}}"
