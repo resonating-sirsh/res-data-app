@@ -78,9 +78,9 @@ jobs:
 
           echo "processing apps and workflows $apps $workflows"
 
-          jq -c '.[]' <<< "$apps" | while read -r item; do
+          for item in "${apps[@]}"; do
               echo "Processing app: $item"
-          jq -c '.[]' <<< "$workflows" | while read -r item; do
+          for item in "${workflows[@]}"; do
               echo "Processing workflow: $item"
           echo "updated tags"
 
