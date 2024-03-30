@@ -42,8 +42,8 @@ runs:
       run: |
         label=$(echo ${{inputs.name}} | sed 's/[^[:alpha:]]/-/g')
         #the core tag takes this convention - we pass it to apps but ignore otherwise
-        core=$(res-${{inputs.tag}} )
+        core=$("res-${{inputs.tag}}")
         docker buildx build --push -f ${{inputs.path}}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${label}-${{inputs.tag}}  \
         --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${label}-${{inputs.tag}}-cache \
         --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${label}-${{inputs.tag}}-cache .
-        --build-arg="RES_TAG=app" \
+        --build-arg="RES_TAG=$core" \
