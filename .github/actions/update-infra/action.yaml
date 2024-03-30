@@ -14,7 +14,10 @@ inputs:
     description: The list of workflows
     required: true
   infra_token:
-    description: Token to use with remote repo
+    description: Token to use with remote repo - this may be a PAT like token
+    required: true
+  infra_key:
+    description: ssh key to use with remote repo
     required: true
 branding:
   icon: cloud
@@ -26,7 +29,7 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: resonance/res-data-infra
-        ssh-key: ${{inputs.infra_token}}
+        ssh-key: ${{inputs.infra_key}}
         path: ""
         ref: main
     #we can do this only when we have tested our local build to avoid bloat
@@ -73,7 +76,7 @@ runs:
     - name: ensure-infra-pr
       run: |
         branch=${{inputs.infra_branch}}
-        gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+        gh auth login --with-token <<< "${{inputs.infra_token}}"
         echo "syncing remote infra PR..."
         prs=$(gh pr list -B main -H $branch)
         if [[ "${{github.event_name}}" == 'pull_request' ]]; then
