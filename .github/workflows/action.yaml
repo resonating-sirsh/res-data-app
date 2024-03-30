@@ -56,4 +56,13 @@ jobs:
           repository: resonance/res-data-infra
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: ""
-          ref: test-new-branch
+          ref: main
+      - name: ensure-infra-branch
+        run: |
+          branch=${{steps.prep-changed-apps.outputs.infra_branch}}
+          git checkout -b $branch
+          if git ls-remote --heads origin | grep -q "refs/heads/$branch"; then
+             git pull origin $branch
+          else
+            git push origin $branch
+          fi
