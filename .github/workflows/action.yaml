@@ -67,15 +67,23 @@ jobs:
           else
             git push origin $branch
           fi
-      # - name: tag-apps
-      #   run: |
-      #     #test adding a change
-      #     git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
-      #     tag=${{steps.prep-changed-apps.outputs.infra_branch}}
-      #     echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
-      #     git add .
-      #     git commit -m "adding tags $tag"
-      #     git push origin $branch
+      - name: tag-apps
+        run: |
+          #test adding a change
+          git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
+          tag=${{steps.prep-changed-apps.outputs.infra_branch}}
+          echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
+
+          jq -c '.[]' <<< "${{steps.prep-changed-apps.outputs.apps}}" | while read -r item; do
+              echo "Processing app: $item"
+
+          jq -c '.[]' <<< "${{steps.prep-changed-apps.outputs.workflows}}" | while read -r item; do
+              echo "Processing workflow: $item"
+
+          git add .
+          git commit -m "adding tags $tag to multiple apps"
+          git push origin $branch
+
       #we should run this only if there are commit
       # - name: ensure-infra-pr
       #   run: |
