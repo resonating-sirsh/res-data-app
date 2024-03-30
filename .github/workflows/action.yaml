@@ -71,7 +71,7 @@ jobs:
         run: |
           #test adding a change
           ls
-          cd res_data_infra
+
           branch=${{steps.prep-changed-apps.outputs.infra_branch}}
           tag=${{steps.prep-changed-apps.outputs.infra_branch}}
           apps=${{steps.prep-changed-apps.outputs.apps}}
