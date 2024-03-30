@@ -98,5 +98,3 @@ runs:
             gh pr merge --auto --rebase
           fi
         fi
-    #return to context
-    - uses: actions/checkout@v3
