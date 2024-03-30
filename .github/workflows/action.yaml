@@ -57,7 +57,9 @@ jobs:
           ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
           path: ""
           ref: main
-      - name: ensure-infra-branch-and-pr
+      #we can do this only when we have tested our local build to avoid bloat
+      - name: ensure-infra-branch
+
         run: |
           branch=${{steps.prep-changed-apps.outputs.infra_branch}}
           git checkout -b $branch
@@ -66,3 +68,25 @@ jobs:
           else
             git push origin $branch
           fi
+      - name: ensure-infra-pr
+        run: |
+          branch=${{steps.prep-changed-apps.outputs.infra_branch}}
+          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
+          echo "syncing remote infra PR..."
+          prs=$(gh pr list -B main -H $branch)  
+          if [[ "${{github.event_name}}" == 'pull_request' ]]; then
+            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+              echo "Skipping creation as we already have a PR for this branch"
+            else    
+              gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
+            fi
+          else
+            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
+              echo "Warning! when merging the PR there was no remote infra PR"
+            else    
+              echo "Will create and merge the main branch"
+              gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster" 
+              gh pr merge --auto --rebase 
+            fi
+          fi
+        #################
