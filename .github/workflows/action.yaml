@@ -63,3 +63,4 @@ jobs:
           apps: "{{needs.setup.output.apps}}"
           workflows: "{{needs.setup.output.workflows}}"
           infra_token: ${{ secrets.INFRA_SSH_KEY }}
+          infra_key: ${{ secrets.INFRA_SSH_KEY }}
