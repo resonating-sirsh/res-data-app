@@ -71,14 +71,16 @@ jobs:
         run: |
           #test adding a change
           ls
-
           branch=${{steps.prep-changed-apps.outputs.infra_branch}}
           tag=${{steps.prep-changed-apps.outputs.infra_branch}}
           apps=${{steps.prep-changed-apps.outputs.apps}}
-          workflows = ${{steps.prep-changed-apps.outputs.workflows}}
+          workflows=${{steps.prep-changed-apps.outputs.workflows}}
 
           jq -c '.[]' <<< "$apps" | while read -r item; do
               echo "Processing app: $item"
+          jq -c '.[]' <<< "$workflows" | while read -r item; do
+              echo "Processing workflow: $item"
+
 
           echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
           git config --global user.email "techpirates@resonance.nyc" && git config --global user.name "CI Bot"
