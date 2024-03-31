@@ -1,5 +1,4 @@
-name: ci
-
+name: app-builder
 on:
   push:
     branches:
@@ -14,164 +13,94 @@ on:
       - "apps/**"
       - "res/**"
 jobs:
-  build-core:
+  #get the local changes and create a target infra PR - this is only stuff that is pinned to docker builds
+  setup:
     runs-on: ubuntu-latest
     outputs:
-      apps: ${{ steps.get-changed-apps.outputs.apps }}
-      tag: ${{ steps.get-changed-apps.outputs.tag }}
+      apps: ${{ steps.prep-changed-apps.outputs.apps }}
+      tag: ${{ steps.prep-changed-apps.outputs.tag }}
+      workflows: ${{ steps.prep-changed-apps.outputs.workflows }}
+      infra_branch: ${{ steps.prep-changed-apps.outputs.infra_branch}}
+      all_applications: ${{ steps.prep-changed-apps.outputs.all_applications}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      #we get all the distinct folders which are apps under [apps]/namespace/[app]{changed_files}
-      - name: Get changed Apps
-        #            git diff --name-only ${{ github.event.before }} ${{ github.sha }} another way to get changed files
-        id: get-changed-apps
+      - name: Prep changed Apps
+        id: prep-changed-apps
         run: |
+          workflow_list=$(find "res_data_workflows" -mindepth 2 -maxdepth 2 -type d | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
           if [[ ${{ github.event_name }} == 'pull_request' ]]; then
             app_list=$(git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
           elif [[ ${{ github.event_name }} == 'push' ]]; then
             app_list=$(git diff --name-only HEAD^  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -c '.  | unique')
           fi
-          echo $app_list
-          echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
-          echo "apps=$app_list" >> "$GITHUB_OUTPUT"
 
-      #echo "::set-output name=apps::$app_list"
-      # - name: Setup Python env
-      #   uses: actions/setup-python@v3
-      # - name: Install black
-      #   run: pip install black
-
-      # - name: Black changed files
-      #   run: |
-      #     black --check  ${{ steps.changed-files.outputs.all_changed_files }}
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      # #https://medium.com/@int128/effective-buildkit-cache-in-github-actions-e36d08804ffb
-      # #https://docs.docker.com/build/cache/backends/
-      - name: Build and push container image to registry
-        run: |
-          docker buildx build --push -f ./res/docker/res-data/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-latest  \
-          --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache \
-          --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-cache .
-
-  process-app:
-    needs: build-core
-    runs-on: ubuntu-latest
-    if: ${{ needs.build-core.outputs.apps != '[]' && needs.build-core.outputs.apps != '' }}
-    strategy:
-      matrix:
-        app: ${{fromJson(needs.build-core.outputs.apps)}}
-    steps:
-      #do we really need this in parallel steps? can we share these for all steps for reuse?
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Process app ${{ matrix.app }}
-        #process the app by processing its docker file - all docker files are assumed to use root of repo as context
-        #buildx context needs to be setup and is done in the first core step
-        #the RES_TAG is temp and comes from the core build (see env.TAG)
-        run: |
-          echo "Processing dockerfile directory: ${{ matrix.app }}/Dockerfile"
-          label=$(echo ${{ matrix.app }} | sed 's/[^[:alpha:]]/-/g')
-          echo "Using tag prefix {$label}"
-          docker buildx build --push -f  ./${{ matrix.app }}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-latest \
-          --build-arg="RES_TAG=app" \
-          --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache \
-          --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-app-cache  .
-
-  update-infra:
-    permissions:
-      contents: read
-      pull-requests: read
-    needs:
-      - process-app
-      - build-core
-    runs-on: ubuntu-latest
-    #if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
-    steps:
-      - name: Checkout private tools
-        uses: actions/checkout@v4
-        with:
-          repository: resonance/res-data-infra
-          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
-          path: res-data-infra
-          ref: main
-      # we use the PR number as the target branch since this is the id of the link
-      # if we are pushing, we can update that branch on the target and if there is a PR event, we can create the PR one time
-      # see the on_close action to see how we close or merge the PR
-      - name: Install kustomize
-        #working-directory: app/manifest
-        # ./kustomize edit set image 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:app-$tag
-        run: |
-          curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
-      # WE MAY TO CHECK IF THE PR IS STILL OPEN e.g IF ITS CANCELLED MID BUILD, WE WOULD ADD THE INFRA HERE AND IT WOULD BE ORPHANED
-      - name: Update and commit
-        run: |
-          tag=${{needs.build-core.outputs.tag}}
           if [[ "${{github.event_name}}" != 'push' ]]; then
             branch="sourced-pr-${{  github.event.pull_request.number }}"
           else
             branch="sourced-main-$tag"
           fi
 
-          echo "The target infra branch is $branch and the tag is $tag"
+          echo "preparing output"
+          echo "infra_branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "tag=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
+          echo "apps=$app_list" >> "$GITHUB_OUTPUT"
+          echo "workflows=$workflow_list" >> "$GITHUB_OUTPUT"
+  build-core:
+    runs-on: ubuntu-latest
+    needs:
+      - setup
+    steps:
+      - uses: actions/checkout@v4
+      - id: build-core-image
+        #NB! this action is in the just checked out TARGET infra repo and NOT the apps repo
+        uses: ./.github/actions/image-builder
+        with:
+          tag: ${{needs.setup.outputs.tag}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  process-apps:
+    needs:
+      - build-core
+      - setup
+    runs-on: ubuntu-latest
+    if: ${{ needs.setup.outputs.apps != '[]' && needs.setup.outputs.apps != '' }}
+    strategy:
+      matrix:
+        app: ${{fromJson(needs.setup.outputs.apps)}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - id: build-app-image
+        #NB! this action is in the just checked out TARGET infra repo and NOT the apps repo
+        uses: ./.github/actions/image-builder
+        with:
+          tag: ${{needs.setup.outputs.tag}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          name: ${{ matrix.app }}
+          path: ${{ matrix.app }}
 
-          cd res-data-infra
-          git config --global user.email "techpirates@resonance.nyc"
-          git config --global user.name "CI Bot"
-          git config --global credential.helper cache
-
-          git checkout -b $branch
-          if git ls-remote --heads origin | grep -q "refs/heads/$branch"; then
-             echo "pulling from origin."
-             git pull origin $branch
-          else
-             echo "Remote branch $branch exists."
-          fi
-
-          echo "tag $tag" > apps/res-meta/meta_one/kustomize.yaml
-          git add .
-          git commit -m "adding tags $tag"
-          git push origin $branch
-
-          gh auth login --with-token <<< "${{ secrets.INFRA_TOKEN }}"
-          echo "syncing remote infra PR..."
-          prs=$(gh pr list -B main -H $branch)  
-          if [[ "${{github.event_name}}" == 'pull_request' ]]; then
-            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-              echo "Skipping creation as we already have a PR for this branch"
-            else    
-              gh pr create --base main  --title "Infra PR from App: $branch" --body "adding infra"
-            fi
-          else
-            if ((${#prs[@]} > 0 && ${#prs[0]} != 0 )); then
-              echo "Warning! when merging the PR there was no remote infra PR"
-            else    
-              echo "Will create and merge the main branch"
-              gh pr create --base main  --title "Infra request to merge to main from App: $branch" --body "adding infra to main cluster" 
-              gh pr merge --auto --rebase 
-            fi
-          fi
+  update-apps:
+    runs-on: ubuntu-latest
+    needs:
+      - setup
+      - build-core
+      - process-apps
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: resonance/res-data-infra
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }}
+      - id: update-apps
+        #NB! this action is in the just checked out TARGET infra repo and NOT the apps repo
+        uses: ./.github/actions/update-infra
+        with:
+          infra_branch: ${{needs.setup.outputs.infra_branch}}
+          tag: ${{needs.setup.outputs.tag}}
+          apps: ${{needs.setup.outputs.apps}}
+          workflows: ${{needs.setup.outputs.workflows}}
+          infra_token: ${{ secrets.INFRA_TOKEN }}
+          infra_key: ${{ secrets.INFRA_SSH_KEY }}

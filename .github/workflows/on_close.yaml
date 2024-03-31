@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: resonance/res-data-infra
-          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }}
           path: res-data-infra
           ref: main
       - name: Close infra PR after source merged
@@ -51,10 +51,6 @@ jobs:
           fi
 
   clean-up-closed-pr:
-    #this works by using the PR number on the target - which is the same as the ref number when the PR is first opened
-    #if: github.event.pull_request.merged == true
-    #we could only do this for now on cancel as a clean up and we handle the normal merge in the primary push to main
-    #however we treat them as separate events - we close this and rebuild the docker on a main-sha-pr
     if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +60,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: resonance/res-data-infra
-          ssh-key: ${{ secrets.INFRA_SSH_KEY }} #
+          ssh-key: ${{ secrets.INFRA_SSH_KEY }}
           path: res-data-infra
           ref: main
       - name: Close infra PR after source close
