@@ -44,15 +44,16 @@ runs:
         else
           git push origin $branch
         fi
-    - name: Install kustomize
-      id: kustomizer
-      shell: bash
-      run: |
-        curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
+    # - name: Install kustomize
+    #   id: kustomizer
+    #   shell: bash
+    #   run: |
+    #     curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
     - name: tag-apps
       shell: bash
       run: |
-        #test adding a change
+        #add kustomize first 
+        curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
 
         branch=${{inputs.infra_branch}}
         tag=${{inputs.tag}}
