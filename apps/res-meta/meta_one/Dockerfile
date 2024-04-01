@@ -1,6 +1,6 @@
 ARG RES_ENV
 ARG RES_TAG
-FROM 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${RES_TAG} 
+FROM 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data_res:${RES_TAG} 
 
 WORKDIR /app
 

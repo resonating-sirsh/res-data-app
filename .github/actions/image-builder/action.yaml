@@ -43,7 +43,7 @@ runs:
         echo "Using the image $image_name and will create it if it does not exist"
         aws ecr create-repository --repository-name $image_name || true
         #the core tag takes this convention - we pass it to apps but ignore otherwise
-        core="res-${{inputs.tag}}"
+        core="${{inputs.tag}}"
         docker buildx build --push -f ${{inputs.path}}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:${{inputs.tag}}  \
         --build-arg="RES_TAG=$core" \
         --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:cache \
