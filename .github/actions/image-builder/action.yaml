@@ -7,7 +7,7 @@ inputs:
   name:
     description: An app name
     required: false
-    default: res
+    default: "res"
   path:
     description: The path to the docker file (not including the Dockerfile)
     required: false
@@ -24,8 +24,6 @@ branding:
 runs:
   using: "composite"
   steps:
-    # - name: Checkout
-    #   uses: actions/checkout@v4
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -41,9 +39,16 @@ runs:
       shell: bash
       run: |
         label=$(echo ${{inputs.name}} | sed 's/[^[:alpha:]]/-/g')
+        image_name=res-data_$label
+        echo "Using the image $image_name and will create it if it does not exist"
+        aws ecr create-repository --repository-name $image_name || true
         #the core tag takes this convention - we pass it to apps but ignore otherwise
         core="res-${{inputs.tag}}"
-        docker buildx build --push -f ${{inputs.path}}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-${{inputs.tag}}  \
+        docker buildx build --push -f ${{inputs.path}}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:${{inputs.tag}}  \
         --build-arg="RES_TAG=$core" \
-        --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-cache \
-        --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:$label-cache .
+        --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:cache \
+        --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:$cache .
+
+#e.g. old name res-data_production_meta-one_res-meta but its too cumbersome to do silly string manipulation scripts to preserve that
+#we do want an image per app to make it easier to manage ER image retention policy although tag prefixes might have worked there too
+#it may be necessary to do some cleanup later on the ECR images that might no longer be needed

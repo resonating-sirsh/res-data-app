@@ -82,3 +82,5 @@ jobs:
           else
             echo "Did not match $branch"
           fi
+
+          #in this case we should probably delete the remote branch too but on merge the target is configured to purge
