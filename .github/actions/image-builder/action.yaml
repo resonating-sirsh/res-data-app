@@ -47,7 +47,7 @@ runs:
         docker buildx build --push -f ${{inputs.path}}/Dockerfile -t 286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:${{inputs.tag}}  \
         --build-arg="RES_TAG=$core" \
         --cache-to mode=max,image-manifest=true,oci-mediatypes=true,type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:cache \
-        --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:$cache .
+        --cache-from type=registry,ref=286292902993.dkr.ecr.us-east-1.amazonaws.com/$image_name:cache .
 
 #e.g. old name res-data_production_meta-one_res-meta but its too cumbersome to do silly string manipulation scripts to preserve that
 #we do want an image per app to make it easier to manage ER image retention policy although tag prefixes might have worked there too
