@@ -39,10 +39,32 @@ We change how the base image is used in Apps so this is required for migration. 
 # git diff --name-only origin/main  | grep '^apps/' | awk -F/ '{print $1 "/" $2 "/" $3}' | sort -u | jq -R -s 'split("\n") | map(select(. != ""))' | jq -cR '.' | sed 's/"/\\"/g'
 
 # <https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script>
+
 # <https://hub.github.com/hub-pull-request.1.html>
+
 # <https://github.com/marketplace/actions/setup-hub>
+
 # <https://hub.github.com/>
 
 # # sudo apt install hub
 
 # hub pull-request --base main --message "merging infra for app changes ${GITHUB_SHA:0:7}"
+
+      - uses: actions/github-script@v7
+        id: get_pr_data
+        #when we are merging we can go back and get the pull request data
+        #if: github.event_name != 'pull_request'
+        with:
+          script: |
+            return (
+              await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                commit_sha: context.sha,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              })
+            ).data[0];
+
+      # - name: Pull Request data
+      #   run: |
+      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).number }}'
+      #     echo '${{ fromJson(steps.get_pr_data.outputs.result).title }}'

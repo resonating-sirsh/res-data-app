@@ -1,6 +1,7 @@
 ARG RES_ENV
 ARG RES_TAG
-FROM 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data:${RES_TAG} 
+#SA updating this to use res_data_res or core and the tag
+FROM 286292902993.dkr.ecr.us-east-1.amazonaws.com/res-data_res:${RES_TAG} 
 
 WORKDIR /app
 
